@@ -61,26 +61,7 @@ export function HeroSection() {
           </ScrollReveal>
         </div>
 
-        {/* Bottom content */}
-        <div className="absolute inset-x-0 bottom-0 z-10 p-6 lg:p-10">
-          <div className="mx-auto w-full max-w-7xl">
-            <ScrollReveal direction="left" duration={900}>
-              <h1 className="font-display text-5xl tracking-wide text-white drop-shadow-md md:text-7xl lg:text-8xl">
-                El Bondi
-              </h1>
-            </ScrollReveal>
-            <ScrollReveal direction="left" delay={150} duration={900}>
-              <p className="mt-1 text-xs font-semibold tracking-[0.25em] text-white/80 uppercase md:text-sm">
-                Centro Cultural Comunitario
-              </p>
-            </ScrollReveal>
-            <ScrollReveal direction="left" delay={300} duration={900}>
-              <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/70 md:text-base">
-                Derechos que se viven: cultura, educacion y comunicacion.
-              </p>
-            </ScrollReveal>
-          </div>
-        </div>
+
       </div>
     </section>
   )
