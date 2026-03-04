@@ -17,12 +17,19 @@ export function RadioSection() {
       <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-10 px-4 lg:flex-row lg:gap-16 lg:px-8">
         {/* Radio Image */}
         <ScrollReveal direction="left" className="w-full max-w-md shrink-0 lg:w-2/5">
-          <div className="flex items-center justify-center rounded-xl border border-primary-foreground/10 bg-white p-8 shadow-2xl">
+          <div className="relative overflow-hidden rounded-xl border border-primary-foreground/10 shadow-2xl">
             <img
-              src="/images/radio-logo.png"
+              src="/images/radio.jpg"
               alt="Radio Activa Comunitaria FM 96.9"
-              className="w-full max-w-sm object-contain"
+              className="aspect-square w-full object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent" />
+            <div className="absolute bottom-4 left-4">
+              <span className="font-display text-5xl text-primary-foreground drop-shadow-lg md:text-6xl">96.9</span>
+              <div className="text-xs font-bold tracking-wider text-primary-foreground/80 uppercase">
+                Radio Activa Comunitaria
+              </div>
+            </div>
           </div>
         </ScrollReveal>
 
