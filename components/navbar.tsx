@@ -26,7 +26,8 @@ export function Navbar() {
             alt="El Bondi - Centro Cultural Comunitario"
             width={160}
             height={40}
-            className="h-10 w-auto brightness-0 invert dark:brightness-100 dark:invert-0"
+            className="h-10 brightness-0 invert dark:brightness-100 dark:invert-0"
+            style={{ width: 'auto' }}
             priority
           />
         </a>
