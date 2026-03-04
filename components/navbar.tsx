@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { useTheme } from 'next-themes'
 
 const navLinks = [
-  { label: 'Centro Cultural', href: '#hero' },
+  { label: 'Centro Cultural', href: '/centro-cultural' },
   { label: 'Eventos y Novedades', href: '#eventos' },
   { label: 'Talleres y Bachilleratos', href: '#talleres' },
   { label: 'FAQ', href: '/faq' },
