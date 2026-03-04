@@ -1,5 +1,5 @@
-import { EventCard } from '@/components/event-card'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { CardSlider } from '@/components/card-slider'
 import { events } from '@/lib/data'
 
 export function EventsSection() {
@@ -11,25 +11,7 @@ export function EventsSection() {
             Eventos y Novedades
           </h2>
         </ScrollReveal>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {events.map((event, index) => (
-            <ScrollReveal key={event.slug} delay={index * 120} className="h-full">
-              <EventCard
-                slug={event.slug}
-                title={event.title}
-                description={event.description}
-                image={event.image}
-                date={event.date}
-                time={event.time}
-              />
-            </ScrollReveal>
-          ))}
-        </div>
-        <div className="mt-8 flex justify-center gap-2">
-          <span className="size-2 rounded-full bg-primary" />
-          <span className="size-2 rounded-full bg-muted" />
-          <span className="size-2 rounded-full bg-muted" />
-        </div>
+        <CardSlider items={events} />
       </div>
     </section>
   )

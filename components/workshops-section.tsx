@@ -1,5 +1,5 @@
-import { EventCard } from '@/components/event-card'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { CardSlider } from '@/components/card-slider'
 import { workshops } from '@/lib/data'
 
 export function WorkshopsSection() {
@@ -11,25 +11,7 @@ export function WorkshopsSection() {
             Talleres y Bachillerato
           </h2>
         </ScrollReveal>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {workshops.map((workshop, index) => (
-            <ScrollReveal key={workshop.slug} delay={index * 120} className="h-full">
-              <EventCard
-                slug={workshop.slug}
-                title={workshop.title}
-                description={workshop.description}
-                image={workshop.image}
-                date={workshop.date}
-                time={workshop.time}
-              />
-            </ScrollReveal>
-          ))}
-        </div>
-        <div className="mt-8 flex justify-center gap-2">
-          <span className="size-2 rounded-full bg-primary" />
-          <span className="size-2 rounded-full bg-muted" />
-          <span className="size-2 rounded-full bg-muted" />
-        </div>
+        <CardSlider items={workshops} />
       </div>
     </section>
   )
