@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTheme } from 'next-themes'
@@ -21,14 +20,10 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-8">
         <a href="/" className="flex-shrink-0">
-          <Image
+          <img
             src="/images/logo-white.png"
             alt="El Bondi - Centro Cultural Comunitario"
-            width={160}
-            height={40}
-            className="h-10 brightness-0 invert dark:brightness-100 dark:invert-0"
-            style={{ width: 'auto' }}
-            priority
+            className="h-10 w-auto brightness-0 invert dark:brightness-100 dark:invert-0"
           />
         </a>
 

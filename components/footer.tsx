@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { Facebook, Instagram, Linkedin, Youtube } from 'lucide-react'
 
 function XIcon({ className }: { className?: string }) {
@@ -26,11 +25,9 @@ export function Footer() {
         <div className="flex flex-col gap-8 sm:flex-row sm:gap-16">
           {/* Logo & copyright */}
           <div className="flex flex-col gap-3">
-            <Image
+            <img
               src="/images/logo-white.png"
               alt="El Bondi - Centro Cultural Comunitario"
-              width={140}
-              height={36}
               className="h-9 w-auto brightness-0 dark:brightness-0 dark:invert"
             />
             <span className="text-sm text-muted-foreground">{'© 2026'}</span>
