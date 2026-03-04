@@ -1,3 +1,5 @@
+import { ScrollReveal } from '@/components/scroll-reveal'
+
 const timelineEvents = [
   {
     year: '2010',
@@ -50,9 +52,11 @@ export function HistorySection() {
   return (
     <section className="bg-card py-16 lg:py-24">
       <div className="mx-auto max-w-5xl px-4 lg:px-8">
-        <h2 className="text-balance text-center font-display text-4xl tracking-wide text-foreground md:text-5xl lg:text-6xl">
-          Historia del Lugar
-        </h2>
+        <ScrollReveal>
+          <h2 className="text-balance text-center font-display text-4xl tracking-wide text-foreground md:text-5xl lg:text-6xl">
+            Historia del Lugar
+          </h2>
+        </ScrollReveal>
 
         <div className="relative mt-12">
           {/* Vertical line */}
@@ -62,8 +66,12 @@ export function HistorySection() {
             {timelineEvents.map((event, index) => {
               const isLeft = index % 2 === 0
               return (
-                <div
+                <ScrollReveal
                   key={event.year}
+                  delay={index * 100}
+                  direction={isLeft ? 'left' : 'right'}
+                >
+                <div
                   className={`relative flex items-start ${isLeft ? 'flex-row' : 'flex-row-reverse'}`}
                 >
                   {/* Content */}
@@ -81,6 +89,7 @@ export function HistorySection() {
                   {/* Spacer */}
                   <div className="w-[calc(50%-24px)]" />
                 </div>
+                </ScrollReveal>
               )
             })}
           </div>

@@ -1,4 +1,5 @@
 import { EventCard } from '@/components/event-card'
+import { ScrollReveal } from '@/components/scroll-reveal'
 
 const workshops = [
   {
@@ -35,12 +36,16 @@ export function WorkshopsSection() {
   return (
     <section id="talleres" className="bg-secondary/50 py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
-        <h2 className="text-balance text-center font-display text-4xl tracking-wide text-foreground md:text-5xl lg:text-6xl">
-          Talleres y Bachillerato
-        </h2>
+        <ScrollReveal>
+          <h2 className="text-balance text-center font-display text-4xl tracking-wide text-foreground md:text-5xl lg:text-6xl">
+            Talleres y Bachillerato
+          </h2>
+        </ScrollReveal>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {workshops.map((workshop) => (
-            <EventCard key={workshop.title} {...workshop} />
+          {workshops.map((workshop, index) => (
+            <ScrollReveal key={workshop.title} delay={index * 120}>
+              <EventCard {...workshop} />
+            </ScrollReveal>
           ))}
         </div>
       </div>

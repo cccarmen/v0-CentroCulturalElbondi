@@ -1,5 +1,6 @@
 import { Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { ScrollReveal } from '@/components/scroll-reveal'
 
 export function HeroSection() {
   return (
@@ -14,17 +15,21 @@ export function HeroSection() {
 
         <div className="absolute inset-0 flex flex-col justify-end p-6 lg:p-12">
           <div className="mx-auto w-full max-w-7xl">
-            <h1 className="font-display text-5xl tracking-wide text-primary-foreground drop-shadow-lg md:text-7xl lg:text-8xl">
-              El Bondi
-            </h1>
-            <div className="mt-2 flex flex-col gap-1">
-              <span className="text-sm font-semibold tracking-widest text-primary-foreground/90 uppercase">
-                Centro Cultural Comunitario
-              </span>
-              <p className="max-w-md text-base text-primary-foreground/80 lg:text-lg">
-                Derechos que se viven: cultura, educacion y comunicacion.
-              </p>
-            </div>
+            <ScrollReveal direction="left" duration={900}>
+              <h1 className="font-display text-5xl tracking-wide text-primary-foreground drop-shadow-lg md:text-7xl lg:text-8xl">
+                El Bondi
+              </h1>
+            </ScrollReveal>
+            <ScrollReveal direction="left" delay={200} duration={900}>
+              <div className="mt-2 flex flex-col gap-1">
+                <span className="text-sm font-semibold tracking-widest text-primary-foreground/90 uppercase">
+                  Centro Cultural Comunitario
+                </span>
+                <p className="max-w-md text-base text-primary-foreground/80 lg:text-lg">
+                  Derechos que se viven: cultura, educacion y comunicacion.
+                </p>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
 

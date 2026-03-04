@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { ScrollReveal } from '@/components/scroll-reveal'
 
 export function CommunitySection() {
   const [submitted, setSubmitted] = useState(false)
@@ -15,6 +16,7 @@ export function CommunitySection() {
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="grid items-start gap-12 lg:grid-cols-2">
           {/* Left - CTA */}
+          <ScrollReveal direction="left">
           <div className="flex flex-col gap-6">
             <span className="text-sm font-medium tracking-wider text-primary uppercase">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -27,8 +29,10 @@ export function CommunitySection() {
               takimata sanctus est Lorem ipsum dolor sit amet.
             </p>
           </div>
+          </ScrollReveal>
 
           {/* Right - Form */}
+          <ScrollReveal direction="right" delay={200}>
           <Card className="border-border/50 bg-card shadow-sm">
             <CardHeader>
               <CardTitle className="text-lg text-card-foreground">Para mas informacion</CardTitle>
@@ -75,6 +79,7 @@ export function CommunitySection() {
               )}
             </CardContent>
           </Card>
+          </ScrollReveal>
         </div>
       </div>
     </section>

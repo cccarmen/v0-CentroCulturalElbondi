@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import { Play, Pause, SkipBack, SkipForward, Volume2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
+import { ScrollReveal } from '@/components/scroll-reveal'
 
 export function RadioSection() {
   const [playing, setPlaying] = useState(false)
@@ -15,7 +16,7 @@ export function RadioSection() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,oklch(0.55_0.18_305/0.2),transparent)]" />
       <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-10 px-4 lg:flex-row lg:gap-16 lg:px-8">
         {/* Radio Image */}
-        <div className="w-full max-w-md shrink-0 lg:w-2/5">
+        <ScrollReveal direction="left" className="w-full max-w-md shrink-0 lg:w-2/5">
           <div className="relative overflow-hidden rounded-xl border border-primary-foreground/10 shadow-2xl">
             <img
               src="/images/radio.jpg"
@@ -30,10 +31,10 @@ export function RadioSection() {
               </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Radio Info */}
-        <div className="flex w-full flex-col gap-6">
+        <ScrollReveal direction="right" className="flex w-full flex-col gap-6" delay={200}>
           <div>
             <h2 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl">
               Radio Activa Comunitaria
@@ -94,7 +95,7 @@ export function RadioSection() {
           <audio ref={audioRef} preload="none">
             <source src="" type="audio/mpeg" />
           </audio>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   )
