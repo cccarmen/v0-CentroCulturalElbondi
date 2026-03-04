@@ -92,9 +92,7 @@ export function RadioSection() {
             </div>
           </div>
 
-          <audio ref={audioRef} preload="none">
-            <source src="" type="audio/mpeg" />
-          </audio>
+{/* Audio element — only rendered when a real stream URL is provided */}
         </ScrollReveal>
       </div>
     </section>

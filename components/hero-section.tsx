@@ -27,17 +27,7 @@ export function HeroSection() {
           alt="Centro Cultural Comunitario El Bondi - Espacio de arte y cultura"
           className={`absolute inset-0 size-full object-cover transition-opacity duration-700 ${isPlaying ? 'opacity-0' : 'opacity-100'}`}
         />
-        <video
-          ref={videoRef}
-          className={`absolute inset-0 size-full object-cover transition-opacity duration-700 ${isPlaying ? 'opacity-100' : 'opacity-0'}`}
-          playsInline
-          loop
-          muted
-          preload="none"
-          onEnded={() => setIsPlaying(false)}
-        >
-          <source src="" type="video/mp4" />
-        </video>
+{/* Video element — only rendered when a real video URL is provided */}
 
         {/* Gradient overlays */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
