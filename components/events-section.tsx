@@ -1,36 +1,6 @@
 import { EventCard } from '@/components/event-card'
 import { ScrollReveal } from '@/components/scroll-reveal'
-
-const events = [
-  {
-    title: 'Noche de Varite',
-    description: 'Espectaculo de circo, danza, comedia y musica en vivo. Una noche de varietes para toda la comunidad.',
-    image: '/images/event-1.jpg',
-    date: '15 Ene 2026',
-    time: '20:00 hs',
-  },
-  {
-    title: 'Festival de Musica',
-    description: 'Bandas locales e invitados especiales. Una celebracion de la musica independiente regional.',
-    image: '/images/event-2.jpg',
-    date: '22 Ene 2026',
-    time: '19:00 hs',
-  },
-  {
-    title: 'Expo Arte Urbano',
-    description: 'Exposicion colectiva de artistas urbanos. Graffiti, murales y arte contemporaneo en la comunidad.',
-    image: '/images/event-3.jpg',
-    date: '29 Ene 2026',
-    time: '17:00 hs',
-  },
-  {
-    title: 'A la Canasta!',
-    description: 'Evento comunitario de intercambio y feria. Comida casera, artesanias y juegos para toda la familia.',
-    image: '/images/event-4.jpg',
-    date: '5 Feb 2026',
-    time: '14:00 hs',
-  },
-]
+import { events } from '@/lib/data'
 
 export function EventsSection() {
   return (
@@ -43,8 +13,15 @@ export function EventsSection() {
         </ScrollReveal>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {events.map((event, index) => (
-            <ScrollReveal key={event.title} delay={index * 120} className="h-full">
-              <EventCard {...event} />
+            <ScrollReveal key={event.slug} delay={index * 120} className="h-full">
+              <EventCard
+                slug={event.slug}
+                title={event.title}
+                description={event.description}
+                image={event.image}
+                date={event.date}
+                time={event.time}
+              />
             </ScrollReveal>
           ))}
         </div>

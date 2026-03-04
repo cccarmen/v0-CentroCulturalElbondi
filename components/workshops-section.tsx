@@ -1,36 +1,6 @@
 import { EventCard } from '@/components/event-card'
 import { ScrollReveal } from '@/components/scroll-reveal'
-
-const workshops = [
-  {
-    title: 'Acrobacias Aereas',
-    description: 'Taller de telas y trapecio para principiantes y avanzados. Desarrollo fisico y artistico.',
-    image: '/images/workshop-1.jpg',
-    date: 'Lunes y Miercoles',
-    time: '18:00 hs',
-  },
-  {
-    title: 'Teatro Comunitario',
-    description: 'Espacio de formacion teatral abierto a la comunidad. Exploracion escenica y trabajo grupal.',
-    image: '/images/workshop-2.jpg',
-    date: 'Martes y Jueves',
-    time: '19:00 hs',
-  },
-  {
-    title: 'Danza Contemporanea',
-    description: 'Clases de danza contemporanea para todos los niveles. Expresion corporal y creatividad en movimiento.',
-    image: '/images/workshop-3.jpg',
-    date: 'Miercoles y Viernes',
-    time: '17:00 hs',
-  },
-  {
-    title: 'Produccion Musical',
-    description: 'Taller de produccion y grabacion musical. Aprendizaje de herramientas de audio y composicion.',
-    image: '/images/workshop-4.jpg',
-    date: 'Sabados',
-    time: '15:00 hs',
-  },
-]
+import { workshops } from '@/lib/data'
 
 export function WorkshopsSection() {
   return (
@@ -43,8 +13,15 @@ export function WorkshopsSection() {
         </ScrollReveal>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {workshops.map((workshop, index) => (
-            <ScrollReveal key={workshop.title} delay={index * 120} className="h-full">
-              <EventCard {...workshop} />
+            <ScrollReveal key={workshop.slug} delay={index * 120} className="h-full">
+              <EventCard
+                slug={workshop.slug}
+                title={workshop.title}
+                description={workshop.description}
+                image={workshop.image}
+                date={workshop.date}
+                time={workshop.time}
+              />
             </ScrollReveal>
           ))}
         </div>
