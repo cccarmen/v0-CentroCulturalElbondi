@@ -119,7 +119,7 @@ export default function FaqPage() {
           <ScrollReveal>
             <Link
               href="/"
-              className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-primary-foreground/70 transition-colors hover:text-primary-foreground"
+              className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"
             >
               <ArrowLeft className="size-4" />
               Volver al inicio

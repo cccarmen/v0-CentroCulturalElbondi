@@ -50,9 +50,9 @@ export default async function EventoPage({ params }: { params: Promise<{ slug: s
           <div className="mx-auto max-w-5xl">
             <Link
               href="/#eventos"
-              className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-sm text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"
+              className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"
             >
-              <ArrowLeft className="size-3.5" />
+              <ArrowLeft className="size-4" />
               Volver
             </Link>
             <div className="flex items-center gap-3">
