@@ -28,14 +28,14 @@ export function EventCard({ title, description, image, date, time }: EventCardPr
           className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
-        {/* Gradient overlay at bottom */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+        {/* Gradient overlay — stronger and taller for readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 via-40% to-black/10" />
 
-        {/* Content pinned to bottom */}
-        <div className="relative mt-auto flex flex-col gap-2 p-4">
-          <h3 className="truncate text-lg font-semibold text-white">{title}</h3>
-          <p className="line-clamp-2 text-sm leading-relaxed text-white/75">{description}</p>
-          <div className="flex items-center gap-4 text-xs text-white/60">
+        {/* Content pinned to bottom with solid backing */}
+        <div className="relative mt-auto flex flex-col gap-2 rounded-b-xl bg-black/60 p-4 backdrop-blur-[2px]">
+          <h3 className="truncate text-lg font-semibold text-white drop-shadow-sm">{title}</h3>
+          <p className="line-clamp-2 text-sm leading-relaxed text-white/90">{description}</p>
+          <div className="flex items-center gap-4 text-xs text-white/80">
             <span className="flex items-center gap-1">
               <Calendar className="size-3" />
               {date}
