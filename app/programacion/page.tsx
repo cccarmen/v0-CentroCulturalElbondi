@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, Suspense } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { ArrowLeft, Search, Calendar as CalendarIcon, X, MapPin, Clock } from 'lucide-react'
@@ -14,6 +14,14 @@ import { events, workshops, type EventItem } from '@/lib/data'
 type CategoryFilter = 'todos' | 'evento' | 'taller'
 
 export default function ProgramacionPage() {
+  return (
+    <Suspense fallback={null}>
+      <ProgramacionContent />
+    </Suspense>
+  )
+}
+
+function ProgramacionContent() {
   const searchParams = useSearchParams()
   const initialCategory = (searchParams.get('categoria') as CategoryFilter) || 'todos'
   const [category, setCategory] = useState<CategoryFilter>(
