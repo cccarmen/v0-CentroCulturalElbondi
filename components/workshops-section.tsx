@@ -25,6 +25,11 @@ export function WorkshopsSection() {
             </ScrollReveal>
           ))}
         </div>
+        <div className="mt-8 flex justify-center gap-2">
+          <span className="size-2 rounded-full bg-primary" />
+          <span className="size-2 rounded-full bg-muted" />
+          <span className="size-2 rounded-full bg-muted" />
+        </div>
       </div>
     </section>
   )
