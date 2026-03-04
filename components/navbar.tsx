@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTheme } from 'next-themes'
@@ -19,8 +20,15 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-8">
-        <a href="#hero" className="font-display text-2xl tracking-wide text-primary">
-          El Bondi
+        <a href="#hero" className="flex-shrink-0">
+          <Image
+            src="/images/logo-white.png"
+            alt="El Bondi - Centro Cultural Comunitario"
+            width={160}
+            height={40}
+            className="h-10 w-auto brightness-0 invert dark:brightness-100 dark:invert-0"
+            priority
+          />
         </a>
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Navegacion principal">
@@ -46,7 +54,7 @@ export function Navbar() {
             <Moon className="absolute size-4 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
           </Button>
           <Button size="sm" className="hidden md:inline-flex">
-            Jugar
+            Donar
           </Button>
           <Button
             variant="ghost"
@@ -74,7 +82,7 @@ export function Navbar() {
               </a>
             ))}
             <Button size="sm" className="mt-2 w-full">
-              Jugar
+              Donar
             </Button>
           </nav>
         </div>
