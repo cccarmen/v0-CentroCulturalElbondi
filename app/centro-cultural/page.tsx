@@ -67,54 +67,6 @@ const galleryImages = [
   { src: '/images/event-2.jpg', alt: 'Concierto en vivo' },
 ]
 
-const timelineEvents = [
-  {
-    year: '2010',
-    title: 'Fundacion',
-    description: 'Un grupo de vecinos y artistas de Maschwitz decidieron crear un espacio comunitario donde la cultura, la educacion y la comunicacion fueran derechos accesibles para todos. Asi nacio El Bondi, en un terreno cedido por la comunidad, con la vision de transformar el barrio a traves del arte y la participacion.',
-  },
-  {
-    year: '2012',
-    title: 'Primer Festival Cultural',
-    description: 'Se realizo el primer festival cultural al aire libre, convocando artistas locales y de toda la zona norte. Ese dia, mas de 500 personas se acercaron a disfrutar de musica, teatro, danza y artes circenses. Fue el momento en que la comunidad confirmo que El Bondi era su lugar.',
-  },
-  {
-    year: '2014',
-    title: 'Nace Radio Activa FM 96.9',
-    description: 'Con la conviccion de que la comunicacion es un derecho, se inauguro la radio comunitaria FM 96.9. Desde sus inicios, Radio Activa se convirtio en la voz del barrio, transmitiendo musica, informacion local y dando espacio a voces que no encuentran lugar en los medios tradicionales.',
-  },
-  {
-    year: '2016',
-    title: 'Bachillerato Popular',
-    description: 'Se inauguro el bachillerato popular para jovenes y adultos que no pudieron completar sus estudios. Combinando educacion formal con participacion comunitaria, el programa ha permitido que decenas de personas obtengan su titulo secundario mientras se forman como ciudadanos activos.',
-  },
-  {
-    year: '2018',
-    title: 'Ampliacion del Espacio',
-    description: 'Gracias al esfuerzo colectivo y donaciones de la comunidad, se ampliaron las instalaciones con nuevas aulas, un salon de ensayo equipado y espacios dedicados a talleres artisticos. El centro cultural duplico su capacidad de recibir actividades simultaneas.',
-  },
-  {
-    year: '2020',
-    title: 'Resistencia y Virtualidad',
-    description: 'Durante la pandemia, El Bondi se reinvento. Los talleres se trasladaron a plataformas virtuales, la radio mantuvo su transmision como servicio esencial de informacion barrial, y se organizo una red de solidaridad para acompanar a las familias del barrio mas afectadas.',
-  },
-  {
-    year: '2022',
-    title: 'Reapertura y Variete',
-    description: 'Con la vuelta a la presencialidad, se lanzo el ciclo "Variete Bajo las Estrellas", un espectaculo mensual que combina circo, musica, humor y teatro al aire libre. Rapidamente se convirtio en un evento emblematico de la zona, atrayendo publico de todo el Gran Buenos Aires.',
-  },
-  {
-    year: '2024',
-    title: 'Nuevo Escenario',
-    description: 'Se inauguro el nuevo escenario al aire libre con capacidad para 800 personas, equipado con iluminacion profesional y sonido de alta calidad. Este espacio permite realizar festivales de mayor envergadura y recibir artistas nacionales.',
-  },
-  {
-    year: '2026',
-    title: 'Expansion Comunitaria',
-    description: 'El Bondi se expande con nuevos proyectos: una biblioteca popular, un espacio de cowork para emprendedores del barrio y programas de formacion en oficios. El sueno que empezo en 2010 sigue creciendo con la fuerza de la comunidad.',
-  },
-]
-
 export default function CentroCulturalPage() {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
@@ -147,61 +99,6 @@ export default function CentroCulturalPage() {
               Mas de 15 anos construyendo comunidad a traves de la cultura, la educacion y la comunicacion en Maschwitz.
             </p>
           </ScrollReveal>
-        </div>
-      </section>
-
-      {/* History Section */}
-      <section className="py-16 lg:py-24">
-        <div className="mx-auto max-w-5xl px-4 lg:px-8">
-          <ScrollReveal>
-            <h2 className="text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
-              Nuestra Historia
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
-              Desde un sueno compartido entre vecinos hasta convertirse en uno de los centros culturales comunitarios mas activos de la zona norte.
-            </p>
-          </ScrollReveal>
-
-          <div className="relative mt-14">
-            {/* Vertical line */}
-            <div className="absolute top-0 left-4 h-full w-0.5 bg-primary/30 md:left-1/2 md:-translate-x-1/2" aria-hidden="true" />
-
-            <div className="flex flex-col gap-10">
-              {timelineEvents.map((event, index) => {
-                const isLeft = index % 2 === 0
-                return (
-                  <ScrollReveal
-                    key={event.year}
-                    delay={index * 80}
-                    direction={isLeft ? 'left' : 'right'}
-                  >
-                    {/* Mobile: always left-aligned */}
-                    <div className="relative flex items-start gap-4 pl-10 md:hidden">
-                      <div className="absolute left-2.5 top-1 z-10 size-3 rounded-full border-2 border-primary bg-background" />
-                      <div>
-                        <span className="text-xs font-bold tracking-wider text-primary uppercase">{event.year}</span>
-                        <h3 className="mt-0.5 text-lg font-semibold text-foreground">{event.title}</h3>
-                        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{event.description}</p>
-                      </div>
-                    </div>
-
-                    {/* Desktop: alternating */}
-                    <div className={`relative hidden items-start md:flex ${isLeft ? 'flex-row' : 'flex-row-reverse'}`}>
-                      <div className={`w-[calc(50%-24px)] ${isLeft ? 'text-right' : 'text-left'}`}>
-                        <span className="text-xs font-bold tracking-wider text-primary uppercase">{event.year}</span>
-                        <h3 className="mt-0.5 text-lg font-semibold text-foreground">{event.title}</h3>
-                        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{event.description}</p>
-                      </div>
-                      <div className="relative z-10 mx-3 flex size-6 shrink-0 items-center justify-center">
-                        <div className="size-3 rounded-full border-2 border-primary bg-background" />
-                      </div>
-                      <div className="w-[calc(50%-24px)]" />
-                    </div>
-                  </ScrollReveal>
-                )
-              })}
-            </div>
-          </div>
         </div>
       </section>
 
