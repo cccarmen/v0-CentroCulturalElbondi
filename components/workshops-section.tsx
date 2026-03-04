@@ -1,36 +1,8 @@
-import { EventCard } from '@/components/event-card'
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import { ScrollReveal } from '@/components/scroll-reveal'
-
-const workshops = [
-  {
-    title: 'Acrobacias Aereas',
-    description: 'Taller de telas y trapecio para principiantes y avanzados. Desarrollo fisico y artistico.',
-    image: '/images/workshop-1.jpg',
-    date: 'Lunes y Miercoles',
-    time: '18:00 hs',
-  },
-  {
-    title: 'Teatro Comunitario',
-    description: 'Espacio de formacion teatral abierto a la comunidad. Exploracion escenica y trabajo grupal.',
-    image: '/images/workshop-2.jpg',
-    date: 'Martes y Jueves',
-    time: '19:00 hs',
-  },
-  {
-    title: 'Danza Contemporanea',
-    description: 'Clases de danza contemporanea para todos los niveles. Expresion corporal y creatividad en movimiento.',
-    image: '/images/workshop-3.jpg',
-    date: 'Miercoles y Viernes',
-    time: '17:00 hs',
-  },
-  {
-    title: 'Produccion Musical',
-    description: 'Taller de produccion y grabacion musical. Aprendizaje de herramientas de audio y composicion.',
-    image: '/images/workshop-4.jpg',
-    date: 'Sabados',
-    time: '15:00 hs',
-  },
-]
+import { CardSlider } from '@/components/card-slider'
+import { workshops } from '@/lib/data'
 
 export function WorkshopsSection() {
   return (
@@ -41,13 +13,18 @@ export function WorkshopsSection() {
             Talleres y Bachillerato
           </h2>
         </ScrollReveal>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {workshops.map((workshop, index) => (
-            <ScrollReveal key={workshop.title} delay={index * 120} className="h-full">
-              <EventCard {...workshop} />
-            </ScrollReveal>
-          ))}
-        </div>
+        <CardSlider items={workshops.slice(0, 4)} />
+        <ScrollReveal>
+          <div className="mt-6 flex justify-center">
+            <Link
+              href="/programacion?categoria=taller"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/30 px-6 py-2.5 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+            >
+              Ver todos los talleres
+              <ArrowRight className="size-4" />
+            </Link>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   )
