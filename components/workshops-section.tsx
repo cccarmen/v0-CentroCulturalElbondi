@@ -34,7 +34,7 @@ const workshops = [
 
 export function WorkshopsSection() {
   return (
-    <section id="talleres" className="bg-secondary/50 py-16 lg:py-24">
+    <section id="talleres" className="bg-background py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <ScrollReveal>
           <h2 className="text-balance text-center font-display text-4xl tracking-wide text-foreground md:text-5xl lg:text-6xl">
