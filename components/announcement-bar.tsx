@@ -8,7 +8,7 @@ export function AnnouncementBar() {
         <p>
           <span className="font-medium">{'Ultimas novedades!'}</span>
           {' Proxima Varite: "Circo, musica en vivo y exposicion de arte urbano" para la comunidad el 15 de enero de 2026. '}
-          <a href="#eventos" className="font-semibold underline underline-offset-2 hover:opacity-80">
+          <a href="/entradas/noche-de-variete" className="font-semibold underline underline-offset-2 hover:opacity-80">
             {'Compre sus entradas aqui!'}
           </a>
         </p>
