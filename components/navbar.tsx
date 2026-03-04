@@ -10,7 +10,7 @@ const navLinks = [
   { label: 'Centro Cultural', href: '#hero' },
   { label: 'Eventos y Novedades', href: '#eventos' },
   { label: 'Talleres y Bachilleratos', href: '#talleres' },
-  { label: 'FAQ', href: '#comunidad' },
+  { label: 'FAQ', href: '/faq' },
 ]
 
 export function Navbar() {
