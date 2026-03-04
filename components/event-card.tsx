@@ -1,5 +1,7 @@
-import { Calendar, Clock } from 'lucide-react'
-import { Card, CardContent } from '@/components/ui/card'
+'use client'
+
+import { useState } from 'react'
+import { Calendar, Clock, X } from 'lucide-react'
 
 interface EventCardProps {
   title: string
@@ -10,29 +12,83 @@ interface EventCardProps {
 }
 
 export function EventCard({ title, description, image, date, time }: EventCardProps) {
+  const [expanded, setExpanded] = useState(false)
+
   return (
-    <Card className="group overflow-hidden border-border/50 bg-card transition-shadow hover:shadow-lg">
-      <div className="relative aspect-[4/3] overflow-hidden">
+    <>
+      <button
+        type="button"
+        onClick={() => setExpanded(true)}
+        className="group relative flex h-[380px] w-full cursor-pointer flex-col overflow-hidden rounded-xl border border-border/50 bg-card text-left shadow-sm transition-shadow duration-300 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+      >
+        {/* Full-bleed image */}
         <img
           src={image}
           alt={title}
-          className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-      </div>
-      <CardContent className="p-4">
-        <h3 className="text-lg font-semibold text-card-foreground">{title}</h3>
-        <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{description}</p>
-        <div className="mt-3 flex items-center gap-4 text-xs text-muted-foreground">
-          <span className="flex items-center gap-1">
-            <Calendar className="size-3" />
-            {date}
-          </span>
-          <span className="flex items-center gap-1">
-            <Clock className="size-3" />
-            {time}
-          </span>
+
+        {/* Gradient overlay at bottom */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+
+        {/* Content pinned to bottom */}
+        <div className="relative mt-auto flex flex-col gap-2 p-4">
+          <h3 className="truncate text-lg font-semibold text-white">{title}</h3>
+          <p className="line-clamp-2 text-sm leading-relaxed text-white/75">{description}</p>
+          <div className="flex items-center gap-4 text-xs text-white/60">
+            <span className="flex items-center gap-1">
+              <Calendar className="size-3" />
+              {date}
+            </span>
+            <span className="flex items-center gap-1">
+              <Clock className="size-3" />
+              {time}
+            </span>
+          </div>
         </div>
-      </CardContent>
-    </Card>
+      </button>
+
+      {/* Expanded overlay */}
+      {expanded && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+          onClick={() => setExpanded(false)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-border bg-card shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative aspect-video overflow-hidden">
+              <img src={image} alt={title} className="size-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            </div>
+            <button
+              type="button"
+              onClick={() => setExpanded(false)}
+              className="absolute top-3 right-3 flex size-8 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-colors hover:bg-black/70"
+              aria-label="Cerrar"
+            >
+              <X className="size-4" />
+            </button>
+            <div className="flex flex-col gap-3 p-6">
+              <h3 className="text-xl font-semibold text-card-foreground">{title}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>
+              <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <Calendar className="size-3.5" />
+                  {date}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Clock className="size-3.5" />
+                  {time}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   )
 }

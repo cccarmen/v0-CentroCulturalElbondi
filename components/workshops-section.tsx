@@ -43,7 +43,7 @@ export function WorkshopsSection() {
         </ScrollReveal>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {workshops.map((workshop, index) => (
-            <ScrollReveal key={workshop.title} delay={index * 120}>
+            <ScrollReveal key={workshop.title} delay={index * 120} className="h-full">
               <EventCard {...workshop} />
             </ScrollReveal>
           ))}
