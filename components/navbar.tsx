@@ -54,8 +54,8 @@ export function Navbar() {
             <Sun className="size-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
             <Moon className="absolute size-4 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
           </Button>
-          <Button size="sm" className="hidden md:inline-flex">
-            Donar
+          <Button size="sm" className="hidden md:inline-flex" asChild>
+            <a href="/donar">Donar</a>
           </Button>
           <Button
             variant="ghost"
@@ -82,8 +82,8 @@ export function Navbar() {
                 {link.label}
               </a>
             ))}
-            <Button size="sm" className="mt-2 w-full">
-              Donar
+            <Button size="sm" className="mt-2 w-full" asChild>
+              <a href="/donar">Donar</a>
             </Button>
           </nav>
         </div>
