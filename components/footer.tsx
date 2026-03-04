@@ -33,7 +33,7 @@ export function Footer() {
               height={36}
               className="h-9 w-auto brightness-0 dark:brightness-0 dark:invert"
             />
-            <span className="text-sm text-muted-foreground">{'© 2025'}</span>
+            <span className="text-sm text-muted-foreground">{'© 2026'}</span>
           </div>
 
           {/* Contact info */}
@@ -68,7 +68,7 @@ export function Footer() {
       <div className="border-t border-border/50 bg-card/80">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 sm:flex-row lg:px-8">
           <p className="text-xs text-muted-foreground">
-            {'Copyright © 2015-2025 colectivo cultural | Lorem Ipsum | Design by'}
+            {'Copyright © 2015-2026 colectivo cultural | Lorem Ipsum | Design by'}
           </p>
           <a
             href="#"
