@@ -9,7 +9,6 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
-import { FileteadoOrnaments } from '@/components/fileteado-ornaments'
 import { events, workshops, type EventItem } from '@/lib/data'
 
 type CategoryFilter = 'todos' | 'evento' | 'taller'
@@ -84,9 +83,8 @@ function ProgramacionContent() {
   return (
     <>
       {/* Hero header */}
-<section className="relative overflow-hidden bg-primary px-4 pt-28 pb-12 lg:pt-32 lg:pb-16">
-  <FileteadoOrnaments />
-  <div className="relative mx-auto max-w-7xl">
+<section className="relative bg-primary px-4 pt-28 pb-12 lg:pt-32 lg:pb-16">
+  <div className="mx-auto max-w-7xl">
           <Link
             href="/"
             className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"

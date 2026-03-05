@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ScrollReveal } from '@/components/scroll-reveal'
-import { FileteadoOrnaments } from '@/components/fileteado-ornaments'
 
 const presetAmounts = [500, 1000, 2000, 5000, 10000, 25000]
 
@@ -73,9 +72,8 @@ export default function DonarPage() {
   return (
     <main className="min-h-screen bg-background">
       {/* Hero header */}
-      <section className="relative overflow-hidden bg-primary px-4 py-16 lg:py-20">
+      <section className="relative bg-primary px-4 py-16 lg:py-20">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary via-primary to-primary/80" />
-        <FileteadoOrnaments />
         <div className="relative mx-auto max-w-3xl">
           <Link
             href="/"

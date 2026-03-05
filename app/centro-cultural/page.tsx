@@ -12,7 +12,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { ScrollReveal } from '@/components/scroll-reveal'
-import { FileteadoOrnaments } from '@/components/fileteado-ornaments'
 
 const teamMembers = [
   {
@@ -83,9 +82,8 @@ export default function CentroCulturalPage() {
   return (
     <main className="min-h-screen bg-background">
       {/* Hero Header */}
-      <section className="relative overflow-hidden border-b border-border/40 bg-primary py-16 lg:py-24">
-        <FileteadoOrnaments />
-        <div className="relative mx-auto max-w-5xl px-4 lg:px-8">
+      <section className="border-b border-border/40 bg-primary py-16 lg:py-24">
+        <div className="mx-auto max-w-5xl px-4 lg:px-8">
           <ScrollReveal>
             <Link
               href="/"
