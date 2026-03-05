@@ -21,9 +21,14 @@ export function Navbar() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-8">
         <a href="/" className="flex-shrink-0">
           <img
+            src="/images/logo-dark.png"
+            alt="El Bondi - Centro Cultural Comunitario"
+            className="block h-10 w-auto dark:hidden"
+          />
+          <img
             src="/images/logo-white.png"
             alt="El Bondi - Centro Cultural Comunitario"
-            className="h-10 w-auto brightness-0 invert dark:brightness-100 dark:invert-0"
+            className="hidden h-10 w-auto dark:block"
           />
         </a>
 
