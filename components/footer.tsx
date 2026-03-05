@@ -18,7 +18,7 @@ export function Footer() {
   ]
 
   return (
-    <footer className="border-t border-border bg-secondary dark:bg-card">
+    <footer className="border-t border-border bg-card">
       {/* Main footer content */}
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-10 lg:flex-row lg:items-start lg:justify-between lg:px-8">
         {/* Left: Logo + Info columns */}
@@ -67,7 +67,7 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-border/50 bg-muted dark:bg-card/80">
+      <div className="border-t border-border/50 bg-card/80">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 sm:flex-row lg:px-8">
           <p className="text-xs text-muted-foreground">
             {'Copyright © 2015-2026 colectivo cultural | Lorem Ipsum | Design by'}
