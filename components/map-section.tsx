@@ -8,10 +8,11 @@ export function MapSection() {
       <div className="relative h-[450px] w-full overflow-hidden lg:h-[500px]">
         <iframe
           title="Ubicacion de Colectivo Cultural El Bondi en Maschwitz"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=-58.76%2C-34.40%2C-58.73%2C-34.38&layer=mapnik&marker=-34.3923%2C-58.7467"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13170.108445662438!2d-58.75294041546263!3d-34.38794581851702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bca020ac504509%3A0x833d3f16e58256b4!2sColectivo%20Cultural!5e0!3m2!1sen!2sde!4v1772867666810!5m2!1sen!2sde"
           className="size-full border-0"
           loading="lazy"
           allowFullScreen
+          referrerPolicy="no-referrer-when-downgrade"
         />
 
         {/* Info overlay */}
