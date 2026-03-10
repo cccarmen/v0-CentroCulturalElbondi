@@ -29,9 +29,10 @@ export function HeroSection() {
         />
 {/* Video element — only rendered when a real video URL is provided */}
 
-        {/* Gradient overlays */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-transparent" />
+        {/* Gradient overlays — layered for smooth diffusion in both themes */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/20 via-40% to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-transparent" />
 
         {/* Centered play button */}
         <div className="absolute inset-0 z-10 flex items-center justify-center">

@@ -56,15 +56,15 @@ const specialThanks = [
 ]
 
 const galleryImages = [
-  { src: '/images/gallery-1.jpg', alt: 'Festival nocturno al aire libre en El Bondi' },
-  { src: '/images/gallery-2.jpg', alt: 'Taller de arte y murales en el centro cultural' },
-  { src: '/images/gallery-3.jpg', alt: 'Espectaculo de acrobacia aerea en el Variete' },
-  { src: '/images/gallery-4.jpg', alt: 'Voluntarios y miembros de la comunidad' },
-  { src: '/images/gallery-5.jpg', alt: 'Taller de musica con jovenes' },
-  { src: '/images/gallery-6.jpg', alt: 'Sesion de grabacion en Radio Activa' },
-  { src: '/images/hero.jpg', alt: 'Variete Bajo las Estrellas' },
-  { src: '/images/event-1.jpg', alt: 'Show de variete en escenario' },
-  { src: '/images/event-2.jpg', alt: 'Concierto en vivo' },
+  { src: '/images/evento-variete.jpg', alt: 'Artista de variete en traje tradicional' },
+  { src: '/images/evento-folklore.jpg', alt: 'Ballet folklorico con vestidos purpura' },
+  { src: '/images/evento-ronda.jpg', alt: 'Ronda de baile comunitario' },
+  { src: '/images/evento-musica.jpg', alt: 'Musica en vivo con guitarra y canto' },
+  { src: '/images/evento-pareja.jpg', alt: 'Pareja bailando al atardecer' },
+  { src: '/images/evento-baile-atardecer.jpg', alt: 'Baile folklorico con luz dorada' },
+  { src: '/images/evento-encuentro.jpg', alt: 'Abrazo entre amigas en encuentro comunitario' },
+  { src: '/images/evento-cumple.jpg', alt: 'Celebracion de cumpleanos comunitario' },
+  { src: '/images/evento-danza-circulo.jpg', alt: 'Danza en circulo con la comunidad' },
 ]
 
 export default function CentroCulturalPage() {
