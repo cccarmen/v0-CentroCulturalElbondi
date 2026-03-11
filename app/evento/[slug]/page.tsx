@@ -1,4 +1,7 @@
-import { notFound } from 'next/navigation'
+'use client'
+
+import { useState } from 'react'
+import { notFound, useParams } from 'next/navigation'
 import Link from 'next/link'
 import {
   Calendar,
@@ -9,32 +12,50 @@ import {
   Mail,
   ArrowLeft,
   ArrowRight,
+  Phone,
+  User,
+  CheckCircle2,
+  Send,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 import { getItemBySlug, getRelatedItems } from '@/lib/data'
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
+export default function EventoPage() {
+  const params = useParams()
+  const slug = params.slug as string
   const item = getItemBySlug(slug)
-  if (!item) return { title: 'No encontrado' }
-  return {
-    title: `${item.title} - El Bondi Centro Cultural`,
-    description: item.description,
-  }
-}
 
-export default async function EventoPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const item = getItemBySlug(slug)
+  const [showForm, setShowForm] = useState(false)
+  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [formData, setFormData] = useState({
+    nombre: '',
+    email: '',
+    telefono: '',
+    mensaje: '',
+  })
 
   if (!item) {
     notFound()
   }
 
   const related = getRelatedItems(slug, 3)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Here you would send the form data to your backend or email service
+    setFormSubmitted(true)
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
 
   return (
     <main className="min-h-screen bg-background">
@@ -101,6 +122,122 @@ export default async function EventoPage({ params }: { params: Promise<{ slug: s
                       {item.instructor.bio}
                     </p>
                   </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Reservation Form Section */}
+            {showForm && !formSubmitted && (
+              <Card className="border-primary/30 bg-primary/5">
+                <CardContent className="p-6">
+                  <h3 className="mb-4 text-xl font-semibold text-foreground">
+                    {item.category === 'evento' ? 'Reservar mi lugar' : 'Inscribirme al taller'}
+                  </h3>
+                  <p className="mb-6 text-sm text-muted-foreground">
+                    Completa tus datos y nos pondremos en contacto contigo para confirmar tu {item.category === 'evento' ? 'reserva' : 'inscripcion'}. El pago se realiza de forma presencial.
+                  </p>
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-2">
+                      <Label htmlFor="nombre" className="flex items-center gap-2 text-sm font-medium">
+                        <User className="size-4 text-primary" />
+                        Nombre completo *
+                      </Label>
+                      <Input
+                        id="nombre"
+                        name="nombre"
+                        type="text"
+                        required
+                        placeholder="Tu nombre y apellido"
+                        value={formData.nombre}
+                        onChange={handleInputChange}
+                        className="border-border/50"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <Label htmlFor="email" className="flex items-center gap-2 text-sm font-medium">
+                        <Mail className="size-4 text-primary" />
+                        Correo electronico *
+                      </Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        placeholder="tu@email.com"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className="border-border/50"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <Label htmlFor="telefono" className="flex items-center gap-2 text-sm font-medium">
+                        <Phone className="size-4 text-primary" />
+                        Telefono / WhatsApp *
+                      </Label>
+                      <Input
+                        id="telefono"
+                        name="telefono"
+                        type="tel"
+                        required
+                        placeholder="+54 11 1234-5678"
+                        value={formData.telefono}
+                        onChange={handleInputChange}
+                        className="border-border/50"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <Label htmlFor="mensaje" className="flex items-center gap-2 text-sm font-medium">
+                        Mensaje (opcional)
+                      </Label>
+                      <Textarea
+                        id="mensaje"
+                        name="mensaje"
+                        placeholder="Alguna consulta o comentario adicional..."
+                        value={formData.mensaje}
+                        onChange={handleInputChange}
+                        className="min-h-[80px] border-border/50"
+                      />
+                    </div>
+
+                    <div className="mt-2 flex gap-3">
+                      <Button type="submit" className="flex-1 gap-2">
+                        <Send className="size-4" />
+                        Enviar solicitud
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setShowForm(false)}
+                      >
+                        Cancelar
+                      </Button>
+                    </div>
+                  </form>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Confirmation Message */}
+            {formSubmitted && (
+              <Card className="border-green-500/30 bg-green-500/10">
+                <CardContent className="flex flex-col items-center gap-4 p-8 text-center">
+                  <div className="flex size-16 items-center justify-center rounded-full bg-green-500/20">
+                    <CheckCircle2 className="size-8 text-green-600" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">
+                    Solicitud enviada con exito
+                  </h3>
+                  <p className="max-w-md text-sm text-muted-foreground">
+                    Gracias por tu interes en {item.category === 'evento' ? 'este evento' : 'este taller'}. 
+                    Nos pondremos en contacto contigo a la brevedad al correo <strong className="text-foreground">{formData.email}</strong> para 
+                    confirmar tu {item.category === 'evento' ? 'reserva' : 'inscripcion'}.
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    El pago se realiza de forma presencial en El Bondi.
+                  </p>
                 </CardContent>
               </Card>
             )}
@@ -171,9 +308,22 @@ export default async function EventoPage({ params }: { params: Promise<{ slug: s
                   </div>
                 </div>
 
-                <Button className="mt-2 w-full" size="lg">
-                  {item.category === 'evento' ? 'Reservar entrada' : 'Inscribirme'}
-                </Button>
+                {!formSubmitted && (
+                  <Button 
+                    className="mt-2 w-full" 
+                    size="lg"
+                    onClick={() => setShowForm(true)}
+                    disabled={showForm}
+                  >
+                    {item.category === 'evento' ? 'Reservar mi lugar' : 'Inscribirme'}
+                  </Button>
+                )}
+
+                {formSubmitted && (
+                  <div className="mt-2 rounded-lg bg-green-500/10 p-3 text-center text-sm text-green-700">
+                    Solicitud enviada
+                  </div>
+                )}
               </CardContent>
             </Card>
           </aside>

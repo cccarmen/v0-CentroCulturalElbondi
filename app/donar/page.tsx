@@ -2,71 +2,97 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, Heart, User, UserX, Check } from 'lucide-react'
+import { ArrowLeft, Heart, Mail, Phone, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ScrollReveal } from '@/components/scroll-reveal'
 
-const presetAmounts = [500, 1000, 2000, 5000, 10000, 25000]
-
-type Frequency = 'one-time' | 'monthly'
-type Identity = 'named' | 'anonymous'
+type ContactMethod = 'email' | 'phone' | 'both'
 
 export default function DonarPage() {
-  const [step, setStep] = useState(1)
-  const [frequency, setFrequency] = useState<Frequency>('one-time')
-  const [selectedAmount, setSelectedAmount] = useState<number | null>(2000)
-  const [customAmount, setCustomAmount] = useState('')
-  const [identity, setIdentity] = useState<Identity>('named')
+  const [submitted, setSubmitted] = useState(false)
+  const [contactMethod, setContactMethod] = useState<ContactMethod>('email')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [message, setMessage] = useState('')
+  const [consent, setConsent] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const donationAmount = customAmount ? Number(customAmount) : selectedAmount
+  const isEmailRequired = contactMethod === 'email' || contactMethod === 'both'
+  const isPhoneRequired = contactMethod === 'phone' || contactMethod === 'both'
 
-  const handleSelectPreset = (amount: number) => {
-    setSelectedAmount(amount)
-    setCustomAmount('')
+  const isFormValid = () => {
+    if (!name.trim() || !consent) return false
+    if (isEmailRequired && !email.trim()) return false
+    if (isPhoneRequired && !phone.trim()) return false
+    return true
   }
 
-  const handleCustomAmountChange = (value: string) => {
-    setCustomAmount(value)
-    if (value) setSelectedAmount(null)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!isFormValid()) return
+
+    setIsSubmitting(true)
+
+    // Simulate form submission - in production this would send to an API
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+
+    setIsSubmitting(false)
+    setSubmitted(true)
   }
 
-  const handleContinueToPaypal = () => {
-    const amount = donationAmount
-    if (!amount || amount <= 0) return
+  if (submitted) {
+    return (
+      <main className="min-h-screen bg-background">
+        {/* Hero header */}
+        <section className="relative bg-primary px-4 py-16 lg:py-20">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary via-primary to-primary/80" />
+          <div className="relative mx-auto max-w-3xl">
+            <Link
+              href="/"
+              className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"
+            >
+              <ArrowLeft className="size-4" />
+              Volver al inicio
+            </Link>
+            <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
+              Donar
+            </h1>
+          </div>
+        </section>
 
-    // Build PayPal donation URL
-    const params = new URLSearchParams({
-      cmd: frequency === 'monthly' ? '_xclick-subscriptions' : '_donations',
-      business: 'mailcolectivocultural@gmail.com',
-      item_name: `Donacion${frequency === 'monthly' ? ' mensual' : ''} - El Bondi Centro Cultural`,
-      amount: amount.toString(),
-      currency_code: 'ARS',
-      no_note: '1',
-      return: typeof window !== 'undefined' ? `${window.location.origin}/donar?gracias=1` : '',
-    })
-
-    if (frequency === 'monthly') {
-      params.set('a3', amount.toString())
-      params.set('p3', '1')
-      params.set('t3', 'M')
-      params.set('src', '1')
-    }
-
-    window.open(`https://www.paypal.com/cgi-bin/webscr?${params.toString()}`, '_blank')
-  }
-
-  const formatAmount = (amount: number) => {
-    return new Intl.NumberFormat('es-AR', {
-      style: 'currency',
-      currency: 'ARS',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(amount)
+        {/* Success message */}
+        <div className="mx-auto max-w-3xl px-4 py-16 lg:py-20">
+          <ScrollReveal>
+            <div className="flex flex-col items-center text-center">
+              <div className="flex size-20 items-center justify-center rounded-full bg-primary/10">
+                <CheckCircle2 className="size-10 text-primary" />
+              </div>
+              <h2 className="mt-6 text-2xl font-bold text-foreground md:text-3xl">
+                Recibimos tu solicitud
+              </h2>
+              <p className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
+                Gracias por tu interes en apoyar a El Bondi. Nos pondremos en contacto con vos
+                {contactMethod === 'email' && ' por email'}
+                {contactMethod === 'phone' && ' por telefono'}
+                {contactMethod === 'both' && ' por email o telefono'}
+                {' '}para coordinar tu donacion.
+              </p>
+              <div className="mt-8 flex gap-4">
+                <Button asChild variant="outline" className="rounded-lg">
+                  <Link href="/">Volver al inicio</Link>
+                </Button>
+                <Button asChild className="rounded-lg">
+                  <Link href="/programacion">Ver programacion</Link>
+                </Button>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </main>
+    )
   }
 
   return (
@@ -91,176 +117,101 @@ export default function DonarPage() {
         </div>
       </section>
 
-      {/* Steps indicator */}
-      <div className="border-b border-border bg-card">
-        <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-4">
-          {[
-            { num: 1, label: 'Monto' },
-            { num: 2, label: 'Datos' },
-            { num: 3, label: 'Donar' },
-          ].map((s) => (
-            <button
-              key={s.num}
-              onClick={() => {
-                if (s.num < step) setStep(s.num)
-              }}
-              className={`flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-                step === s.num
-                  ? 'bg-primary text-primary-foreground'
-                  : step > s.num
-                    ? 'bg-primary/10 text-primary'
-                    : 'bg-muted text-muted-foreground'
-              } ${s.num < step ? 'cursor-pointer hover:bg-primary/20' : s.num > step ? 'cursor-default' : ''}`}
-              disabled={s.num > step}
-            >
-              {step > s.num ? <Check className="size-3.5" /> : <span>{s.num}</span>}
-              <span className="hidden sm:inline">{s.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* Form content */}
       <div className="mx-auto max-w-3xl px-4 py-10 lg:py-14">
-        {/* Step 1: Frequency + Amount */}
-        {step === 1 && (
-          <ScrollReveal>
-            <div className="flex flex-col gap-8">
-              {/* Frequency */}
-              <div>
-                <h2 className="text-lg font-semibold text-foreground">Frecuencia de donacion</h2>
-                <div className="mt-3 grid grid-cols-2 gap-3">
-                  {([
-                    { value: 'one-time' as Frequency, label: 'Una vez' },
-                    { value: 'monthly' as Frequency, label: 'Mensual' },
-                  ]).map((opt) => (
-                    <button
-                      key={opt.value}
-                      onClick={() => setFrequency(opt.value)}
-                      className={`flex items-center gap-3 rounded-lg border-2 px-4 py-3.5 text-left text-sm font-medium transition-all ${
-                        frequency === opt.value
-                          ? 'border-primary bg-primary/5 text-foreground'
-                          : 'border-border bg-card text-muted-foreground hover:border-primary/40'
-                      }`}
-                    >
-                      <span
-                        className={`flex size-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
-                          frequency === opt.value
-                            ? 'border-primary bg-primary'
-                            : 'border-muted-foreground/40'
-                        }`}
-                      >
-                        {frequency === opt.value && (
-                          <span className="size-2 rounded-full bg-primary-foreground" />
-                        )}
-                      </span>
-                      {opt.label}
-                    </button>
-                  ))}
+        <ScrollReveal>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+            {/* Info card */}
+            <div className="rounded-xl border border-primary/20 bg-primary/5 p-5">
+              <div className="flex items-start gap-3">
+                <Heart className="mt-0.5 size-5 shrink-0 text-primary" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">
+                    Quiero hacer una donacion
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    Completa el formulario y nos pondremos en contacto para coordinar la donacion. Podes elegir como prefieres que te contactemos.
+                  </p>
                 </div>
               </div>
+            </div>
 
-              {/* Amounts */}
+            {/* Contact method */}
+            <div>
+              <h2 className="text-lg font-semibold text-foreground">Como prefieres que te contactemos?</h2>
+              <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                {([
+                  { value: 'email' as ContactMethod, label: 'Por email', icon: Mail },
+                  { value: 'phone' as ContactMethod, label: 'Por telefono', icon: Phone },
+                  { value: 'both' as ContactMethod, label: 'Ambos', icon: Heart },
+                ]).map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => setContactMethod(opt.value)}
+                    className={`flex items-center gap-3 rounded-lg border-2 px-4 py-3.5 text-left text-sm font-medium transition-all ${
+                      contactMethod === opt.value
+                        ? 'border-primary bg-primary/5 text-foreground'
+                        : 'border-border bg-card text-muted-foreground hover:border-primary/40'
+                    }`}
+                  >
+                    <opt.icon className="size-4 shrink-0" />
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Contact info */}
+            <div className="flex flex-col gap-4">
+              <h2 className="text-lg font-semibold text-foreground">Tus datos de contacto</h2>
+              
               <div>
-                <h2 className="text-lg font-semibold text-foreground">Monto</h2>
-                <div className="mt-3 grid grid-cols-3 gap-3">
-                  {presetAmounts.map((amount) => (
-                    <button
-                      key={amount}
-                      onClick={() => handleSelectPreset(amount)}
-                      className={`rounded-lg border-2 px-4 py-4 text-center text-sm font-semibold transition-all ${
-                        selectedAmount === amount && !customAmount
-                          ? 'border-primary bg-primary text-primary-foreground'
-                          : 'border-border bg-card text-foreground hover:border-primary/40'
-                      }`}
-                    >
-                      {formatAmount(amount)}
-                    </button>
-                  ))}
-                </div>
-                <div className="mt-3">
+                <Label htmlFor="donor-name" className="text-sm font-medium">
+                  Nombre completo <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  id="donor-name"
+                  type="text"
+                  placeholder="Tu nombre"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="mt-1.5 h-11"
+                  required
+                />
+              </div>
+
+              {isEmailRequired && (
+                <div>
+                  <Label htmlFor="donor-email" className="text-sm font-medium">
+                    Email <span className="text-destructive">*</span>
+                  </Label>
                   <Input
-                    type="number"
-                    placeholder="Otro monto"
-                    value={customAmount}
-                    onChange={(e) => handleCustomAmountChange(e.target.value)}
-                    className="h-12 text-base"
+                    id="donor-email"
+                    type="email"
+                    placeholder="tu@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="mt-1.5 h-11"
+                    required
                   />
                 </div>
-              </div>
+              )}
 
-              <Button
-                size="lg"
-                className="w-full gap-2 rounded-lg"
-                onClick={() => setStep(2)}
-                disabled={!donationAmount || donationAmount <= 0}
-              >
-                Continuar
-                <ArrowRight className="size-4" />
-              </Button>
-            </div>
-          </ScrollReveal>
-        )}
-
-        {/* Step 2: Identity */}
-        {step === 2 && (
-          <ScrollReveal>
-            <div className="flex flex-col gap-8">
-              <div>
-                <h2 className="text-lg font-semibold text-foreground">Tu informacion</h2>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Podes donar con tu nombre o de forma anonima.
-                </p>
-
-                <div className="mt-4 grid grid-cols-2 gap-3">
-                  {([
-                    { value: 'named' as Identity, label: 'Con mi nombre', icon: User },
-                    { value: 'anonymous' as Identity, label: 'Anonimo', icon: UserX },
-                  ]).map((opt) => (
-                    <button
-                      key={opt.value}
-                      onClick={() => setIdentity(opt.value)}
-                      className={`flex items-center gap-3 rounded-lg border-2 px-4 py-3.5 text-left text-sm font-medium transition-all ${
-                        identity === opt.value
-                          ? 'border-primary bg-primary/5 text-foreground'
-                          : 'border-border bg-card text-muted-foreground hover:border-primary/40'
-                      }`}
-                    >
-                      <opt.icon className="size-4 shrink-0" />
-                      {opt.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {identity === 'named' && (
-                <div className="flex flex-col gap-4">
-                  <div>
-                    <Label htmlFor="donor-name" className="text-sm font-medium">
-                      Nombre
-                    </Label>
-                    <Input
-                      id="donor-name"
-                      type="text"
-                      placeholder="Tu nombre"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="mt-1.5 h-11"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="donor-email" className="text-sm font-medium">
-                      Email (opcional)
-                    </Label>
-                    <Input
-                      id="donor-email"
-                      type="email"
-                      placeholder="tu@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="mt-1.5 h-11"
-                    />
-                  </div>
+              {isPhoneRequired && (
+                <div>
+                  <Label htmlFor="donor-phone" className="text-sm font-medium">
+                    Telefono <span className="text-destructive">*</span>
+                  </Label>
+                  <Input
+                    id="donor-phone"
+                    type="tel"
+                    placeholder="+54 11 1234-5678"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="mt-1.5 h-11"
+                    required
+                  />
                 </div>
               )}
 
@@ -270,109 +221,59 @@ export default function DonarPage() {
                 </Label>
                 <textarea
                   id="donor-message"
-                  placeholder="Dejanos un mensaje de apoyo..."
+                  placeholder="Contanos sobre tu intencion de donacion, monto aproximado, o cualquier consulta..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  rows={3}
+                  rows={4}
                   className="mt-1.5 w-full resize-none rounded-lg border border-input bg-background px-3 py-2.5 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 />
               </div>
-
-              <div className="flex gap-3">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="gap-2 rounded-lg"
-                  onClick={() => setStep(1)}
-                >
-                  <ArrowLeft className="size-4" />
-                  Atras
-                </Button>
-                <Button
-                  size="lg"
-                  className="flex-1 gap-2 rounded-lg"
-                  onClick={() => setStep(3)}
-                  disabled={identity === 'named' && !name.trim()}
-                >
-                  Continuar
-                  <ArrowRight className="size-4" />
-                </Button>
-              </div>
             </div>
-          </ScrollReveal>
-        )}
 
-        {/* Step 3: Summary + PayPal */}
-        {step === 3 && (
-          <ScrollReveal>
-            <div className="flex flex-col gap-8">
-              <div className="rounded-xl border border-border bg-card p-6">
-                <h2 className="text-lg font-semibold text-foreground">Resumen de donacion</h2>
-
-                <div className="mt-5 flex flex-col gap-4">
-                  <div className="flex items-center justify-between border-b border-border pb-3">
-                    <span className="text-sm text-muted-foreground">Monto</span>
-                    <span className="text-lg font-bold text-foreground">
-                      {donationAmount ? formatAmount(donationAmount) : '-'}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between border-b border-border pb-3">
-                    <span className="text-sm text-muted-foreground">Frecuencia</span>
-                    <span className="text-sm font-medium text-foreground">
-                      {frequency === 'one-time' ? 'Pago unico' : 'Mensual'}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between border-b border-border pb-3">
-                    <span className="text-sm text-muted-foreground">Donante</span>
-                    <span className="text-sm font-medium text-foreground">
-                      {identity === 'anonymous' ? 'Anonimo' : name}
-                    </span>
-                  </div>
-                  {message && (
-                    <div className="flex flex-col gap-1">
-                      <span className="text-sm text-muted-foreground">Mensaje</span>
-                      <p className="text-sm text-foreground">{`"${message}"`}</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-primary/20 bg-primary/5 p-5">
-                <div className="flex items-start gap-3">
-                  <Heart className="mt-0.5 size-5 shrink-0 text-primary" />
-                  <div>
-                    <p className="text-sm font-medium text-foreground">
-                      Gracias por apoyar a El Bondi
-                    </p>
-                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                      Al hacer click en el boton seras redirigido a PayPal para completar tu donacion de forma segura.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="gap-2 rounded-lg"
-                  onClick={() => setStep(2)}
-                >
-                  <ArrowLeft className="size-4" />
-                  Atras
-                </Button>
-                <Button
-                  size="lg"
-                  className="flex-1 gap-2 rounded-lg"
-                  onClick={handleContinueToPaypal}
-                >
-                  Donar con PayPal
-                  <ArrowRight className="size-4" />
-                </Button>
-              </div>
+            {/* Consent checkbox */}
+            <div className="flex items-start gap-3">
+              <input
+                id="consent"
+                type="checkbox"
+                checked={consent}
+                onChange={(e) => setConsent(e.target.checked)}
+                className="mt-1 size-4 shrink-0 rounded border-input accent-primary"
+                required
+              />
+              <label htmlFor="consent" className="text-sm leading-relaxed text-muted-foreground">
+                Acepto ser contactado por El Bondi Centro Cultural para coordinar mi donacion. 
+                Mis datos seran utilizados unicamente para este fin. <span className="text-destructive">*</span>
+              </label>
             </div>
-          </ScrollReveal>
-        )}
+
+            {/* Submit button */}
+            <Button
+              type="submit"
+              size="lg"
+              className="w-full gap-2 rounded-lg"
+              disabled={!isFormValid() || isSubmitting}
+            >
+              {isSubmitting ? (
+                'Enviando...'
+              ) : (
+                <>
+                  <Heart className="size-4" />
+                  Quiero donar
+                </>
+              )}
+            </Button>
+
+            {/* Alternative contact */}
+            <div className="rounded-lg border border-border bg-muted/30 p-4 text-center">
+              <p className="text-sm text-muted-foreground">
+                Tambien podes contactarnos directamente a{' '}
+                <a href="mailto:mailcolectivocultural@gmail.com" className="font-medium text-primary hover:underline">
+                  mailcolectivocultural@gmail.com
+                </a>
+              </p>
+            </div>
+          </form>
+        </ScrollReveal>
       </div>
     </main>
   )

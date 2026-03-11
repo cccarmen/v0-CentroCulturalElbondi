@@ -7,9 +7,9 @@ export function AnnouncementBar() {
         <Megaphone className="hidden size-4 shrink-0 sm:block" />
         <p>
           <span className="font-medium">{'Ultimas novedades!'}</span>
-          {' Proxima Varite: "Circo, musica en vivo y exposicion de arte urbano" para la comunidad el 15 de enero de 2026. '}
-          <a href="/entradas/noche-de-variete" className="font-semibold underline underline-offset-2 hover:opacity-80">
-            {'Compre sus entradas aqui!'}
+          {' Proxima Variete: "Circo, musica en vivo y exposicion de arte urbano" para la comunidad el 15 de enero de 2026. '}
+          <a href="/evento/noche-de-variete" className="font-semibold underline underline-offset-2 hover:opacity-80">
+            {'Mas informacion sobre el evento'}
           </a>
         </p>
       </div>
