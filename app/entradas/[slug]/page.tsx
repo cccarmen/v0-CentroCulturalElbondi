@@ -17,11 +17,15 @@ import {
   Plus,
   User,
   UserX,
+  Phone,
+  Users,
+  CheckCircle,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
+import { Textarea } from '@/components/ui/textarea'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { getItemBySlug } from '@/lib/data'
 
@@ -39,8 +43,17 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  
+  // Workshop reservation state
+  const [reservationName, setReservationName] = useState('')
+  const [reservationEmail, setReservationEmail] = useState('')
+  const [reservationPhone, setReservationPhone] = useState('')
+  const [reservationMessage, setReservationMessage] = useState('')
+  const [reservationSubmitted, setReservationSubmitted] = useState(false)
 
   if (!event) return notFound()
+
+  const isWorkshop = event.category === 'taller'
 
   // Extract numeric price if possible, otherwise fallback
   const priceMatch = event.price.match(/\$[\d.,]+/)
@@ -76,17 +89,360 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
     window.open(`https://www.paypal.com/cgi-bin/webscr?${params.toString()}`, '_blank')
   }
 
+  const handleReservationSubmit = () => {
+    // In a real app, this would send to an API
+    setReservationSubmitted(true)
+  }
+
   const canProceedStep1 = quantity > 0
   const canProceedStep2 = delivery !== undefined
   const canProceedStep3 = identity === 'anonymous' || (name.trim() && email.trim())
+  const canSubmitReservation = reservationName.trim() && reservationEmail.trim()
 
-  const steps = [
-    { num: 1, label: 'Evento' },
-    { num: 2, label: 'Entrega' },
-    { num: 3, label: 'Datos' },
-    { num: 4, label: isFree ? 'Confirmar' : 'Pagar' },
-  ]
+  const steps = isWorkshop
+    ? [
+        { num: 1, label: 'Taller' },
+        { num: 2, label: 'Reservar' },
+      ]
+    : [
+        { num: 1, label: 'Evento' },
+        { num: 2, label: 'Entrega' },
+        { num: 3, label: 'Datos' },
+        { num: 4, label: isFree ? 'Confirmar' : 'Pagar' },
+      ]
 
+  // Workshop reservation flow
+  if (isWorkshop) {
+    return (
+      <main className="min-h-screen bg-background">
+        {/* Hero */}
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0">
+            <img src={event.image} alt="" className="size-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40" />
+          </div>
+          <div className="relative mx-auto max-w-4xl px-4 py-16 lg:py-20">
+            <Link
+              href="/"
+              className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"
+            >
+              <ArrowLeft className="size-4" />
+              Volver al inicio
+            </Link>
+            <Badge className="mb-3 bg-primary/80 text-primary-foreground hover:bg-primary/80">
+              <Users className="mr-1.5 size-3" />
+              Reservar lugar
+            </Badge>
+            <h1 className="font-display text-4xl tracking-wide text-white md:text-5xl lg:text-6xl">
+              {event.title}
+            </h1>
+            <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-white/80">
+              <span className="flex items-center gap-1.5">
+                <Calendar className="size-4" />
+                {event.date}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Clock className="size-4" />
+                {event.time}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <MapPin className="size-4" />
+                {event.location}
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {/* Steps indicator */}
+        <div className="border-b border-border bg-card">
+          <div className="mx-auto flex max-w-4xl items-center gap-3 overflow-x-auto px-4 py-4">
+            {steps.map((s) => (
+              <button
+                key={s.num}
+                onClick={() => { if (s.num < step && !reservationSubmitted) setStep(s.num) }}
+                className={`flex shrink-0 items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                  step === s.num
+                    ? 'bg-primary text-primary-foreground'
+                    : step > s.num
+                      ? 'bg-primary/10 text-primary'
+                      : 'bg-muted text-muted-foreground'
+                } ${s.num < step && !reservationSubmitted ? 'cursor-pointer hover:bg-primary/20' : s.num > step ? 'cursor-default' : ''}`}
+                disabled={s.num > step || reservationSubmitted}
+              >
+                {step > s.num ? <Check className="size-3.5" /> : <span>{s.num}</span>}
+                <span className="hidden sm:inline">{s.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="mx-auto max-w-4xl px-4 py-10 lg:py-14">
+          {/* Step 1: Workshop details */}
+          {step === 1 && (
+            <ScrollReveal>
+              <div className="grid gap-8 lg:grid-cols-5">
+                {/* Left: workshop info */}
+                <div className="flex flex-col gap-6 lg:col-span-3">
+                  <div>
+                    <h2 className="text-lg font-semibold text-foreground">Sobre el taller</h2>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {event.fullDescription}
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-border bg-card p-5">
+                    <h3 className="text-sm font-semibold text-foreground">Detalles</h3>
+                    <div className="mt-3 flex flex-col gap-3">
+                      <div className="flex items-center gap-3 text-sm">
+                        <Calendar className="size-4 shrink-0 text-primary" />
+                        <span className="text-muted-foreground">Dias:</span>
+                        <span className="font-medium text-foreground">{event.date}</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-sm">
+                        <Clock className="size-4 shrink-0 text-primary" />
+                        <span className="text-muted-foreground">Hora:</span>
+                        <span className="font-medium text-foreground">{event.time}</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-sm">
+                        <MapPin className="size-4 shrink-0 text-primary" />
+                        <span className="text-muted-foreground">Lugar:</span>
+                        <span className="font-medium text-foreground">{event.location}</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-sm">
+                        <Ticket className="size-4 shrink-0 text-primary" />
+                        <span className="text-muted-foreground">Precio:</span>
+                        <span className="font-medium text-foreground">{event.price}</span>
+                      </div>
+                      {event.maxParticipants && (
+                        <div className="flex items-center gap-3 text-sm">
+                          <Users className="size-4 shrink-0 text-primary" />
+                          <span className="text-muted-foreground">Cupos:</span>
+                          <span className="font-medium text-foreground">{event.maxParticipants} participantes</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {event.instructor && (
+                    <div className="rounded-xl border border-border bg-card p-5">
+                      <h3 className="text-sm font-semibold text-foreground">Instructor/a</h3>
+                      <div className="mt-3 flex items-center gap-3">
+                        <img
+                          src={event.instructor.avatar}
+                          alt={event.instructor.name}
+                          className="size-10 rounded-full object-cover"
+                        />
+                        <div>
+                          <p className="text-sm font-medium text-foreground">{event.instructor.name}</p>
+                          <p className="text-xs text-muted-foreground">{event.instructor.bio}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Right: CTA */}
+                <div className="lg:col-span-2">
+                  <div className="sticky top-24 rounded-xl border border-border bg-card p-6">
+                    <h3 className="text-lg font-semibold text-foreground">Reserva tu lugar</h3>
+                    
+                    <p className="mt-3 text-sm text-muted-foreground">
+                      Completa el formulario de reserva y nos pondremos en contacto contigo por email para confirmar tu lugar y coordinar el pago presencial.
+                    </p>
+
+                    <div className="mt-4 rounded-lg border border-primary/20 bg-primary/5 p-4">
+                      <p className="text-sm font-medium text-foreground">{event.price}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">El pago se realiza de forma presencial el primer dia de clase.</p>
+                    </div>
+
+                    <Button
+                      size="lg"
+                      className="mt-5 w-full gap-2 rounded-lg"
+                      onClick={() => setStep(2)}
+                    >
+                      Reservar lugar
+                      <ArrowRight className="size-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+          )}
+
+          {/* Step 2: Reservation form */}
+          {step === 2 && !reservationSubmitted && (
+            <ScrollReveal>
+              <div className="mx-auto max-w-xl flex flex-col gap-8">
+                <div>
+                  <h2 className="text-lg font-semibold text-foreground">Formulario de reserva</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Completa tus datos y te contactaremos por email para confirmar tu lugar en el taller.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card p-6">
+                  <div className="flex flex-col gap-5">
+                    <div>
+                      <Label htmlFor="res-name" className="text-sm font-medium">Nombre completo *</Label>
+                      <Input
+                        id="res-name"
+                        type="text"
+                        placeholder="Tu nombre completo"
+                        value={reservationName}
+                        onChange={(e) => setReservationName(e.target.value)}
+                        className="mt-1.5 h-11"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="res-email" className="text-sm font-medium">Email *</Label>
+                      <Input
+                        id="res-email"
+                        type="email"
+                        placeholder="tu@email.com"
+                        value={reservationEmail}
+                        onChange={(e) => setReservationEmail(e.target.value)}
+                        className="mt-1.5 h-11"
+                      />
+                      <p className="mt-1 text-xs text-muted-foreground">Te enviaremos la confirmacion de tu reserva a este email.</p>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="res-phone" className="text-sm font-medium">Telefono (opcional)</Label>
+                      <Input
+                        id="res-phone"
+                        type="tel"
+                        placeholder="+54 11 1234-5678"
+                        value={reservationPhone}
+                        onChange={(e) => setReservationPhone(e.target.value)}
+                        className="mt-1.5 h-11"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="res-message" className="text-sm font-medium">Mensaje o consulta (opcional)</Label>
+                      <Textarea
+                        id="res-message"
+                        placeholder="Contanos si tenes alguna pregunta o comentario..."
+                        value={reservationMessage}
+                        onChange={(e) => setReservationMessage(e.target.value)}
+                        className="mt-1.5 min-h-24 resize-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-primary/20 bg-primary/5 p-5">
+                  <div className="flex items-start gap-3">
+                    <Mail className="mt-0.5 size-5 shrink-0 text-primary" />
+                    <div>
+                      <p className="text-sm font-medium text-foreground">Proceso de reserva</p>
+                      <ol className="mt-2 flex flex-col gap-1.5 text-sm text-muted-foreground">
+                        <li>1. Completa este formulario con tus datos</li>
+                        <li>2. Recibiras un email de confirmacion de tu reserva</li>
+                        <li>3. El pago se realiza en persona el primer dia de clase</li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card p-5">
+                  <h3 className="text-sm font-semibold text-foreground">Resumen de tu reserva</h3>
+                  <div className="mt-3 flex flex-col gap-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">Taller</span>
+                      <span className="font-medium text-foreground">{event.title}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">Dias</span>
+                      <span className="font-medium text-foreground">{event.date}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">Hora</span>
+                      <span className="font-medium text-foreground">{event.time}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm border-t border-border pt-2 mt-1">
+                      <span className="text-muted-foreground">Precio</span>
+                      <span className="font-medium text-foreground">{event.price}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <Button variant="outline" size="lg" className="gap-2 rounded-lg" onClick={() => setStep(1)}>
+                    <ArrowLeft className="size-4" />
+                    Atras
+                  </Button>
+                  <Button
+                    size="lg"
+                    className="flex-1 gap-2 rounded-lg"
+                    onClick={handleReservationSubmit}
+                    disabled={!canSubmitReservation}
+                  >
+                    Enviar reserva
+                    <Mail className="size-4" />
+                  </Button>
+                </div>
+              </div>
+            </ScrollReveal>
+          )}
+
+          {/* Reservation confirmed */}
+          {step === 2 && reservationSubmitted && (
+            <ScrollReveal>
+              <div className="mx-auto max-w-xl flex flex-col items-center gap-6 text-center">
+                <div className="flex size-20 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
+                  <CheckCircle className="size-10 text-green-600 dark:text-green-400" />
+                </div>
+                
+                <div>
+                  <h2 className="text-2xl font-semibold text-foreground">Reserva enviada</h2>
+                  <p className="mt-2 text-muted-foreground">
+                    Gracias por tu interes en el taller <strong>{event.title}</strong>. 
+                    Te enviaremos un email a <strong>{reservationEmail}</strong> para confirmar tu lugar.
+                  </p>
+                </div>
+
+                <div className="w-full rounded-xl border border-border bg-card p-5 text-left">
+                  <h3 className="text-sm font-semibold text-foreground">Proximos pasos</h3>
+                  <ol className="mt-3 flex flex-col gap-2.5">
+                    <li className="flex items-start gap-3 text-sm">
+                      <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">1</span>
+                      <span className="text-muted-foreground">Revisa tu bandeja de entrada (y spam) para el email de confirmacion</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-sm">
+                      <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">2</span>
+                      <span className="text-muted-foreground">Presentate el primer dia de clase en {event.location}</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-sm">
+                      <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">3</span>
+                      <span className="text-muted-foreground">Realiza el pago de forma presencial: {event.price}</span>
+                    </li>
+                  </ol>
+                </div>
+
+                <div className="flex gap-3 w-full">
+                  <Button variant="outline" size="lg" className="flex-1 gap-2 rounded-lg" asChild>
+                    <Link href="/programacion">
+                      Ver mas talleres
+                    </Link>
+                  </Button>
+                  <Button size="lg" className="flex-1 gap-2 rounded-lg" asChild>
+                    <Link href="/">
+                      Volver al inicio
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </ScrollReveal>
+          )}
+        </div>
+      </main>
+    )
+  }
+
+  // Regular event flow (unchanged)
   return (
     <main className="min-h-screen bg-background">
       {/* Hero */}
