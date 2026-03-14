@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { events, workshops, type EventItem } from '@/lib/data'
+import { WeeklyTimetable } from '@/components/weekly-timetable'
 
 type CategoryFilter = 'todos' | 'evento' | 'taller'
 
@@ -125,30 +126,34 @@ function ProgramacionContent() {
                   ))}
                 </div>
 
-                {/* Search */}
-                <div className="relative flex-1 min-w-[200px]">
-                  <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Buscar por nombre, descripcion o ubicacion..."
-                    className="pl-9"
-                  />
-                </div>
+                {/* Search - only shown for eventos view */}
+                {category !== 'taller' && (
+                  <div className="relative flex-1 min-w-[200px]">
+                    <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+                    <Input
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                      placeholder="Buscar por nombre, descripcion o ubicacion..."
+                      className="pl-9"
+                    />
+                  </div>
+                )}
 
-                {/* Calendar toggle (mobile) */}
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="lg:hidden"
-                  onClick={() => setShowCalendar(!showCalendar)}
-                  aria-label="Mostrar calendario"
-                >
-                  <CalendarIcon className="size-4" />
-                </Button>
+                {/* Calendar toggle (mobile) - only shown for eventos view */}
+                {category !== 'taller' && (
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="lg:hidden"
+                    onClick={() => setShowCalendar(!showCalendar)}
+                    aria-label="Mostrar calendario"
+                  >
+                    <CalendarIcon className="size-4" />
+                  </Button>
+                )}
 
                 {/* Clear filters */}
-                {hasActiveFilters && (
+                {hasActiveFilters && category !== 'taller' && (
                   <Button variant="ghost" size="sm" onClick={clearFilters} className="text-muted-foreground">
                     <X className="mr-1 size-3.5" />
                     Limpiar filtros
@@ -156,8 +161,8 @@ function ProgramacionContent() {
                 )}
               </div>
 
-              {/* Active filter badges */}
-              {hasActiveFilters && (
+              {/* Active filter badges - only for eventos view */}
+              {hasActiveFilters && category !== 'taller' && (
                 <div className="mt-4 flex flex-wrap items-center gap-2">
                   {category !== 'todos' && (
                     <Badge variant="secondary" className="gap-1">
@@ -203,32 +208,38 @@ function ProgramacionContent() {
                 </div>
               )}
 
-              {/* Grid */}
-              <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-                {filtered.map((item, index) => (
-                  <ScrollReveal key={item.slug} delay={index * 60} className="h-full">
-                    <ProgramCard item={item} />
-                  </ScrollReveal>
-                ))}
-              </div>
+              {/* Content: Timetable for Talleres, Grid for Eventos */}
+              {category === 'taller' ? (
+                <WeeklyTimetable />
+              ) : (
+                <>
+                  <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                    {filtered.map((item, index) => (
+                      <ScrollReveal key={item.slug} delay={index * 60} className="h-full">
+                        <ProgramCard item={item} />
+                      </ScrollReveal>
+                    ))}
+                  </div>
 
-              {/* Empty state */}
-              {filtered.length === 0 && (
-                <div className="mt-16 flex flex-col items-center gap-3 text-center">
-                  <Search className="size-10 text-muted-foreground/50" />
-                  <p className="text-lg font-medium text-foreground">No se encontraron resultados</p>
-                  <p className="max-w-sm text-sm text-muted-foreground">
-                    Intenta ajustar los filtros o buscar con otros terminos.
-                  </p>
-                  <Button variant="outline" size="sm" onClick={clearFilters} className="mt-2">
-                    Limpiar filtros
-                  </Button>
-                </div>
+                  {/* Empty state */}
+                  {filtered.length === 0 && (
+                    <div className="mt-16 flex flex-col items-center gap-3 text-center">
+                      <Search className="size-10 text-muted-foreground/50" />
+                      <p className="text-lg font-medium text-foreground">No se encontraron resultados</p>
+                      <p className="max-w-sm text-sm text-muted-foreground">
+                        Intenta ajustar los filtros o buscar con otros terminos.
+                      </p>
+                      <Button variant="outline" size="sm" onClick={clearFilters} className="mt-2">
+                        Limpiar filtros
+                      </Button>
+                    </div>
+                  )}
+                </>
               )}
             </div>
 
-            {/* Right: Calendar sidebar (desktop) */}
-            <div className="hidden lg:block">
+            {/* Right: Calendar sidebar (desktop) - hidden in timetable mode */}
+            <div className={`${category === 'taller' ? 'hidden' : 'hidden lg:block'}`}>
               <div className="sticky top-24 w-[300px]">
                 <CalendarSidebar
                   eventDates={eventDates}
