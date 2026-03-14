@@ -67,7 +67,6 @@ function ProgramacionContent() {
   }, [allItems, category, search, selectedDate])
 
   const categoryOptions: { label: string; value: CategoryFilter }[] = [
-    { label: 'Todos', value: 'todos' },
     { label: 'Eventos', value: 'evento' },
     { label: 'Talleres', value: 'taller' },
   ]
