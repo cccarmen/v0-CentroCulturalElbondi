@@ -28,12 +28,12 @@ export function Footer() {
             <img
               src="/images/logo-dark.png"
               alt="El Bondi - Centro Cultural Comunitario"
-              className="block h-9 w-auto dark:hidden"
+              className="block h-7 w-auto max-w-[180px] sm:h-9 sm:max-w-none dark:hidden"
             />
             <img
               src="/images/logo-white.png"
               alt="El Bondi - Centro Cultural Comunitario"
-              className="hidden h-9 w-auto dark:block"
+              className="hidden h-7 w-auto max-w-[180px] sm:h-9 sm:max-w-none dark:block"
             />
             <span className="text-sm text-muted-foreground">{'© 2026'}</span>
           </div>
