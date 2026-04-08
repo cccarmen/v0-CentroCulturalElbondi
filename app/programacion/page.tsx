@@ -3,7 +3,7 @@
 import { useState, useMemo, Suspense } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { ArrowLeft, Search, Calendar as CalendarIcon, X, MapPin, Clock } from 'lucide-react'
+import { Search, Calendar as CalendarIcon, X, MapPin, Clock } from 'lucide-react'
 import { Calendar } from '@/components/ui/calendar'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
@@ -12,7 +12,7 @@ import { ScrollReveal } from '@/components/scroll-reveal'
 import { events, workshops, type EventItem } from '@/lib/data'
 import { WeeklyTimetable } from '@/components/weekly-timetable'
 
-type CategoryFilter = 'todos' | 'evento' | 'taller'
+type CategoryFilter = 'evento' | 'taller'
 
 export default function ProgramacionPage() {
   return (
@@ -24,9 +24,9 @@ export default function ProgramacionPage() {
 
 function ProgramacionContent() {
   const searchParams = useSearchParams()
-  const initialCategory = (searchParams.get('categoria') as CategoryFilter) || 'todos'
+  const initialCategory = (searchParams.get('categoria') as CategoryFilter) || 'evento'
   const [category, setCategory] = useState<CategoryFilter>(
-    ['todos', 'evento', 'taller'].includes(initialCategory) ? initialCategory : 'todos'
+    ['evento', 'taller'].includes(initialCategory) ? initialCategory : 'evento'
   )
   const [search, setSearch] = useState('')
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
@@ -43,11 +43,7 @@ function ProgramacionContent() {
 
   // Filtered items
   const filtered = useMemo(() => {
-    let items = allItems
-
-    if (category !== 'todos') {
-      items = items.filter((i) => i.category === category)
-    }
+    let items = allItems.filter((i) => i.category === category)
 
     if (search.trim()) {
       const q = search.toLowerCase()
@@ -73,30 +69,22 @@ function ProgramacionContent() {
   ]
 
   const clearFilters = () => {
-    setCategory('todos')
     setSearch('')
     setSelectedDate(undefined)
   }
 
-  const hasActiveFilters = category !== 'todos' || search.trim() !== '' || selectedDate !== undefined
+  const hasActiveFilters = search.trim() !== '' || selectedDate !== undefined
 
   return (
     <>
       {/* Hero header */}
-<section className="relative bg-primary px-4 pt-28 pb-12 lg:pt-32 lg:pb-16">
-  <div className="mx-auto max-w-7xl">
-          <Link
-            href="/"
-            className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"
-          >
-            <ArrowLeft className="size-4" />
-            Volver al inicio
-          </Link>
+      <section className="relative bg-primary px-4 pt-28 pb-12 lg:pt-32 lg:pb-16">
+        <div className="mx-auto max-w-7xl">
           <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
             Programacion
           </h1>
           <p className="mt-3 max-w-xl text-base leading-relaxed text-primary-foreground/80">
-            Explora todos nuestros eventos, talleres y actividades. Filtra por categoria, busca por nombre o selecciona una fecha en el calendario.
+            Explora todos nuestros eventos, talleres y actividades.
           </p>
         </div>
       </section>
@@ -164,14 +152,6 @@ function ProgramacionContent() {
               {/* Active filter badges - only for eventos view */}
               {hasActiveFilters && category !== 'taller' && (
                 <div className="mt-4 flex flex-wrap items-center gap-2">
-                  {category !== 'todos' && (
-                    <Badge variant="secondary" className="gap-1">
-                      {category === 'evento' ? 'Eventos' : 'Talleres'}
-                      <button onClick={() => setCategory('todos')} aria-label="Quitar filtro categoria">
-                        <X className="size-3" />
-                      </button>
-                    </Badge>
-                  )}
                   {search.trim() && (
                     <Badge variant="secondary" className="gap-1">
                       {`"${search}"`}

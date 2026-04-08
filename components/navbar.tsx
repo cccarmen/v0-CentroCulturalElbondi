@@ -7,7 +7,7 @@ import { useTheme } from 'next-themes'
 
 const navLinks = [
   { label: 'Centro Cultural', href: '/centro-cultural' },
-  { label: 'Eventos y Novedades', href: '/programacion' },
+  { label: 'Eventos y Novedades', href: '/programacion?categoria=evento' },
   { label: 'Talleres y Bachilleratos', href: '/programacion?categoria=taller' },
   { label: 'FAQ', href: '/faq' },
 ]
