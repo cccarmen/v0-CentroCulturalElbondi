@@ -2,8 +2,23 @@
 
 import { useState, useMemo, Suspense } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
-import { ArrowLeft, Search, Calendar as CalendarIcon, X, MapPin, Clock } from 'lucide-react'
+import {
+  ArrowLeft,
+  Search,
+  Calendar as CalendarIcon,
+  X,
+  MapPin,
+  Clock,
+  Music,
+  Palette,
+  Users,
+  Sparkles,
+  Filter,
+  ChevronDown,
+  ChevronUp,
+} from 'lucide-react'
 import { Calendar } from '@/components/ui/calendar'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
@@ -12,6 +27,7 @@ import { ScrollReveal } from '@/components/scroll-reveal'
 import { events, workshops, type EventItem } from '@/lib/data'
 
 type CategoryFilter = 'todos' | 'evento' | 'taller'
+type DateFilter = 'todos' | 'hoy' | 'manana' | 'esta-semana' | 'este-mes' | 'custom'
 
 export default function ProgramacionPage() {
   return (
@@ -29,6 +45,8 @@ function ProgramacionContent() {
   )
   const [search, setSearch] = useState('')
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
+  const [dateFilter, setDateFilter] = useState<DateFilter>('todos')
+  const [showMobileFilters, setShowMobileFilters] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
 
   const allItems = useMemo(() => [...events, ...workshops], [])
@@ -39,6 +57,33 @@ function ProgramacionContent() {
       .filter((item) => item.calendarDate)
       .map((item) => new Date(item.calendarDate! + 'T12:00:00'))
   }, [allItems])
+
+  // Get date range based on filter
+  const getDateRange = (filter: DateFilter): { start: Date; end: Date } | null => {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    switch (filter) {
+      case 'hoy':
+        return { start: today, end: today }
+      case 'manana': {
+        const tomorrow = new Date(today)
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        return { start: tomorrow, end: tomorrow }
+      }
+      case 'esta-semana': {
+        const endOfWeek = new Date(today)
+        endOfWeek.setDate(today.getDate() + (7 - today.getDay()))
+        return { start: today, end: endOfWeek }
+      }
+      case 'este-mes': {
+        const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0)
+        return { start: today, end: endOfMonth }
+      }
+      default:
+        return null
+    }
+  }
 
   // Filtered items
   const filtered = useMemo(() => {
@@ -58,33 +103,73 @@ function ProgramacionContent() {
       )
     }
 
-    if (selectedDate) {
+    // Date filtering
+    if (selectedDate && dateFilter === 'custom') {
       const dateStr = selectedDate.toISOString().split('T')[0]
       items = items.filter((i) => i.calendarDate === dateStr)
+    } else if (dateFilter !== 'todos' && dateFilter !== 'custom') {
+      const range = getDateRange(dateFilter)
+      if (range) {
+        items = items.filter((i) => {
+          if (!i.calendarDate) return false
+          const itemDate = new Date(i.calendarDate + 'T12:00:00')
+          return itemDate >= range.start && itemDate <= range.end
+        })
+      }
     }
 
-    return items
-  }, [allItems, category, search, selectedDate])
+    // Sort by date
+    return items.sort((a, b) => {
+      if (!a.calendarDate || !b.calendarDate) return 0
+      return new Date(a.calendarDate).getTime() - new Date(b.calendarDate).getTime()
+    })
+  }, [allItems, category, search, selectedDate, dateFilter])
 
-  const categoryOptions: { label: string; value: CategoryFilter }[] = [
-    { label: 'Todos', value: 'todos' },
-    { label: 'Eventos', value: 'evento' },
-    { label: 'Talleres', value: 'taller' },
+  const categoryOptions: { label: string; value: CategoryFilter; icon: React.ReactNode }[] = [
+    { label: 'Todos', value: 'todos', icon: <Sparkles className="size-4" /> },
+    { label: 'Eventos', value: 'evento', icon: <Music className="size-4" /> },
+    { label: 'Talleres', value: 'taller', icon: <Palette className="size-4" /> },
+  ]
+
+  const dateOptions: { label: string; value: DateFilter }[] = [
+    { label: 'Todas las fechas', value: 'todos' },
+    { label: 'Hoy', value: 'hoy' },
+    { label: 'Manana', value: 'manana' },
+    { label: 'Esta semana', value: 'esta-semana' },
+    { label: 'Este mes', value: 'este-mes' },
+    { label: 'Elegir fecha', value: 'custom' },
   ]
 
   const clearFilters = () => {
     setCategory('todos')
     setSearch('')
     setSelectedDate(undefined)
+    setDateFilter('todos')
   }
 
-  const hasActiveFilters = category !== 'todos' || search.trim() !== '' || selectedDate !== undefined
+  const hasActiveFilters =
+    category !== 'todos' || search.trim() !== '' || dateFilter !== 'todos'
+
+  const handleDateFilterChange = (value: DateFilter) => {
+    setDateFilter(value)
+    if (value !== 'custom') {
+      setSelectedDate(undefined)
+      setShowCalendar(false)
+    } else {
+      setShowCalendar(true)
+    }
+  }
+
+  const handleCalendarSelect = (date: Date | undefined) => {
+    setSelectedDate(date)
+    setDateFilter(date ? 'custom' : 'todos')
+  }
 
   return (
     <>
       {/* Hero header */}
-<section className="relative bg-primary px-4 pt-28 pb-12 lg:pt-32 lg:pb-16">
-  <div className="mx-auto max-w-7xl">
+      <section className="relative bg-primary px-4 pt-28 pb-8 lg:pt-32 lg:pb-12">
+        <div className="mx-auto max-w-7xl">
           <Link
             href="/"
             className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"
@@ -96,169 +181,248 @@ function ProgramacionContent() {
             Programacion
           </h1>
           <p className="mt-3 max-w-xl text-base leading-relaxed text-primary-foreground/80">
-            Explora todos nuestros eventos, talleres y actividades. Filtra por categoria, busca por nombre o selecciona una fecha en el calendario.
+            Descubri eventos, talleres y actividades en El Bondi
           </p>
+
+          {/* Search bar - Eventbrite style */}
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="relative flex-1 max-w-xl">
+              <Search className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Buscar eventos, talleres, actividades..."
+                className="h-12 rounded-xl bg-white pl-12 text-base shadow-lg border-0 focus-visible:ring-2 focus-visible:ring-white/50"
+              />
+              {search && (
+                <button
+                  onClick={() => setSearch('')}
+                  className="absolute top-1/2 right-4 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                  <X className="size-4" />
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Filters + Content */}
-      <section className="bg-background py-10 lg:py-14">
+      <section className="bg-background py-8 lg:py-10">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <div className="flex flex-col gap-8 lg:flex-row">
-            {/* Left: Filters + Grid */}
-            <div className="flex-1">
-              {/* Filter bar */}
-              <div className="flex flex-wrap items-center gap-3">
-                {/* Category pills */}
-                <div className="flex gap-1.5 rounded-lg bg-muted p-1">
-                  {categoryOptions.map((opt) => (
-                    <button
-                      key={opt.value}
-                      onClick={() => setCategory(opt.value)}
-                      className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                        category === opt.value
-                          ? 'bg-primary text-primary-foreground shadow-sm'
-                          : 'text-muted-foreground hover:text-foreground'
-                      }`}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
+            {/* Left: Sidebar filters */}
+            <aside className="lg:w-[280px] shrink-0">
+              {/* Mobile filter toggle */}
+              <button
+                onClick={() => setShowMobileFilters(!showMobileFilters)}
+                className="flex w-full items-center justify-between rounded-xl border border-border bg-card p-4 lg:hidden"
+              >
+                <span className="flex items-center gap-2 font-medium">
+                  <Filter className="size-4" />
+                  Filtros
+                  {hasActiveFilters && (
+                    <Badge variant="secondary" className="ml-1">
+                      {[category !== 'todos', dateFilter !== 'todos', search.trim()].filter(Boolean).length}
+                    </Badge>
+                  )}
+                </span>
+                {showMobileFilters ? <ChevronUp className="size-4" /> : <ChevronDown className="size-4" />}
+              </button>
+
+              {/* Filter content */}
+              <div className={`mt-4 space-y-6 lg:mt-0 ${showMobileFilters ? 'block' : 'hidden lg:block'}`}>
+                {/* Category filter */}
+                <div className="rounded-xl border border-border bg-card p-4">
+                  <h3 className="mb-4 text-sm font-semibold text-foreground">Categoria</h3>
+                  <div className="space-y-1">
+                    {categoryOptions.map((opt) => (
+                      <button
+                        key={opt.value}
+                        onClick={() => setCategory(opt.value)}
+                        className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${
+                          category === opt.value
+                            ? 'bg-primary text-primary-foreground'
+                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                        }`}
+                      >
+                        {opt.icon}
+                        {opt.label}
+                        <span className="ml-auto text-xs opacity-70">
+                          {opt.value === 'todos'
+                            ? allItems.length
+                            : allItems.filter((i) => i.category === opt.value).length}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Search */}
-                <div className="relative flex-1 min-w-[200px]">
-                  <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Buscar por nombre, descripcion o ubicacion..."
-                    className="pl-9"
-                  />
-                </div>
+                {/* Date filter */}
+                <div className="rounded-xl border border-border bg-card p-4">
+                  <h3 className="mb-4 text-sm font-semibold text-foreground">Fecha</h3>
+                  <div className="space-y-1">
+                    {dateOptions.map((opt) => (
+                      <button
+                        key={opt.value}
+                        onClick={() => handleDateFilterChange(opt.value)}
+                        className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${
+                          dateFilter === opt.value
+                            ? 'bg-primary text-primary-foreground'
+                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                        }`}
+                      >
+                        {opt.value === 'custom' && <CalendarIcon className="size-4" />}
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
 
-                {/* Calendar toggle (mobile) */}
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="lg:hidden"
-                  onClick={() => setShowCalendar(!showCalendar)}
-                  aria-label="Mostrar calendario"
-                >
-                  <CalendarIcon className="size-4" />
-                </Button>
+                  {/* Calendar picker */}
+                  {(showCalendar || dateFilter === 'custom') && (
+                    <div className="mt-4 border-t border-border pt-4">
+                      <Calendar
+                        mode="single"
+                        selected={selectedDate}
+                        onSelect={handleCalendarSelect}
+                        modifiers={{ event: eventDates }}
+                        modifiersClassNames={{
+                          event: 'bg-primary/20 text-primary font-bold',
+                        }}
+                        className="p-0"
+                      />
+                      <p className="mt-2 text-xs text-muted-foreground">
+                        Los dias resaltados tienen actividades.
+                      </p>
+                    </div>
+                  )}
+                </div>
 
                 {/* Clear filters */}
                 {hasActiveFilters && (
-                  <Button variant="ghost" size="sm" onClick={clearFilters} className="text-muted-foreground">
-                    <X className="mr-1 size-3.5" />
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    onClick={clearFilters}
+                  >
+                    <X className="mr-2 size-4" />
                     Limpiar filtros
                   </Button>
                 )}
-              </div>
 
-              {/* Active filter badges */}
-              {hasActiveFilters && (
-                <div className="mt-4 flex flex-wrap items-center gap-2">
-                  {category !== 'todos' && (
-                    <Badge variant="secondary" className="gap-1">
-                      {category === 'evento' ? 'Eventos' : 'Talleres'}
-                      <button onClick={() => setCategory('todos')} aria-label="Quitar filtro categoria">
-                        <X className="size-3" />
-                      </button>
-                    </Badge>
-                  )}
-                  {search.trim() && (
-                    <Badge variant="secondary" className="gap-1">
-                      {`"${search}"`}
-                      <button onClick={() => setSearch('')} aria-label="Quitar busqueda">
-                        <X className="size-3" />
-                      </button>
-                    </Badge>
-                  )}
-                  {selectedDate && (
-                    <Badge variant="secondary" className="gap-1">
-                      {selectedDate.toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: 'numeric' })}
-                      <button onClick={() => setSelectedDate(undefined)} aria-label="Quitar filtro fecha">
-                        <X className="size-3" />
-                      </button>
-                    </Badge>
-                  )}
-                  <span className="text-sm text-muted-foreground">
-                    {filtered.length} resultado{filtered.length !== 1 ? 's' : ''}
-                  </span>
-                </div>
-              )}
-
-              {/* Mobile calendar */}
-              {showCalendar && (
-                <div className="mt-4 lg:hidden">
-                  <CalendarSidebar
-                    eventDates={eventDates}
-                    selectedDate={selectedDate}
-                    onSelect={(date) => {
-                      setSelectedDate(date)
-                      setShowCalendar(false)
-                    }}
-                  />
-                </div>
-              )}
-
-              {/* Grid */}
-              <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-                {filtered.map((item, index) => (
-                  <ScrollReveal key={item.slug} delay={index * 60} className="h-full">
-                    <ProgramCard item={item} />
-                  </ScrollReveal>
-                ))}
-              </div>
-
-              {/* Empty state */}
-              {filtered.length === 0 && (
-                <div className="mt-16 flex flex-col items-center gap-3 text-center">
-                  <Search className="size-10 text-muted-foreground/50" />
-                  <p className="text-lg font-medium text-foreground">No se encontraron resultados</p>
-                  <p className="max-w-sm text-sm text-muted-foreground">
-                    Intenta ajustar los filtros o buscar con otros terminos.
-                  </p>
-                  <Button variant="outline" size="sm" onClick={clearFilters} className="mt-2">
-                    Limpiar filtros
-                  </Button>
-                </div>
-              )}
-            </div>
-
-            {/* Right: Calendar sidebar (desktop) */}
-            <div className="hidden lg:block">
-              <div className="sticky top-24 w-[300px]">
-                <CalendarSidebar
-                  eventDates={eventDates}
-                  selectedDate={selectedDate}
-                  onSelect={setSelectedDate}
-                />
-
-                {/* Upcoming items sidebar */}
-                <div className="mt-6 rounded-xl border border-border bg-card p-4">
-                  <h3 className="text-sm font-semibold text-foreground">Proximos eventos</h3>
-                  <div className="mt-3 flex flex-col gap-3">
-                    {events.slice(0, 4).map((item) => (
+                {/* Upcoming events sidebar */}
+                <div className="rounded-xl border border-border bg-card p-4">
+                  <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-foreground">
+                    <Users className="size-4 text-primary" />
+                    Proximos eventos
+                  </h3>
+                  <div className="space-y-3">
+                    {events.slice(0, 3).map((item) => (
                       <Link
                         key={item.slug}
                         href={`/evento/${item.slug}`}
-                        className="group flex gap-3 text-sm"
+                        className="group flex gap-3"
                       >
-                        <div className="mt-0.5 size-2 shrink-0 rounded-full bg-primary" />
-                        <div>
-                          <p className="font-medium text-foreground group-hover:text-primary transition-colors">
+                        <div className="size-12 shrink-0 overflow-hidden rounded-lg">
+                          <Image
+                            src={item.image}
+                            alt={item.title}
+                            width={48}
+                            height={48}
+                            className="size-full object-cover"
+                          />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-medium text-foreground group-hover:text-primary transition-colors">
                             {item.title}
                           </p>
-                          <p className="text-xs text-muted-foreground">{item.date} - {item.time}</p>
+                          <p className="text-xs text-muted-foreground">{item.date}</p>
                         </div>
                       </Link>
                     ))}
                   </div>
                 </div>
               </div>
+            </aside>
+
+            {/* Right: Results */}
+            <div className="flex-1">
+              {/* Results header */}
+              <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm text-muted-foreground">
+                    {filtered.length} resultado{filtered.length !== 1 ? 's' : ''} encontrado{filtered.length !== 1 ? 's' : ''}
+                  </p>
+                </div>
+
+                {/* Active filter badges */}
+                {hasActiveFilters && (
+                  <div className="flex flex-wrap items-center gap-2">
+                    {category !== 'todos' && (
+                      <Badge variant="secondary" className="gap-1 pr-1">
+                        {category === 'evento' ? 'Eventos' : 'Talleres'}
+                        <button
+                          onClick={() => setCategory('todos')}
+                          className="ml-1 rounded-full p-0.5 hover:bg-muted-foreground/20"
+                        >
+                          <X className="size-3" />
+                        </button>
+                      </Badge>
+                    )}
+                    {dateFilter !== 'todos' && (
+                      <Badge variant="secondary" className="gap-1 pr-1">
+                        {dateFilter === 'custom' && selectedDate
+                          ? selectedDate.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' })
+                          : dateOptions.find((o) => o.value === dateFilter)?.label}
+                        <button
+                          onClick={() => {
+                            setDateFilter('todos')
+                            setSelectedDate(undefined)
+                          }}
+                          className="ml-1 rounded-full p-0.5 hover:bg-muted-foreground/20"
+                        >
+                          <X className="size-3" />
+                        </button>
+                      </Badge>
+                    )}
+                    {search.trim() && (
+                      <Badge variant="secondary" className="gap-1 pr-1">
+                        {`"${search}"`}
+                        <button
+                          onClick={() => setSearch('')}
+                          className="ml-1 rounded-full p-0.5 hover:bg-muted-foreground/20"
+                        >
+                          <X className="size-3" />
+                        </button>
+                      </Badge>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Results grid */}
+              {filtered.length > 0 ? (
+                <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                  {filtered.map((item, index) => (
+                    <ScrollReveal key={item.slug} delay={index * 40} className="h-full">
+                      <ProgramCard item={item} />
+                    </ScrollReveal>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-20 text-center">
+                  <div className="mb-4 rounded-full bg-muted p-4">
+                    <Search className="size-8 text-muted-foreground" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground">No se encontraron resultados</h3>
+                  <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+                    Intenta ajustar los filtros o buscar con otros terminos para encontrar lo que buscas.
+                  </p>
+                  <Button variant="outline" className="mt-4" onClick={clearFilters}>
+                    Limpiar filtros
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -267,90 +431,51 @@ function ProgramacionContent() {
   )
 }
 
-/* Calendar sidebar component */
-function CalendarSidebar({
-  eventDates,
-  selectedDate,
-  onSelect,
-}: {
-  eventDates: Date[]
-  selectedDate: Date | undefined
-  onSelect: (date: Date | undefined) => void
-}) {
-  return (
-    <div className="rounded-xl border border-border bg-card p-4">
-      <div className="flex items-center justify-between">
-        <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
-          <CalendarIcon className="size-4 text-primary" />
-          Calendario
-        </h3>
-        {selectedDate && (
-          <button
-            onClick={() => onSelect(undefined)}
-            className="text-xs text-primary hover:underline"
-          >
-            Ver todos
-          </button>
-        )}
-      </div>
-      <Calendar
-        mode="single"
-        selected={selectedDate}
-        onSelect={onSelect}
-        modifiers={{ event: eventDates }}
-        modifiersClassNames={{
-          event: 'bg-primary/20 text-primary font-bold',
-        }}
-        className="mt-2 p-0"
-      />
-      <p className="mt-2 text-xs text-muted-foreground">
-        Los dias resaltados tienen actividades programadas.
-      </p>
-    </div>
-  )
-}
-
-/* Card for the programacion grid */
+/* Card for the programacion grid - Eventbrite inspired */
 function ProgramCard({ item }: { item: EventItem }) {
   return (
     <Link
       href={`/evento/${item.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-primary/40 hover:shadow-lg"
+      className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-primary/40 hover:shadow-xl"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
-        <img
+        <Image
           src={item.image}
           alt={item.title}
-          className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         <Badge
           className="absolute top-3 left-3 text-xs"
           variant={item.category === 'evento' ? 'default' : 'secondary'}
         >
           {item.category === 'evento' ? 'Evento' : 'Taller'}
         </Badge>
+        <div className="absolute bottom-3 left-3 right-3">
+          <p className="text-sm font-medium text-white/90">
+            {item.date} - {item.time}
+          </p>
+        </div>
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4">
-        <h3 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+        <h3 className="text-lg font-semibold leading-tight text-foreground group-hover:text-primary transition-colors">
           {item.title}
         </h3>
         <p className="line-clamp-2 flex-1 text-sm leading-relaxed text-muted-foreground">
           {item.description}
         </p>
-        <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 text-xs text-muted-foreground">
-          <span className="flex items-center gap-1">
-            <CalendarIcon className="size-3" />
-            {item.date}
-          </span>
-          <span className="flex items-center gap-1">
-            <Clock className="size-3" />
-            {item.time}
-          </span>
-          <span className="flex items-center gap-1">
-            <MapPin className="size-3" />
-            {item.location.split(' - ')[0]}
+        <div className="mt-auto flex items-center gap-2 pt-3 border-t border-border">
+          <MapPin className="size-3.5 shrink-0 text-muted-foreground" />
+          <span className="truncate text-xs text-muted-foreground">
+            {item.location}
           </span>
         </div>
+        {item.price && (
+          <p className="text-sm font-medium text-primary">
+            {item.price.includes('gratis') || item.price.includes('libre') ? 'Gratis' : item.price.split('/')[0]}
+          </p>
+        )}
       </div>
     </Link>
   )
