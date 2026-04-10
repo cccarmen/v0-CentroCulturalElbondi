@@ -4,7 +4,6 @@ import { useState, useMemo, Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import {
-  ArrowLeft,
   Search,
   Calendar as CalendarIcon,
   X,
@@ -21,12 +20,21 @@ import {
   Palette,
   Dumbbell,
   Guitar,
+  Home,
 } from 'lucide-react'
 import { Calendar } from '@/components/ui/calendar'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 import { workshops, type EventItem } from '@/lib/data'
 
 type TallerCategory = 'todos' | 'circo' | 'musica' | 'danza' | 'arte'
@@ -212,16 +220,31 @@ function TalleresContent() {
 
   return (
     <>
-      {/* Hero header */}
-      <section className="relative bg-primary px-4 pt-28 pb-8 lg:pt-32 lg:pb-12">
+      {/* Breadcrumb */}
+      <section className="border-b border-border/40 bg-secondary/30 px-4 py-4">
         <div className="mx-auto max-w-7xl">
-          <Link
-            href="/"
-            className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"
-          >
-            <ArrowLeft className="size-4" />
-            Volver al inicio
-          </Link>
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/" className="flex items-center gap-1.5">
+                    <Home className="size-4" />
+                    <span className="sr-only sm:not-sr-only">Inicio</span>
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Talleres y Bachilleratos</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+      </section>
+
+      {/* Hero header */}
+      <section className="relative bg-primary px-4 pt-12 pb-8 lg:pt-16 lg:pb-12">
+        <div className="mx-auto max-w-7xl">
           <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
             Talleres y Bachilleratos
           </h1>
