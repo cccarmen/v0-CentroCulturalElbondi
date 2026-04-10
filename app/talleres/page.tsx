@@ -3,7 +3,6 @@
 import { useState, useMemo, Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useSearchParams } from 'next/navigation'
 import {
   ArrowLeft,
   Search,
@@ -12,51 +11,80 @@ import {
   MapPin,
   Clock,
   Music,
-  Palette,
+  Flame,
   Users,
   Sparkles,
   Filter,
   ChevronDown,
   ChevronUp,
+  GraduationCap,
+  Palette,
+  Dumbbell,
+  Guitar,
 } from 'lucide-react'
 import { Calendar } from '@/components/ui/calendar'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
-import { events, workshops, type EventItem } from '@/lib/data'
+import { workshops, type EventItem } from '@/lib/data'
 
-type CategoryFilter = 'todos' | 'evento' | 'taller'
-type DateFilter = 'todos' | 'hoy' | 'manana' | 'esta-semana' | 'este-mes' | 'custom'
+type TallerCategory = 'todos' | 'circo' | 'musica' | 'danza' | 'arte'
+type DayFilter = 'todos' | 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado'
+type DateFilter = 'todos' | 'esta-semana' | 'este-mes' | 'custom'
 
-export default function ProgramacionPage() {
+export default function TalleresPage() {
   return (
     <Suspense fallback={null}>
-      <ProgramacionContent />
+      <TalleresContent />
     </Suspense>
   )
 }
 
-function ProgramacionContent() {
-  const searchParams = useSearchParams()
-  const initialCategory = (searchParams.get('categoria') as CategoryFilter) || 'todos'
-  const [category, setCategory] = useState<CategoryFilter>(
-    ['todos', 'evento', 'taller'].includes(initialCategory) ? initialCategory : 'todos'
-  )
+function TalleresContent() {
+  const [tallerCategory, setTallerCategory] = useState<TallerCategory>('todos')
+  const [dayFilter, setDayFilter] = useState<DayFilter>('todos')
   const [search, setSearch] = useState('')
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const [dateFilter, setDateFilter] = useState<DateFilter>('todos')
   const [showMobileFilters, setShowMobileFilters] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
 
-  const allItems = useMemo(() => [...events, ...workshops], [])
+  // Categorize workshops based on their content
+  const categorizeWorkshop = (item: EventItem): TallerCategory => {
+    const title = item.title.toLowerCase()
+    const desc = item.description.toLowerCase()
+    
+    if (title.includes('acrobacia') || title.includes('malabares') || title.includes('fuego') || title.includes('hula') || desc.includes('circo')) {
+      return 'circo'
+    }
+    if (title.includes('guitarra') || title.includes('canto') || title.includes('musica') || desc.includes('musica')) {
+      return 'musica'
+    }
+    if (title.includes('danza') || title.includes('baile') || desc.includes('danza')) {
+      return 'danza'
+    }
+    return 'arte'
+  }
 
-  // Dates that have events (for calendar highlighting)
-  const eventDates = useMemo(() => {
-    return allItems
+  // Get day from date string
+  const getDayFromDate = (dateStr: string): string => {
+    const lower = dateStr.toLowerCase()
+    if (lower.includes('lunes')) return 'lunes'
+    if (lower.includes('martes')) return 'martes'
+    if (lower.includes('miercoles') || lower.includes('miércoles')) return 'miercoles'
+    if (lower.includes('jueves')) return 'jueves'
+    if (lower.includes('viernes')) return 'viernes'
+    if (lower.includes('sabado') || lower.includes('sábado')) return 'sabado'
+    return ''
+  }
+
+  // Dates that have workshops (for calendar highlighting)
+  const workshopDates = useMemo(() => {
+    return workshops
       .filter((item) => item.calendarDate)
       .map((item) => new Date(item.calendarDate! + 'T12:00:00'))
-  }, [allItems])
+  }, [])
 
   // Get date range based on filter
   const getDateRange = (filter: DateFilter): { start: Date; end: Date } | null => {
@@ -64,13 +92,6 @@ function ProgramacionContent() {
     today.setHours(0, 0, 0, 0)
 
     switch (filter) {
-      case 'hoy':
-        return { start: today, end: today }
-      case 'manana': {
-        const tomorrow = new Date(today)
-        tomorrow.setDate(tomorrow.getDate() + 1)
-        return { start: tomorrow, end: tomorrow }
-      }
       case 'esta-semana': {
         const endOfWeek = new Date(today)
         endOfWeek.setDate(today.getDate() + (7 - today.getDay()))
@@ -87,19 +108,30 @@ function ProgramacionContent() {
 
   // Filtered items
   const filtered = useMemo(() => {
-    let items = allItems
+    let items = [...workshops]
 
-    if (category !== 'todos') {
-      items = items.filter((i) => i.category === category)
+    // Category filter
+    if (tallerCategory !== 'todos') {
+      items = items.filter((i) => categorizeWorkshop(i) === tallerCategory)
     }
 
+    // Day filter
+    if (dayFilter !== 'todos') {
+      items = items.filter((i) => {
+        const day = getDayFromDate(i.date)
+        return day === dayFilter
+      })
+    }
+
+    // Search filter
     if (search.trim()) {
       const q = search.toLowerCase()
       items = items.filter(
         (i) =>
           i.title.toLowerCase().includes(q) ||
           i.description.toLowerCase().includes(q) ||
-          i.location.toLowerCase().includes(q)
+          i.location.toLowerCase().includes(q) ||
+          (i.instructor?.name && i.instructor.name.toLowerCase().includes(q))
       )
     }
 
@@ -118,37 +150,44 @@ function ProgramacionContent() {
       }
     }
 
-    // Sort by date
-    return items.sort((a, b) => {
-      if (!a.calendarDate || !b.calendarDate) return 0
-      return new Date(a.calendarDate).getTime() - new Date(b.calendarDate).getTime()
-    })
-  }, [allItems, category, search, selectedDate, dateFilter])
+    return items
+  }, [tallerCategory, dayFilter, search, selectedDate, dateFilter])
 
-  const categoryOptions: { label: string; value: CategoryFilter; icon: React.ReactNode }[] = [
-    { label: 'Todos', value: 'todos', icon: <Sparkles className="size-4" /> },
-    { label: 'Eventos', value: 'evento', icon: <Music className="size-4" /> },
-    { label: 'Talleres', value: 'taller', icon: <Palette className="size-4" /> },
+  const categoryOptions: { label: string; value: TallerCategory; icon: React.ReactNode }[] = [
+    { label: 'Todos los talleres', value: 'todos', icon: <GraduationCap className="size-4" /> },
+    { label: 'Circo y Acrobacia', value: 'circo', icon: <Sparkles className="size-4" /> },
+    { label: 'Musica', value: 'musica', icon: <Guitar className="size-4" /> },
+    { label: 'Danza', value: 'danza', icon: <Dumbbell className="size-4" /> },
+    { label: 'Arte y Expresion', value: 'arte', icon: <Palette className="size-4" /> },
+  ]
+
+  const dayOptions: { label: string; value: DayFilter }[] = [
+    { label: 'Todos los dias', value: 'todos' },
+    { label: 'Lunes', value: 'lunes' },
+    { label: 'Martes', value: 'martes' },
+    { label: 'Miercoles', value: 'miercoles' },
+    { label: 'Jueves', value: 'jueves' },
+    { label: 'Viernes', value: 'viernes' },
+    { label: 'Sabado', value: 'sabado' },
   ]
 
   const dateOptions: { label: string; value: DateFilter }[] = [
     { label: 'Todas las fechas', value: 'todos' },
-    { label: 'Hoy', value: 'hoy' },
-    { label: 'Manana', value: 'manana' },
     { label: 'Esta semana', value: 'esta-semana' },
     { label: 'Este mes', value: 'este-mes' },
     { label: 'Elegir fecha', value: 'custom' },
   ]
 
   const clearFilters = () => {
-    setCategory('todos')
+    setTallerCategory('todos')
+    setDayFilter('todos')
     setSearch('')
     setSelectedDate(undefined)
     setDateFilter('todos')
   }
 
   const hasActiveFilters =
-    category !== 'todos' || search.trim() !== '' || dateFilter !== 'todos'
+    tallerCategory !== 'todos' || dayFilter !== 'todos' || search.trim() !== '' || dateFilter !== 'todos'
 
   const handleDateFilterChange = (value: DateFilter) => {
     setDateFilter(value)
@@ -165,6 +204,12 @@ function ProgramacionContent() {
     setDateFilter(date ? 'custom' : 'todos')
   }
 
+  // Count workshops per category
+  const getCategoryCount = (cat: TallerCategory) => {
+    if (cat === 'todos') return workshops.length
+    return workshops.filter((w) => categorizeWorkshop(w) === cat).length
+  }
+
   return (
     <>
       {/* Hero header */}
@@ -178,10 +223,10 @@ function ProgramacionContent() {
             Volver al inicio
           </Link>
           <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
-            Programacion
+            Talleres y Bachilleratos
           </h1>
           <p className="mt-3 max-w-xl text-base leading-relaxed text-primary-foreground/80">
-            Descubri eventos, talleres y actividades en El Bondi
+            Formacion artistica para todas las edades. Circo, musica, danza y mas.
           </p>
 
           {/* Search bar - Eventbrite style */}
@@ -191,7 +236,7 @@ function ProgramacionContent() {
               <Input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Buscar eventos, talleres, actividades..."
+                placeholder="Buscar talleres por nombre, instructor, disciplina..."
                 className="h-12 rounded-xl bg-white pl-12 text-base shadow-lg border-0 focus-visible:ring-2 focus-visible:ring-white/50"
               />
               {search && (
@@ -223,7 +268,7 @@ function ProgramacionContent() {
                   Filtros
                   {hasActiveFilters && (
                     <Badge variant="secondary" className="ml-1">
-                      {[category !== 'todos', dateFilter !== 'todos', search.trim()].filter(Boolean).length}
+                      {[tallerCategory !== 'todos', dayFilter !== 'todos', dateFilter !== 'todos', search.trim()].filter(Boolean).length}
                     </Badge>
                   )}
                 </span>
@@ -232,16 +277,16 @@ function ProgramacionContent() {
 
               {/* Filter content */}
               <div className={`mt-4 space-y-6 lg:mt-0 ${showMobileFilters ? 'block' : 'hidden lg:block'}`}>
-                {/* Category filter */}
+                {/* Discipline/Category filter */}
                 <div className="rounded-xl border border-border bg-card p-4">
-                  <h3 className="mb-4 text-sm font-semibold text-foreground">Categoria</h3>
+                  <h3 className="mb-4 text-sm font-semibold text-foreground">Disciplina</h3>
                   <div className="space-y-1">
                     {categoryOptions.map((opt) => (
                       <button
                         key={opt.value}
-                        onClick={() => setCategory(opt.value)}
+                        onClick={() => setTallerCategory(opt.value)}
                         className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${
-                          category === opt.value
+                          tallerCategory === opt.value
                             ? 'bg-primary text-primary-foreground'
                             : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                         }`}
@@ -249,10 +294,28 @@ function ProgramacionContent() {
                         {opt.icon}
                         {opt.label}
                         <span className="ml-auto text-xs opacity-70">
-                          {opt.value === 'todos'
-                            ? allItems.length
-                            : allItems.filter((i) => i.category === opt.value).length}
+                          {getCategoryCount(opt.value)}
                         </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Day filter */}
+                <div className="rounded-xl border border-border bg-card p-4">
+                  <h3 className="mb-4 text-sm font-semibold text-foreground">Dia de la semana</h3>
+                  <div className="space-y-1">
+                    {dayOptions.map((opt) => (
+                      <button
+                        key={opt.value}
+                        onClick={() => setDayFilter(opt.value)}
+                        className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${
+                          dayFilter === opt.value
+                            ? 'bg-primary text-primary-foreground'
+                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                        }`}
+                      >
+                        {opt.label}
                       </button>
                     ))}
                   </div>
@@ -260,7 +323,7 @@ function ProgramacionContent() {
 
                 {/* Date filter */}
                 <div className="rounded-xl border border-border bg-card p-4">
-                  <h3 className="mb-4 text-sm font-semibold text-foreground">Fecha</h3>
+                  <h3 className="mb-4 text-sm font-semibold text-foreground">Fecha de inicio</h3>
                   <div className="space-y-1">
                     {dateOptions.map((opt) => (
                       <button
@@ -285,14 +348,14 @@ function ProgramacionContent() {
                         mode="single"
                         selected={selectedDate}
                         onSelect={handleCalendarSelect}
-                        modifiers={{ event: eventDates }}
+                        modifiers={{ event: workshopDates }}
                         modifiersClassNames={{
                           event: 'bg-primary/20 text-primary font-bold',
                         }}
                         className="p-0"
                       />
                       <p className="mt-2 text-xs text-muted-foreground">
-                        Los dias resaltados tienen actividades.
+                        Los dias resaltados tienen talleres programados.
                       </p>
                     </div>
                   )}
@@ -310,37 +373,15 @@ function ProgramacionContent() {
                   </Button>
                 )}
 
-                {/* Upcoming events sidebar */}
+                {/* Info card */}
                 <div className="rounded-xl border border-border bg-card p-4">
-                  <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-foreground">
+                  <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold text-foreground">
                     <Users className="size-4 text-primary" />
-                    Proximos eventos
+                    Inscripcion
                   </h3>
-                  <div className="space-y-3">
-                    {events.slice(0, 3).map((item) => (
-                      <Link
-                        key={item.slug}
-                        href={`/evento/${item.slug}`}
-                        className="group flex gap-3"
-                      >
-                        <div className="size-12 shrink-0 overflow-hidden rounded-lg">
-                          <Image
-                            src={item.image}
-                            alt={item.title}
-                            width={48}
-                            height={48}
-                            className="size-full object-cover"
-                          />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-medium text-foreground group-hover:text-primary transition-colors">
-                            {item.title}
-                          </p>
-                          <p className="text-xs text-muted-foreground">{item.date}</p>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Podes reservar tu lugar en cualquier taller completando el formulario de inscripcion. El pago se realiza en persona el primer dia de clase.
+                  </p>
                 </div>
               </div>
             </aside>
@@ -351,18 +392,29 @@ function ProgramacionContent() {
               <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <p className="text-sm text-muted-foreground">
-                    {filtered.length} resultado{filtered.length !== 1 ? 's' : ''} encontrado{filtered.length !== 1 ? 's' : ''}
+                    {filtered.length} taller{filtered.length !== 1 ? 'es' : ''} encontrado{filtered.length !== 1 ? 's' : ''}
                   </p>
                 </div>
 
                 {/* Active filter badges */}
                 {hasActiveFilters && (
                   <div className="flex flex-wrap items-center gap-2">
-                    {category !== 'todos' && (
+                    {tallerCategory !== 'todos' && (
                       <Badge variant="secondary" className="gap-1 pr-1">
-                        {category === 'evento' ? 'Eventos' : 'Talleres'}
+                        {categoryOptions.find((o) => o.value === tallerCategory)?.label}
                         <button
-                          onClick={() => setCategory('todos')}
+                          onClick={() => setTallerCategory('todos')}
+                          className="ml-1 rounded-full p-0.5 hover:bg-muted-foreground/20"
+                        >
+                          <X className="size-3" />
+                        </button>
+                      </Badge>
+                    )}
+                    {dayFilter !== 'todos' && (
+                      <Badge variant="secondary" className="gap-1 pr-1">
+                        {dayOptions.find((o) => o.value === dayFilter)?.label}
+                        <button
+                          onClick={() => setDayFilter('todos')}
                           className="ml-1 rounded-full p-0.5 hover:bg-muted-foreground/20"
                         >
                           <X className="size-3" />
@@ -405,7 +457,7 @@ function ProgramacionContent() {
                 <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                   {filtered.map((item, index) => (
                     <ScrollReveal key={item.slug} delay={index * 40} className="h-full">
-                      <ProgramCard item={item} />
+                      <TallerCard item={item} />
                     </ScrollReveal>
                   ))}
                 </div>
@@ -414,9 +466,9 @@ function ProgramacionContent() {
                   <div className="mb-4 rounded-full bg-muted p-4">
                     <Search className="size-8 text-muted-foreground" />
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground">No se encontraron resultados</h3>
+                  <h3 className="text-lg font-semibold text-foreground">No se encontraron talleres</h3>
                   <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-                    Intenta ajustar los filtros o buscar con otros terminos para encontrar lo que buscas.
+                    Intenta ajustar los filtros o buscar con otros terminos para encontrar el taller que buscas.
                   </p>
                   <Button variant="outline" className="mt-4" onClick={clearFilters}>
                     Limpiar filtros
@@ -431,8 +483,8 @@ function ProgramacionContent() {
   )
 }
 
-/* Card for the programacion grid - Eventbrite inspired */
-function ProgramCard({ item }: { item: EventItem }) {
+/* Card for talleres - Eventbrite inspired */
+function TallerCard({ item }: { item: EventItem }) {
   return (
     <Link
       href={`/evento/${item.slug}`}
@@ -448,9 +500,9 @@ function ProgramCard({ item }: { item: EventItem }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         <Badge
           className="absolute top-3 left-3 text-xs"
-          variant={item.category === 'evento' ? 'default' : 'secondary'}
+          variant="secondary"
         >
-          {item.category === 'evento' ? 'Evento' : 'Taller'}
+          Taller
         </Badge>
         <div className="absolute bottom-3 left-3 right-3">
           <p className="text-sm font-medium text-white/90">
@@ -465,15 +517,42 @@ function ProgramCard({ item }: { item: EventItem }) {
         <p className="line-clamp-2 flex-1 text-sm leading-relaxed text-muted-foreground">
           {item.description}
         </p>
+        
+        {/* Instructor */}
+        {item.instructor && (
+          <div className="flex items-center gap-2 mt-1">
+            <div className="size-6 rounded-full overflow-hidden bg-muted">
+              <Image
+                src={item.instructor.avatar}
+                alt={item.instructor.name}
+                width={24}
+                height={24}
+                className="size-full object-cover"
+              />
+            </div>
+            <span className="text-xs text-muted-foreground">
+              {item.instructor.name}
+            </span>
+          </div>
+        )}
+
         <div className="mt-auto flex items-center gap-2 pt-3 border-t border-border">
           <MapPin className="size-3.5 shrink-0 text-muted-foreground" />
           <span className="truncate text-xs text-muted-foreground">
             {item.location}
           </span>
         </div>
+        
         {item.price && (
           <p className="text-sm font-medium text-primary">
             {item.price.includes('gratis') || item.price.includes('libre') ? 'Gratis' : item.price.split('/')[0]}
+          </p>
+        )}
+
+        {item.maxParticipants && (
+          <p className="flex items-center gap-1 text-xs text-muted-foreground">
+            <Users className="size-3" />
+            Cupo: {item.maxParticipants} personas
           </p>
         )}
       </div>
