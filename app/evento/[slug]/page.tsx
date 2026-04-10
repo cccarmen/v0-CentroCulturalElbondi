@@ -10,12 +10,12 @@ import {
   Ticket,
   Users,
   Mail,
-  ArrowLeft,
   ArrowRight,
   Phone,
   User,
   CheckCircle2,
   Send,
+  Home,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -24,6 +24,14 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 import { getItemBySlug, getRelatedItems } from '@/lib/data'
 
 export default function EventoPage() {
@@ -61,13 +69,28 @@ export default function EventoPage() {
       {/* Breadcrumb */}
       <section className="border-b border-border/40 bg-secondary/30 px-4 py-4">
         <div className="mx-auto max-w-6xl">
-          <Link
-            href="/programacion"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-          >
-            <ArrowLeft className="size-4" />
-            Volver a Programacion
-          </Link>
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/" className="flex items-center gap-1.5">
+                    <Home className="size-4" />
+                    <span className="sr-only sm:not-sr-only">Inicio</span>
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/programacion">Programacion</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{item.title}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </div>
       </section>
 

@@ -4,7 +4,6 @@ import { use, useState } from 'react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import {
-  ArrowLeft,
   ArrowRight,
   Calendar,
   Clock,
@@ -20,6 +19,7 @@ import {
   Phone,
   Users,
   CheckCircle,
+  Home,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -27,6 +27,14 @@ import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { Textarea } from '@/components/ui/textarea'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 import { getItemBySlug } from '@/lib/data'
 
 type DeliveryOption = 'email' | 'download' | 'both'
@@ -115,6 +123,34 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
   if (isWorkshop) {
     return (
       <main className="min-h-screen bg-background">
+        {/* Breadcrumb */}
+        <section className="border-b border-border/40 bg-secondary/30 px-4 py-4">
+          <div className="mx-auto max-w-4xl">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/" className="flex items-center gap-1.5">
+                      <Home className="size-4" />
+                      <span className="sr-only sm:not-sr-only">Inicio</span>
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/programacion">Talleres</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{event.title}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+        </section>
+
         {/* Hero */}
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
@@ -122,13 +158,6 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40" />
           </div>
           <div className="relative mx-auto max-w-4xl px-4 py-16 lg:py-20">
-            <Link
-              href="/"
-              className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"
-            >
-              <ArrowLeft className="size-4" />
-              Volver al inicio
-            </Link>
             <Badge className="mb-3 bg-primary/80 text-primary-foreground hover:bg-primary/80">
               <Users className="mr-1.5 size-3" />
               Reservar lugar
@@ -445,6 +474,34 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
   // Regular event flow (unchanged)
   return (
     <main className="min-h-screen bg-background">
+      {/* Breadcrumb */}
+      <section className="border-b border-border/40 bg-secondary/30 px-4 py-4">
+        <div className="mx-auto max-w-4xl">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/" className="flex items-center gap-1.5">
+                    <Home className="size-4" />
+                    <span className="sr-only sm:not-sr-only">Inicio</span>
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/programacion">Eventos</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{event.title}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+      </section>
+
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
@@ -452,13 +509,6 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40" />
         </div>
         <div className="relative mx-auto max-w-4xl px-4 py-16 lg:py-20">
-          <Link
-            href="/"
-            className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"
-          >
-            <ArrowLeft className="size-4" />
-            Volver al inicio
-          </Link>
           <Badge className="mb-3 bg-primary/80 text-primary-foreground hover:bg-primary/80">
             <Ticket className="mr-1.5 size-3" />
             Comprar entrada

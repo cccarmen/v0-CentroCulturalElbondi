@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, Home } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -12,6 +12,14 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 
 const teamMembers = [
   {
@@ -81,17 +89,32 @@ export default function CentroCulturalPage() {
 
   return (
     <main className="min-h-screen bg-background">
+      {/* Breadcrumb */}
+      <section className="border-b border-border/40 bg-secondary/30 px-4 py-4">
+        <div className="mx-auto max-w-5xl">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/" className="flex items-center gap-1.5">
+                    <Home className="size-4" />
+                    <span className="sr-only sm:not-sr-only">Inicio</span>
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Centro Cultural</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+      </section>
+
       {/* Hero Header */}
       <section className="border-b border-border/40 bg-primary py-16 lg:py-24">
         <div className="mx-auto max-w-5xl px-4 lg:px-8">
           <ScrollReveal>
-            <Link
-              href="/"
-              className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"
-            >
-              <ArrowLeft className="size-4" />
-              Volver al inicio
-            </Link>
             <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
               Centro Cultural El Bondi
             </h1>

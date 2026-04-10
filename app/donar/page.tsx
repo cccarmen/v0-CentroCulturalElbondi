@@ -2,11 +2,19 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Heart, Mail, Phone, CheckCircle2 } from 'lucide-react'
+import { Heart, Mail, Phone, CheckCircle2, Home } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 
 type ContactMethod = 'email' | 'phone' | 'both'
 
@@ -46,17 +54,32 @@ export default function DonarPage() {
   if (submitted) {
     return (
       <main className="min-h-screen bg-background">
+        {/* Breadcrumb */}
+        <section className="border-b border-border/40 bg-secondary/30 px-4 py-4">
+          <div className="mx-auto max-w-3xl">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/" className="flex items-center gap-1.5">
+                      <Home className="size-4" />
+                      <span className="sr-only sm:not-sr-only">Inicio</span>
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Donar</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+        </section>
+
         {/* Hero header */}
         <section className="relative bg-primary px-4 py-16 lg:py-20">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary via-primary to-primary/80" />
           <div className="relative mx-auto max-w-3xl">
-            <Link
-              href="/"
-              className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"
-            >
-              <ArrowLeft className="size-4" />
-              Volver al inicio
-            </Link>
             <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
               Donar
             </h1>
@@ -97,17 +120,32 @@ export default function DonarPage() {
 
   return (
     <main className="min-h-screen bg-background">
+      {/* Breadcrumb */}
+      <section className="border-b border-border/40 bg-secondary/30 px-4 py-4">
+        <div className="mx-auto max-w-3xl">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/" className="flex items-center gap-1.5">
+                    <Home className="size-4" />
+                    <span className="sr-only sm:not-sr-only">Inicio</span>
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Donar</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+      </section>
+
       {/* Hero header */}
       <section className="relative bg-primary px-4 py-16 lg:py-20">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary via-primary to-primary/80" />
         <div className="relative mx-auto max-w-3xl">
-          <Link
-            href="/"
-            className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"
-          >
-            <ArrowLeft className="size-4" />
-            Volver al inicio
-          </Link>
           <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
             Donar
           </h1>
