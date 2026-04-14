@@ -7,9 +7,9 @@ import { useTheme } from 'next-themes'
 
 const navLinks = [
   { label: 'Centro Cultural', href: '/centro-cultural' },
-  { label: 'Eventos y Novedades', href: '/programacion' },
+  { label: 'Eventos', href: '/programacion' },
   { label: 'Talleres y Bachilleratos', href: '/talleres' },
-  { label: 'FAQ', href: '/faq' },
+  { label: 'Radio Espacio', href: '/radio-espacio' },
 ]
 
 export function Navbar() {
