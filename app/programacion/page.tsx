@@ -30,9 +30,6 @@ import {
 } from '@/components/ui/breadcrumb'
 import { events, type EventItem } from '@/lib/data'
 
-
-type DateFilter = 'todos' | 'hoy' | 'manana' | 'esta-semana' | 'este-mes' | 'custom'
-
 export default function ProgramacionPage() {
   return (
     <Suspense fallback={null}>
@@ -44,9 +41,7 @@ export default function ProgramacionPage() {
 function ProgramacionContent() {
   const [search, setSearch] = useState('')
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
-  const [dateFilter, setDateFilter] = useState<DateFilter>('todos')
   const [showMobileFilters, setShowMobileFilters] = useState(false)
-  const [showCalendar, setShowCalendar] = useState(false)
 
   const allItems = useMemo(() => [...events], [])
 
@@ -56,33 +51,6 @@ function ProgramacionContent() {
       .filter((item) => item.calendarDate)
       .map((item) => new Date(item.calendarDate! + 'T12:00:00'))
   }, [allItems])
-
-  // Get date range based on filter
-  const getDateRange = (filter: DateFilter): { start: Date; end: Date } | null => {
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
-
-    switch (filter) {
-      case 'hoy':
-        return { start: today, end: today }
-      case 'manana': {
-        const tomorrow = new Date(today)
-        tomorrow.setDate(tomorrow.getDate() + 1)
-        return { start: tomorrow, end: tomorrow }
-      }
-      case 'esta-semana': {
-        const endOfWeek = new Date(today)
-        endOfWeek.setDate(today.getDate() + (7 - today.getDay()))
-        return { start: today, end: endOfWeek }
-      }
-      case 'este-mes': {
-        const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0)
-        return { start: today, end: endOfMonth }
-      }
-      default:
-        return null
-    }
-  }
 
   // Filtered items
   const filtered = useMemo(() => {
@@ -98,19 +66,10 @@ function ProgramacionContent() {
       )
     }
 
-    // Date filtering
-    if (selectedDate && dateFilter === 'custom') {
+    // Date filtering - only calendar selection
+    if (selectedDate) {
       const dateStr = selectedDate.toISOString().split('T')[0]
       items = items.filter((i) => i.calendarDate === dateStr)
-    } else if (dateFilter !== 'todos' && dateFilter !== 'custom') {
-      const range = getDateRange(dateFilter)
-      if (range) {
-        items = items.filter((i) => {
-          if (!i.calendarDate) return false
-          const itemDate = new Date(i.calendarDate + 'T12:00:00')
-          return itemDate >= range.start && itemDate <= range.end
-        })
-      }
     }
 
     // Sort by date
@@ -120,36 +79,15 @@ function ProgramacionContent() {
     })
   }, [allItems, search, selectedDate, dateFilter])
 
-  const dateOptions: { label: string; value: DateFilter }[] = [
-    { label: 'Todas las fechas', value: 'todos' },
-    { label: 'Hoy', value: 'hoy' },
-    { label: 'Manana', value: 'manana' },
-    { label: 'Esta semana', value: 'esta-semana' },
-    { label: 'Este mes', value: 'este-mes' },
-    { label: 'Elegir fecha', value: 'custom' },
-  ]
-
   const clearFilters = () => {
     setSearch('')
     setSelectedDate(undefined)
-    setDateFilter('todos')
   }
 
-  const hasActiveFilters = search.trim() !== '' || dateFilter !== 'todos'
-
-  const handleDateFilterChange = (value: DateFilter) => {
-    setDateFilter(value)
-    if (value !== 'custom') {
-      setSelectedDate(undefined)
-      setShowCalendar(false)
-    } else {
-      setShowCalendar(true)
-    }
-  }
+  const hasActiveFilters = search.trim() !== '' || selectedDate !== undefined
 
   const handleCalendarSelect = (date: Date | undefined) => {
     setSelectedDate(date)
-    setDateFilter(date ? 'custom' : 'todos')
   }
 
   return (
@@ -225,7 +163,7 @@ function ProgramacionContent() {
                   Filtros
                   {hasActiveFilters && (
                     <Badge variant="secondary" className="ml-1">
-                      {[dateFilter !== 'todos', search.trim()].filter(Boolean).length}
+                      {[selectedDate !== undefined, search.trim()].filter(Boolean).length}
                     </Badge>
                   )}
                 </span>
@@ -234,44 +172,40 @@ function ProgramacionContent() {
 
               {/* Filter content */}
               <div className={`mt-4 space-y-6 lg:mt-0 ${showMobileFilters ? 'block' : 'hidden lg:block'}`}>
-                {/* Date filter */}
+                {/* Date filter - Calendar only */}
                 <div className="rounded-xl border border-border bg-card p-4">
-                  <h3 className="mb-4 text-sm font-semibold text-foreground">Fecha</h3>
-                  <div className="space-y-1">
-                    {dateOptions.map((opt) => (
+                  <div className="mb-4 flex items-center justify-between">
+                    <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                      <CalendarIcon className="size-4 text-primary" />
+                      Elegir fecha
+                    </h3>
+                    {selectedDate && (
                       <button
-                        key={opt.value}
-                        onClick={() => handleDateFilterChange(opt.value)}
-                        className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${
-                          dateFilter === opt.value
-                            ? 'bg-primary text-primary-foreground'
-                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                        }`}
+                        onClick={() => {
+                          setSelectedDate(undefined)
+                          setDateFilter('todos')
+                        }}
+                        className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                       >
-                        {opt.value === 'custom' && <CalendarIcon className="size-4" />}
-                        {opt.label}
+                        Limpiar
                       </button>
-                    ))}
+                    )}
                   </div>
-
-                  {/* Calendar picker */}
-                  {(showCalendar || dateFilter === 'custom') && (
-                    <div className="mt-4 border-t border-border pt-4">
-                      <div className="overflow-hidden rounded-lg border border-border/50 bg-muted/20 p-2">
-                        <Calendar
-                          mode="single"
-                          selected={selectedDate}
-                          onSelect={handleCalendarSelect}
-                          modifiers={{ event: eventDates }}
-                          className="!w-full [--cell-size:1.75rem] text-sm"
-                        />
-                      </div>
-                      <div className="mt-3 flex items-center justify-center gap-2 text-xs text-muted-foreground">
-                        <span className="size-2 rounded-full bg-primary" />
-                        <span>Dias con eventos</span>
-                      </div>
-                    </div>
-                  )}
+                  
+                  {/* Calendar picker - always visible */}
+                  <div className="overflow-hidden rounded-lg border border-border/50 bg-muted/20 p-2">
+                    <Calendar
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={handleCalendarSelect}
+                      modifiers={{ event: eventDates }}
+                      className="!w-full [--cell-size:1.75rem] text-sm"
+                    />
+                  </div>
+                  <div className="mt-3 flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                    <span className="size-2 rounded-full bg-primary" />
+                    <span>Dias con eventos</span>
+                  </div>
                 </div>
 
                 {/* Clear filters */}
@@ -334,16 +268,11 @@ function ProgramacionContent() {
                 {/* Active filter badges */}
                 {hasActiveFilters && (
                   <div className="flex flex-wrap items-center gap-2">
-                    {dateFilter !== 'todos' && (
+                    {selectedDate && (
                       <Badge variant="secondary" className="gap-1 pr-1">
-                        {dateFilter === 'custom' && selectedDate
-                          ? selectedDate.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' })
-                          : dateOptions.find((o) => o.value === dateFilter)?.label}
+                        {selectedDate.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' })}
                         <button
-                          onClick={() => {
-                            setDateFilter('todos')
-                            setSelectedDate(undefined)
-                          }}
+                          onClick={() => setSelectedDate(undefined)}
                           className="ml-1 rounded-full p-0.5 hover:bg-muted-foreground/20"
                         >
                           <X className="size-3" />
