@@ -3,17 +3,13 @@
 import { useState, useMemo, Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useSearchParams } from 'next/navigation'
 import {
   Search,
   Calendar as CalendarIcon,
   X,
   MapPin,
   Clock,
-  Music,
-  Palette,
   Users,
-  Sparkles,
   Filter,
   ChevronDown,
   ChevronUp,
@@ -32,11 +28,10 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { events, workshops, type EventItem } from '@/lib/data'
+import { events, type EventItem } from '@/lib/data'
 import { WeeklyTimetable } from '@/components/weekly-timetable'
 import { Table2, LayoutGrid } from 'lucide-react'
 
-type CategoryFilter = 'todos' | 'evento' | 'taller'
 type DateFilter = 'todos' | 'hoy' | 'manana' | 'esta-semana' | 'este-mes' | 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado' | 'custom'
 
 export default function ProgramacionPage() {
@@ -48,11 +43,6 @@ export default function ProgramacionPage() {
 }
 
 function ProgramacionContent() {
-  const searchParams = useSearchParams()
-  const initialCategory = (searchParams.get('categoria') as CategoryFilter) || 'todos'
-  const [category, setCategory] = useState<CategoryFilter>(
-    ['todos', 'evento', 'taller'].includes(initialCategory) ? initialCategory : 'todos'
-  )
   const [search, setSearch] = useState('')
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const [dateFilter, setDateFilter] = useState<DateFilter>('todos')
@@ -60,7 +50,7 @@ function ProgramacionContent() {
   const [showCalendar, setShowCalendar] = useState(false)
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid')
 
-  const allItems = useMemo(() => [...events, ...workshops], [])
+  const allItems = useMemo(() => [...events], [])
 
   // Get day from date string
   const getDayFromDate = (dateStr: string): string => {
@@ -117,10 +107,6 @@ function ProgramacionContent() {
   const filtered = useMemo(() => {
     let items = allItems
 
-    if (category !== 'todos') {
-      items = items.filter((i) => i.category === category)
-    }
-
     if (search.trim()) {
       const q = search.toLowerCase()
       items = items.filter(
@@ -157,13 +143,7 @@ function ProgramacionContent() {
       if (!a.calendarDate || !b.calendarDate) return 0
       return new Date(a.calendarDate).getTime() - new Date(b.calendarDate).getTime()
     })
-  }, [allItems, category, search, selectedDate, dateFilter])
-
-  const categoryOptions: { label: string; value: CategoryFilter; icon: React.ReactNode }[] = [
-    { label: 'Todos', value: 'todos', icon: <Sparkles className="size-4" /> },
-    { label: 'Eventos', value: 'evento', icon: <Music className="size-4" /> },
-    { label: 'Talleres', value: 'taller', icon: <Palette className="size-4" /> },
-  ]
+  }, [allItems, search, selectedDate, dateFilter])
 
   const dateOptions: { label: string; value: DateFilter; isDay?: boolean }[] = [
     { label: 'Todas las fechas', value: 'todos' },
@@ -181,14 +161,12 @@ function ProgramacionContent() {
   ]
 
   const clearFilters = () => {
-    setCategory('todos')
     setSearch('')
     setSelectedDate(undefined)
     setDateFilter('todos')
   }
 
-  const hasActiveFilters =
-    category !== 'todos' || search.trim() !== '' || dateFilter !== 'todos'
+  const hasActiveFilters = search.trim() !== '' || dateFilter !== 'todos'
 
   const handleDateFilterChange = (value: DateFilter) => {
     setDateFilter(value)
@@ -278,7 +256,7 @@ function ProgramacionContent() {
                   Filtros
                   {hasActiveFilters && (
                     <Badge variant="secondary" className="ml-1">
-                      {[category !== 'todos', dateFilter !== 'todos', search.trim()].filter(Boolean).length}
+                      {[dateFilter !== 'todos', search.trim()].filter(Boolean).length}
                     </Badge>
                   )}
                 </span>
@@ -287,32 +265,6 @@ function ProgramacionContent() {
 
               {/* Filter content */}
               <div className={`mt-4 space-y-6 lg:mt-0 ${showMobileFilters ? 'block' : 'hidden lg:block'}`}>
-                {/* Category filter */}
-                <div className="rounded-xl border border-border bg-card p-4">
-                  <h3 className="mb-4 text-sm font-semibold text-foreground">Categoria</h3>
-                  <div className="space-y-1">
-                    {categoryOptions.map((opt) => (
-                      <button
-                        key={opt.value}
-                        onClick={() => setCategory(opt.value)}
-                        className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${
-                          category === opt.value
-                            ? 'bg-primary text-primary-foreground'
-                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                        }`}
-                      >
-                        {opt.icon}
-                        {opt.label}
-                        <span className="ml-auto text-xs opacity-70">
-                          {opt.value === 'todos'
-                            ? allItems.length
-                            : allItems.filter((i) => i.category === opt.value).length}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
                 {/* Date filter */}
                 <div className="rounded-xl border border-border bg-card p-4">
                   <h3 className="mb-4 text-sm font-semibold text-foreground">Fecha</h3>
@@ -442,17 +394,6 @@ function ProgramacionContent() {
                 {/* Active filter badges */}
                 {hasActiveFilters && (
                   <div className="flex flex-wrap items-center gap-2">
-                    {category !== 'todos' && (
-                      <Badge variant="secondary" className="gap-1 pr-1">
-                        {category === 'evento' ? 'Eventos' : 'Talleres'}
-                        <button
-                          onClick={() => setCategory('todos')}
-                          className="ml-1 rounded-full p-0.5 hover:bg-muted-foreground/20"
-                        >
-                          <X className="size-3" />
-                        </button>
-                      </Badge>
-                    )}
                     {dateFilter !== 'todos' && (
                       <Badge variant="secondary" className="gap-1 pr-1">
                         {dateFilter === 'custom' && selectedDate
