@@ -29,7 +29,7 @@ function Calendar({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn(
-        'bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent',
+        'bg-background group/calendar p-3 [--cell-size:2.25rem] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent',
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
         className,
@@ -41,9 +41,9 @@ function Calendar({
         ...formatters,
       }}
       classNames={{
-        root: cn('w-fit', defaultClassNames.root),
+        root: cn('w-full', defaultClassNames.root),
         months: cn(
-          'flex gap-4 flex-col md:flex-row relative',
+          'flex gap-4 flex-col md:flex-row relative w-full',
           defaultClassNames.months,
         ),
         month: cn('flex flex-col w-full gap-4', defaultClassNames.month),
@@ -85,12 +85,12 @@ function Calendar({
           defaultClassNames.caption_label,
         ),
         table: 'w-full border-collapse',
-        weekdays: cn('flex', defaultClassNames.weekdays),
+        weekdays: cn('flex w-full', defaultClassNames.weekdays),
         weekday: cn(
-          'text-muted-foreground rounded-md flex-1 font-normal text-[0.8rem] select-none',
+          'text-muted-foreground rounded-md flex-1 font-medium text-xs select-none py-2',
           defaultClassNames.weekday,
         ),
-        week: cn('flex w-full mt-2', defaultClassNames.week),
+        week: cn('flex w-full mt-1', defaultClassNames.week),
         week_number_header: cn(
           'select-none w-(--cell-size)',
           defaultClassNames.week_number_header,
@@ -100,7 +100,7 @@ function Calendar({
           defaultClassNames.week_number,
         ),
         day: cn(
-          'relative w-full h-full p-0 text-center [&:first-child[data-selected=true]_button]:rounded-l-md [&:last-child[data-selected=true]_button]:rounded-r-md group/day aspect-square select-none',
+          'relative flex-1 h-full p-0.5 text-center [&:first-child[data-selected=true]_button]:rounded-l-md [&:last-child[data-selected=true]_button]:rounded-r-md group/day aspect-square select-none',
           defaultClassNames.day,
         ),
         range_start: cn(

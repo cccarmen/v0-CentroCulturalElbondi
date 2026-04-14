@@ -256,18 +256,20 @@ function ProgramacionContent() {
 
                   {/* Calendar picker */}
                   {(showCalendar || dateFilter === 'custom') && (
-                    <div className="mt-4 border-t border-border pt-4">
-                      <Calendar
-                        mode="single"
-                        selected={selectedDate}
-                        onSelect={handleCalendarSelect}
-                        modifiers={{ event: eventDates }}
-                        className="p-0"
-                      />
-                      <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
-                        <span className="flex items-center gap-1.5">
-                          <span className="size-2 rounded-full bg-primary" />
-                          Dias con eventos
+                    <div className="mt-4 border-t border-border pt-5">
+                      <div className="rounded-xl border border-border/50 bg-muted/30 p-3">
+                        <Calendar
+                          mode="single"
+                          selected={selectedDate}
+                          onSelect={handleCalendarSelect}
+                          modifiers={{ event: eventDates }}
+                          className="w-full [--cell-size:2.5rem]"
+                        />
+                      </div>
+                      <div className="mt-4 flex items-center justify-center gap-2 rounded-lg bg-primary/5 px-3 py-2 text-xs text-muted-foreground">
+                        <span className="flex items-center gap-2">
+                          <span className="size-2.5 rounded-full bg-primary shadow-sm" />
+                          <span className="font-medium">Dias con eventos</span>
                         </span>
                       </div>
                     </div>
