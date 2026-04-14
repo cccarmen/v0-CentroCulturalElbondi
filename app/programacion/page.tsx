@@ -37,7 +37,7 @@ import { WeeklyTimetable } from '@/components/weekly-timetable'
 import { Table2, LayoutGrid } from 'lucide-react'
 
 type CategoryFilter = 'todos' | 'evento' | 'taller'
-type DateFilter = 'todos' | 'hoy' | 'manana' | 'esta-semana' | 'este-mes' | 'custom'
+type DateFilter = 'todos' | 'hoy' | 'manana' | 'esta-semana' | 'este-mes' | 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado' | 'custom'
 
 export default function ProgramacionPage() {
   return (
@@ -61,6 +61,23 @@ function ProgramacionContent() {
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid')
 
   const allItems = useMemo(() => [...events, ...workshops], [])
+
+  // Get day from date string
+  const getDayFromDate = (dateStr: string): string => {
+    const lower = dateStr.toLowerCase()
+    if (lower.includes('lunes')) return 'lunes'
+    if (lower.includes('martes')) return 'martes'
+    if (lower.includes('miercoles') || lower.includes('miércoles')) return 'miercoles'
+    if (lower.includes('jueves')) return 'jueves'
+    if (lower.includes('viernes')) return 'viernes'
+    if (lower.includes('sabado') || lower.includes('sábado')) return 'sabado'
+    return ''
+  }
+
+  // Check if dateFilter is a day of the week
+  const isDayFilter = (filter: DateFilter): filter is 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado' => {
+    return ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'].includes(filter)
+  }
 
   // Dates that have events (for calendar highlighting)
   const eventDates = useMemo(() => {
@@ -114,10 +131,16 @@ function ProgramacionContent() {
       )
     }
 
-    // Date filtering
+    // Date filtering - now includes days of the week
     if (selectedDate && dateFilter === 'custom') {
       const dateStr = selectedDate.toISOString().split('T')[0]
       items = items.filter((i) => i.calendarDate === dateStr)
+    } else if (isDayFilter(dateFilter)) {
+      // Filter by day of the week
+      items = items.filter((i) => {
+        const day = getDayFromDate(i.date)
+        return day === dateFilter
+      })
     } else if (dateFilter !== 'todos' && dateFilter !== 'custom') {
       const range = getDateRange(dateFilter)
       if (range) {
@@ -142,12 +165,18 @@ function ProgramacionContent() {
     { label: 'Talleres', value: 'taller', icon: <Palette className="size-4" /> },
   ]
 
-  const dateOptions: { label: string; value: DateFilter }[] = [
+  const dateOptions: { label: string; value: DateFilter; isDay?: boolean }[] = [
     { label: 'Todas las fechas', value: 'todos' },
     { label: 'Hoy', value: 'hoy' },
     { label: 'Manana', value: 'manana' },
     { label: 'Esta semana', value: 'esta-semana' },
     { label: 'Este mes', value: 'este-mes' },
+    { label: 'Lunes', value: 'lunes', isDay: true },
+    { label: 'Martes', value: 'martes', isDay: true },
+    { label: 'Miercoles', value: 'miercoles', isDay: true },
+    { label: 'Jueves', value: 'jueves', isDay: true },
+    { label: 'Viernes', value: 'viernes', isDay: true },
+    { label: 'Sabado', value: 'sabado', isDay: true },
     { label: 'Elegir fecha', value: 'custom' },
   ]
 

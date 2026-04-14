@@ -41,8 +41,7 @@ import { WeeklyTimetable } from '@/components/weekly-timetable'
 import { Table2, LayoutGrid } from 'lucide-react'
 
 type TallerCategory = 'todos' | 'circo' | 'musica' | 'danza' | 'arte'
-type DayFilter = 'todos' | 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado'
-type DateFilter = 'todos' | 'esta-semana' | 'este-mes' | 'custom'
+type DateFilter = 'todos' | 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado' | 'esta-semana' | 'este-mes' | 'custom'
 
 export default function TalleresPage() {
   return (
@@ -54,7 +53,6 @@ export default function TalleresPage() {
 
 function TalleresContent() {
   const [tallerCategory, setTallerCategory] = useState<TallerCategory>('todos')
-  const [dayFilter, setDayFilter] = useState<DayFilter>('todos')
   const [search, setSearch] = useState('')
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const [dateFilter, setDateFilter] = useState<DateFilter>('todos')
@@ -118,6 +116,11 @@ function TalleresContent() {
     }
   }
 
+  // Check if dateFilter is a day of the week
+  const isDayFilter = (filter: DateFilter): filter is 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado' => {
+    return ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'].includes(filter)
+  }
+
   // Filtered items
   const filtered = useMemo(() => {
     let items = [...workshops]
@@ -125,14 +128,6 @@ function TalleresContent() {
     // Category filter
     if (tallerCategory !== 'todos') {
       items = items.filter((i) => categorizeWorkshop(i) === tallerCategory)
-    }
-
-    // Day filter
-    if (dayFilter !== 'todos') {
-      items = items.filter((i) => {
-        const day = getDayFromDate(i.date)
-        return day === dayFilter
-      })
     }
 
     // Search filter
@@ -147,10 +142,16 @@ function TalleresContent() {
       )
     }
 
-    // Date filtering
+    // Date filtering - now includes days of the week
     if (selectedDate && dateFilter === 'custom') {
       const dateStr = selectedDate.toISOString().split('T')[0]
       items = items.filter((i) => i.calendarDate === dateStr)
+    } else if (isDayFilter(dateFilter)) {
+      // Filter by day of the week
+      items = items.filter((i) => {
+        const day = getDayFromDate(i.date)
+        return day === dateFilter
+      })
     } else if (dateFilter !== 'todos' && dateFilter !== 'custom') {
       const range = getDateRange(dateFilter)
       if (range) {
@@ -163,7 +164,7 @@ function TalleresContent() {
     }
 
     return items
-  }, [tallerCategory, dayFilter, search, selectedDate, dateFilter])
+  }, [tallerCategory, search, selectedDate, dateFilter])
 
   const categoryOptions: { label: string; value: TallerCategory; icon: React.ReactNode }[] = [
     { label: 'Todos los talleres', value: 'todos', icon: <GraduationCap className="size-4" /> },
@@ -173,33 +174,28 @@ function TalleresContent() {
     { label: 'Arte y Expresion', value: 'arte', icon: <Palette className="size-4" /> },
   ]
 
-  const dayOptions: { label: string; value: DayFilter }[] = [
-    { label: 'Todos los dias', value: 'todos' },
-    { label: 'Lunes', value: 'lunes' },
-    { label: 'Martes', value: 'martes' },
-    { label: 'Miercoles', value: 'miercoles' },
-    { label: 'Jueves', value: 'jueves' },
-    { label: 'Viernes', value: 'viernes' },
-    { label: 'Sabado', value: 'sabado' },
-  ]
-
-  const dateOptions: { label: string; value: DateFilter }[] = [
+  const dateOptions: { label: string; value: DateFilter; isDay?: boolean }[] = [
     { label: 'Todas las fechas', value: 'todos' },
     { label: 'Esta semana', value: 'esta-semana' },
     { label: 'Este mes', value: 'este-mes' },
+    { label: 'Lunes', value: 'lunes', isDay: true },
+    { label: 'Martes', value: 'martes', isDay: true },
+    { label: 'Miercoles', value: 'miercoles', isDay: true },
+    { label: 'Jueves', value: 'jueves', isDay: true },
+    { label: 'Viernes', value: 'viernes', isDay: true },
+    { label: 'Sabado', value: 'sabado', isDay: true },
     { label: 'Elegir fecha', value: 'custom' },
   ]
 
   const clearFilters = () => {
     setTallerCategory('todos')
-    setDayFilter('todos')
     setSearch('')
     setSelectedDate(undefined)
     setDateFilter('todos')
   }
 
   const hasActiveFilters =
-    tallerCategory !== 'todos' || dayFilter !== 'todos' || search.trim() !== '' || dateFilter !== 'todos'
+    tallerCategory !== 'todos' || search.trim() !== '' || dateFilter !== 'todos'
 
   const handleDateFilterChange = (value: DateFilter) => {
     setDateFilter(value)
@@ -297,7 +293,7 @@ function TalleresContent() {
                   Filtros
                   {hasActiveFilters && (
                     <Badge variant="secondary" className="ml-1">
-                      {[tallerCategory !== 'todos', dayFilter !== 'todos', dateFilter !== 'todos', search.trim()].filter(Boolean).length}
+                      {[tallerCategory !== 'todos', dateFilter !== 'todos', search.trim()].filter(Boolean).length}
                     </Badge>
                   )}
                 </span>
@@ -330,29 +326,9 @@ function TalleresContent() {
                   </div>
                 </div>
 
-                {/* Day filter */}
+                {/* Date filter - unified days and date ranges */}
                 <div className="rounded-xl border border-border bg-card p-4">
-                  <h3 className="mb-4 text-sm font-semibold text-foreground">Dia de la semana</h3>
-                  <div className="space-y-1">
-                    {dayOptions.map((opt) => (
-                      <button
-                        key={opt.value}
-                        onClick={() => setDayFilter(opt.value)}
-                        className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${
-                          dayFilter === opt.value
-                            ? 'bg-primary text-primary-foreground'
-                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                        }`}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Date filter */}
-                <div className="rounded-xl border border-border bg-card p-4">
-                  <h3 className="mb-4 text-sm font-semibold text-foreground">Fecha de inicio</h3>
+                  <h3 className="mb-4 text-sm font-semibold text-foreground">Fecha</h3>
                   <div className="space-y-1">
                     {dateOptions.map((opt) => (
                       <button
@@ -462,17 +438,6 @@ function TalleresContent() {
                         {categoryOptions.find((o) => o.value === tallerCategory)?.label}
                         <button
                           onClick={() => setTallerCategory('todos')}
-                          className="ml-1 rounded-full p-0.5 hover:bg-muted-foreground/20"
-                        >
-                          <X className="size-3" />
-                        </button>
-                      </Badge>
-                    )}
-                    {dayFilter !== 'todos' && (
-                      <Badge variant="secondary" className="gap-1 pr-1">
-                        {dayOptions.find((o) => o.value === dayFilter)?.label}
-                        <button
-                          onClick={() => setDayFilter('todos')}
                           className="ml-1 rounded-full p-0.5 hover:bg-muted-foreground/20"
                         >
                           <X className="size-3" />
