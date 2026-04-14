@@ -262,14 +262,14 @@ function ProgramacionContent() {
                         selected={selectedDate}
                         onSelect={handleCalendarSelect}
                         modifiers={{ event: eventDates }}
-                        modifiersClassNames={{
-                          event: 'bg-primary/20 text-primary font-bold',
-                        }}
                         className="p-0"
                       />
-                      <p className="mt-2 text-xs text-muted-foreground">
-                        Los dias resaltados tienen actividades.
-                      </p>
+                      <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
+                        <span className="flex items-center gap-1.5">
+                          <span className="size-2 rounded-full bg-primary" />
+                          Dias con eventos
+                        </span>
+                      </div>
                     </div>
                   )}
                 </div>
