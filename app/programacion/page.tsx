@@ -169,7 +169,7 @@ function ProgramacionContent() {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Programacion</BreadcrumbPage>
+                <BreadcrumbPage>Eventos</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -180,10 +180,10 @@ function ProgramacionContent() {
       <section className="relative bg-primary px-4 pt-12 pb-8 lg:pt-16 lg:pb-12">
         <div className="mx-auto max-w-7xl">
           <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
-            Programacion
+            Eventos
           </h1>
           <p className="mt-3 max-w-xl text-base leading-relaxed text-primary-foreground/80">
-            Descubri eventos, talleres y actividades en El Bondi
+            Descubre eventos en El Bondi
           </p>
 
           {/* Search bar - Eventbrite style */}
