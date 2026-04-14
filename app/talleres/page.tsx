@@ -37,6 +37,8 @@ import {
 } from '@/components/ui/breadcrumb'
 import { workshops, type EventItem } from '@/lib/data'
 import { Navbar } from '@/components/navbar'
+import { WeeklyTimetable } from '@/components/weekly-timetable'
+import { Table2, LayoutGrid } from 'lucide-react'
 
 type TallerCategory = 'todos' | 'circo' | 'musica' | 'danza' | 'arte'
 type DayFilter = 'todos' | 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado'
@@ -58,6 +60,7 @@ function TalleresContent() {
   const [dateFilter, setDateFilter] = useState<DateFilter>('todos')
   const [showMobileFilters, setShowMobileFilters] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
+  const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid')
 
   // Categorize workshops based on their content
   const categorizeWorkshop = (item: EventItem): TallerCategory => {
@@ -416,10 +419,39 @@ function TalleresContent() {
             <div className="flex-1">
               {/* Results header */}
               <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-                <div>
+                <div className="flex items-center gap-4">
                   <p className="text-sm text-muted-foreground">
                     {filtered.length} taller{filtered.length !== 1 ? 'es' : ''} encontrado{filtered.length !== 1 ? 's' : ''}
                   </p>
+                  {/* View toggle */}
+                  <div className="flex gap-1 rounded-lg border border-border bg-muted p-1">
+                    <button
+                      type="button"
+                      onClick={() => setViewMode('grid')}
+                      className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                        viewMode === 'grid'
+                          ? 'bg-background text-foreground shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground'
+                      }`}
+                      aria-label="Vista de tarjetas"
+                    >
+                      <LayoutGrid className="size-3.5" />
+                      <span className="hidden sm:inline">Tarjetas</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setViewMode('table')}
+                      className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                        viewMode === 'table'
+                          ? 'bg-background text-foreground shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground'
+                      }`}
+                      aria-label="Vista de tabla semanal"
+                    >
+                      <Table2 className="size-3.5" />
+                      <span className="hidden sm:inline">Semanal</span>
+                    </button>
+                  </div>
                 </div>
 
                 {/* Active filter badges */}
@@ -478,8 +510,10 @@ function TalleresContent() {
                 )}
               </div>
 
-              {/* Results grid */}
-              {filtered.length > 0 ? (
+              {/* Results: Grid or Timetable view */}
+              {viewMode === 'table' ? (
+                <WeeklyTimetable mode="talleres" />
+              ) : filtered.length > 0 ? (
                 <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                   {filtered.map((item, index) => (
                     <ScrollReveal key={item.slug} delay={index * 40} className="h-full">
