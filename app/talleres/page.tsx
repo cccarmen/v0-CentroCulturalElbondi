@@ -36,6 +36,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { workshops, type EventItem } from '@/lib/data'
+import { Navbar } from '@/components/navbar'
 
 type TallerCategory = 'todos' | 'circo' | 'musica' | 'danza' | 'arte'
 type DayFilter = 'todos' | 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado'
@@ -220,6 +221,8 @@ function TalleresContent() {
 
   return (
     <>
+      <Navbar />
+      
       {/* Breadcrumb */}
       <section className="border-b border-border/40 bg-secondary/30 px-4 py-4">
         <div className="mx-auto max-w-7xl">
