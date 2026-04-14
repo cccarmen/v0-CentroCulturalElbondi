@@ -10,6 +10,7 @@ const navLinks = [
   { label: 'Eventos', href: '/programacion' },
   { label: 'Talleres y Bachilleratos', href: '/talleres' },
   { label: 'Radio Espacio', href: '/radio-espacio' },
+  { label: 'FAQ', href: '/faq' },
 ]
 
 export function Navbar() {
