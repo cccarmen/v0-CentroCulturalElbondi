@@ -87,10 +87,10 @@ function Calendar({
         table: 'w-full border-collapse',
         weekdays: cn('flex w-full', defaultClassNames.weekdays),
         weekday: cn(
-          'text-muted-foreground rounded-md flex-1 font-medium text-[0.7rem] select-none py-1 text-center',
+          'text-muted-foreground rounded-md flex-1 font-medium text-[0.7rem] select-none py-2 text-center',
           defaultClassNames.weekday,
         ),
-        week: cn('flex w-full mt-0.5', defaultClassNames.week),
+        week: cn('flex w-full mt-1.5', defaultClassNames.week),
         week_number_header: cn(
           'select-none w-(--cell-size)',
           defaultClassNames.week_number_header,
