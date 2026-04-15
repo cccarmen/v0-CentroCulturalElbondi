@@ -28,7 +28,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { events, type EventItem } from '@/lib/data'
+import { events, EVENT_TYPES, type EventItem, type EventType } from '@/lib/data'
 
 export default function ProgramacionPage() {
   return (
@@ -41,6 +41,7 @@ export default function ProgramacionPage() {
 function ProgramacionContent() {
   const [search, setSearch] = useState('')
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
+  const [selectedTypes, setSelectedTypes] = useState<EventType[]>([])
   const [showMobileFilters, setShowMobileFilters] = useState(false)
 
   const allItems = useMemo(() => [...events], [])
@@ -72,19 +73,31 @@ function ProgramacionContent() {
       items = items.filter((i) => i.calendarDate === dateStr)
     }
 
+    // Event type filtering
+    if (selectedTypes.length > 0) {
+      items = items.filter((i) => i.eventType && selectedTypes.includes(i.eventType))
+    }
+
     // Sort by date
     return items.sort((a, b) => {
       if (!a.calendarDate || !b.calendarDate) return 0
       return new Date(a.calendarDate).getTime() - new Date(b.calendarDate).getTime()
     })
-  }, [allItems, search, selectedDate])
+  }, [allItems, search, selectedDate, selectedTypes])
 
   const clearFilters = () => {
     setSearch('')
     setSelectedDate(undefined)
+    setSelectedTypes([])
   }
 
-  const hasActiveFilters = search.trim() !== '' || selectedDate !== undefined
+  const hasActiveFilters = search.trim() !== '' || selectedDate !== undefined || selectedTypes.length > 0
+
+  const toggleEventType = (type: EventType) => {
+    setSelectedTypes((prev) =>
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
+    )
+  }
 
   const handleCalendarSelect = (date: Date | undefined) => {
     setSelectedDate(date)
@@ -163,7 +176,7 @@ function ProgramacionContent() {
                   Filtros
                   {hasActiveFilters && (
                     <Badge variant="secondary" className="ml-1">
-                      {[selectedDate !== undefined, search.trim()].filter(Boolean).length}
+                      {[selectedDate !== undefined, search.trim(), selectedTypes.length > 0].filter(Boolean).length}
                     </Badge>
                   )}
                 </span>
@@ -202,6 +215,39 @@ function ProgramacionContent() {
                   <div className="mt-3 flex items-center justify-center gap-2 text-xs text-muted-foreground">
                     <span className="size-2 rounded-full bg-primary" />
                     <span>Dias con eventos</span>
+                  </div>
+                </div>
+
+                {/* Event type filter */}
+                <div className="rounded-xl border border-border bg-card p-4">
+                  <div className="mb-4 flex items-center justify-between">
+                    <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                      <Filter className="size-4 text-primary" />
+                      Tipo de evento
+                    </h3>
+                    {selectedTypes.length > 0 && (
+                      <button
+                        onClick={() => setSelectedTypes([])}
+                        className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        Limpiar
+                      </button>
+                    )}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {EVENT_TYPES.map((type) => (
+                      <button
+                        key={type.value}
+                        onClick={() => toggleEventType(type.value)}
+                        className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+                          selectedTypes.includes(type.value)
+                            ? 'bg-primary text-primary-foreground'
+                            : 'bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground'
+                        }`}
+                      >
+                        {type.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
 
@@ -287,6 +333,20 @@ function ProgramacionContent() {
                         </button>
                       </Badge>
                     )}
+                    {selectedTypes.map((type) => {
+                      const typeLabel = EVENT_TYPES.find((t) => t.value === type)?.label || type
+                      return (
+                        <Badge key={type} variant="secondary" className="gap-1 pr-1">
+                          {typeLabel}
+                          <button
+                            onClick={() => toggleEventType(type)}
+                            className="ml-1 rounded-full p-0.5 hover:bg-muted-foreground/20"
+                          >
+                            <X className="size-3" />
+                          </button>
+                        </Badge>
+                      )
+                    })}
                   </div>
                 )}
               </div>
