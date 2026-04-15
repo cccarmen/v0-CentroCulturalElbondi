@@ -14,6 +14,12 @@ import {
   ChevronDown,
   ChevronUp,
   Home,
+  Music,
+  Theater,
+  PartyPopper,
+  Palette,
+  BookOpen,
+  Sparkles,
 } from 'lucide-react'
 import { Calendar } from '@/components/ui/calendar'
 import { Badge } from '@/components/ui/badge'
@@ -218,36 +224,61 @@ function ProgramacionContent() {
                   </div>
                 </div>
 
-                {/* Event type filter */}
+                {/* Event type filter - vertical list style */}
                 <div className="rounded-xl border border-border bg-card p-4">
-                  <div className="mb-4 flex items-center justify-between">
-                    <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                      <Filter className="size-4 text-primary" />
-                      Tipo de evento
-                    </h3>
-                    {selectedTypes.length > 0 && (
-                      <button
-                        onClick={() => setSelectedTypes([])}
-                        className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        Limpiar
-                      </button>
-                    )}
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {EVENT_TYPES.map((type) => (
-                      <button
-                        key={type.value}
-                        onClick={() => toggleEventType(type.value)}
-                        className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
-                          selectedTypes.includes(type.value)
-                            ? 'bg-primary text-primary-foreground'
-                            : 'bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground'
-                        }`}
-                      >
-                        {type.label}
-                      </button>
-                    ))}
+                  <h3 className="mb-4 text-sm font-semibold text-foreground">
+                    Categoria
+                  </h3>
+                  <div className="flex flex-col gap-1">
+                    {/* All events option */}
+                    <button
+                      onClick={() => setSelectedTypes([])}
+                      className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                        selectedTypes.length === 0
+                          ? 'bg-primary text-primary-foreground'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                      }`}
+                    >
+                      <span className="flex items-center gap-3">
+                        <Sparkles className="size-4" />
+                        Todos los eventos
+                      </span>
+                      <span className="text-xs">{allItems.length}</span>
+                    </button>
+                    {/* Individual category options */}
+                    {EVENT_TYPES.map((type) => {
+                      const count = allItems.filter((i) => i.eventType === type.value).length
+                      const Icon = type.value === 'concierto' ? Music :
+                                   type.value === 'variete' ? Theater :
+                                   type.value === 'baile' ? Users :
+                                   type.value === 'fiesta' ? PartyPopper :
+                                   type.value === 'arte' ? Palette :
+                                   BookOpen
+                      const isSelected = selectedTypes.includes(type.value)
+                      return (
+                        <button
+                          key={type.value}
+                          onClick={() => {
+                            if (isSelected) {
+                              setSelectedTypes(selectedTypes.filter((t) => t !== type.value))
+                            } else {
+                              setSelectedTypes([type.value])
+                            }
+                          }}
+                          className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                            isSelected
+                              ? 'bg-primary text-primary-foreground'
+                              : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                          }`}
+                        >
+                          <span className="flex items-center gap-3">
+                            <Icon className="size-4" />
+                            {type.label}
+                          </span>
+                          <span className="text-xs">{count}</span>
+                        </button>
+                      )
+                    })}
                   </div>
                 </div>
 
