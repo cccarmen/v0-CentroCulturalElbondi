@@ -191,39 +191,6 @@ function ProgramacionContent() {
 
               {/* Filter content */}
               <div className={`mt-4 space-y-6 lg:mt-0 ${showMobileFilters ? 'block' : 'hidden lg:block'}`}>
-                {/* Date filter - Calendar only */}
-                <div className="rounded-xl border border-border bg-card p-4">
-                  <div className="mb-4 flex items-center justify-between">
-                    <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                      <CalendarIcon className="size-4 text-primary" />
-                      Elegir fecha
-                    </h3>
-                    {selectedDate && (
-                      <button
-                        onClick={() => setSelectedDate(undefined)}
-                        className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        Limpiar
-                      </button>
-                    )}
-                  </div>
-                  
-                  {/* Calendar picker - always visible */}
-                  <div className="overflow-hidden rounded-lg border border-border/50 bg-muted/20 p-2">
-                    <Calendar
-                      mode="single"
-                      selected={selectedDate}
-                      onSelect={handleCalendarSelect}
-                      modifiers={{ event: eventDates }}
-                      className="!w-full [--cell-size:1.75rem] text-sm"
-                    />
-                  </div>
-                  <div className="mt-3 flex items-center justify-center gap-2 text-xs text-muted-foreground">
-                    <span className="size-2 rounded-full bg-primary" />
-                    <span>Dias con eventos</span>
-                  </div>
-                </div>
-
                 {/* Event type filter - vertical list style */}
                 <div className="rounded-xl border border-border bg-card p-4">
                   <h3 className="mb-4 text-sm font-semibold text-foreground">
@@ -279,6 +246,39 @@ function ProgramacionContent() {
                         </button>
                       )
                     })}
+                  </div>
+                </div>
+
+                {/* Date filter - Calendar only */}
+                <div className="rounded-xl border border-border bg-card p-4">
+                  <div className="mb-4 flex items-center justify-between">
+                    <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                      <CalendarIcon className="size-4 text-primary" />
+                      Elegir fecha
+                    </h3>
+                    {selectedDate && (
+                      <button
+                        onClick={() => setSelectedDate(undefined)}
+                        className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        Limpiar
+                      </button>
+                    )}
+                  </div>
+                  
+                  {/* Calendar picker - always visible */}
+                  <div className="overflow-hidden rounded-lg border border-border/50 bg-muted/20 p-2">
+                    <Calendar
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={handleCalendarSelect}
+                      modifiers={{ event: eventDates }}
+                      className="!w-full [--cell-size:1.75rem] text-sm"
+                    />
+                  </div>
+                  <div className="mt-3 flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                    <span className="size-2 rounded-full bg-primary" />
+                    <span>Dias con eventos</span>
                   </div>
                 </div>
 
