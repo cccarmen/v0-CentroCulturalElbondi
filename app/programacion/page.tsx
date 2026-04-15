@@ -14,6 +14,12 @@ import {
   ChevronDown,
   ChevronUp,
   Home,
+  Music,
+  Theater,
+  PartyPopper,
+  Palette,
+  BookOpen,
+  Sparkles,
 } from 'lucide-react'
 import { Calendar } from '@/components/ui/calendar'
 import { Badge } from '@/components/ui/badge'
@@ -28,7 +34,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { events, type EventItem } from '@/lib/data'
+import { events, EVENT_TYPES, type EventItem, type EventType } from '@/lib/data'
 
 export default function ProgramacionPage() {
   return (
@@ -41,6 +47,7 @@ export default function ProgramacionPage() {
 function ProgramacionContent() {
   const [search, setSearch] = useState('')
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
+  const [selectedTypes, setSelectedTypes] = useState<EventType[]>([])
   const [showMobileFilters, setShowMobileFilters] = useState(false)
 
   const allItems = useMemo(() => [...events], [])
@@ -72,19 +79,31 @@ function ProgramacionContent() {
       items = items.filter((i) => i.calendarDate === dateStr)
     }
 
+    // Event type filtering
+    if (selectedTypes.length > 0) {
+      items = items.filter((i) => i.eventType && selectedTypes.includes(i.eventType))
+    }
+
     // Sort by date
     return items.sort((a, b) => {
       if (!a.calendarDate || !b.calendarDate) return 0
       return new Date(a.calendarDate).getTime() - new Date(b.calendarDate).getTime()
     })
-  }, [allItems, search, selectedDate])
+  }, [allItems, search, selectedDate, selectedTypes])
 
   const clearFilters = () => {
     setSearch('')
     setSelectedDate(undefined)
+    setSelectedTypes([])
   }
 
-  const hasActiveFilters = search.trim() !== '' || selectedDate !== undefined
+  const hasActiveFilters = search.trim() !== '' || selectedDate !== undefined || selectedTypes.length > 0
+
+  const toggleEventType = (type: EventType) => {
+    setSelectedTypes((prev) =>
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
+    )
+  }
 
   const handleCalendarSelect = (date: Date | undefined) => {
     setSelectedDate(date)
@@ -163,7 +182,7 @@ function ProgramacionContent() {
                   Filtros
                   {hasActiveFilters && (
                     <Badge variant="secondary" className="ml-1">
-                      {[selectedDate !== undefined, search.trim()].filter(Boolean).length}
+                      {[selectedDate !== undefined, search.trim(), selectedTypes.length > 0].filter(Boolean).length}
                     </Badge>
                   )}
                 </span>
@@ -172,6 +191,64 @@ function ProgramacionContent() {
 
               {/* Filter content */}
               <div className={`mt-4 space-y-6 lg:mt-0 ${showMobileFilters ? 'block' : 'hidden lg:block'}`}>
+                {/* Event type filter - vertical list style */}
+                <div className="rounded-xl border border-border bg-card p-4">
+                  <h3 className="mb-4 text-sm font-semibold text-foreground">
+                    Categoria
+                  </h3>
+                  <div className="flex flex-col gap-1">
+                    {/* All events option */}
+                    <button
+                      onClick={() => setSelectedTypes([])}
+                      className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                        selectedTypes.length === 0
+                          ? 'bg-primary text-primary-foreground'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                      }`}
+                    >
+                      <span className="flex items-center gap-3">
+                        <Sparkles className="size-4" />
+                        Todos los eventos
+                      </span>
+                      <span className="text-xs">{allItems.length}</span>
+                    </button>
+                    {/* Individual category options */}
+                    {EVENT_TYPES.map((type) => {
+                      const count = allItems.filter((i) => i.eventType === type.value).length
+                      const Icon = type.value === 'concierto' ? Music :
+                                   type.value === 'variete' ? Theater :
+                                   type.value === 'baile' ? Users :
+                                   type.value === 'fiesta' ? PartyPopper :
+                                   type.value === 'arte' ? Palette :
+                                   BookOpen
+                      const isSelected = selectedTypes.includes(type.value)
+                      return (
+                        <button
+                          key={type.value}
+                          onClick={() => {
+                            if (isSelected) {
+                              setSelectedTypes(selectedTypes.filter((t) => t !== type.value))
+                            } else {
+                              setSelectedTypes([type.value])
+                            }
+                          }}
+                          className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                            isSelected
+                              ? 'bg-primary text-primary-foreground'
+                              : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                          }`}
+                        >
+                          <span className="flex items-center gap-3">
+                            <Icon className="size-4" />
+                            {type.label}
+                          </span>
+                          <span className="text-xs">{count}</span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+
                 {/* Date filter - Calendar only */}
                 <div className="rounded-xl border border-border bg-card p-4">
                   <div className="mb-4 flex items-center justify-between">
@@ -287,6 +364,20 @@ function ProgramacionContent() {
                         </button>
                       </Badge>
                     )}
+                    {selectedTypes.map((type) => {
+                      const typeLabel = EVENT_TYPES.find((t) => t.value === type)?.label || type
+                      return (
+                        <Badge key={type} variant="secondary" className="gap-1 pr-1">
+                          {typeLabel}
+                          <button
+                            onClick={() => toggleEventType(type)}
+                            className="ml-1 rounded-full p-0.5 hover:bg-muted-foreground/20"
+                          >
+                            <X className="size-3" />
+                          </button>
+                        </Badge>
+                      )
+                    })}
                   </div>
                 )}
               </div>

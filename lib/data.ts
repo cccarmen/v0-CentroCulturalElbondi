@@ -1,3 +1,14 @@
+export type EventType = 'concierto' | 'variete' | 'baile' | 'fiesta' | 'arte' | 'aprendizaje'
+
+export const EVENT_TYPES: { value: EventType; label: string; icon: string }[] = [
+  { value: 'concierto', label: 'Concierto', icon: 'music' },
+  { value: 'variete', label: 'Variete', icon: 'theater' },
+  { value: 'baile', label: 'Baile', icon: 'dance' },
+  { value: 'fiesta', label: 'Fiesta', icon: 'party' },
+  { value: 'arte', label: 'Arte', icon: 'palette' },
+  { value: 'aprendizaje', label: 'Aprendizaje', icon: 'book' },
+]
+
 export interface EventItem {
   slug: string
   title: string
@@ -7,6 +18,7 @@ export interface EventItem {
   date: string
   time: string
   category: 'evento' | 'taller'
+  eventType?: EventType
   location: string
   price: string
   maxParticipants?: number
@@ -31,6 +43,7 @@ export const events: EventItem[] = [
     date: '18 Abr 2026',
     time: '20:00 hs',
     category: 'evento',
+    eventType: 'variete',
     location: 'Salon principal - El Bondi',
     price: 'Entrada general: $2500 / Menores de 12: gratis',
     calendarDate: '2026-04-18',
@@ -52,6 +65,7 @@ export const events: EventItem[] = [
     date: '20 Abr 2026',
     time: '19:00 hs',
     category: 'evento',
+    eventType: 'concierto',
     location: 'Patio al aire libre - El Bondi',
     price: 'Entrada a la gorra (colaboracion voluntaria)',
     calendarDate: '2026-04-20',
@@ -73,6 +87,7 @@ export const events: EventItem[] = [
     date: '25 Abr 2026',
     time: '20:00 hs',
     category: 'evento',
+    eventType: 'baile',
     location: 'Salon principal - El Bondi',
     price: 'Entrada general: $3000',
     calendarDate: '2026-04-25',
@@ -94,6 +109,7 @@ export const events: EventItem[] = [
     date: '2 May 2026',
     time: '14:00 hs',
     category: 'evento',
+    eventType: 'fiesta',
     location: 'Todo el predio - El Bondi',
     price: 'Entrada libre y gratuita',
     calendarDate: '2026-05-02',
@@ -108,6 +124,7 @@ export const events: EventItem[] = [
     date: '9 May 2026',
     time: '17:00 hs',
     category: 'evento',
+    eventType: 'baile',
     location: 'Patio al aire libre - El Bondi',
     price: 'Entrada libre y gratuita',
     calendarDate: '2026-05-09',
@@ -122,6 +139,7 @@ export const events: EventItem[] = [
     date: '16 May 2026',
     time: '16:00 hs',
     category: 'evento',
+    eventType: 'fiesta',
     location: 'Todo el predio - El Bondi',
     price: 'Entrada libre y gratuita',
     calendarDate: '2026-05-16',
@@ -136,6 +154,7 @@ export const events: EventItem[] = [
     date: '23 May 2026',
     time: '18:00 hs',
     category: 'evento',
+    eventType: 'baile',
     location: 'Patio principal - El Bondi',
     price: 'Entrada libre y gratuita',
     calendarDate: '2026-05-23',
@@ -150,6 +169,7 @@ export const events: EventItem[] = [
     date: '30 May 2026',
     time: '18:30 hs',
     category: 'evento',
+    eventType: 'baile',
     location: 'Patio al aire libre - El Bondi',
     price: 'A la gorra',
     calendarDate: '2026-05-30',
@@ -164,6 +184,7 @@ export const events: EventItem[] = [
     date: '6 Jun 2026',
     time: '19:00 hs',
     category: 'evento',
+    eventType: 'arte',
     location: 'Salon de danza - El Bondi',
     price: 'Entrada general: $2000',
     calendarDate: '2026-06-06',
@@ -178,6 +199,7 @@ export const events: EventItem[] = [
     date: '13 Jun 2026',
     time: '15:00 hs',
     category: 'evento',
+    eventType: 'fiesta',
     location: 'Todo el predio - El Bondi',
     price: 'Entrada libre y gratuita',
     calendarDate: '2026-06-13',
