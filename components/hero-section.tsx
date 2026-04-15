@@ -47,10 +47,9 @@ export function HeroSection() {
           <track kind="captions" />
         </video>
 
-        {/* Gradient overlays — layered for smooth diffusion in both themes */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/20 via-40% to-transparent" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-transparent" />
+        {/* Gradient overlays — reduced in light mode for clearer video, stronger in dark mode */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent dark:via-background/20 dark:via-40%" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent dark:from-background/80" />
 
         {/* Video controls — bottom right */}
         <div className="absolute bottom-6 right-6 z-10 flex gap-2">

@@ -23,17 +23,17 @@ export function EventCard({ slug, title, description, image, date, time }: Event
         className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
 
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 via-40% to-black/10" />
+      {/* Gradient overlay — uses brand primary in light mode, black in dark mode */}
+      <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/70 via-40% to-primary/10 dark:from-black/95 dark:via-black/70 dark:to-black/10" />
 
       {/* Content pinned to bottom — fixed height for consistency */}
-      <div className="relative mt-auto flex h-[140px] flex-col justify-between rounded-b-xl bg-black/60 p-4 backdrop-blur-[2px]">
+      <div className="relative mt-auto flex h-[140px] flex-col justify-between rounded-b-xl bg-primary/80 p-4 backdrop-blur-[2px] dark:bg-black/60">
         <div className="flex flex-col gap-1.5 overflow-hidden">
-          <h3 className="truncate text-lg font-semibold text-white drop-shadow-sm">{title}</h3>
-          <p className="line-clamp-2 text-sm leading-relaxed text-white/90">{description}</p>
+          <h3 className="truncate text-lg font-semibold text-primary-foreground drop-shadow-sm">{title}</h3>
+          <p className="line-clamp-2 text-sm leading-relaxed text-primary-foreground/90">{description}</p>
         </div>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4 text-xs text-white/80">
+          <div className="flex items-center gap-4 text-xs text-primary-foreground/80">
             <span className="flex items-center gap-1">
               <Calendar className="size-3" />
               {date}
@@ -43,7 +43,7 @@ export function EventCard({ slug, title, description, image, date, time }: Event
               {time}
             </span>
           </div>
-          <ArrowRight className="size-4 text-white/60 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-white" />
+          <ArrowRight className="size-4 text-primary-foreground/60 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary-foreground" />
         </div>
       </div>
     </Link>
