@@ -77,7 +77,7 @@ function ProgramacionContent() {
       if (!a.calendarDate || !b.calendarDate) return 0
       return new Date(a.calendarDate).getTime() - new Date(b.calendarDate).getTime()
     })
-  }, [allItems, search, selectedDate, dateFilter])
+  }, [allItems, search, selectedDate])
 
   const clearFilters = () => {
     setSearch('')
@@ -181,10 +181,7 @@ function ProgramacionContent() {
                     </h3>
                     {selectedDate && (
                       <button
-                        onClick={() => {
-                          setSelectedDate(undefined)
-                          setDateFilter('todos')
-                        }}
+                        onClick={() => setSelectedDate(undefined)}
                         className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                       >
                         Limpiar
