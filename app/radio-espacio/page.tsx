@@ -2,10 +2,8 @@
 
 import { useState, useRef } from 'react'
 import Link from 'next/link'
-import { Home, Play, Pause, Radio, Mic, Users, Clock, Headphones, ExternalLink } from 'lucide-react'
+import { Home, Play, Pause, Radio, Mic, Users, Clock, Headphones, ExternalLink, SkipBack, SkipForward, Volume2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import {
   Breadcrumb,
@@ -16,60 +14,62 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 
-const podcasts = [
+const radioSessions = [
   {
     id: 1,
-    title: 'Voces del Barrio',
-    description: 'Historias y testimonios de los vecinos de Maschwitz. Un espacio para escuchar las voces que construyen nuestra comunidad.',
+    title: 'Voces del Barrio - Ep. 24',
     duration: '45:30',
+    durationSeconds: 2730,
     date: '12 Abr 2026',
-    image: '/images/evento-encuentro.jpg',
-    category: 'Comunidad',
   },
   {
     id: 2,
-    title: 'Ritmos Latinoamericanos',
-    description: 'Un recorrido musical por los sonidos de America Latina. Folklore, cumbia, tango y mas.',
+    title: 'Ritmos Latinoamericanos - Especial Cumbia',
     duration: '58:15',
+    durationSeconds: 3495,
     date: '10 Abr 2026',
-    image: '/images/evento-musica.jpg',
-    category: 'Musica',
   },
   {
     id: 3,
-    title: 'Cultura en Movimiento',
-    description: 'Entrevistas con artistas locales, gestores culturales y protagonistas de la escena cultural de la zona norte.',
+    title: 'Cultura en Movimiento - Entrevista a Artistas Locales',
     duration: '32:45',
+    durationSeconds: 1965,
     date: '8 Abr 2026',
-    image: '/images/evento-variete.jpg',
-    category: 'Entrevistas',
   },
   {
     id: 4,
-    title: 'El Patio de los Pibes',
-    description: 'Programa infantil con cuentos, musica y juegos para los mas chicos de la comunidad.',
+    title: 'El Patio de los Pibes - Cuentos de Abril',
     duration: '25:00',
+    durationSeconds: 1500,
     date: '5 Abr 2026',
-    image: '/images/evento-cumple.jpg',
-    category: 'Infantil',
   },
   {
     id: 5,
-    title: 'Folklore al Atardecer',
-    description: 'La mejor seleccion de folklore argentino para acompanar las tardes. Chacareras, zambas y mas.',
+    title: 'Folklore al Atardecer - Chacareras y Zambas',
     duration: '1:15:20',
+    durationSeconds: 4520,
     date: '3 Abr 2026',
-    image: '/images/evento-folklore.jpg',
-    category: 'Musica',
   },
   {
     id: 6,
-    title: 'Mesa de Debate',
-    description: 'Temas de actualidad, politica comunitaria y discusion abierta con referentes locales.',
+    title: 'Mesa de Debate - Temas Comunitarios',
     duration: '52:10',
+    durationSeconds: 3130,
     date: '1 Abr 2026',
-    image: '/images/evento-ronda.jpg',
-    category: 'Debate',
+  },
+  {
+    id: 7,
+    title: 'Noticiero Comunitario - Edicion Semanal',
+    duration: '28:45',
+    durationSeconds: 1725,
+    date: '29 Mar 2026',
+  },
+  {
+    id: 8,
+    title: 'Rock Nacional - Clasicos de los 80',
+    duration: '1:02:30',
+    durationSeconds: 3750,
+    date: '27 Mar 2026',
   },
 ]
 
@@ -91,50 +91,114 @@ const radioFeatures = [
   },
 ]
 
-function PodcastCard({ podcast }: { podcast: typeof podcasts[0] }) {
-  const [isPlaying, setIsPlaying] = useState(false)
+function AudioSessionItem({ 
+  session, 
+  isActive, 
+  isPlaying, 
+  onPlay 
+}: { 
+  session: typeof radioSessions[0]
+  isActive: boolean
+  isPlaying: boolean
+  onPlay: () => void
+}) {
+  const [progress, setProgress] = useState(0)
 
   return (
-    <Card className="group h-full overflow-hidden border-border/50 transition-all duration-300 hover:border-primary/40 hover:shadow-lg">
-      <div className="relative aspect-[16/9] overflow-hidden">
-        <img
-          src={podcast.image}
-          alt={podcast.title}
-          className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        <Badge className="absolute top-3 left-3 text-xs">
-          {podcast.category}
-        </Badge>
+    <div 
+      className={`group rounded-xl transition-all duration-300 ${
+        isActive 
+          ? 'bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg' 
+          : 'bg-card hover:bg-muted/50 border border-border'
+      }`}
+    >
+      <div className="flex items-center gap-4 p-4">
+        {/* Play/Pause Button */}
         <button
-          onClick={() => setIsPlaying(!isPlaying)}
-          className="absolute bottom-3 right-3 flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform hover:scale-110"
+          onClick={onPlay}
+          className={`flex size-12 shrink-0 items-center justify-center rounded-full transition-transform hover:scale-105 ${
+            isActive 
+              ? 'bg-primary-foreground text-primary shadow-md' 
+              : 'bg-primary text-primary-foreground'
+          }`}
           aria-label={isPlaying ? 'Pausar' : 'Reproducir'}
         >
-          {isPlaying ? <Pause className="size-5" /> : <Play className="size-5 ml-0.5" />}
+          {isPlaying && isActive ? (
+            <Pause className="size-5" />
+          ) : (
+            <Play className="size-5 ml-0.5" />
+          )}
         </button>
-      </div>
-      <CardContent className="flex flex-col gap-2 p-4">
-        <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-          {podcast.title}
-        </h3>
-        <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-          {podcast.description}
-        </p>
-        <div className="mt-auto flex items-center gap-4 pt-3 border-t border-border text-xs text-muted-foreground">
-          <span className="flex items-center gap-1">
-            <Clock className="size-3" />
-            {podcast.duration}
-          </span>
-          <span>{podcast.date}</span>
+
+        {/* Session Info */}
+        <div className="min-w-0 flex-1">
+          <h3 className={`truncate font-medium ${isActive ? 'text-primary-foreground' : 'text-foreground'}`}>
+            {session.title}
+          </h3>
+          <p className={`text-sm ${isActive ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}>
+            {session.date}
+          </p>
         </div>
-      </CardContent>
-    </Card>
+
+        {/* Duration */}
+        <div className={`shrink-0 text-sm font-medium ${isActive ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>
+          {session.duration}
+        </div>
+      </div>
+
+      {/* Progress Bar - only shown when active */}
+      {isActive && (
+        <div className="px-4 pb-4">
+          <div className="flex items-center gap-3">
+            <button className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">
+              <SkipBack className="size-4" />
+            </button>
+            <span className="text-xs text-primary-foreground/70 w-10">0:00</span>
+            <div className="relative flex-1 h-1.5 bg-primary-foreground/20 rounded-full overflow-hidden">
+              <div 
+                className="absolute left-0 top-0 h-full bg-primary-foreground rounded-full transition-all"
+                style={{ width: `${progress}%` }}
+              />
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={progress}
+                onChange={(e) => setProgress(Number(e.target.value))}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              />
+              <div 
+                className="absolute top-1/2 -translate-y-1/2 size-3 bg-primary-foreground rounded-full shadow-sm"
+                style={{ left: `calc(${progress}% - 6px)` }}
+              />
+            </div>
+            <span className="text-xs text-primary-foreground/70 w-10 text-right">{session.duration}</span>
+            <button className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">
+              <SkipForward className="size-4" />
+            </button>
+            <button className="text-primary-foreground/60 hover:text-primary-foreground transition-colors ml-2">
+              <Volume2 className="size-4" />
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
 
 export default function RadioEspacioPage() {
   const [isLivePlaying, setIsLivePlaying] = useState(false)
+  const [activeSessionId, setActiveSessionId] = useState<number | null>(null)
+  const [isSessionPlaying, setIsSessionPlaying] = useState(false)
+
+  const handleSessionPlay = (sessionId: number) => {
+    if (activeSessionId === sessionId) {
+      setIsSessionPlaying(!isSessionPlaying)
+    } else {
+      setActiveSessionId(sessionId)
+      setIsSessionPlaying(true)
+    }
+  }
 
   return (
     <main className="min-h-screen bg-background">
@@ -261,30 +325,35 @@ export default function RadioEspacioPage() {
         </div>
       </section>
 
-      {/* Podcasts Section */}
+      {/* Radio Sessions Section */}
       <section className="border-t border-border/40 bg-card py-16 lg:py-24">
         <div className="mx-auto max-w-5xl px-4 lg:px-8">
           <ScrollReveal>
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
               <div>
                 <h2 className="font-display text-3xl tracking-wide text-foreground md:text-4xl">
-                  Ultimos Podcasts
+                  Ultimas Sesiones de Radio
                 </h2>
                 <p className="mt-2 text-base text-muted-foreground">
                   Escucha los programas que te perdiste o revivi tus favoritos.
                 </p>
               </div>
               <Button variant="outline" className="gap-2">
-                Ver todos
+                Ver archivo completo
                 <ExternalLink className="size-4" />
               </Button>
             </div>
           </ScrollReveal>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {podcasts.map((podcast, index) => (
-              <ScrollReveal key={podcast.id} delay={index * 80}>
-                <PodcastCard podcast={podcast} />
+          <div className="mt-12 flex flex-col gap-3">
+            {radioSessions.map((session, index) => (
+              <ScrollReveal key={session.id} delay={index * 50}>
+                <AudioSessionItem 
+                  session={session}
+                  isActive={activeSessionId === session.id}
+                  isPlaying={isSessionPlaying && activeSessionId === session.id}
+                  onPlay={() => handleSessionPlay(session.id)}
+                />
               </ScrollReveal>
             ))}
           </div>
