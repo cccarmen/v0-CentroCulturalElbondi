@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { ScrollReveal } from '@/components/scroll-reveal'
 
 const GOOGLE_MAPS_EMBED_URL =
-  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3291.5!2d-58.7467!3d-34.3923!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDIzJzMyLjMiUyA1OMKwNDQnNDguMSJX!5e0!3m2!1ses!2sar!4v1700000000000!5m2!1ses!2sar'
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6360.886323025551!2d-58.73800893892061!3d-34.38606355114934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bca020ac504509%3A0x833d3f16e58256b4!2sColectivo%20Cultural!5e0!3m2!1sen!2sde!4v1776315170485!5m2!1sen!2sde'
 
 export function MapSection() {
   const [isActive, setIsActive] = useState(false)
