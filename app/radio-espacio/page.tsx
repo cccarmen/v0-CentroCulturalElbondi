@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react'
 import Link from 'next/link'
-import { Home, Play, Pause, Radio, Mic, Users, Clock, Headphones, ExternalLink, SkipBack, SkipForward, Volume2 } from 'lucide-react'
+import { Home, Play, Pause, Radio, Mic, Users, Clock, Headphones, ExternalLink, SkipBack, SkipForward, Volume2, CalendarDays } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import {
@@ -262,6 +262,17 @@ export default function RadioEspacioPage() {
                         Escuchar en Vivo
                       </>
                     )}
+                  </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    asChild
+                    className="gap-2 border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
+                  >
+                    <Link href="/radio-espacio/grilla">
+                      <CalendarDays className="size-5" />
+                      Ver Grilla Semanal
+                    </Link>
                   </Button>
                   {isLivePlaying && (
                     <div className="flex items-center gap-2">
