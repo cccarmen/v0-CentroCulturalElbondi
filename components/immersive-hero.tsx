@@ -159,24 +159,13 @@ export function ImmersiveHero() {
               {/* Main logo - large and centered initially */}
               <div className="relative flex flex-col items-center">
                 <img
-                  src="/images/logo-white.png"
-                  alt="El Bondi"
-                  className="h-24 w-auto drop-shadow-2xl transition-all duration-500 md:h-32 lg:h-40"
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ElBondi-logo-blanco%20%284%29-129hLIOYFwpBUojLFmMTM414Q80dul.png"
+                  alt="El Bondi - Centro Cultural Comunitario"
+                  className="h-20 w-auto drop-shadow-2xl transition-all duration-500 sm:h-28 md:h-36 lg:h-44"
                   style={{
                     filter: `drop-shadow(0 0 ${40 - scrollProgress * 30}px rgba(255,255,255,0.3))`,
                   }}
                 />
-                
-                {/* Tagline that fades in */}
-                <p 
-                  className="mt-6 text-center font-display text-xl tracking-wider text-white/90 drop-shadow-lg transition-all duration-500 md:text-2xl lg:text-3xl"
-                  style={{
-                    opacity: 1 - scrollProgress * 2,
-                    transform: `translateY(${scrollProgress * 20}px)`,
-                  }}
-                >
-                  Centro Cultural Comunitario
-                </p>
               </div>
             </div>
           </div>
