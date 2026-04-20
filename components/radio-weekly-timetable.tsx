@@ -110,14 +110,14 @@ export function RadioWeeklyTimetable({ programs }: RadioWeeklyTimetableProps) {
   }, [programs])
 
   return (
-    <div className="mt-6 overflow-x-auto">
-      <div className="min-w-[1000px]">
+    <div className="mt-6 overflow-x-auto rounded-xl border border-border">
+      <div className="min-w-[800px]">
         {/* Header row */}
-        <div className="grid grid-cols-7 gap-1 rounded-t-xl bg-muted/50 p-1">
+        <div className="grid grid-cols-7 gap-px bg-border">
           {DAYS.map((day) => (
             <div
               key={day}
-              className="rounded-lg bg-card px-3 py-3 text-center text-sm font-semibold text-foreground"
+              className="bg-muted/80 px-2 py-2.5 text-center text-xs font-semibold text-foreground"
             >
               {day}
             </div>
@@ -125,9 +125,9 @@ export function RadioWeeklyTimetable({ programs }: RadioWeeklyTimetableProps) {
         </div>
 
         {/* Content row */}
-        <div className="grid grid-cols-7 gap-1 rounded-b-xl border border-t-0 border-border bg-muted/30 p-1">
+        <div className="grid grid-cols-7 gap-px bg-border">
           {DAYS.map((day) => (
-            <div key={day} className="flex min-h-[250px] flex-col gap-2 p-2">
+            <div key={day} className="flex min-h-[200px] flex-col gap-1.5 bg-card/50 p-1.5">
               {timetableData[day].length > 0 ? (
                 timetableData[day].map((item, index) => {
                   const IconComponent = categoryIcons[item.category] || Radio
@@ -136,33 +136,33 @@ export function RadioWeeklyTimetable({ programs }: RadioWeeklyTimetableProps) {
                   return (
                     <div
                       key={`${item.id}-${index}`}
-                      className={`group rounded-lg border p-3 transition-all ${colorClass}`}
+                      className={`group overflow-hidden rounded-lg border p-2.5 transition-all ${colorClass}`}
                     >
-                      <div className="flex items-start gap-2">
-                        <div className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-background/50">
-                          <IconComponent className="size-3.5 text-foreground" />
+                      <div className="flex items-start gap-1.5">
+                        <div className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded bg-background/50">
+                          <IconComponent className="size-3 text-foreground" />
                         </div>
-                        <div className="min-w-0 flex-1">
-                          <h4 className="text-sm font-semibold leading-tight text-foreground">
+                        <div className="min-w-0 flex-1 overflow-hidden">
+                          <h4 className="truncate text-xs font-semibold leading-tight text-foreground" title={item.title}>
                             {item.title}
                           </h4>
-                          <p className="mt-1 truncate text-xs text-muted-foreground">
+                          <p className="mt-0.5 truncate text-[10px] text-muted-foreground" title={item.host}>
                             {item.host}
                           </p>
                         </div>
                       </div>
-                      <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-                        <Clock className="size-3" />
-                        <span>{item.time}</span>
-                        <span className="text-muted-foreground/50">·</span>
-                        <span>{item.duration}</span>
+                      <div className="mt-1.5 flex flex-wrap items-center gap-1 text-[10px] text-muted-foreground">
+                        <Clock className="size-2.5 shrink-0" />
+                        <span className="truncate">{item.time}</span>
+                        <span className="shrink-0 text-muted-foreground/50">·</span>
+                        <span className="truncate">{item.duration}</span>
                       </div>
                     </div>
                   )
                 })
               ) : (
                 <div className="flex h-full items-center justify-center">
-                  <span className="text-xs text-muted-foreground/50">-</span>
+                  <span className="text-[10px] text-muted-foreground/40">-</span>
                 </div>
               )}
             </div>
