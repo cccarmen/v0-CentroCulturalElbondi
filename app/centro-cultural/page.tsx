@@ -12,7 +12,6 @@ import {
 } from '@/components/ui/dialog'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { InteractivePageHeader } from '@/components/interactive-page-header'
-import { InteractiveTeamCard } from '@/components/interactive-team-card'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -139,11 +138,18 @@ export default function CentroCulturalPage() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {teamMembers.map((member, index) => (
               <ScrollReveal key={member.name} delay={index * 100}>
-                <InteractiveTeamCard
-                  name={member.name}
-                  role={member.role}
-                  bio={member.bio}
-                />
+                <div className="flex h-full flex-col items-center gap-4 rounded-lg border border-border/50 bg-card p-6 text-center transition-shadow duration-300 hover:shadow-lg">
+                  <div className="flex size-20 items-center justify-center rounded-full border-2 border-primary/30 bg-primary/10">
+                    <span className="text-xl font-semibold text-primary">
+                      {member.name.split(' ').map(n => n[0]).join('')}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground">{member.name}</h3>
+                    <span className="text-sm font-medium text-primary">{member.role}</span>
+                  </div>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{member.bio}</p>
+                </div>
               </ScrollReveal>
             ))}
           </div>
