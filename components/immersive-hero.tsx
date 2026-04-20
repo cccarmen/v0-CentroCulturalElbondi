@@ -156,14 +156,22 @@ export function ImmersiveHero() {
             }}
           >
             <div className={`transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-              {/* Main logo - large and centered initially */}
+              {/* Main logo - large and centered with high visual priority */}
               <div className="relative flex flex-col items-center">
+                {/* Glow backdrop for extra prominence */}
+                <div 
+                  className="absolute inset-0 -m-12 rounded-full blur-3xl transition-opacity duration-500"
+                  style={{
+                    background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)',
+                    opacity: 1 - scrollProgress * 0.8,
+                  }}
+                />
                 <img
                   src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ElBondi-logo-blanco%20%284%29-129hLIOYFwpBUojLFmMTM414Q80dul.png"
                   alt="El Bondi - Centro Cultural Comunitario"
-                  className="h-20 w-auto drop-shadow-2xl transition-all duration-500 sm:h-28 md:h-36 lg:h-44"
+                  className="relative h-32 w-auto drop-shadow-2xl transition-all duration-500 sm:h-44 md:h-56 lg:h-72 xl:h-80"
                   style={{
-                    filter: `drop-shadow(0 0 ${40 - scrollProgress * 30}px rgba(255,255,255,0.3))`,
+                    filter: `drop-shadow(0 0 ${60 - scrollProgress * 40}px rgba(255,255,255,0.4)) drop-shadow(0 4px 20px rgba(0,0,0,0.5))`,
                   }}
                 />
               </div>
