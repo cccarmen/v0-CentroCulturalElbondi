@@ -3,8 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { X, ChevronLeft, ChevronRight, Home } from 'lucide-react'
-import { Card, CardContent } from '@/components/ui/card'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -13,6 +12,7 @@ import {
 } from '@/components/ui/dialog'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { InteractivePageHeader } from '@/components/interactive-page-header'
+import { InteractiveTeamCard } from '@/components/interactive-team-card'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -139,20 +139,11 @@ export default function CentroCulturalPage() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {teamMembers.map((member, index) => (
               <ScrollReveal key={member.name} delay={index * 100}>
-                <Card className="h-full border-border/50 transition-shadow duration-300 hover:shadow-lg">
-                  <CardContent className="flex flex-col items-center gap-4 p-6 text-center">
-                    <Avatar className="size-20 border-2 border-primary/30">
-                      <AvatarFallback className="bg-primary/10 text-xl font-semibold text-primary">
-                        {member.name.split(' ').map(n => n[0]).join('')}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <h3 className="text-lg font-semibold text-foreground">{member.name}</h3>
-                      <span className="text-sm font-medium text-primary">{member.role}</span>
-                    </div>
-                    <p className="text-sm leading-relaxed text-muted-foreground">{member.bio}</p>
-                  </CardContent>
-                </Card>
+                <InteractiveTeamCard
+                  name={member.name}
+                  role={member.role}
+                  bio={member.bio}
+                />
               </ScrollReveal>
             ))}
           </div>
