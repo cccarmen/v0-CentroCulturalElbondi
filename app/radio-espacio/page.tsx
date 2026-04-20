@@ -189,14 +189,12 @@ const PROGRAM_CATEGORIES: { value: ProgramCategory; label: string; icon: typeof 
 ]
 
 const galleryImages = [
-  { src: '/images/radio-activa.jpg', alt: 'Estudio de Radio Activa FM 96.9' },
-  { src: '/images/evento-musica.jpg', alt: 'Transmision en vivo de evento musical' },
-  { src: '/images/evento-encuentro.jpg', alt: 'Encuentro comunitario en la radio' },
-  { src: '/images/evento-cumple.jpg', alt: 'Celebracion de aniversario de Radio Activa' },
-  { src: '/images/evento-variete.jpg', alt: 'Programa de varietes en vivo' },
-  { src: '/images/evento-folklore.jpg', alt: 'Musica folklorica en Radio Activa' },
-  { src: '/images/evento-ronda.jpg', alt: 'Ronda de vecinos en la radio' },
-  { src: '/images/evento-fiesta.jpg', alt: 'Fiesta aniversario 14 anos de Radio Activa' },
+  { src: '/images/radio-mic-vintage.jpg', alt: 'Microfono vintage del estudio' },
+  { src: '/images/radio-mic-condenser.jpg', alt: 'Microfono profesional con filtro anti-pop' },
+  { src: '/images/radio-mixer-headphones.jpg', alt: 'Consola de mezcla con auriculares' },
+  { src: '/images/radio-mixer-knobs.jpg', alt: 'Controles de la consola de audio' },
+  { src: '/images/radio-mixer-faders.jpg', alt: 'Mesa de mezcla del estudio' },
+  { src: '/images/radio-logo-969.jpg', alt: 'Logo Radio Activa Comunitaria 96.9' },
 ]
 
 const socialLinks = [
@@ -436,7 +434,7 @@ function RadioEspacioContent() {
             </p>
           </ScrollReveal>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {galleryImages.map((image, index) => (
               <ScrollReveal key={index} delay={index * 50}>
                 <div className="group relative aspect-square overflow-hidden rounded-lg">
