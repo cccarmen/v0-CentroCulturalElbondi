@@ -21,6 +21,14 @@ import {
   Pause,
   Headphones,
   ExternalLink,
+  Instagram,
+  Facebook,
+  Youtube,
+  Twitter,
+  Heart,
+  MapPin,
+  Phone,
+  Mail,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
@@ -44,9 +52,9 @@ interface RadioProgram {
   description: string
   category: ProgramCategory
   duration: string
-  date: string
-  image: string
+  schedule: string
   host: string
+  icon: typeof Radio
 }
 
 const radioPrograms: RadioProgram[] = [
@@ -55,120 +63,120 @@ const radioPrograms: RadioProgram[] = [
     title: 'Voces del Barrio',
     description: 'Historias y testimonios de los vecinos de Maschwitz. Un espacio para escuchar las voces que construyen nuestra comunidad.',
     category: 'cultural',
-    duration: '45:30',
-    date: '12 Abr 2026',
-    image: '/images/evento-encuentro.jpg',
+    duration: '45 min',
+    schedule: 'Lunes 18:00',
     host: 'Maria Garcia',
+    icon: Users,
   },
   {
     id: 2,
     title: 'Ritmos Latinoamericanos',
     description: 'Un viaje musical por los sonidos de America Latina. Cumbia, salsa, folklore y mas.',
     category: 'musica',
-    duration: '58:15',
-    date: '10 Abr 2026',
-    image: '/images/evento-musica.jpg',
+    duration: '60 min',
+    schedule: 'Martes 20:00',
     host: 'Carlos Rodriguez',
+    icon: Music,
   },
   {
     id: 3,
     title: 'Cultura en Movimiento',
     description: 'Entrevistas a artistas locales, agenda cultural y todo lo que pasa en la escena artistica de la zona norte.',
     category: 'cultural',
-    duration: '32:45',
-    date: '8 Abr 2026',
-    image: '/images/evento-variete.jpg',
+    duration: '30 min',
+    schedule: 'Miercoles 17:00',
     host: 'Laura Martinez',
+    icon: Mic,
   },
   {
     id: 4,
     title: 'El Patio de los Pibes',
     description: 'Programa infantil con cuentos, musica y juegos para los mas chicos de la comunidad.',
     category: 'infantil',
-    duration: '25:00',
-    date: '5 Abr 2026',
-    image: '/images/evento-ronda.jpg',
+    duration: '25 min',
+    schedule: 'Sabados 10:00',
     host: 'Ana Fernandez',
+    icon: Heart,
   },
   {
     id: 5,
     title: 'Folklore al Atardecer',
     description: 'Chacareras, zambas y todo el folklore argentino para cerrar la tarde con la mejor musica.',
     category: 'musica',
-    duration: '1:15:20',
-    date: '3 Abr 2026',
-    image: '/images/evento-folklore.jpg',
+    duration: '75 min',
+    schedule: 'Viernes 19:00',
     host: 'Juan Perez',
+    icon: Music,
   },
   {
     id: 6,
     title: 'Mesa de Debate',
     description: 'Temas de actualidad comunitaria con invitados especiales. Politica, sociedad y cultura.',
     category: 'debate',
-    duration: '52:10',
-    date: '1 Abr 2026',
-    image: '/images/evento-cumple.jpg',
+    duration: '50 min',
+    schedule: 'Jueves 21:00',
     host: 'Pedro Sanchez',
+    icon: MessageSquare,
   },
   {
     id: 7,
     title: 'Noticiero Comunitario',
     description: 'Las noticias de Maschwitz y la zona norte. Informacion local que nos importa.',
     category: 'noticias',
-    duration: '28:45',
-    date: '29 Mar 2026',
-    image: '/images/evento-pareja.jpg',
+    duration: '30 min',
+    schedule: 'Lunes a Viernes 12:00',
     host: 'Lucia Torres',
+    icon: Newspaper,
   },
   {
     id: 8,
     title: 'Rock Nacional Clasico',
     description: 'Los mejores clasicos del rock argentino de los 80 y 90. Soda, Fito, Charly y mas.',
     category: 'musica',
-    duration: '1:02:30',
-    date: '27 Mar 2026',
-    image: '/images/evento-baile-atardecer.jpg',
+    duration: '60 min',
+    schedule: 'Sabados 22:00',
     host: 'Diego Lopez',
+    icon: Music,
   },
   {
     id: 9,
     title: 'Tarde de Tango',
     description: 'El mejor tango para disfrutar en la tarde. Gardel, Piazzolla y los grandes del genero.',
     category: 'musica',
-    duration: '55:00',
-    date: '25 Mar 2026',
-    image: '/images/evento-danza-circulo.jpg',
+    duration: '55 min',
+    schedule: 'Domingos 17:00',
     host: 'Roberto Gomez',
+    icon: Music,
   },
   {
     id: 10,
     title: 'Voces Jovenes',
     description: 'Programa conducido por jovenes del bachillerato popular. Temas que les importan a las nuevas generaciones.',
     category: 'debate',
-    duration: '40:15',
-    date: '23 Mar 2026',
-    image: '/images/evento-fiesta.jpg',
+    duration: '40 min',
+    schedule: 'Miercoles 20:00',
     host: 'Colectivo Juvenil',
+    icon: Users,
   },
   {
     id: 11,
     title: 'Musica del Mundo',
     description: 'Un recorrido por los sonidos de diferentes culturas. Jazz, blues, reggae y world music.',
     category: 'musica',
-    duration: '1:10:00',
-    date: '21 Mar 2026',
-    image: '/images/evento-musica.jpg',
+    duration: '70 min',
+    schedule: 'Domingos 20:00',
     host: 'Sofia Ruiz',
+    icon: Music,
   },
   {
     id: 12,
     title: 'Historias de Vida',
     description: 'Entrevistas en profundidad a personajes de nuestra comunidad que tienen mucho para contar.',
     category: 'cultural',
-    duration: '48:30',
-    date: '19 Mar 2026',
-    image: '/images/evento-encuentro.jpg',
+    duration: '45 min',
+    schedule: 'Jueves 18:00',
     host: 'Martin Diaz',
+    icon: Mic,
   },
 ]
 
@@ -178,6 +186,22 @@ const PROGRAM_CATEGORIES: { value: ProgramCategory; label: string; icon: typeof 
   { value: 'debate', label: 'Debate', icon: MessageSquare },
   { value: 'noticias', label: 'Noticias', icon: Newspaper },
   { value: 'infantil', label: 'Infantil', icon: Users },
+]
+
+const galleryImages = [
+  '/images/radio-activa.jpg',
+  '/images/evento-musica.jpg',
+  '/images/evento-encuentro.jpg',
+  '/images/evento-cumple.jpg',
+  '/images/evento-variete.jpg',
+  '/images/evento-folklore.jpg',
+]
+
+const socialLinks = [
+  { name: 'Instagram', icon: Instagram, url: 'https://instagram.com/radioactivamaschwitz', handle: '@radioactivamaschwitz' },
+  { name: 'Facebook', icon: Facebook, url: 'https://facebook.com/radioactivacomunitaria', handle: '/radioactivacomunitaria' },
+  { name: 'Youtube', icon: Youtube, url: 'https://youtube.com/@radioactivamaschwitz', handle: '@radioactivamaschwitz' },
+  { name: 'Twitter', icon: Twitter, url: 'https://twitter.com/radioactivafm', handle: '@radioactivafm' },
 ]
 
 export default function RadioEspacioPage() {
@@ -313,35 +337,155 @@ function RadioEspacioContent() {
                 </div>
               </div>
             </div>
-
-            {/* Search bar */}
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <div className="relative flex-1 max-w-xl">
-                <Search className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Buscar programas, conductores..."
-                  className="h-12 rounded-lg bg-white pl-12 text-base shadow-lg border-0 focus-visible:ring-2 focus-visible:ring-white/50"
-                />
-                {search && (
-                  <button
-                    onClick={() => setSearch('')}
-                    className="absolute top-1/2 right-4 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                  >
-                    <X className="size-4" />
-                  </button>
-                )}
-              </div>
-            </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Filters + Content */}
-      <section className="bg-background py-8 lg:py-10">
+      {/* About Radio Section */}
+      <section className="border-b border-border/40 bg-background py-12 lg:py-16">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="flex flex-col gap-8 lg:flex-row">
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+            {/* Description */}
+            <ScrollReveal>
+              <div>
+                <h2 className="font-display text-3xl tracking-wide text-foreground md:text-4xl">
+                  Quienes Somos
+                </h2>
+                <div className="mt-6 space-y-4 text-muted-foreground">
+                  <p className="leading-relaxed">
+                    Radio Activa Comunitaria nacio en 2012 como un proyecto colectivo del Centro Cultural El Bondi. 
+                    Desde entonces, transmitimos en el 96.9 FM llevando las voces de Maschwitz y la zona norte a todos los hogares.
+                  </p>
+                  <p className="leading-relaxed">
+                    Somos una radio autogestiva, sin fines de lucro, construida por vecinos y vecinas que creen en la 
+                    comunicacion como herramienta de transformacion social. Nuestros programas son producidos por la comunidad, 
+                    para la comunidad.
+                  </p>
+                  <p className="leading-relaxed">
+                    Musica, cultura, debates, noticias locales y mucho mas. Todo lo que pasa en el barrio, pasa por Radio Activa.
+                  </p>
+                </div>
+
+                {/* Contact info */}
+                <div className="mt-8 space-y-3">
+                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                    <MapPin className="size-4 text-primary" />
+                    <span>Av. Boulogne Sur Mer 1234, Maschwitz</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                    <Phone className="size-4 text-primary" />
+                    <span>+54 11 4567-8901</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                    <Mail className="size-4 text-primary" />
+                    <span>radioactiva@elbondi.org</span>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Social Media */}
+            <ScrollReveal delay={100}>
+              <div>
+                <h3 className="font-display text-2xl tracking-wide text-foreground">
+                  Seguinos en Redes
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Encontranos en todas las plataformas y no te pierdas nada.
+                </p>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  {socialLinks.map((social) => {
+                    const Icon = social.icon
+                    return (
+                      <a
+                        key={social.name}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center gap-4 rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/40 hover:shadow-md"
+                      >
+                        <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                          <Icon className="size-5" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-foreground">{social.name}</p>
+                          <p className="text-xs text-muted-foreground">{social.handle}</p>
+                        </div>
+                        <ExternalLink className="ml-auto size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                      </a>
+                    )
+                  })}
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* Photo Gallery */}
+      <section className="border-b border-border/40 bg-secondary/30 py-12 lg:py-16">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+          <ScrollReveal>
+            <h2 className="font-display text-3xl tracking-wide text-foreground md:text-4xl">
+              La Radio en Imagenes
+            </h2>
+            <p className="mt-2 max-w-xl text-muted-foreground">
+              Momentos de transmision, eventos especiales y la vida cotidiana en Radio Activa.
+            </p>
+          </ScrollReveal>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {galleryImages.map((image, index) => (
+              <ScrollReveal key={index} delay={index * 50}>
+                <div className="group relative aspect-[4/3] overflow-hidden rounded-lg">
+                  <Image
+                    src={image}
+                    alt={`Radio Activa - Imagen ${index + 1}`}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/20" />
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Programs Section */}
+      <section className="bg-background py-12 lg:py-16">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+          <ScrollReveal>
+            <h2 className="font-display text-3xl tracking-wide text-foreground md:text-4xl">
+              Nuestra Programacion
+            </h2>
+            <p className="mt-2 max-w-xl text-muted-foreground">
+              Explora todos nuestros programas y encontra tu favorito.
+            </p>
+          </ScrollReveal>
+
+          {/* Search bar */}
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="relative flex-1 max-w-xl">
+              <Search className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Buscar programas, conductores..."
+                className="h-12 rounded-lg pl-12 text-base"
+              />
+              {search && (
+                <button
+                  onClick={() => setSearch('')}
+                  className="absolute top-1/2 right-4 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                  <X className="size-4" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col gap-8 lg:flex-row">
             {/* Left: Sidebar filters */}
             <aside className="lg:w-[280px] shrink-0">
               {/* Mobile filter toggle */}
@@ -428,18 +572,8 @@ function RadioEspacioContent() {
                     Radio Activa es un espacio abierto. Si tenes una propuesta de programa o queres compartir tu musica, escribinos.
                   </p>
                   <Button size="sm" className="mt-3 w-full" asChild>
-                    <a href="mailto:radioactiva@elbondi.com">
+                    <a href="mailto:radioactiva@elbondi.org">
                       Contactanos
-                    </a>
-                  </Button>
-                </div>
-
-                {/* External link */}
-                <div className="rounded-lg border border-border bg-card p-4">
-                  <Button variant="outline" className="w-full gap-2" asChild>
-                    <a href="#" target="_blank" rel="noopener noreferrer">
-                      Ver archivo completo
-                      <ExternalLink className="size-4" />
                     </a>
                   </Button>
                 </div>
@@ -520,7 +654,7 @@ function RadioEspacioContent() {
   )
 }
 
-/* Card component for radio programs */
+/* Card component for radio programs - Purple background with icons */
 function RadioProgramCard({ 
   program, 
   isPlaying, 
@@ -531,17 +665,24 @@ function RadioProgramCard({
   onTogglePlay: () => void
 }) {
   const categoryInfo = PROGRAM_CATEGORIES.find((c) => c.value === program.category)
+  const ProgramIcon = program.icon
   
   return (
     <div className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/40 hover:shadow-xl">
-      <div className="relative aspect-[16/10] overflow-hidden">
-        <Image
-          src={program.image}
-          alt={program.title}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+      {/* Purple header with icon */}
+      <div className="relative flex aspect-[16/10] items-center justify-center bg-primary">
+        {/* Pattern overlay */}
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        
+        {/* Large icon */}
+        <div className="relative flex size-20 items-center justify-center rounded-full bg-primary-foreground/20 transition-transform duration-300 group-hover:scale-110">
+          <ProgramIcon className="size-10 text-primary-foreground" />
+        </div>
         
         {/* Play button overlay */}
         <button
@@ -549,28 +690,28 @@ function RadioProgramCard({
           className="absolute inset-0 flex items-center justify-center"
           aria-label={isPlaying ? 'Pausar' : 'Reproducir'}
         >
-          <div className={`flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all ${
+          <div className={`absolute bottom-3 right-3 flex size-10 items-center justify-center rounded-full bg-primary-foreground text-primary shadow-lg transition-all ${
             isPlaying ? 'scale-100' : 'scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100'
           }`}>
             {isPlaying ? (
-              <Pause className="size-6" />
+              <Pause className="size-5" />
             ) : (
-              <Play className="size-6 ml-1" />
+              <Play className="size-5 ml-0.5" />
             )}
           </div>
         </button>
         
         {/* Category badge */}
         {categoryInfo && (
-          <Badge className="absolute top-3 left-3 text-xs" variant="secondary">
+          <Badge className="absolute top-3 left-3 text-xs bg-primary-foreground/20 text-primary-foreground border-0 hover:bg-primary-foreground/30">
             {categoryInfo.label}
           </Badge>
         )}
         
-        {/* Duration */}
-        <div className="absolute bottom-3 left-3 flex items-center gap-1.5 text-white/90">
+        {/* Schedule */}
+        <div className="absolute bottom-3 left-3 flex items-center gap-1.5 text-primary-foreground/90">
           <Clock className="size-3.5" />
-          <span className="text-sm font-medium">{program.duration}</span>
+          <span className="text-xs font-medium">{program.schedule}</span>
         </div>
       </div>
       
@@ -583,12 +724,12 @@ function RadioProgramCard({
         </p>
         <div className="mt-auto flex items-center justify-between gap-2 pt-3 border-t border-border">
           <div className="flex items-center gap-2">
-            <div className="flex size-6 items-center justify-center rounded-full bg-muted">
-              <Mic className="size-3 text-muted-foreground" />
+            <div className="flex size-6 items-center justify-center rounded-full bg-primary/10">
+              <Mic className="size-3 text-primary" />
             </div>
             <span className="text-xs text-muted-foreground">{program.host}</span>
           </div>
-          <span className="text-xs text-muted-foreground">{program.date}</span>
+          <span className="text-xs text-muted-foreground">{program.duration}</span>
         </div>
       </div>
     </div>
