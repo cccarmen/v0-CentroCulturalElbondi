@@ -169,7 +169,7 @@ export function ImmersiveHero() {
                 <img
                   src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ElBondi-logo-blanco%20%284%29-129hLIOYFwpBUojLFmMTM414Q80dul.png"
                   alt="El Bondi - Centro Cultural Comunitario"
-                  className="relative h-24 w-auto drop-shadow-2xl transition-all duration-500 sm:h-36 md:h-48 lg:h-60 xl:h-72 2xl:h-80"
+                  className="relative h-32 w-auto drop-shadow-2xl transition-all duration-500 sm:h-44 md:h-56 lg:h-72 xl:h-[22rem] 2xl:h-[28rem]"
                   style={{
                     filter: `drop-shadow(0 0 ${80 - scrollProgress * 60}px rgba(255,255,255,0.5)) drop-shadow(0 8px 40px rgba(0,0,0,0.6))`,
                   }}
