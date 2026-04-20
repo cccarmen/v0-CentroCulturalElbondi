@@ -38,23 +38,23 @@ export function CinematicNavbar() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-8">
-        {/* Logo - always visible in left corner */}
+        {/* Logo - always visible in left corner, bigger when not scrolled */}
         <a 
           href="/" 
-          className="flex flex-shrink-0 items-center gap-2 transition-all duration-500"
+          className="flex flex-shrink-0 items-center gap-3 transition-all duration-500"
         >
           <img
             src="/images/logo-dark.png"
             alt="El Bondi"
-            className={`block h-7 w-auto transition-all duration-300 ${scrolled ? '' : 'hidden'}`}
+            className={`block w-auto transition-all duration-500 dark:hidden ${scrolled ? 'h-8' : 'hidden'}`}
           />
           <img
             src="/images/logo-white.png"
             alt="El Bondi"
-            className={`h-7 w-auto transition-all duration-300 ${scrolled ? 'hidden dark:block' : 'block'}`}
+            className={`w-auto transition-all duration-500 ${scrolled ? 'hidden h-8 dark:block' : 'block h-14 sm:h-16 md:h-20'}`}
           />
-          <div className={`hidden flex-col text-[10px] font-semibold uppercase leading-tight tracking-wide sm:flex ${
-            scrolled ? 'text-foreground' : 'text-white'
+          <div className={`hidden flex-col font-semibold uppercase leading-tight tracking-wide transition-all duration-500 sm:flex ${
+            scrolled ? 'text-[10px] text-foreground' : 'text-xs text-white md:text-sm'
           }`}>
             <span>Centro</span>
             <span>Cultural</span>

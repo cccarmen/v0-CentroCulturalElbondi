@@ -77,11 +77,6 @@ export function ImmersiveHero() {
   const parallaxX = (mousePosition.x - 0.5) * 20
   const parallaxY = (mousePosition.y - 0.5) * 20
 
-  // Logo transforms
-  const logoScale = 1 - scrollProgress * 0.4
-  const logoOpacity = 1 - scrollProgress * 0.3
-  const logoY = scrollProgress * -60
-
   // Content reveal
   const contentOpacity = Math.max(0, (scrollProgress - 0.3) * 2.5)
   const contentY = 60 - scrollProgress * 60
@@ -146,37 +141,6 @@ export function ImmersiveHero() {
             className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-transparent"
             style={{ opacity: scrollProgress * 0.5 }}
           />
-
-          {/* Morphing Logo - positioned left, big and white, transforms with scroll */}
-          <div
-            className="absolute left-6 top-1/2 z-20 origin-left transition-all duration-500 ease-out sm:left-10 md:left-16 lg:left-20"
-            style={{
-              transform: `translateY(-50%) translateY(${logoY}px) scale(${logoScale})`,
-              opacity: logoOpacity,
-            }}
-          >
-            <div className={`transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-              {/* Main logo - large on left side with high visual priority */}
-              <div className="relative">
-                {/* Glow backdrop for extra prominence */}
-                <div 
-                  className="absolute -inset-8 blur-3xl transition-opacity duration-500 md:-inset-16"
-                  style={{
-                    background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.25) 0%, transparent 70%)',
-                    opacity: 1 - scrollProgress * 0.8,
-                  }}
-                />
-                <img
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ElBondi-logo-blanco%20%284%29-129hLIOYFwpBUojLFmMTM414Q80dul.png"
-                  alt="El Bondi - Centro Cultural Comunitario"
-                  className="relative h-32 w-auto drop-shadow-2xl transition-all duration-500 sm:h-44 md:h-56 lg:h-72 xl:h-[22rem] 2xl:h-[28rem]"
-                  style={{
-                    filter: `drop-shadow(0 0 ${80 - scrollProgress * 60}px rgba(255,255,255,0.5)) drop-shadow(0 8px 40px rgba(0,0,0,0.6))`,
-                  }}
-                />
-              </div>
-            </div>
-          </div>
 
           {/* Scroll indicator - fades out on scroll */}
           <div
