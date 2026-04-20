@@ -41,25 +41,18 @@ export function CinematicNavbar() {
         {/* Logo - always visible in left corner, bigger when not scrolled */}
         <a 
           href="/" 
-          className="flex flex-shrink-0 items-center gap-3 transition-all duration-500"
+          className="flex flex-shrink-0 items-center transition-all duration-500"
         >
           <img
             src="/images/logo-dark.png"
-            alt="El Bondi"
+            alt="El Bondi - Centro Cultural Comunitario"
             className={`block w-auto transition-all duration-500 dark:hidden ${scrolled ? 'h-8' : 'hidden'}`}
           />
           <img
             src="/images/logo-white.png"
-            alt="El Bondi"
+            alt="El Bondi - Centro Cultural Comunitario"
             className={`w-auto transition-all duration-500 ${scrolled ? 'hidden h-8 dark:block' : 'block h-14 sm:h-16 md:h-20'}`}
           />
-          <div className={`hidden flex-col font-semibold uppercase leading-tight tracking-wide transition-all duration-500 sm:flex ${
-            scrolled ? 'text-[10px] text-foreground' : 'text-xs text-white md:text-sm'
-          }`}>
-            <span>Centro</span>
-            <span>Cultural</span>
-            <span>Comunitario</span>
-          </div>
         </a>
 
         {/* Navigation links */}
