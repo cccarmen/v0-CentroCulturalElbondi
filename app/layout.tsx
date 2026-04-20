@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist } from 'next/font/google'
-import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 const geist = Geist({
@@ -26,16 +25,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
-      <body className={`${geist.variable} font-sans antialiased`} suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+    <html lang="es" className="dark">
+      <body className={`${geist.variable} font-sans antialiased`}>
+        {children}
       </body>
     </html>
   )

@@ -1,9 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Menu, X, Sun, Moon } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useTheme } from 'next-themes'
 
 const navLinks = [
   { label: 'Centro Cultural', href: '/centro-cultural' },
@@ -16,7 +15,6 @@ const navLinks = [
 export function CinematicNavbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const { theme, setTheme } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,14 +42,9 @@ export function CinematicNavbar() {
           className="flex flex-shrink-0 items-center transition-all duration-500"
         >
           <img
-            src="/images/logo-dark.png"
-            alt="El Bondi - Centro Cultural Comunitario"
-            className={`block w-auto transition-all duration-500 dark:hidden ${scrolled ? 'h-8' : 'hidden'}`}
-          />
-          <img
             src="/images/logo-white.png"
             alt="El Bondi - Centro Cultural Comunitario"
-            className={`w-auto transition-all duration-500 ${scrolled ? 'hidden h-8 dark:block' : 'block h-14 sm:h-16 md:h-20'}`}
+            className={`w-auto transition-all duration-500 ${scrolled ? 'h-8' : 'h-14 sm:h-16 md:h-20'}`}
           />
         </a>
 
@@ -78,36 +71,20 @@ export function CinematicNavbar() {
           ))}
         </nav>
 
-        {/* Right side actions */}
-        <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            aria-label="Cambiar tema"
-            className={`transition-colors duration-300 ${
-              scrolled
-                ? 'hover:bg-primary/10 hover:text-primary'
-                : 'text-white/90 hover:bg-white/10 hover:text-white'
-            }`}
-          >
-            <Sun className="size-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-            <Moon className="absolute size-4 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className={`md:hidden transition-colors duration-300 ${
-              scrolled
-                ? 'hover:bg-primary/10 hover:text-primary'
-                : 'text-white/90 hover:bg-white/10 hover:text-white'
-            }`}
-            onClick={() => setOpen(!open)}
-            aria-label="Menu"
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </Button>
-        </div>
+        {/* Mobile menu toggle */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className={`md:hidden transition-colors duration-300 ${
+            scrolled
+              ? 'hover:bg-primary/10 hover:text-primary'
+              : 'text-white/90 hover:bg-white/10 hover:text-white'
+          }`}
+          onClick={() => setOpen(!open)}
+          aria-label="Menu"
+        >
+          {open ? <X className="size-5" /> : <Menu className="size-5" />}
+        </Button>
       </div>
 
       {/* Mobile menu */}
