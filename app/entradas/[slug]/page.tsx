@@ -189,7 +189,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
               <button
                 key={s.num}
                 onClick={() => { if (s.num < step && !reservationSubmitted) setStep(s.num) }}
-                className={`flex shrink-0 items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                className={`flex shrink-0 items-center gap-2 rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
                   step === s.num
                     ? 'bg-primary text-primary-foreground'
                     : step > s.num
@@ -540,7 +540,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
             <button
               key={s.num}
               onClick={() => { if (s.num < step) setStep(s.num) }}
-              className={`flex shrink-0 items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+              className={`flex shrink-0 items-center gap-2 rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
                 step === s.num
                   ? 'bg-primary text-primary-foreground'
                   : step > s.num

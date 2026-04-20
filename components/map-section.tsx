@@ -33,7 +33,7 @@ export function MapSection() {
             className="absolute inset-0 z-10 flex cursor-pointer items-center justify-center bg-transparent transition-colors hover:bg-black/5"
             aria-label="Hacer clic para interactuar con el mapa"
           >
-            <span className="flex items-center gap-2 rounded-full bg-card/90 px-4 py-2 text-sm font-medium text-card-foreground shadow-lg backdrop-blur-sm transition-transform hover:scale-105">
+            <span className="flex items-center gap-2 rounded-lg bg-card/90 px-4 py-2 text-sm font-medium text-card-foreground shadow-lg backdrop-blur-sm transition-transform hover:scale-105">
               <MousePointerClick className="size-4 text-primary" />
               Haz clic para explorar el mapa
             </span>

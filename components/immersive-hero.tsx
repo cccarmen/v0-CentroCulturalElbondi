@@ -216,14 +216,14 @@ export function ImmersiveHero() {
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
                 <a
                   href="/programacion"
-                  className="group relative overflow-hidden rounded-full bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
+                  className="group relative overflow-hidden rounded-lg bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
                 >
                   <span className="relative z-10">Ver Programacion</span>
                   <div className="absolute inset-0 -translate-x-full bg-white/20 transition-transform duration-500 group-hover:translate-x-0" />
                 </a>
                 <a
                   href="/centro-cultural"
-                  className="rounded-full border border-border bg-background/80 px-8 py-3 text-sm font-medium text-foreground backdrop-blur-sm transition-all duration-300 hover:bg-background hover:shadow-lg"
+                  className="rounded-lg border border-border bg-background/80 px-8 py-3 text-sm font-medium text-foreground backdrop-blur-sm transition-all duration-300 hover:bg-background hover:shadow-lg"
                 >
                   Conoce El Bondi
                 </a>
