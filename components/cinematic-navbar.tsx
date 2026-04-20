@@ -38,25 +38,28 @@ export function CinematicNavbar() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-8">
-        {/* Logo - simplified when scrolled */}
+        {/* Logo - always visible in left corner */}
         <a 
           href="/" 
-          className="flex-shrink-0 transition-all duration-500"
-          style={{
-            opacity: scrolled ? 1 : 0,
-            transform: scrolled ? 'translateY(0)' : 'translateY(-10px)',
-          }}
+          className="flex flex-shrink-0 items-center gap-2 transition-all duration-500"
         >
           <img
             src="/images/logo-dark.png"
             alt="El Bondi"
-            className="block h-8 w-auto dark:hidden"
+            className={`block h-7 w-auto transition-all duration-300 ${scrolled ? '' : 'hidden'}`}
           />
           <img
             src="/images/logo-white.png"
             alt="El Bondi"
-            className="hidden h-8 w-auto dark:block"
+            className={`h-7 w-auto transition-all duration-300 ${scrolled ? 'hidden dark:block' : 'block'}`}
           />
+          <div className={`hidden flex-col text-[10px] font-semibold uppercase leading-tight tracking-wide sm:flex ${
+            scrolled ? 'text-foreground' : 'text-white'
+          }`}>
+            <span>Centro</span>
+            <span>Cultural</span>
+            <span>Comunitario</span>
+          </div>
         </a>
 
         {/* Navigation links */}
