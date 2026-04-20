@@ -77,12 +77,10 @@ export function ImmersiveHero() {
   const parallaxX = (mousePosition.x - 0.5) * 20
   const parallaxY = (mousePosition.y - 0.5) * 20
 
-  // Logo transforms - starts large on left, moves and scales with scroll
-  const logoScale = 1 - scrollProgress * 0.5
-  const logoOpacity = 1 - scrollProgress * 0.4
-  const logoX = scrollProgress * 40 // moves right as user scrolls
-  const logoY = scrollProgress * -100 // moves up as user scrolls
-  const logoRotate = scrollProgress * -3 // subtle rotation
+  // Logo transforms
+  const logoScale = 1 - scrollProgress * 0.4
+  const logoOpacity = 1 - scrollProgress * 0.3
+  const logoY = scrollProgress * -60
 
   // Content reveal
   const contentOpacity = Math.max(0, (scrollProgress - 0.3) * 2.5)
@@ -149,40 +147,31 @@ export function ImmersiveHero() {
             style={{ opacity: scrollProgress * 0.5 }}
           />
 
-          {/* Morphing Logo - large on left, transforms with scroll */}
+          {/* Morphing Logo - transforms with scroll */}
           <div
-            className="absolute left-8 top-1/2 z-20 origin-left transition-all duration-[400ms] ease-out md:left-12 lg:left-16"
+            className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ease-out"
             style={{
-              transform: `translateY(-50%) translateX(${logoX}px) translateY(${logoY}px) scale(${logoScale}) rotate(${logoRotate}deg)`,
+              transform: `translate(-50%, calc(-50% + ${logoY}px)) scale(${logoScale})`,
               opacity: logoOpacity,
             }}
           >
             <div className={`transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-              {/* Main logo - large with high visual priority, positioned left */}
-              <div className="relative">
-                {/* Animated glow backdrop */}
+              {/* Main logo - large and centered with high visual priority */}
+              <div className="relative flex flex-col items-center">
+                {/* Glow backdrop for extra prominence */}
                 <div 
-                  className="absolute -inset-8 blur-3xl transition-all duration-500 md:-inset-16"
+                  className="absolute inset-0 -m-12 rounded-full blur-3xl transition-opacity duration-500"
                   style={{
-                    background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, rgba(139,92,246,0.1) 40%, transparent 70%)',
-                    opacity: 1 - scrollProgress * 0.9,
-                    transform: `scale(${1.2 - scrollProgress * 0.3})`,
-                  }}
-                />
-                {/* Secondary glow for depth */}
-                <div 
-                  className="absolute -inset-4 blur-2xl transition-all duration-500 md:-inset-8"
-                  style={{
-                    background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 60%)',
-                    opacity: 1 - scrollProgress * 0.7,
+                    background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)',
+                    opacity: 1 - scrollProgress * 0.8,
                   }}
                 />
                 <img
                   src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ElBondi-logo-blanco%20%284%29-129hLIOYFwpBUojLFmMTM414Q80dul.png"
                   alt="El Bondi - Centro Cultural Comunitario"
-                  className="relative h-28 w-auto drop-shadow-2xl transition-all duration-500 sm:h-40 md:h-52 lg:h-64 xl:h-[22rem] 2xl:h-[26rem]"
+                  className="relative h-32 w-auto drop-shadow-2xl transition-all duration-500 sm:h-44 md:h-56 lg:h-72 xl:h-80"
                   style={{
-                    filter: `drop-shadow(0 0 ${80 - scrollProgress * 60}px rgba(255,255,255,0.5)) drop-shadow(0 8px 32px rgba(0,0,0,0.6))`,
+                    filter: `drop-shadow(0 0 ${60 - scrollProgress * 40}px rgba(255,255,255,0.4)) drop-shadow(0 4px 20px rgba(0,0,0,0.5))`,
                   }}
                 />
               </div>
@@ -207,24 +196,24 @@ export function ImmersiveHero() {
             </div>
           </div>
 
-          {/* Editorial content that fades in as video recedes - positioned right to balance logo */}
+          {/* Editorial content that fades in as video recedes */}
           <div
-            className="absolute inset-0 flex items-center justify-end px-4 transition-all duration-300 md:px-12 lg:px-16"
+            className="absolute inset-0 flex items-center justify-center px-4 transition-all duration-300"
             style={{
               opacity: contentOpacity,
               transform: `translateY(${contentY}px)`,
               pointerEvents: scrollProgress > 0.3 ? 'auto' : 'none',
             }}
           >
-            <div className="max-w-xl text-right lg:max-w-2xl">
-              <h1 className="font-display text-3xl tracking-wide text-foreground md:text-5xl lg:text-6xl xl:text-7xl">
+            <div className="max-w-4xl text-center">
+              <h1 className="font-display text-4xl tracking-wide text-foreground md:text-6xl lg:text-7xl">
                 Un espacio para la comunidad
               </h1>
-              <p className="ml-auto mt-6 max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg lg:text-xl">
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
                 Donde el arte, la cultura y los vecinos se encuentran. 
                 Un centro cultural vivo, construido por y para la comunidad de Maschwitz.
               </p>
-              <div className="mt-8 flex flex-wrap items-center justify-end gap-4">
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
                 <a
                   href="/programacion"
                   className="group relative overflow-hidden rounded-full bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
