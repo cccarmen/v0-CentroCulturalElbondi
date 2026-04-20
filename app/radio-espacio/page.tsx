@@ -29,12 +29,15 @@ import {
   MapPin,
   Phone,
   Mail,
+  LayoutGrid,
+  Table2,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { InteractivePageHeader } from '@/components/interactive-page-header'
+import { RadioWeeklyTimetable } from '@/components/radio-weekly-timetable'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -218,6 +221,7 @@ function RadioEspacioContent() {
   const [showMobileFilters, setShowMobileFilters] = useState(false)
   const [isLivePlaying, setIsLivePlaying] = useState(false)
   const [playingProgramId, setPlayingProgramId] = useState<number | null>(null)
+  const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid')
 
   // Filtered programs
   const filtered = useMemo(() => {
@@ -587,10 +591,40 @@ function RadioEspacioContent() {
             <div className="flex-1">
               {/* Results header */}
               <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-                <div>
+                <div className="flex items-center gap-4">
                   <p className="text-sm text-muted-foreground">
                     {filtered.length} programa{filtered.length !== 1 ? 's' : ''} encontrado{filtered.length !== 1 ? 's' : ''}
                   </p>
+                  
+                  {/* View toggle */}
+                  <div className="flex gap-1 rounded-lg border border-border bg-muted p-1">
+                    <button
+                      type="button"
+                      onClick={() => setViewMode('grid')}
+                      className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                        viewMode === 'grid'
+                          ? 'bg-background text-foreground shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground'
+                      }`}
+                      aria-label="Vista de tarjetas"
+                    >
+                      <LayoutGrid className="size-4" />
+                      <span className="hidden sm:inline">Tarjetas</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setViewMode('table')}
+                      className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                        viewMode === 'table'
+                          ? 'bg-background text-foreground shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground'
+                      }`}
+                      aria-label="Vista de tabla semanal"
+                    >
+                      <Table2 className="size-4" />
+                      <span className="hidden sm:inline">Semanal</span>
+                    </button>
+                  </div>
                 </div>
 
                 {/* Active filter badges */}
@@ -622,8 +656,10 @@ function RadioEspacioContent() {
                 )}
               </div>
 
-              {/* Results grid */}
-              {filtered.length > 0 ? (
+              {/* Results - grid or table view */}
+              {viewMode === 'table' ? (
+                <RadioWeeklyTimetable programs={filtered} />
+              ) : filtered.length > 0 ? (
                 <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                   {filtered.map((program, index) => (
                     <ScrollReveal key={program.id} delay={index * 40} className="h-full">
