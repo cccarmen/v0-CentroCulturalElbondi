@@ -430,7 +430,7 @@ function RadioEspacioContent() {
               La Radio en Imagenes
             </h2>
             <p className="mt-2 max-w-xl text-muted-foreground">
-              Momentos de transmision, eventos especiales y la vida cotidiana en Radio Activa 96.9.
+              Momentos de transmision, eventos especiales y la vida cotidiana en Radio Activa.
             </p>
           </ScrollReveal>
 
