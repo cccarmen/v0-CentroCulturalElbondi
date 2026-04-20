@@ -33,7 +33,7 @@ export function MapSection() {
             className="absolute inset-0 z-10 flex cursor-pointer items-center justify-center bg-transparent transition-colors hover:bg-black/5"
             aria-label="Hacer clic para interactuar con el mapa"
           >
-            <span className="flex items-center gap-2 rounded-full bg-card/90 px-4 py-2 text-sm font-medium text-card-foreground shadow-lg backdrop-blur-sm transition-transform hover:scale-105">
+            <span className="flex items-center gap-2 rounded-lg bg-card/90 px-4 py-2 text-sm font-medium text-card-foreground shadow-lg backdrop-blur-sm transition-transform hover:scale-105">
               <MousePointerClick className="size-4 text-primary" />
               Haz clic para explorar el mapa
             </span>
@@ -42,7 +42,7 @@ export function MapSection() {
 
         {/* Info overlay */}
         <ScrollReveal direction="left" delay={300}>
-          <div className="absolute bottom-4 left-4 z-20 max-w-xs rounded-xl border border-border/50 bg-card/95 p-4 shadow-lg backdrop-blur-sm">
+          <div className="absolute bottom-4 left-4 z-20 max-w-xs rounded-lg border border-border/50 bg-card/95 p-4 shadow-lg backdrop-blur-sm">
             <div className="flex items-start gap-3">
               <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary">
                 <MapPin className="size-4 text-primary-foreground" />

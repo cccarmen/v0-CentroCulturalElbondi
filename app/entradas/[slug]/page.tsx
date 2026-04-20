@@ -189,7 +189,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
               <button
                 key={s.num}
                 onClick={() => { if (s.num < step && !reservationSubmitted) setStep(s.num) }}
-                className={`flex shrink-0 items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                className={`flex shrink-0 items-center gap-2 rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
                   step === s.num
                     ? 'bg-primary text-primary-foreground'
                     : step > s.num
@@ -220,7 +220,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
                     </p>
                   </div>
 
-                  <div className="rounded-xl border border-border bg-card p-5">
+                  <div className="rounded-lg border border-border bg-card p-5">
                     <h3 className="text-sm font-semibold text-foreground">Detalles</h3>
                     <div className="mt-3 flex flex-col gap-3">
                       <div className="flex items-center gap-3 text-sm">
@@ -254,7 +254,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
                   </div>
 
                   {event.instructor && (
-                    <div className="rounded-xl border border-border bg-card p-5">
+                    <div className="rounded-lg border border-border bg-card p-5">
                       <h3 className="text-sm font-semibold text-foreground">Instructor/a</h3>
                       <div className="mt-3 flex items-center gap-3">
                         <img
@@ -273,7 +273,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
 
                 {/* Right: CTA */}
                 <div className="lg:col-span-2">
-                  <div className="sticky top-24 rounded-xl border border-border bg-card p-6">
+                  <div className="sticky top-24 rounded-lg border border-border bg-card p-6">
                     <h3 className="text-lg font-semibold text-foreground">Reserva tu lugar</h3>
                     
                     <p className="mt-3 text-sm text-muted-foreground">
@@ -310,7 +310,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
                   </p>
                 </div>
 
-                <div className="rounded-xl border border-border bg-card p-6">
+                <div className="rounded-lg border border-border bg-card p-6">
                   <div className="flex flex-col gap-5">
                     <div>
                       <Label htmlFor="res-name" className="text-sm font-medium">Nombre completo *</Label>
@@ -362,7 +362,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-primary/20 bg-primary/5 p-5">
+                <div className="rounded-lg border border-primary/20 bg-primary/5 p-5">
                   <div className="flex items-start gap-3">
                     <Mail className="mt-0.5 size-5 shrink-0 text-primary" />
                     <div>
@@ -376,7 +376,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-border bg-card p-5">
+                <div className="rounded-lg border border-border bg-card p-5">
                   <h3 className="text-sm font-semibold text-foreground">Resumen de tu reserva</h3>
                   <div className="mt-3 flex flex-col gap-2">
                     <div className="flex items-center justify-between text-sm">
@@ -433,7 +433,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
                   </p>
                 </div>
 
-                <div className="w-full rounded-xl border border-border bg-card p-5 text-left">
+                <div className="w-full rounded-lg border border-border bg-card p-5 text-left">
                   <h3 className="text-sm font-semibold text-foreground">Proximos pasos</h3>
                   <ol className="mt-3 flex flex-col gap-2.5">
                     <li className="flex items-start gap-3 text-sm">
@@ -540,7 +540,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
             <button
               key={s.num}
               onClick={() => { if (s.num < step) setStep(s.num) }}
-              className={`flex shrink-0 items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+              className={`flex shrink-0 items-center gap-2 rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
                 step === s.num
                   ? 'bg-primary text-primary-foreground'
                   : step > s.num
@@ -571,7 +571,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
                   </p>
                 </div>
 
-                <div className="rounded-xl border border-border bg-card p-5">
+                <div className="rounded-lg border border-border bg-card p-5">
                   <h3 className="text-sm font-semibold text-foreground">Detalles</h3>
                   <div className="mt-3 flex flex-col gap-3">
                     <div className="flex items-center gap-3 text-sm">
@@ -598,7 +598,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
                 </div>
 
                 {event.instructor && (
-                  <div className="rounded-xl border border-border bg-card p-5">
+                  <div className="rounded-lg border border-border bg-card p-5">
                     <h3 className="text-sm font-semibold text-foreground">Presentado por</h3>
                     <div className="mt-3 flex items-center gap-3">
                       <img
@@ -617,7 +617,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
 
               {/* Right: quantity + CTA */}
               <div className="lg:col-span-2">
-                <div className="sticky top-24 rounded-xl border border-border bg-card p-6">
+                <div className="sticky top-24 rounded-lg border border-border bg-card p-6">
                   <h3 className="text-lg font-semibold text-foreground">Selecciona tus entradas</h3>
 
                   {!isFree && (
@@ -700,7 +700,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
                   <button
                     key={opt.value}
                     onClick={() => setDelivery(opt.value)}
-                    className={`flex items-start gap-4 rounded-xl border-2 p-5 text-left transition-all ${
+                    className={`flex items-start gap-4 rounded-lg border-2 p-5 text-left transition-all ${
                       delivery === opt.value
                         ? 'border-primary bg-primary/5'
                         : 'border-border bg-card hover:border-primary/40'
@@ -865,7 +865,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
         {step === 4 && (
           <ScrollReveal>
             <div className="mx-auto max-w-xl flex flex-col gap-8">
-              <div className="rounded-xl border border-border bg-card p-6">
+              <div className="rounded-lg border border-border bg-card p-6">
                 <h2 className="text-lg font-semibold text-foreground">Resumen de tu compra</h2>
 
                 <div className="mt-5 flex flex-col gap-4">
@@ -908,7 +908,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
                 </div>
               </div>
 
-              <div className="rounded-xl border border-primary/20 bg-primary/5 p-5">
+              <div className="rounded-lg border border-primary/20 bg-primary/5 p-5">
                 <div className="flex items-start gap-3">
                   <Ticket className="mt-0.5 size-5 shrink-0 text-primary" />
                   <div>
@@ -925,7 +925,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
               </div>
 
               {/* Steps to purchase info */}
-              <div className="rounded-xl border border-border bg-card p-5">
+              <div className="rounded-lg border border-border bg-card p-5">
                 <h3 className="text-sm font-semibold text-foreground">Pasos para obtener tu entrada</h3>
                 <ol className="mt-3 flex flex-col gap-2.5">
                   {[

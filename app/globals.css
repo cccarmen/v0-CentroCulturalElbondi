@@ -47,7 +47,7 @@
   --chart-4: oklch(0.65 0.12 340);
   --chart-5: oklch(0.52 0.10 290);
   
-  --radius: 0.625rem;
+  --radius: 0.375rem;
   
   /* Sidebar with light brand tint */
   --sidebar: oklch(0.96 0.012 305);
@@ -163,4 +163,28 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Cinematic smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Subtle grain texture for cinematic feel */
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+/* Custom easing for cinematic motion */
+.ease-cinematic {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }

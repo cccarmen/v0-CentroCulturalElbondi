@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { InteractivePageHeader } from '@/components/interactive-page-header'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -115,12 +116,10 @@ export default function CentroCulturalPage() {
       <section className="border-b border-border/40 bg-primary py-16 lg:py-24">
         <div className="mx-auto max-w-5xl px-4 lg:px-8">
           <ScrollReveal>
-            <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
-              Centro Cultural El Bondi
-            </h1>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-primary-foreground/80 lg:text-lg">
-              Mas de 15 anos construyendo comunidad a traves de la cultura, la educacion y la comunicacion en Maschwitz.
-            </p>
+            <InteractivePageHeader
+              title="Centro Cultural El Bondi"
+              description="Mas de 15 anos construyendo comunidad a traves de la cultura, la educacion y la comunicacion en Maschwitz."
+            />
           </ScrollReveal>
         </div>
       </section>
@@ -175,7 +174,7 @@ export default function CentroCulturalPage() {
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {specialThanks.map((thanks, index) => (
               <ScrollReveal key={thanks.name} delay={index * 80}>
-                <div className="flex h-full flex-col gap-2 rounded-xl border border-border/50 bg-card p-5 transition-shadow duration-300 hover:shadow-md">
+                <div className="flex h-full flex-col gap-2 rounded-lg border border-border/50 bg-card p-5 transition-shadow duration-300 hover:shadow-md">
                   <div className="flex size-10 items-center justify-center rounded-full bg-primary/10">
                     <span className="text-lg font-bold text-primary" aria-hidden="true">
                       {thanks.name[0]}
@@ -207,13 +206,13 @@ export default function CentroCulturalPage() {
               <ScrollReveal key={image.src} delay={index * 60}>
                 <button
                   onClick={() => openLightbox(index)}
-                  className="group mb-4 block w-full overflow-hidden rounded-xl focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:outline-none"
+                  className="group mb-4 block w-full overflow-hidden rounded-lg focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:outline-none"
                   aria-label={`Ver imagen: ${image.alt}`}
                 >
                   <img
                     src={image.src}
                     alt={image.alt}
-                    className="w-full rounded-xl object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full rounded-lg object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
                 </button>

@@ -18,7 +18,7 @@ export function EventCard({ slug, title, description, image, date, time, locatio
   return (
     <Link
       href={`/evento/${slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-primary/40 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+      className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/40 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
     >
       {/* Image section */}
       <div className="relative aspect-[16/10] overflow-hidden">

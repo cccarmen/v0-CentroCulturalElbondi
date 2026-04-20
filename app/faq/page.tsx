@@ -9,6 +9,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { InteractivePageHeader } from '@/components/interactive-page-header'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -147,12 +148,10 @@ export default function FaqPage() {
       <section className="border-b border-border/40 bg-primary py-16 lg:py-24">
         <div className="mx-auto max-w-4xl px-4 lg:px-8">
           <ScrollReveal>
-            <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
-              Preguntas Frecuentes
-            </h1>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-primary-foreground/80 lg:text-lg">
-              Encontra las respuestas a las preguntas mas comunes sobre El Bondi, nuestros eventos, talleres, la radio comunitaria y como colaborar.
-            </p>
+            <InteractivePageHeader
+              title="Preguntas Frecuentes"
+              description="Encontra las respuestas a las preguntas mas comunes sobre El Bondi, nuestros eventos, talleres, la radio comunitaria y como colaborar."
+            />
           </ScrollReveal>
         </div>
       </section>
@@ -167,7 +166,7 @@ export default function FaqPage() {
                   <h2 className="mb-4 font-display text-2xl tracking-wide text-foreground md:text-3xl">
                     {category.category}
                   </h2>
-                  <div className="rounded-xl border border-border bg-card p-2">
+                  <div className="rounded-lg border border-border bg-card p-2">
                     <Accordion type="single" collapsible className="w-full">
                       {category.questions.map((item, qIndex) => (
                         <AccordionItem

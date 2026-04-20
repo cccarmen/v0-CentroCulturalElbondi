@@ -377,7 +377,7 @@ export default function EventoPage() {
                 <Link
                   key={rel.slug}
                   href={`/evento/${rel.slug}`}
-                  className="group relative flex h-[280px] flex-col overflow-hidden rounded-xl border border-border/50 bg-card shadow-sm transition-shadow duration-300 hover:shadow-xl"
+                  className="group relative flex h-[280px] flex-col overflow-hidden rounded-lg border border-border/50 bg-card shadow-sm transition-shadow duration-300 hover:shadow-xl"
                 >
                   <img
                     src={rel.image}

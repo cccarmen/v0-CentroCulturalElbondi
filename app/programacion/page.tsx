@@ -26,6 +26,7 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { InteractivePageHeader } from '@/components/interactive-page-header'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -136,12 +137,10 @@ function ProgramacionContent() {
       {/* Hero header */}
       <section className="relative bg-primary px-4 pt-12 pb-8 lg:pt-16 lg:pb-12">
         <div className="mx-auto max-w-7xl">
-          <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
-            Eventos
-          </h1>
-          <p className="mt-3 max-w-xl text-base leading-relaxed text-primary-foreground/80">
-            Descubre eventos en El Bondi
-          </p>
+          <InteractivePageHeader
+            title="Eventos"
+            description="Descubre eventos en El Bondi"
+          />
 
           {/* Search bar - Eventbrite style */}
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -151,7 +150,7 @@ function ProgramacionContent() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Buscar eventos, talleres, actividades..."
-                className="h-12 rounded-xl bg-white pl-12 text-base shadow-lg border-0 focus-visible:ring-2 focus-visible:ring-white/50"
+                className="h-12 rounded-lg bg-white pl-12 text-base shadow-lg border-0 focus-visible:ring-2 focus-visible:ring-white/50"
               />
               {search && (
                 <button
@@ -175,7 +174,7 @@ function ProgramacionContent() {
               {/* Mobile filter toggle */}
               <button
                 onClick={() => setShowMobileFilters(!showMobileFilters)}
-                className="flex w-full items-center justify-between rounded-xl border border-border bg-card p-4 lg:hidden"
+                className="flex w-full items-center justify-between rounded-lg border border-border bg-card p-4 lg:hidden"
               >
                 <span className="flex items-center gap-2 font-medium">
                   <Filter className="size-4" />
@@ -192,7 +191,7 @@ function ProgramacionContent() {
               {/* Filter content */}
               <div className={`mt-4 space-y-6 lg:mt-0 ${showMobileFilters ? 'block' : 'hidden lg:block'}`}>
                 {/* Event type filter - vertical list style */}
-                <div className="rounded-xl border border-border bg-card p-4">
+                <div className="rounded-lg border border-border bg-card p-4">
                   <h3 className="mb-4 text-sm font-semibold text-foreground">
                     Categoria
                   </h3>
@@ -250,7 +249,7 @@ function ProgramacionContent() {
                 </div>
 
                 {/* Date filter - Calendar only */}
-                <div className="rounded-xl border border-border bg-card p-4">
+                <div className="rounded-lg border border-border bg-card p-4">
                   <div className="mb-4 flex items-center justify-between">
                     <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
                       <CalendarIcon className="size-4 text-primary" />
@@ -295,7 +294,7 @@ function ProgramacionContent() {
                 )}
 
                 {/* Upcoming events sidebar */}
-                <div className="rounded-xl border border-border bg-card p-4">
+                <div className="rounded-lg border border-border bg-card p-4">
                   <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-foreground">
                     <Users className="size-4 text-primary" />
                     Proximos eventos
@@ -418,7 +417,7 @@ function ProgramCard({ item }: { item: EventItem }) {
   return (
     <Link
       href={`/evento/${item.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-primary/40 hover:shadow-xl"
+      className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/40 hover:shadow-xl"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image
