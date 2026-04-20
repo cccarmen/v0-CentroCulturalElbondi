@@ -145,7 +145,7 @@ export function InteractiveTimeline() {
                     {/* Year */}
                     <span
                       aria-hidden="true"
-                      className={`shrink-0 font-display text-5xl tabular-nums transition-all duration-300 md:text-7xl lg:text-8xl ${
+                      className={`shrink-0 font-display text-3xl tabular-nums transition-all duration-300 md:text-4xl lg:text-5xl ${
                         hoveredIndex === index
                           ? 'text-primary'
                           : 'text-muted-foreground/50'
@@ -157,7 +157,7 @@ export function InteractiveTimeline() {
                     {/* Content */}
                     <div className="flex-1 overflow-hidden">
                       <h3
-                        className={`text-xl font-semibold leading-tight transition-all duration-300 md:text-2xl lg:text-3xl ${
+                        className={`text-base font-semibold leading-tight transition-all duration-300 md:text-lg lg:text-xl ${
                           hoveredIndex === index
                             ? 'text-foreground'
                             : 'text-foreground/80'
@@ -166,7 +166,7 @@ export function InteractiveTimeline() {
                         {event.title}
                       </h3>
                       <p
-                        className={`mt-2 text-base leading-relaxed transition-all duration-300 md:text-lg ${
+                        className={`mt-1 text-sm leading-relaxed transition-all duration-300 md:text-base ${
                           hoveredIndex === index
                             ? 'text-muted-foreground'
                             : 'text-muted-foreground/70'
