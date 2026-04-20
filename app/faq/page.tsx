@@ -167,7 +167,7 @@ export default function FaqPage() {
                   <h2 className="mb-4 font-display text-2xl tracking-wide text-foreground md:text-3xl">
                     {category.category}
                   </h2>
-                  <div className="rounded-xl border border-border bg-card p-2">
+                  <div className="rounded-lg border border-border bg-card p-2">
                     <Accordion type="single" collapsible className="w-full">
                       {category.questions.map((item, qIndex) => (
                         <AccordionItem

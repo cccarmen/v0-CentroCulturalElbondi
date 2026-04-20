@@ -17,7 +17,7 @@ export function RadioSection() {
       <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-10 px-4 lg:flex-row lg:gap-16 lg:px-8">
         {/* Radio Image */}
         <ScrollReveal direction="left" className="w-full max-w-md shrink-0 lg:w-2/5">
-          <div className="relative overflow-hidden rounded-xl border border-primary-foreground/10 shadow-2xl">
+          <div className="relative overflow-hidden rounded-lg border border-primary-foreground/10 shadow-2xl">
             <img
               src="/images/radio.jpg"
               alt="Radio Activa Comunitaria FM 96.9"
@@ -47,7 +47,7 @@ export function RadioSection() {
           </div>
 
           {/* Audio Player */}
-          <div className="w-full max-w-lg rounded-xl border border-primary-foreground/10 bg-primary-foreground/10 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-lg rounded-lg border border-primary-foreground/10 bg-primary-foreground/10 p-4 backdrop-blur-sm">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 <Button

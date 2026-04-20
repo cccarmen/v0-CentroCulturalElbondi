@@ -42,7 +42,7 @@ export function MapSection() {
 
         {/* Info overlay */}
         <ScrollReveal direction="left" delay={300}>
-          <div className="absolute bottom-4 left-4 z-20 max-w-xs rounded-xl border border-border/50 bg-card/95 p-4 shadow-lg backdrop-blur-sm">
+          <div className="absolute bottom-4 left-4 z-20 max-w-xs rounded-lg border border-border/50 bg-card/95 p-4 shadow-lg backdrop-blur-sm">
             <div className="flex items-start gap-3">
               <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary">
                 <MapPin className="size-4 text-primary-foreground" />

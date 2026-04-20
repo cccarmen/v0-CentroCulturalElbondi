@@ -106,7 +106,7 @@ function AudioSessionItem({
 
   return (
     <div 
-      className={`group rounded-xl transition-all duration-300 ${
+      className={`group rounded-lg transition-all duration-300 ${
         isActive 
           ? 'bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg' 
           : 'bg-card hover:bg-muted/50 border border-border'
@@ -277,7 +277,7 @@ export default function RadioEspacioPage() {
 
               {/* Radio Image */}
               <div className="w-full max-w-sm shrink-0 lg:w-2/5">
-                <div className="relative overflow-hidden rounded-xl border border-primary-foreground/10 shadow-2xl">
+                <div className="relative overflow-hidden rounded-lg border border-primary-foreground/10 shadow-2xl">
                   <img
                     src="/images/radio.jpg"
                     alt="Radio Activa Comunitaria FM 96.9"

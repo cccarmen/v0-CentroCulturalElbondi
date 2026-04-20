@@ -262,7 +262,7 @@ function TalleresContent() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Buscar talleres por nombre, instructor, disciplina..."
-                className="h-12 rounded-xl bg-white pl-12 text-base shadow-lg border-0 focus-visible:ring-2 focus-visible:ring-white/50"
+                className="h-12 rounded-lg bg-white pl-12 text-base shadow-lg border-0 focus-visible:ring-2 focus-visible:ring-white/50"
               />
               {search && (
                 <button
@@ -286,7 +286,7 @@ function TalleresContent() {
               {/* Mobile filter toggle */}
               <button
                 onClick={() => setShowMobileFilters(!showMobileFilters)}
-                className="flex w-full items-center justify-between rounded-xl border border-border bg-card p-4 lg:hidden"
+                className="flex w-full items-center justify-between rounded-lg border border-border bg-card p-4 lg:hidden"
               >
                 <span className="flex items-center gap-2 font-medium">
                   <Filter className="size-4" />
@@ -303,7 +303,7 @@ function TalleresContent() {
               {/* Filter content */}
               <div className={`mt-4 space-y-6 lg:mt-0 ${showMobileFilters ? 'block' : 'hidden lg:block'}`}>
                 {/* Discipline/Category filter */}
-                <div className="rounded-xl border border-border bg-card p-4">
+                <div className="rounded-lg border border-border bg-card p-4">
                   <h3 className="mb-4 text-sm font-semibold text-foreground">Disciplina</h3>
                   <div className="space-y-1">
                     {categoryOptions.map((opt) => (
@@ -327,7 +327,7 @@ function TalleresContent() {
                 </div>
 
                 {/* Date filter - unified days and date ranges */}
-                <div className="rounded-xl border border-border bg-card p-4">
+                <div className="rounded-lg border border-border bg-card p-4">
                   <h3 className="mb-4 text-sm font-semibold text-foreground">Fecha</h3>
                   <div className="space-y-1">
                     {dateOptions.map((opt) => (
@@ -379,7 +379,7 @@ function TalleresContent() {
                 )}
 
                 {/* Info card */}
-                <div className="rounded-xl border border-border bg-card p-4">
+                <div className="rounded-lg border border-border bg-card p-4">
                   <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold text-foreground">
                     <Users className="size-4 text-primary" />
                     Inscripcion
@@ -513,7 +513,7 @@ function TallerCard({ item }: { item: EventItem }) {
   return (
     <Link
       href={`/evento/${item.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-primary/40 hover:shadow-xl"
+      className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/40 hover:shadow-xl"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image
