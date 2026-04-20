@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 
 const timelineEvents = [
@@ -8,72 +8,60 @@ const timelineEvents = [
     year: '2010',
     title: 'Fundacion',
     description: 'El Bondi nace como un proyecto comunitario en Maschwitz.',
-    image: '/images/evento-encuentro.jpg',
+    images: ['/images/evento-encuentro.jpg', '/images/evento-cumple.jpg', '/images/evento-ronda.jpg'],
   },
   {
     year: '2012',
     title: 'Primer Festival',
     description: 'Se realiza el primer festival cultural comunitario.',
-    image: '/images/evento-musica.jpg',
+    images: ['/images/evento-musica.jpg', '/images/evento-variete.jpg', '/images/evento-folklore.jpg'],
   },
   {
     year: '2014',
     title: 'Radio Activa',
     description: 'Nace la radio comunitaria FM 96.9.',
-    image: '/images/evento-variete.jpg',
+    images: ['/images/evento-variete.jpg', '/images/evento-musica.jpg', '/images/evento-encuentro.jpg'],
   },
   {
     year: '2016',
     title: 'Bachillerato Popular',
     description: 'Se inaugura el bachillerato popular para jovenes y adultos.',
-    image: '/images/evento-folklore.jpg',
+    images: ['/images/evento-folklore.jpg', '/images/evento-ronda.jpg', '/images/evento-cumple.jpg'],
   },
   {
     year: '2018',
     title: 'Ampliacion del Espacio',
     description: 'Se amplian las instalaciones con nuevas aulas y salon de ensayo.',
-    image: '/images/evento-ronda.jpg',
+    images: ['/images/evento-ronda.jpg', '/images/evento-pareja.jpg', '/images/evento-musica.jpg'],
   },
   {
     year: '2020',
     title: 'Resistencia Digital',
     description: 'Adaptacion a la virtualidad durante la pandemia.',
-    image: '/images/evento-cumple.jpg',
+    images: ['/images/evento-cumple.jpg', '/images/evento-encuentro.jpg', '/images/evento-fiesta.jpg'],
   },
   {
     year: '2022',
     title: 'Reapertura Cultural',
     description: 'Vuelta a la presencialidad con programacion completa.',
-    image: '/images/evento-pareja.jpg',
+    images: ['/images/evento-pareja.jpg', '/images/evento-baile-atardecer.jpg', '/images/evento-variete.jpg'],
   },
   {
     year: '2024',
     title: 'Nuevo Escenario',
     description: 'Se inaugura el nuevo escenario al aire libre.',
-    image: '/images/evento-baile-atardecer.jpg',
+    images: ['/images/evento-baile-atardecer.jpg', '/images/evento-folklore.jpg', '/images/evento-musica.jpg'],
   },
   {
     year: '2026',
     title: 'Expansion Comunitaria',
     description: 'El Bondi se expande con nuevos proyectos.',
-    image: '/images/evento-fiesta.jpg',
+    images: ['/images/evento-fiesta.jpg', '/images/evento-danza-circulo.jpg', '/images/evento-encuentro.jpg'],
   },
 ]
 
 export function InteractiveTimeline() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect()
-      setMousePosition({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      })
-    }
-  }, [])
 
   return (
     <section className="relative overflow-hidden bg-background py-20 lg:py-32">
@@ -89,40 +77,7 @@ export function InteractiveTimeline() {
         </div>
 
         {/* Interactive timeline */}
-        <div
-          ref={containerRef}
-          onMouseMove={handleMouseMove}
-          className="relative"
-        >
-          {/* Floating image that follows cursor */}
-          <div
-            className="pointer-events-none fixed z-50 transition-all duration-200 ease-out"
-            style={{
-              left: mousePosition.x,
-              top: mousePosition.y,
-              transform: 'translate(-50%, -50%)',
-              opacity: hoveredIndex !== null ? 1 : 0,
-              scale: hoveredIndex !== null ? 1 : 0.8,
-            }}
-          >
-            {hoveredIndex !== null && (
-              <div className="relative h-64 w-80 overflow-hidden rounded-lg shadow-2xl md:h-80 md:w-96">
-                <Image
-                  src={timelineEvents[hoveredIndex].image}
-                  alt={timelineEvents[hoveredIndex].title}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <span className="text-3xl font-bold text-white">
-                    {timelineEvents[hoveredIndex].year}
-                  </span>
-                </div>
-              </div>
-            )}
-          </div>
-
+        <div className="relative">
           {/* Timeline list */}
           <div className="relative" role="list" aria-label="Linea de tiempo de El Bondi">
             {/* Vertical line accent */}
@@ -141,7 +96,7 @@ export function InteractiveTimeline() {
                   aria-label={`${event.year}: ${event.title}. ${event.description}`}
                   className="group relative cursor-pointer border-b border-border/30 transition-colors hover:bg-muted/30 focus:bg-muted/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
                 >
-                  <div className="flex items-baseline gap-6 py-6 pl-8 pr-4 md:gap-12 md:py-8">
+                  <div className="flex items-center gap-4 py-5 pl-6 pr-4 md:gap-8 md:py-6">
                     {/* Year */}
                     <span
                       aria-hidden="true"
@@ -155,7 +110,7 @@ export function InteractiveTimeline() {
                     </span>
 
                     {/* Content */}
-                    <div className="flex-1 overflow-hidden">
+                    <div className="min-w-0 flex-1">
                       <h3
                         className={`text-base font-semibold leading-tight transition-all duration-300 md:text-lg lg:text-xl ${
                           hoveredIndex === index
@@ -174,6 +129,33 @@ export function InteractiveTimeline() {
                       >
                         {event.description}
                       </p>
+                    </div>
+
+                    {/* 3 Images on right - visible on hover */}
+                    <div 
+                      className={`hidden shrink-0 items-center gap-2 transition-all duration-300 md:flex ${
+                        hoveredIndex === index 
+                          ? 'translate-x-0 opacity-100' 
+                          : 'translate-x-4 opacity-0'
+                      }`}
+                      aria-hidden="true"
+                    >
+                      {event.images.map((img, imgIndex) => (
+                        <div 
+                          key={imgIndex}
+                          className="relative h-16 w-16 overflow-hidden rounded-lg shadow-md transition-transform duration-300 hover:scale-105 lg:h-20 lg:w-20"
+                          style={{
+                            transitionDelay: `${imgIndex * 50}ms`,
+                          }}
+                        >
+                          <Image
+                            src={img}
+                            alt=""
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ))}
                     </div>
                   </div>
 
