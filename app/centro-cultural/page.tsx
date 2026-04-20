@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { X, ChevronLeft, ChevronRight, Home, LayoutGrid, Table2 } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, Home } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -13,7 +13,6 @@ import {
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { InteractivePageHeader } from '@/components/interactive-page-header'
 import { AnimatedTeamCard } from '@/components/animated-team-card'
-import { WeeklyTimetable } from '@/components/weekly-timetable'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -92,7 +91,6 @@ const galleryImages = [
 export default function CentroCulturalPage() {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
-  const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid')
 
   const openLightbox = (index: number) => {
     setLightboxIndex(index)
@@ -135,80 +133,6 @@ export default function CentroCulturalPage() {
               description="Mas de 15 anos construyendo comunidad a traves de la cultura, la educacion y la comunicacion en Maschwitz."
             />
           </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Weekly Schedule Section */}
-      <section className="border-t border-border/40 py-16 lg:py-24">
-        <div className="mx-auto max-w-6xl px-4 lg:px-8">
-          <ScrollReveal>
-            <h2 className="text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
-              Actividades Semanales
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
-              Descubri todas las actividades que podes disfrutar en El Bondi durante la semana.
-            </p>
-          </ScrollReveal>
-
-          {/* View toggle */}
-          <div className="mt-8 flex justify-center">
-            <div className="flex gap-1 rounded-lg border border-border bg-muted p-1">
-              <button
-                type="button"
-                onClick={() => setViewMode('grid')}
-                className={`flex items-center gap-1.5 rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                  viewMode === 'grid'
-                    ? 'bg-background text-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-                aria-label="Vista de tarjetas"
-              >
-                <LayoutGrid className="size-4" />
-                <span>Tarjetas</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode('table')}
-                className={`flex items-center gap-1.5 rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                  viewMode === 'table'
-                    ? 'bg-background text-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-                aria-label="Vista de tabla semanal"
-              >
-                <Table2 className="size-4" />
-                <span>Semanal</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="mt-8">
-            {viewMode === 'table' ? (
-              <WeeklyTimetable mode="talleres" />
-            ) : (
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                <ScrollReveal delay={0}>
-                  <Link href="/talleres" className="group block rounded-lg border border-border bg-card p-6 transition-all hover:border-primary hover:shadow-lg">
-                    <h3 className="font-display text-xl text-foreground group-hover:text-primary">Talleres</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">Circo, musica, danza y mas para todas las edades.</p>
-                  </Link>
-                </ScrollReveal>
-                <ScrollReveal delay={100}>
-                  <Link href="/programacion" className="group block rounded-lg border border-border bg-card p-6 transition-all hover:border-primary hover:shadow-lg">
-                    <h3 className="font-display text-xl text-foreground group-hover:text-primary">Eventos</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">Festivales, varietes y espectaculos comunitarios.</p>
-                  </Link>
-                </ScrollReveal>
-                <ScrollReveal delay={200}>
-                  <Link href="/radio-espacio" className="group block rounded-lg border border-border bg-card p-6 transition-all hover:border-primary hover:shadow-lg">
-                    <h3 className="font-display text-xl text-foreground group-hover:text-primary">Radio</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">FM 96.9 - La voz de Maschwitz y alrededores.</p>
-                  </Link>
-                </ScrollReveal>
-              </div>
-            )}
-          </div>
         </div>
       </section>
 
