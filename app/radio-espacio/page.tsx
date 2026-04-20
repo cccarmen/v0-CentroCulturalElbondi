@@ -189,19 +189,21 @@ const PROGRAM_CATEGORIES: { value: ProgramCategory; label: string; icon: typeof 
 ]
 
 const galleryImages = [
-  '/images/radio-activa.jpg',
-  '/images/evento-musica.jpg',
-  '/images/evento-encuentro.jpg',
-  '/images/evento-cumple.jpg',
-  '/images/evento-variete.jpg',
-  '/images/evento-folklore.jpg',
+  { src: '/images/radio-activa.jpg', alt: 'Estudio de Radio Activa FM 96.9' },
+  { src: '/images/evento-musica.jpg', alt: 'Transmision en vivo de evento musical' },
+  { src: '/images/evento-encuentro.jpg', alt: 'Encuentro comunitario en la radio' },
+  { src: '/images/evento-cumple.jpg', alt: 'Celebracion de aniversario de Radio Activa' },
+  { src: '/images/evento-variete.jpg', alt: 'Programa de varietes en vivo' },
+  { src: '/images/evento-folklore.jpg', alt: 'Musica folklorica en Radio Activa' },
+  { src: '/images/evento-ronda.jpg', alt: 'Ronda de vecinos en la radio' },
+  { src: '/images/evento-fiesta.jpg', alt: 'Fiesta aniversario 14 anos de Radio Activa' },
 ]
 
 const socialLinks = [
-  { name: 'Instagram', icon: Instagram, url: 'https://instagram.com/radioactivamaschwitz', handle: '@radioactivamaschwitz' },
+  { name: 'Instagram', icon: Instagram, url: 'https://www.instagram.com/fmradioactiva96.9/', handle: '@fmradioactiva96.9' },
   { name: 'Facebook', icon: Facebook, url: 'https://facebook.com/radioactivacomunitaria', handle: '/radioactivacomunitaria' },
-  { name: 'Youtube', icon: Youtube, url: 'https://youtube.com/@radioactivamaschwitz', handle: '@radioactivamaschwitz' },
-  { name: 'Twitter', icon: Twitter, url: 'https://twitter.com/radioactivafm', handle: '@radioactivafm' },
+  { name: 'Youtube', icon: Youtube, url: 'https://www.youtube.com/@fmradioactiva96.9', handle: '@fmradioactiva96.9' },
+  { name: 'App Android', icon: ExternalLink, url: 'https://play.google.com/store/apps/details?id=com.radioactivacomunitaria', handle: 'Descarga la App' },
 ]
 
 export default function RadioEspacioPage() {
@@ -353,16 +355,16 @@ function RadioEspacioContent() {
                 </h2>
                 <div className="mt-6 space-y-4 text-muted-foreground">
                   <p className="leading-relaxed">
-                    Radio Activa Comunitaria nacio en 2012 como un proyecto colectivo del Centro Cultural El Bondi. 
-                    Desde entonces, transmitimos en el 96.9 FM llevando las voces de Maschwitz y la zona norte a todos los hogares.
+                    Maschwitz es la primera localidad del Partido de Escobar en tener una radio comunitaria. 
+                    En FM RadioActiva se promueven las voces del pueblo y nuestra diversidad local.
                   </p>
                   <p className="leading-relaxed">
-                    Somos una radio autogestiva, sin fines de lucro, construida por vecinos y vecinas que creen en la 
-                    comunicacion como herramienta de transformacion social. Nuestros programas son producidos por la comunidad, 
-                    para la comunidad.
+                    Organizaciones sociocomunitarias, estudiantes, jovenes, adultos y adultos mayores tienen las puertas abiertas 
+                    en este medio de comunicacion. Somos una radio comunitaria sin fines de lucro y no pertenecemos a un partido politico.
                   </p>
                   <p className="leading-relaxed">
-                    Musica, cultura, debates, noticias locales y mucho mas. Todo lo que pasa en el barrio, pasa por Radio Activa.
+                    La musica que suena es diversa, como quienes participan de este sueno, sea desde el estudio o escuchando. 
+                    FM RadioActiva, la radio comunitaria del pueblo.
                   </p>
                 </div>
 
@@ -370,15 +372,15 @@ function RadioEspacioContent() {
                 <div className="mt-8 space-y-3">
                   <div className="flex items-center gap-3 text-sm text-muted-foreground">
                     <MapPin className="size-4 text-primary" />
-                    <span>Av. Boulogne Sur Mer 1234, Maschwitz</span>
+                    <span>Av El Dorado 1518, Ingeniero Maschwitz 1623</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-muted-foreground">
                     <Phone className="size-4 text-primary" />
-                    <span>+54 11 4567-8901</span>
+                    <span>11 6005-1234</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-muted-foreground">
                     <Mail className="size-4 text-primary" />
-                    <span>radioactiva@elbondi.org</span>
+                    <a href="mailto:fmra969@gmail.com" className="hover:text-primary transition-colors">fmra969@gmail.com</a>
                   </div>
                 </div>
               </div>
@@ -434,17 +436,20 @@ function RadioEspacioContent() {
             </p>
           </ScrollReveal>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {galleryImages.map((image, index) => (
               <ScrollReveal key={index} delay={index * 50}>
-                <div className="group relative aspect-[4/3] overflow-hidden rounded-lg">
+                <div className="group relative aspect-square overflow-hidden rounded-lg">
                   <Image
-                    src={image}
-                    alt={`Radio Activa - Imagen ${index + 1}`}
+                    src={image.src}
+                    alt={image.alt}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/20" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                  <div className="absolute inset-x-0 bottom-0 p-3 opacity-0 transition-opacity group-hover:opacity-100">
+                    <p className="text-xs font-medium text-white">{image.alt}</p>
+                  </div>
                 </div>
               </ScrollReveal>
             ))}
