@@ -124,9 +124,9 @@ export function InteractiveTimeline() {
           </div>
 
           {/* Timeline list */}
-          <div className="relative">
+          <div className="relative" role="list" aria-label="Linea de tiempo de El Bondi">
             {/* Vertical line accent */}
-            <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
+            <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent" aria-hidden="true" />
 
             <ul className="flex flex-col">
               {timelineEvents.map((event, index) => (
@@ -134,15 +134,21 @@ export function InteractiveTimeline() {
                   key={event.year}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
-                  className="group relative cursor-pointer border-b border-border/30 transition-colors hover:bg-muted/30"
+                  onFocus={() => setHoveredIndex(index)}
+                  onBlur={() => setHoveredIndex(null)}
+                  tabIndex={0}
+                  role="listitem"
+                  aria-label={`${event.year}: ${event.title}. ${event.description}`}
+                  className="group relative cursor-pointer border-b border-border/30 transition-colors hover:bg-muted/30 focus:bg-muted/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
                 >
                   <div className="flex items-baseline gap-6 py-6 pl-8 pr-4 md:gap-12 md:py-8">
                     {/* Year */}
                     <span
-                      className={`shrink-0 font-display text-4xl tabular-nums transition-all duration-300 md:text-6xl lg:text-7xl ${
+                      aria-hidden="true"
+                      className={`shrink-0 font-display text-5xl tabular-nums transition-all duration-300 md:text-7xl lg:text-8xl ${
                         hoveredIndex === index
                           ? 'text-primary'
-                          : 'text-muted-foreground/40'
+                          : 'text-muted-foreground/50'
                       }`}
                     >
                       {event.year}
@@ -151,51 +157,29 @@ export function InteractiveTimeline() {
                     {/* Content */}
                     <div className="flex-1 overflow-hidden">
                       <h3
-                        className={`text-xl font-semibold transition-all duration-300 md:text-2xl lg:text-3xl ${
+                        className={`text-xl font-semibold leading-tight transition-all duration-300 md:text-2xl lg:text-3xl ${
                           hoveredIndex === index
-                            ? 'translate-x-2 text-foreground'
-                            : 'text-foreground/70'
+                            ? 'text-foreground'
+                            : 'text-foreground/80'
                         }`}
                       >
                         {event.title}
                       </h3>
                       <p
-                        className={`mt-1 text-sm transition-all duration-300 md:text-base ${
+                        className={`mt-2 text-base leading-relaxed transition-all duration-300 md:text-lg ${
                           hoveredIndex === index
-                            ? 'translate-x-2 text-muted-foreground'
-                            : 'text-muted-foreground/50'
+                            ? 'text-muted-foreground'
+                            : 'text-muted-foreground/70'
                         }`}
                       >
                         {event.description}
                       </p>
                     </div>
-
-                    {/* Arrow indicator */}
-                    <div
-                      className={`shrink-0 transition-all duration-300 ${
-                        hoveredIndex === index
-                          ? 'translate-x-0 opacity-100'
-                          : '-translate-x-4 opacity-0'
-                      }`}
-                    >
-                      <svg
-                        className="size-6 text-primary md:size-8"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </svg>
-                    </div>
                   </div>
 
                   {/* Hover accent line */}
                   <div
+                    aria-hidden="true"
                     className={`absolute left-0 top-0 h-full w-1 bg-primary transition-all duration-300 ${
                       hoveredIndex === index ? 'opacity-100' : 'opacity-0'
                     }`}
