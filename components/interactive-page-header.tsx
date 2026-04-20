@@ -8,66 +8,48 @@ interface InteractivePageHeaderProps {
   className?: string
 }
 
-// Color palette for hover effects
-const hoverColors = [
-  'text-amber-300',
-  'text-emerald-300', 
-  'text-sky-300',
-  'text-rose-300',
-  'text-violet-300',
-  'text-orange-300',
-  'text-teal-300',
-  'text-pink-300',
-]
-
 export function InteractivePageHeader({ 
   title, 
   description,
   className = '' 
 }: InteractivePageHeaderProps) {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const [charColors, setCharColors] = useState<Record<number, string>>({})
+  const [hoveredChars, setHoveredChars] = useState<Set<number>>(new Set())
 
   // Split title into words for animation
   const words = title.split(' ')
 
-  const handleCharHover = useCallback((wordIndex: number, charIndex: number) => {
-    const globalIndex = wordIndex * 100 + charIndex
-    setHoveredIndex(globalIndex)
-    
-    // Assign a random color that persists for this character
-    if (!charColors[globalIndex]) {
-      const randomColor = hoverColors[Math.floor(Math.random() * hoverColors.length)]
-      setCharColors(prev => ({ ...prev, [globalIndex]: randomColor }))
-    }
-  }, [charColors])
+  const handleCharHover = useCallback((globalIndex: number) => {
+    setHoveredChars(prev => new Set(prev).add(globalIndex))
+  }, [])
 
-  const handleCharLeave = useCallback(() => {
-    setHoveredIndex(null)
+  const handleCharLeave = useCallback((globalIndex: number) => {
+    setHoveredChars(prev => {
+      const newSet = new Set(prev)
+      newSet.delete(globalIndex)
+      return newSet
+    })
   }, [])
 
   return (
     <div className={className}>
-      <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
+      <h1 className="font-display text-4xl tracking-wide md:text-5xl lg:text-6xl">
         {words.map((word, wordIndex) => (
           <span key={wordIndex} className="inline-block">
             {word.split('').map((char, charIndex) => {
               const globalIndex = wordIndex * 100 + charIndex
-              const isHovered = hoveredIndex === globalIndex
-              const color = charColors[globalIndex]
+              const isHovered = hoveredChars.has(globalIndex)
               
               return (
                 <span
                   key={charIndex}
-                  onMouseEnter={() => handleCharHover(wordIndex, charIndex)}
-                  onMouseLeave={handleCharLeave}
-                  className={`inline-block cursor-default transition-all duration-200 ease-out ${
-                    isHovered 
-                      ? `${color} scale-110 -rotate-3` 
-                      : 'text-primary-foreground'
-                  }`}
+                  onMouseEnter={() => handleCharHover(globalIndex)}
+                  onMouseLeave={() => handleCharLeave(globalIndex)}
+                  className="inline-block cursor-default transition-all duration-300 ease-out"
                   style={{
-                    transitionDelay: isHovered ? '0ms' : `${charIndex * 10}ms`,
+                    // Filled by default, outlined on hover (opposite effect)
+                    color: isHovered ? 'transparent' : 'var(--primary-foreground)',
+                    WebkitTextStroke: isHovered ? '2px var(--primary-foreground)' : '0px transparent',
+                    transform: isHovered ? 'scale(1.05)' : 'scale(1)',
                   }}
                   aria-hidden="true"
                 >
