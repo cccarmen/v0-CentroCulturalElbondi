@@ -189,11 +189,11 @@ const PROGRAM_CATEGORIES: { value: ProgramCategory; label: string; icon: typeof 
 ]
 
 const galleryImages = [
+  { src: '/images/radio-mixer-knobs.jpg', alt: 'Controles de la consola de audio' },
+  { src: '/images/radio-studio-desk.jpg', alt: 'Estudio de Radio Activa con consola y auriculares' },
   { src: '/images/radio-mic-vintage.jpg', alt: 'Microfono vintage del estudio' },
   { src: '/images/radio-mic-condenser.jpg', alt: 'Microfono profesional con filtro anti-pop' },
-  { src: '/images/radio-mixer-headphones.jpg', alt: 'Consola de mezcla con auriculares' },
-  { src: '/images/radio-mixer-knobs.jpg', alt: 'Controles de la consola de audio' },
-  { src: '/images/radio-mixer-faders.jpg', alt: 'Mesa de mezcla del estudio' },
+  { src: '/images/radio-estudio-activa.jpg', alt: 'Estudio de Radio Activa 96.9 en vivo' },
   { src: '/images/radio-logo-969.jpg', alt: 'Logo Radio Activa Comunitaria 96.9' },
 ]
 
