@@ -45,40 +45,14 @@ export function InteractivePageHeader({
 
   return (
     <div className={className}>
-      {/* Title container with cursor dot and texture */}
+      {/* Title container with cursor dot */}
       <div 
         ref={containerRef}
-        className="relative overflow-hidden rounded-lg px-4 py-2 -mx-4 -my-2"
+        className="relative"
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHoveringTitle(true)}
         onMouseLeave={() => setIsHoveringTitle(false)}
       >
-        {/* Noise texture overlay that appears on hover */}
-        <div
-          className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"
-          style={{
-            opacity: isHoveringTitle ? 0.15 : 0,
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-            backgroundRepeat: 'repeat',
-            mixBlendMode: 'overlay',
-          }}
-          aria-hidden="true"
-        />
-        
-        {/* Gradient spotlight that follows cursor */}
-        <div
-          className="pointer-events-none absolute z-0 transition-opacity duration-300"
-          style={{
-            width: '300px',
-            height: '300px',
-            left: mousePosition.x - 150,
-            top: mousePosition.y - 150,
-            background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
-            opacity: isHoveringTitle ? 1 : 0,
-          }}
-          aria-hidden="true"
-        />
-        
         {/* White dot that follows cursor */}
         <div
           className="pointer-events-none absolute z-10 size-4 rounded-full bg-white shadow-lg transition-all duration-150 ease-out md:size-6"
@@ -91,7 +65,7 @@ export function InteractivePageHeader({
           }}
         />
         
-        <h1 className="relative z-20 font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
+        <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
           {words.map((word, wordIndex) => (
             <span key={wordIndex} className="inline-block">
               {word.split('').map((char, charIndex) => {
