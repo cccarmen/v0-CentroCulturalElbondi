@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { InteractivePageHeader } from '@/components/interactive-page-header'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -115,12 +116,10 @@ export default function CentroCulturalPage() {
       <section className="border-b border-border/40 bg-primary py-16 lg:py-24">
         <div className="mx-auto max-w-5xl px-4 lg:px-8">
           <ScrollReveal>
-            <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
-              Centro Cultural El Bondi
-            </h1>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-primary-foreground/80 lg:text-lg">
-              Mas de 15 anos construyendo comunidad a traves de la cultura, la educacion y la comunicacion en Maschwitz.
-            </p>
+            <InteractivePageHeader
+              title="Centro Cultural El Bondi"
+              description="Mas de 15 anos construyendo comunidad a traves de la cultura, la educacion y la comunicacion en Maschwitz."
+            />
           </ScrollReveal>
         </div>
       </section>

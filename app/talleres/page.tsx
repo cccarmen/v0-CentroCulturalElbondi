@@ -27,6 +27,7 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { InteractivePageHeader } from '@/components/interactive-page-header'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -247,12 +248,10 @@ function TalleresContent() {
       {/* Hero header */}
       <section className="relative bg-primary px-4 pt-12 pb-8 lg:pt-16 lg:pb-12">
         <div className="mx-auto max-w-7xl">
-          <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
-            Talleres y Bachilleratos
-          </h1>
-          <p className="mt-3 max-w-xl text-base leading-relaxed text-primary-foreground/80">
-            Formacion artistica para todas las edades. Circo, musica, danza y mas.
-          </p>
+          <InteractivePageHeader
+            title="Talleres y Bachilleratos"
+            description="Formacion artistica para todas las edades. Circo, musica, danza y mas."
+          />
 
           {/* Search bar - Eventbrite style */}
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">

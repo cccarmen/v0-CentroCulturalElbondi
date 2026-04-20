@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Home, Play, Pause, Radio, Mic, Users, Clock, Headphones, ExternalLink, SkipBack, SkipForward, Volume2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { InteractivePageHeader } from '@/components/interactive-page-header'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -237,12 +238,10 @@ export default function RadioEspacioPage() {
                   </div>
                   <span className="font-display text-6xl text-primary-foreground md:text-7xl">96.9</span>
                 </div>
-                <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl">
-                  Radio Activa Comunitaria
-                </h1>
-                <p className="mt-4 max-w-xl text-base leading-relaxed text-primary-foreground/80 lg:text-lg">
-                  La voz de Maschwitz y alrededores. Desde 2012 transmitiendo cultura, musica y las voces de nuestra comunidad.
-                </p>
+                <InteractivePageHeader
+                  title="Radio Activa Comunitaria"
+                  description="La voz de Maschwitz y alrededores. Desde 2012 transmitiendo cultura, musica y las voces de nuestra comunidad."
+                />
 
                 {/* Live Player */}
                 <div className="mt-8 flex flex-wrap items-center gap-4">
