@@ -59,6 +59,18 @@ const teamMembers = [
     bio: 'Tecnico en sonido e iluminacion. Se encarga de toda la parte tecnica de eventos, la radio y el mantenimiento del espacio.',
     image: '/images/team-pablo.jpg',
   },
+  {
+    name: 'Martin Gonzalez',
+    role: 'Maestro de Ceremonias',
+    bio: 'Animador y presentador de los eventos del centro cultural. Su energia y carisma hacen unicas las noches del Variete Bajo las Estrellas.',
+    image: '/images/team-performer.jpg',
+  },
+  {
+    name: 'Fernando Silva',
+    role: 'Coordinador de Voluntarios',
+    bio: 'Parte fundamental del equipo del Variete Bajo las Estrellas. Coordina a los voluntarios y colabora en la produccion de eventos.',
+    image: '/images/team-crew.jpg',
+  },
 ]
 
 const specialThanks = [
