@@ -77,11 +77,6 @@ export function ImmersiveHero() {
   const parallaxX = (mousePosition.x - 0.5) * 20
   const parallaxY = (mousePosition.y - 0.5) * 20
 
-  // Logo transforms
-  const logoScale = 1 - scrollProgress * 0.4
-  const logoOpacity = 1 - scrollProgress * 0.3
-  const logoY = scrollProgress * -60
-
   // Content reveal
   const contentOpacity = Math.max(0, (scrollProgress - 0.3) * 2.5)
   const contentY = 60 - scrollProgress * 60
@@ -147,51 +142,20 @@ export function ImmersiveHero() {
             style={{ opacity: scrollProgress * 0.5 }}
           />
 
-          {/* Morphing Logo - positioned left, big and white, transforms with scroll */}
+          {/* Scroll indicator - fades out on scroll, always centered */}
           <div
-            className="absolute left-6 top-1/2 z-20 origin-left transition-all duration-500 ease-out sm:left-10 md:left-16 lg:left-20"
-            style={{
-              transform: `translateY(-50%) translateY(${logoY}px) scale(${logoScale})`,
-              opacity: logoOpacity,
-            }}
-          >
-            <div className={`transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-              {/* Main logo - large on left side with high visual priority */}
-              <div className="relative">
-                {/* Glow backdrop for extra prominence */}
-                <div 
-                  className="absolute -inset-8 blur-3xl transition-opacity duration-500 md:-inset-16"
-                  style={{
-                    background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.25) 0%, transparent 70%)',
-                    opacity: 1 - scrollProgress * 0.8,
-                  }}
-                />
-                <img
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ElBondi-logo-blanco%20%284%29-129hLIOYFwpBUojLFmMTM414Q80dul.png"
-                  alt="El Bondi - Centro Cultural Comunitario"
-                  className="relative h-32 w-auto drop-shadow-2xl transition-all duration-500 sm:h-44 md:h-56 lg:h-72 xl:h-[22rem] 2xl:h-[28rem]"
-                  style={{
-                    filter: `drop-shadow(0 0 ${80 - scrollProgress * 60}px rgba(255,255,255,0.5)) drop-shadow(0 8px 40px rgba(0,0,0,0.6))`,
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Scroll indicator - fades out on scroll */}
-          <div
-            className="absolute bottom-12 left-1/2 z-20 -translate-x-1/2 transition-all duration-500"
+            className="absolute inset-x-0 bottom-[env(safe-area-inset-bottom,0px)] z-20 flex justify-center pb-8 sm:pb-10 md:pb-12 transition-all duration-500"
             style={{
               opacity: Math.max(0, 1 - scrollProgress * 3),
-              transform: `translateX(-50%) translateY(${scrollProgress * 20}px)`,
+              transform: `translateY(${scrollProgress * 20}px)`,
             }}
           >
-            <div className="flex flex-col items-center gap-3">
-              <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/70">
+            <div className="flex flex-col items-center gap-2 sm:gap-3">
+              <span className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-white/70">
                 Explora
               </span>
               <div className="animate-bounce">
-                <ChevronDown className="size-6 text-white/70" />
+                <ChevronDown className="size-5 sm:size-6 text-white/70" />
               </div>
             </div>
           </div>

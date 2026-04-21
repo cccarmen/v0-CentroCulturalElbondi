@@ -353,9 +353,6 @@ function TalleresContent() {
                         selected={selectedDate}
                         onSelect={handleCalendarSelect}
                         modifiers={{ event: workshopDates }}
-                        modifiersClassNames={{
-                          event: 'bg-primary/20 text-primary font-bold',
-                        }}
                         className="p-0"
                       />
                       <p className="mt-2 text-xs text-muted-foreground">
@@ -476,7 +473,7 @@ function TalleresContent() {
 
               {/* Results: Grid or Timetable view */}
               {viewMode === 'table' ? (
-                <WeeklyTimetable mode="talleres" />
+                <WeeklyTimetable mode="talleres" selectedDay={isDayFilter(dateFilter) ? dateFilter : 'todos'} />
               ) : filtered.length > 0 ? (
                 <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                   {filtered.map((item, index) => (

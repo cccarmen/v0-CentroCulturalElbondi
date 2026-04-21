@@ -3,8 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { X, ChevronLeft, ChevronRight, Home } from 'lucide-react'
-import { Card, CardContent } from '@/components/ui/card'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -13,6 +12,7 @@ import {
 } from '@/components/ui/dialog'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { InteractivePageHeader } from '@/components/interactive-page-header'
+import { AnimatedTeamCard } from '@/components/animated-team-card'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -24,34 +24,58 @@ import {
 
 const teamMembers = [
   {
+    name: 'Martin Gonzalez',
+    role: 'Maestro de Ceremonias',
+    bio: 'Animador y presentador de los eventos del centro cultural. Su energia y carisma hacen unicas las noches del Variete Bajo las Estrellas.',
+    image: '/images/team-performer.jpg',
+  },
+  {
+    name: 'Fernando Silva',
+    role: 'Coordinador de Voluntarios',
+    bio: 'Parte fundamental del equipo del Variete Bajo las Estrellas. Coordina a los voluntarios y colabora en la produccion de eventos.',
+    image: '/images/team-crew.jpg',
+  },
+  {
     name: 'Mariana Lopez',
     role: 'Directora General',
     bio: 'Fundadora de El Bondi desde 2010. Gestora cultural con mas de 15 anos de experiencia en proyectos comunitarios y educativos en la zona norte del Gran Buenos Aires.',
+    image: '/images/team-mariana.jpg',
   },
   {
     name: 'Carlos Mendez',
     role: 'Coordinador de Talleres',
     bio: 'Artista plastico y educador popular. Coordina la oferta de talleres y el programa de bachillerato popular desde sus inicios.',
+    image: '/images/team-carlos.jpg',
   },
   {
     name: 'Lucia Fernandez',
     role: 'Directora de Radio Activa',
     bio: 'Comunicadora social y periodista comunitaria. Dirige la programacion de Radio Activa FM 96.9 y coordina los talleres de radio.',
+    image: '/images/team-lucia.jpg',
   },
   {
     name: 'Diego Ramirez',
     role: 'Coordinador de Eventos',
     bio: 'Productor de espectaculos y gestor cultural. Responsable de la programacion de eventos, el Variete Bajo las Estrellas y festivales.',
+    image: '/images/team-diego.jpg',
   },
   {
     name: 'Ana Torres',
     role: 'Coordinadora de Educacion',
     bio: 'Pedagoga y educadora popular. Lleva adelante el bachillerato popular y los programas de formacion para jovenes y adultos.',
+    image: '/images/team-ana.jpg',
   },
   {
     name: 'Pablo Gutierrez',
     role: 'Responsable Tecnico',
     bio: 'Tecnico en sonido e iluminacion. Se encarga de toda la parte tecnica de eventos, la radio y el mantenimiento del espacio.',
+    image: '/images/team-pablo.jpg',
+  },
+  {
+    name: 'Sofia Herrera',
+    role: 'Instructora de Circo',
+    bio: 'Artista circense y docente. Ensena acrobacias, malabares y artes aereas a ninos, jovenes y adultos en los talleres del centro.',
+    image: '/images/team-sofia.jpg',
   },
 ]
 
@@ -139,20 +163,12 @@ export default function CentroCulturalPage() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {teamMembers.map((member, index) => (
               <ScrollReveal key={member.name} delay={index * 100}>
-                <Card className="h-full border-border/50 transition-shadow duration-300 hover:shadow-lg">
-                  <CardContent className="flex flex-col items-center gap-4 p-6 text-center">
-                    <Avatar className="size-20 border-2 border-primary/30">
-                      <AvatarFallback className="bg-primary/10 text-xl font-semibold text-primary">
-                        {member.name.split(' ').map(n => n[0]).join('')}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <h3 className="text-lg font-semibold text-foreground">{member.name}</h3>
-                      <span className="text-sm font-medium text-primary">{member.role}</span>
-                    </div>
-                    <p className="text-sm leading-relaxed text-muted-foreground">{member.bio}</p>
-                  </CardContent>
-                </Card>
+                <AnimatedTeamCard
+                  name={member.name}
+                  role={member.role}
+                  bio={member.bio}
+                  image={member.image}
+                />
               </ScrollReveal>
             ))}
           </div>

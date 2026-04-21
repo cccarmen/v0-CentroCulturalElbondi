@@ -26,14 +26,9 @@ export function Footer() {
           {/* Logo & copyright */}
           <div className="flex flex-col gap-3">
             <img
-              src="/images/logo-dark.png"
-              alt="El Bondi - Centro Cultural Comunitario"
-              className="block h-9 w-auto dark:hidden"
-            />
-            <img
               src="/images/logo-white.png"
               alt="El Bondi - Centro Cultural Comunitario"
-              className="hidden h-9 w-auto dark:block"
+              className="h-8 w-auto max-w-[120px] object-contain sm:h-9 sm:max-w-none"
             />
             <span className="text-sm text-muted-foreground">{'© 2026'}</span>
           </div>
