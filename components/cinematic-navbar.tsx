@@ -8,7 +8,7 @@ const navLinks = [
   { label: 'Centro Cultural', href: '/centro-cultural' },
   { label: 'Eventos', href: '/programacion' },
   { label: 'Talleres', href: '/talleres' },
-  { label: 'Radio', href: '/radio-espacio' },
+  { label: 'Radio Activa', href: '/radio-espacio' },
   { label: 'FAQ', href: '/faq' },
 ]
 
