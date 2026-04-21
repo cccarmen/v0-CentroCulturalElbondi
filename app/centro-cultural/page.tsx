@@ -24,6 +24,18 @@ import {
 
 const teamMembers = [
   {
+    name: 'Martin Gonzalez',
+    role: 'Maestro de Ceremonias',
+    bio: 'Animador y presentador de los eventos del centro cultural. Su energia y carisma hacen unicas las noches del Variete Bajo las Estrellas.',
+    image: '/images/team-performer.jpg',
+  },
+  {
+    name: 'Fernando Silva',
+    role: 'Coordinador de Voluntarios',
+    bio: 'Parte fundamental del equipo del Variete Bajo las Estrellas. Coordina a los voluntarios y colabora en la produccion de eventos.',
+    image: '/images/team-crew.jpg',
+  },
+  {
     name: 'Mariana Lopez',
     role: 'Directora General',
     bio: 'Fundadora de El Bondi desde 2010. Gestora cultural con mas de 15 anos de experiencia en proyectos comunitarios y educativos en la zona norte del Gran Buenos Aires.',
@@ -58,18 +70,6 @@ const teamMembers = [
     role: 'Responsable Tecnico',
     bio: 'Tecnico en sonido e iluminacion. Se encarga de toda la parte tecnica de eventos, la radio y el mantenimiento del espacio.',
     image: '/images/team-pablo.jpg',
-  },
-  {
-    name: 'Martin Gonzalez',
-    role: 'Maestro de Ceremonias',
-    bio: 'Animador y presentador de los eventos del centro cultural. Su energia y carisma hacen unicas las noches del Variete Bajo las Estrellas.',
-    image: '/images/team-performer.jpg',
-  },
-  {
-    name: 'Fernando Silva',
-    role: 'Coordinador de Voluntarios',
-    bio: 'Parte fundamental del equipo del Variete Bajo las Estrellas. Coordina a los voluntarios y colabora en la produccion de eventos.',
-    image: '/images/team-crew.jpg',
   },
 ]
 
