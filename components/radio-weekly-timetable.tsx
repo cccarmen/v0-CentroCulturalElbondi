@@ -1,7 +1,7 @@
 'use client'
 
-import { useMemo } from 'react'
-import { Clock, Radio, Music, Mic, MessageSquare, Newspaper, Users, Heart } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { Clock, Radio, Music, Mic, MessageSquare, Newspaper, Users, Heart, ChevronDown } from 'lucide-react'
 
 interface RadioProgram {
   id: number
@@ -71,6 +71,8 @@ function parseSchedule(schedule: string): { days: Day[]; time: string } {
 }
 
 export function RadioWeeklyTimetable({ programs }: RadioWeeklyTimetableProps) {
+  const [expandedDay, setExpandedDay] = useState<Day | null>('Lunes')
+
   const timetableData = useMemo(() => {
     const data: Record<Day, TimetableItem[]> = {
       Lunes: [],
@@ -109,64 +111,152 @@ export function RadioWeeklyTimetable({ programs }: RadioWeeklyTimetableProps) {
     return data
   }, [programs])
 
-  return (
-    <div className="mt-6 overflow-x-auto rounded-xl border border-border">
-      <div className="min-w-[800px]">
-        {/* Header row */}
-        <div className="grid grid-cols-7 gap-px bg-border">
-          {DAYS.map((day) => (
-            <div
-              key={day}
-              className="bg-muted/80 px-2 py-2.5 text-center text-xs font-semibold text-foreground"
-            >
-              {day}
-            </div>
-          ))}
-        </div>
+  // Find days that have programs
+  const daysWithPrograms = useMemo(() => {
+    return DAYS.filter(day => timetableData[day].length > 0)
+  }, [timetableData])
 
-        {/* Content row */}
-        <div className="grid grid-cols-7 gap-px bg-border">
-          {DAYS.map((day) => (
-            <div key={day} className="flex min-h-[200px] flex-col gap-1.5 bg-card/50 p-1.5">
-              {timetableData[day].length > 0 ? (
-                timetableData[day].map((item, index) => {
-                  const IconComponent = categoryIcons[item.category] || Radio
-                  const colorClass = categoryColors[item.category] || 'bg-primary/10 hover:bg-primary/20'
-                  
-                  return (
-                    <div
-                      key={`${item.id}-${index}`}
-                      className={`group overflow-hidden rounded-lg border p-2.5 transition-all ${colorClass}`}
-                    >
-                      <div className="flex items-start gap-1.5">
-                        <div className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded bg-background/50">
-                          <IconComponent className="size-3 text-foreground" />
-                        </div>
-                        <div className="min-w-0 flex-1 overflow-hidden">
-                          <h4 className="truncate text-xs font-semibold leading-tight text-foreground" title={item.title}>
-                            {item.title}
-                          </h4>
-                          <p className="mt-0.5 truncate text-[10px] text-muted-foreground" title={item.host}>
-                            {item.host}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="mt-1.5 flex flex-wrap items-center gap-1 text-[10px] text-muted-foreground">
-                        <Clock className="size-2.5 shrink-0" />
-                        <span className="truncate">{item.time}</span>
-                        <span className="shrink-0 text-muted-foreground/50">·</span>
-                        <span className="truncate">{item.duration}</span>
-                      </div>
+  const toggleDay = (day: Day) => {
+    setExpandedDay(expandedDay === day ? null : day)
+  }
+
+  return (
+    <div className="mt-6">
+      {/* Mobile view - Accordion style */}
+      <div className="flex flex-col gap-2 md:hidden">
+        {DAYS.map((day) => {
+          const dayItems = timetableData[day]
+          const isExpanded = expandedDay === day
+          
+          return (
+            <div key={day} className="rounded-lg border border-border bg-card overflow-hidden">
+              <button
+                type="button"
+                onClick={() => toggleDay(day)}
+                className="flex w-full items-center justify-between px-4 py-3 text-left"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="font-semibold text-foreground">{day}</span>
+                  {dayItems.length > 0 && (
+                    <span className="rounded-full bg-primary/20 px-2 py-0.5 text-xs font-medium text-primary">
+                      {dayItems.length}
+                    </span>
+                  )}
+                </div>
+                <ChevronDown 
+                  className={`size-5 text-muted-foreground transition-transform ${isExpanded ? 'rotate-180' : ''}`} 
+                />
+              </button>
+              
+              {isExpanded && (
+                <div className="border-t border-border bg-muted/30 p-3">
+                  {dayItems.length > 0 ? (
+                    <div className="flex flex-col gap-2">
+                      {dayItems.map((item, index) => {
+                        const IconComponent = categoryIcons[item.category] || Radio
+                        const colorClass = categoryColors[item.category] || 'bg-primary/10 hover:bg-primary/20 border-primary/20'
+                        
+                        return (
+                          <div
+                            key={`${item.id}-${index}`}
+                            className={`rounded-lg border p-3 ${colorClass}`}
+                          >
+                            <div className="flex items-start gap-3">
+                              <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-background/50">
+                                <IconComponent className="size-4 text-foreground" />
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <h4 className="font-semibold text-foreground">
+                                  {item.title}
+                                </h4>
+                                <p className="mt-0.5 text-sm text-muted-foreground">
+                                  {item.host}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                              <div className="flex items-center gap-1.5">
+                                <Clock className="size-3.5" />
+                                <span>{item.time}</span>
+                              </div>
+                              <span className="text-muted-foreground/50">·</span>
+                              <span>{item.duration}</span>
+                            </div>
+                          </div>
+                        )
+                      })}
                     </div>
-                  )
-                })
-              ) : (
-                <div className="flex h-full items-center justify-center">
-                  <span className="text-[10px] text-muted-foreground/40">-</span>
+                  ) : (
+                    <p className="py-4 text-center text-sm text-muted-foreground">
+                      No hay programas este dia
+                    </p>
+                  )}
                 </div>
               )}
             </div>
-          ))}
+          )
+        })}
+      </div>
+
+      {/* Desktop view - Grid */}
+      <div className="hidden md:block overflow-x-auto rounded-xl border border-border">
+        <div className="min-w-[800px]">
+          {/* Header row */}
+          <div className="grid grid-cols-7 gap-px bg-border">
+            {DAYS.map((day) => (
+              <div
+                key={day}
+                className="bg-muted/80 px-2 py-2.5 text-center text-xs font-semibold text-foreground"
+              >
+                {day}
+              </div>
+            ))}
+          </div>
+
+          {/* Content row */}
+          <div className="grid grid-cols-7 gap-px bg-border">
+            {DAYS.map((day) => (
+              <div key={day} className="flex min-h-[200px] flex-col gap-1.5 bg-card/50 p-1.5">
+                {timetableData[day].length > 0 ? (
+                  timetableData[day].map((item, index) => {
+                    const IconComponent = categoryIcons[item.category] || Radio
+                    const colorClass = categoryColors[item.category] || 'bg-primary/10 hover:bg-primary/20'
+                    
+                    return (
+                      <div
+                        key={`${item.id}-${index}`}
+                        className={`group overflow-hidden rounded-lg border p-2.5 transition-all ${colorClass}`}
+                      >
+                        <div className="flex items-start gap-1.5">
+                          <div className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded bg-background/50">
+                            <IconComponent className="size-3 text-foreground" />
+                          </div>
+                          <div className="min-w-0 flex-1 overflow-hidden">
+                            <h4 className="truncate text-xs font-semibold leading-tight text-foreground" title={item.title}>
+                              {item.title}
+                            </h4>
+                            <p className="mt-0.5 truncate text-[10px] text-muted-foreground" title={item.host}>
+                              {item.host}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="mt-1.5 flex flex-wrap items-center gap-1 text-[10px] text-muted-foreground">
+                          <Clock className="size-2.5 shrink-0" />
+                          <span className="truncate">{item.time}</span>
+                          <span className="shrink-0 text-muted-foreground/50">·</span>
+                          <span className="truncate">{item.duration}</span>
+                        </div>
+                      </div>
+                    )
+                  })
+                ) : (
+                  <div className="flex h-full items-center justify-center">
+                    <span className="text-[10px] text-muted-foreground/40">-</span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
