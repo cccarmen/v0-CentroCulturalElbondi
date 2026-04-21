@@ -71,6 +71,12 @@ const teamMembers = [
     bio: 'Tecnico en sonido e iluminacion. Se encarga de toda la parte tecnica de eventos, la radio y el mantenimiento del espacio.',
     image: '/images/team-pablo.jpg',
   },
+  {
+    name: 'Sofia Herrera',
+    role: 'Instructora de Circo',
+    bio: 'Artista circense y docente. Ensena acrobacias, malabares y artes aereas a ninos, jovenes y adultos en los talleres del centro.',
+    image: '/images/team-sofia.jpg',
+  },
 ]
 
 const specialThanks = [
