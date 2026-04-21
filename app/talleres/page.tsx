@@ -353,9 +353,6 @@ function TalleresContent() {
                         selected={selectedDate}
                         onSelect={handleCalendarSelect}
                         modifiers={{ event: workshopDates }}
-                        modifiersClassNames={{
-                          event: 'bg-primary/20 text-primary font-bold',
-                        }}
                         className="p-0"
                       />
                       <p className="mt-2 text-xs text-muted-foreground">
