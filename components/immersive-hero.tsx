@@ -85,8 +85,8 @@ export function ImmersiveHero() {
     <div ref={containerRef} className="relative">
       {/* Full-screen cinematic hero container */}
       <section className="relative h-[200vh]">
-        {/* Sticky video container */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* Sticky video container - z-0 ensures content scrolls over it */}
+        <div className="sticky top-0 z-0 h-screen w-full overflow-hidden">
           {/* Video layer with parallax and scroll effects */}
           <div
             className="absolute inset-0 transition-transform duration-100 ease-out"

@@ -204,65 +204,66 @@ export function WeeklyTimetable({ mode = 'talleres', selectedDay = 'todos' }: We
 
       {/* Desktop view - Grid (only show if more than 1 day selected) */}
       {daysToShow.length > 1 && (
-      <div className="hidden md:block overflow-x-auto">
-        <div className={daysToShow.length === 6 ? 'min-w-[900px]' : ''}>
-          {/* Header row */}
-          <div className={`grid gap-1 rounded-t-xl bg-muted/50 p-1 ${
-            daysToShow.length === 2 ? 'grid-cols-2' :
-            daysToShow.length === 3 ? 'grid-cols-3' :
-            daysToShow.length === 4 ? 'grid-cols-4' :
-            daysToShow.length === 5 ? 'grid-cols-5' :
-            'grid-cols-6'
-          }`}>
-            {daysToShow.map((day) => (
-              <div
-                key={day}
-                className="rounded-lg bg-card px-3 py-3 text-center text-sm font-semibold text-foreground"
-              >
-                {day}
-              </div>
-            ))}
-          </div>
-
-          {/* Content row */}
-          <div className={`grid gap-1 rounded-b-xl border border-t-0 border-border bg-muted/30 p-1 ${
-            daysToShow.length === 2 ? 'grid-cols-2' :
-            daysToShow.length === 3 ? 'grid-cols-3' :
-            daysToShow.length === 4 ? 'grid-cols-4' :
-            daysToShow.length === 5 ? 'grid-cols-5' :
-            'grid-cols-6'
-          }`}>
-            {daysToShow.map((day) => (
-              <div key={day} className="flex min-h-[200px] flex-col gap-2 p-2">
-                {timetableData[day].length > 0 ? (
-                  timetableData[day].map((item, index) => (
-                    <Link
-                      key={`${item.slug}-${index}`}
-                      href={item.category === 'evento' ? `/evento/${item.slug}` : `/evento/${item.slug}`}
-                      className="group rounded-lg bg-primary/10 p-3 transition-all hover:bg-primary/20 hover:shadow-md"
-                    >
-                      <h4 className="text-sm font-semibold text-foreground group-hover:text-primary">
-                        {item.title}
-                      </h4>
-                      <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-                        <Clock className="size-3" />
-                        <span>{item.time}</span>
-                      </div>
-                      <div className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
-                        <MapPin className="size-3" />
-                        <span className="truncate">{item.location}</span>
-                      </div>
-                    </Link>
-                  ))
-                ) : (
-                  <div className="flex h-full items-center justify-center">
-                    <span className="text-xs text-muted-foreground/50">-</span>
-                  </div>
-              )}
+        <div className="hidden md:block overflow-x-auto">
+          <div className={daysToShow.length === 6 ? 'min-w-[900px]' : ''}>
+            {/* Header row */}
+            <div className={`grid gap-1 rounded-t-xl bg-muted/50 p-1 ${
+              daysToShow.length === 2 ? 'grid-cols-2' :
+              daysToShow.length === 3 ? 'grid-cols-3' :
+              daysToShow.length === 4 ? 'grid-cols-4' :
+              daysToShow.length === 5 ? 'grid-cols-5' :
+              'grid-cols-6'
+            }`}>
+              {daysToShow.map((day) => (
+                <div
+                  key={day}
+                  className="rounded-lg bg-card px-3 py-3 text-center text-sm font-semibold text-foreground"
+                >
+                  {day}
+                </div>
+              ))}
             </div>
-          ))}
+
+            {/* Content row */}
+            <div className={`grid gap-1 rounded-b-xl border border-t-0 border-border bg-muted/30 p-1 ${
+              daysToShow.length === 2 ? 'grid-cols-2' :
+              daysToShow.length === 3 ? 'grid-cols-3' :
+              daysToShow.length === 4 ? 'grid-cols-4' :
+              daysToShow.length === 5 ? 'grid-cols-5' :
+              'grid-cols-6'
+            }`}>
+              {daysToShow.map((day) => (
+                <div key={day} className="flex min-h-[200px] flex-col gap-2 p-2">
+                  {timetableData[day].length > 0 ? (
+                    timetableData[day].map((item, index) => (
+                      <Link
+                        key={`${item.slug}-${index}`}
+                        href={item.category === 'evento' ? `/evento/${item.slug}` : `/evento/${item.slug}`}
+                        className="group rounded-lg bg-primary/10 p-3 transition-all hover:bg-primary/20 hover:shadow-md"
+                      >
+                        <h4 className="text-sm font-semibold text-foreground group-hover:text-primary">
+                          {item.title}
+                        </h4>
+                        <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <Clock className="size-3" />
+                          <span>{item.time}</span>
+                        </div>
+                        <div className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <MapPin className="size-3" />
+                          <span className="truncate">{item.location}</span>
+                        </div>
+                      </Link>
+                    ))
+                  ) : (
+                    <div className="flex h-full items-center justify-center">
+                      <span className="text-xs text-muted-foreground/50">-</span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
       )}
     </div>
   )
