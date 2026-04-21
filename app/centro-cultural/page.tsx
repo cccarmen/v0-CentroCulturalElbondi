@@ -28,42 +28,36 @@ const teamMembers = [
     role: 'Directora General',
     bio: 'Fundadora de El Bondi desde 2010. Gestora cultural con mas de 15 anos de experiencia en proyectos comunitarios y educativos en la zona norte del Gran Buenos Aires.',
     image: '/images/team-mariana.jpg',
-    animation: 'tilt-left' as const,
   },
   {
     name: 'Carlos Mendez',
     role: 'Coordinador de Talleres',
     bio: 'Artista plastico y educador popular. Coordina la oferta de talleres y el programa de bachillerato popular desde sus inicios.',
     image: '/images/team-carlos.jpg',
-    animation: 'zoom' as const,
   },
   {
     name: 'Lucia Fernandez',
     role: 'Directora de Radio Activa',
     bio: 'Comunicadora social y periodista comunitaria. Dirige la programacion de Radio Activa FM 96.9 y coordina los talleres de radio.',
     image: '/images/team-lucia.jpg',
-    animation: 'tilt-right' as const,
   },
   {
     name: 'Diego Ramirez',
     role: 'Coordinador de Eventos',
     bio: 'Productor de espectaculos y gestor cultural. Responsable de la programacion de eventos, el Variete Bajo las Estrellas y festivales.',
     image: '/images/team-diego.jpg',
-    animation: 'slide-up' as const,
   },
   {
     name: 'Ana Torres',
     role: 'Coordinadora de Educacion',
     bio: 'Pedagoga y educadora popular. Lleva adelante el bachillerato popular y los programas de formacion para jovenes y adultos.',
     image: '/images/team-ana.jpg',
-    animation: 'rotate' as const,
   },
   {
     name: 'Pablo Gutierrez',
     role: 'Responsable Tecnico',
     bio: 'Tecnico en sonido e iluminacion. Se encarga de toda la parte tecnica de eventos, la radio y el mantenimiento del espacio.',
     image: '/images/team-pablo.jpg',
-    animation: 'shake' as const,
   },
 ]
 
@@ -156,7 +150,6 @@ export default function CentroCulturalPage() {
                   role={member.role}
                   bio={member.bio}
                   image={member.image}
-                  animation={member.animation}
                 />
               </ScrollReveal>
             ))}
