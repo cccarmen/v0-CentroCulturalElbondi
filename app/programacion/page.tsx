@@ -149,7 +149,7 @@ function ProgramacionContent() {
               <Input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Buscar eventos, talleres, actividades..."
+                placeholder="Buscar eventos..."
                 className="h-12 rounded-lg bg-white pl-12 text-base shadow-lg border-0 focus-visible:ring-2 focus-visible:ring-white/50"
               />
               {search && (
