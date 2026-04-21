@@ -9,7 +9,7 @@ interface AnimatedTeamCardProps {
 
 export function AnimatedTeamCard({ name, role, bio, image }: AnimatedTeamCardProps) {
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-xl border border-border/50 bg-card">
+    <div className="pointer-events-none flex h-full flex-col overflow-hidden rounded-xl border border-border/50 bg-card select-none">
       {/* Image container */}
       <div className="relative h-64 overflow-hidden bg-muted">
         <Image
