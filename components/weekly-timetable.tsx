@@ -104,9 +104,16 @@ export function WeeklyTimetable({ mode = 'talleres', selectedDay = 'todos' }: We
     return data
   }, [mode])
 
+  // When only one day is selected, always keep it expanded
+  const isSingleDay = daysToShow.length === 1
   const [expandedDay, setExpandedDay] = useState<Day | null>(daysToShow[0] || 'Lunes')
 
+  // Update expanded day when filter changes
+  const effectiveExpandedDay = isSingleDay ? daysToShow[0] : expandedDay
+
   const toggleDay = (day: Day) => {
+    // Don't allow collapsing if only one day is shown
+    if (isSingleDay) return
     setExpandedDay(expandedDay === day ? null : day)
   }
 
@@ -123,27 +130,39 @@ export function WeeklyTimetable({ mode = 'talleres', selectedDay = 'todos' }: We
       <div className={`flex flex-col gap-2 ${daysToShow.length === 1 ? '' : 'md:hidden'}`}>
         {daysToShow.map((day) => {
           const dayItems = timetableData[day]
-          const isExpanded = expandedDay === day
+          const isExpanded = effectiveExpandedDay === day
           
           return (
             <div key={day} className="rounded-lg border border-border bg-card overflow-hidden">
-              <button
-                type="button"
-                onClick={() => toggleDay(day)}
-                className="flex w-full items-center justify-between px-4 py-3 text-left"
-              >
-                <div className="flex items-center gap-3">
+              {/* Only show collapsible header if multiple days */}
+              {!isSingleDay ? (
+                <button
+                  type="button"
+                  onClick={() => toggleDay(day)}
+                  className="flex w-full items-center justify-between px-4 py-3 text-left"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="font-semibold text-foreground">{day}</span>
+                    {dayItems.length > 0 && (
+                      <span className="rounded-full bg-primary/20 px-2 py-0.5 text-xs font-medium text-primary">
+                        {dayItems.length}
+                      </span>
+                    )}
+                  </div>
+                  <ChevronDown 
+                    className={`size-5 text-muted-foreground transition-transform ${isExpanded ? 'rotate-180' : ''}`} 
+                  />
+                </button>
+              ) : (
+                <div className="flex items-center gap-3 px-4 py-3">
                   <span className="font-semibold text-foreground">{day}</span>
                   {dayItems.length > 0 && (
                     <span className="rounded-full bg-primary/20 px-2 py-0.5 text-xs font-medium text-primary">
-                      {dayItems.length}
+                      {dayItems.length} actividad{dayItems.length !== 1 ? 'es' : ''}
                     </span>
                   )}
                 </div>
-                <ChevronDown 
-                  className={`size-5 text-muted-foreground transition-transform ${isExpanded ? 'rotate-180' : ''}`} 
-                />
-              </button>
+              )}
               
               {isExpanded && (
                 <div className="border-t border-border bg-muted/30 p-3">
