@@ -142,20 +142,20 @@ export function ImmersiveHero() {
             style={{ opacity: scrollProgress * 0.5 }}
           />
 
-          {/* Scroll indicator - fades out on scroll */}
+          {/* Scroll indicator - fades out on scroll, always centered */}
           <div
-            className="absolute bottom-12 left-1/2 z-20 -translate-x-1/2 transition-all duration-500"
+            className="absolute inset-x-0 bottom-[env(safe-area-inset-bottom,0px)] z-20 flex justify-center pb-8 sm:pb-10 md:pb-12 transition-all duration-500"
             style={{
               opacity: Math.max(0, 1 - scrollProgress * 3),
-              transform: `translateX(-50%) translateY(${scrollProgress * 20}px)`,
+              transform: `translateY(${scrollProgress * 20}px)`,
             }}
           >
-            <div className="flex flex-col items-center gap-3">
-              <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/70">
+            <div className="flex flex-col items-center gap-2 sm:gap-3">
+              <span className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-white/70">
                 Explora
               </span>
               <div className="animate-bounce">
-                <ChevronDown className="size-6 text-white/70" />
+                <ChevronDown className="size-5 sm:size-6 text-white/70" />
               </div>
             </div>
           </div>
