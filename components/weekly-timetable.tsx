@@ -6,13 +6,24 @@ import { Clock, MapPin, ChevronDown } from 'lucide-react'
 import { workshops, events, type EventItem } from '@/lib/data'
 
 type TimetableMode = 'eventos' | 'talleres'
+type DayFilter = 'todos' | 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado'
 
 interface WeeklyTimetableProps {
   mode?: TimetableMode
+  selectedDay?: DayFilter
 }
 
 const DAYS = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabados'] as const
 type Day = typeof DAYS[number]
+
+const DAY_FILTER_MAP: Record<Exclude<DayFilter, 'todos'>, Day> = {
+  lunes: 'Lunes',
+  martes: 'Martes',
+  miercoles: 'Miercoles',
+  jueves: 'Jueves',
+  viernes: 'Viernes',
+  sabado: 'Sabados',
+}
 
 interface TimetableItem {
   title: string
@@ -47,7 +58,14 @@ function parseMultipleDays(dateStr: string): Day[] {
   return days
 }
 
-export function WeeklyTimetable({ mode = 'talleres' }: WeeklyTimetableProps) {
+export function WeeklyTimetable({ mode = 'talleres', selectedDay = 'todos' }: WeeklyTimetableProps) {
+  // Filter days based on selectedDay prop
+  const daysToShow = useMemo(() => {
+    if (selectedDay === 'todos') return DAYS
+    const mappedDay = DAY_FILTER_MAP[selectedDay]
+    return mappedDay ? [mappedDay] as const : DAYS
+  }, [selectedDay])
+
   const timetableData = useMemo(() => {
     const data: Record<Day, TimetableItem[]> = {
       Lunes: [],
@@ -86,17 +104,24 @@ export function WeeklyTimetable({ mode = 'talleres' }: WeeklyTimetableProps) {
     return data
   }, [mode])
 
-  const [expandedDay, setExpandedDay] = useState<Day | null>('Lunes')
+  const [expandedDay, setExpandedDay] = useState<Day | null>(daysToShow[0] || 'Lunes')
 
   const toggleDay = (day: Day) => {
     setExpandedDay(expandedDay === day ? null : day)
   }
 
+  // Determine grid columns based on number of days
+  const gridColsClass = daysToShow.length === 1 
+    ? 'grid-cols-1' 
+    : daysToShow.length <= 3 
+      ? `grid-cols-${daysToShow.length}` 
+      : 'grid-cols-6'
+
   return (
     <div className="mt-6">
-      {/* Mobile view - Accordion style */}
-      <div className="flex flex-col gap-2 md:hidden">
-        {DAYS.map((day) => {
+      {/* Mobile view - Accordion style (or single day card) */}
+      <div className={`flex flex-col gap-2 ${daysToShow.length === 1 ? '' : 'md:hidden'}`}>
+        {daysToShow.map((day) => {
           const dayItems = timetableData[day]
           const isExpanded = expandedDay === day
           
@@ -158,12 +183,19 @@ export function WeeklyTimetable({ mode = 'talleres' }: WeeklyTimetableProps) {
         })}
       </div>
 
-      {/* Desktop view - Grid */}
+      {/* Desktop view - Grid (only show if more than 1 day selected) */}
+      {daysToShow.length > 1 && (
       <div className="hidden md:block overflow-x-auto">
-        <div className="min-w-[900px]">
+        <div className={daysToShow.length === 6 ? 'min-w-[900px]' : ''}>
           {/* Header row */}
-          <div className="grid grid-cols-6 gap-1 rounded-t-xl bg-muted/50 p-1">
-            {DAYS.map((day) => (
+          <div className={`grid gap-1 rounded-t-xl bg-muted/50 p-1 ${
+            daysToShow.length === 2 ? 'grid-cols-2' :
+            daysToShow.length === 3 ? 'grid-cols-3' :
+            daysToShow.length === 4 ? 'grid-cols-4' :
+            daysToShow.length === 5 ? 'grid-cols-5' :
+            'grid-cols-6'
+          }`}>
+            {daysToShow.map((day) => (
               <div
                 key={day}
                 className="rounded-lg bg-card px-3 py-3 text-center text-sm font-semibold text-foreground"
@@ -174,8 +206,14 @@ export function WeeklyTimetable({ mode = 'talleres' }: WeeklyTimetableProps) {
           </div>
 
           {/* Content row */}
-          <div className="grid grid-cols-6 gap-1 rounded-b-xl border border-t-0 border-border bg-muted/30 p-1">
-            {DAYS.map((day) => (
+          <div className={`grid gap-1 rounded-b-xl border border-t-0 border-border bg-muted/30 p-1 ${
+            daysToShow.length === 2 ? 'grid-cols-2' :
+            daysToShow.length === 3 ? 'grid-cols-3' :
+            daysToShow.length === 4 ? 'grid-cols-4' :
+            daysToShow.length === 5 ? 'grid-cols-5' :
+            'grid-cols-6'
+          }`}>
+            {daysToShow.map((day) => (
               <div key={day} className="flex min-h-[200px] flex-col gap-2 p-2">
                 {timetableData[day].length > 0 ? (
                   timetableData[day].map((item, index) => (
@@ -201,12 +239,12 @@ export function WeeklyTimetable({ mode = 'talleres' }: WeeklyTimetableProps) {
                   <div className="flex h-full items-center justify-center">
                     <span className="text-xs text-muted-foreground/50">-</span>
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
+      )}
     </div>
   )
 }
