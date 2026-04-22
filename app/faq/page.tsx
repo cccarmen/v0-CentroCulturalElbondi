@@ -145,8 +145,8 @@ export default function FaqPage() {
       </section>
 
       {/* Header */}
-      <section className="border-b border-border/40 bg-primary py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+      <section className="border-b border-border/40 bg-primary px-4 py-16 lg:px-8 lg:py-24">
+        <div className="mx-auto max-w-7xl">
           <ScrollReveal>
             <InteractivePageHeader
               title="Preguntas Frecuentes"
@@ -157,8 +157,8 @@ export default function FaqPage() {
       </section>
 
       {/* FAQ Categories */}
-      <section className="py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+      <section className="px-4 py-16 lg:px-8 lg:py-24">
+        <div className="mx-auto max-w-7xl">
           <div className="flex flex-col gap-12">
             {faqCategories.map((category, catIndex) => (
               <ScrollReveal key={category.category} delay={catIndex * 100}>
