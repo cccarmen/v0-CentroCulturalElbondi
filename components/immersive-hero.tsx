@@ -186,7 +186,14 @@ export function ImmersiveHero() {
             }}
           >
             <div className="max-w-4xl text-center">
-              <div className="mb-8 flex flex-wrap items-center justify-center gap-4">
+              <h1 className="font-display text-4xl tracking-wide text-foreground md:text-6xl lg:text-7xl">
+                Un espacio para la comunidad
+              </h1>
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+                Donde el arte, la cultura y los vecinos se encuentran. 
+                Un centro cultural vivo, construido por y para la comunidad de Maschwitz.
+              </p>
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
                 <a
                   href="/programacion"
                   className="group relative overflow-hidden rounded-lg bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
@@ -201,13 +208,6 @@ export function ImmersiveHero() {
                   Conoce El Bondi
                 </a>
               </div>
-              <h1 className="font-display text-4xl tracking-wide text-foreground md:text-6xl lg:text-7xl">
-                Un espacio para la comunidad
-              </h1>
-              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-                Donde el arte, la cultura y los vecinos se encuentran. 
-                Un centro cultural vivo, construido por y para la comunidad de Maschwitz.
-              </p>
             </div>
           </div>
 
