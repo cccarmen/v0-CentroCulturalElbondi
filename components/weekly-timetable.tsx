@@ -258,9 +258,10 @@ export function WeeklyTimetable({ mode = 'talleres', selectedDay = 'todos' }: We
                   <div className="flex h-full items-center justify-center">
                     <span className="text-xs text-muted-foreground/50">-</span>
                   </div>
-              )}
-            </div>
-          ))}
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       )}
