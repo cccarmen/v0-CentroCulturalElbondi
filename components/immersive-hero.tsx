@@ -77,9 +77,9 @@ export function ImmersiveHero() {
   const parallaxX = (mousePosition.x - 0.5) * 20
   const parallaxY = (mousePosition.y - 0.5) * 20
 
-  // Content reveal
-  const contentOpacity = Math.max(0, (scrollProgress - 0.3) * 2.5)
-  const contentY = 60 - scrollProgress * 60
+  // Content reveal — CTAs wait until logo is fully gone (logo fades out by ~0.25)
+  const ctaOpacity = Math.max(0, (scrollProgress - 0.4) * 2.5)
+  const ctaY = Math.max(0, 50 - (scrollProgress - 0.4) * 125)
 
   return (
     <div ref={containerRef} className="relative">
@@ -142,6 +142,22 @@ export function ImmersiveHero() {
             style={{ opacity: scrollProgress * 0.5 }}
           />
 
+          {/* Large centered logo — visible initially, fades out on scroll */}
+          <div
+            className="absolute inset-0 z-20 flex items-center justify-center transition-all duration-500"
+            style={{
+              opacity: Math.max(0, 1 - scrollProgress * 4),
+              transform: `scale(${1 - scrollProgress * 0.3}) translateY(${-scrollProgress * 60}px)`,
+              pointerEvents: scrollProgress > 0.25 ? 'none' : 'auto',
+            }}
+          >
+            <img
+              src="/images/logo-white.png"
+              alt="El Bondi - Centro Cultural Comunitario"
+              className="w-[280px] sm:w-[360px] md:w-[460px] lg:w-[560px] drop-shadow-2xl"
+            />
+          </div>
+
           {/* Scroll indicator - fades out on scroll, always centered */}
           <div
             className="absolute inset-x-0 bottom-[env(safe-area-inset-bottom,0px)] z-20 flex justify-center pb-8 sm:pb-10 md:pb-12 transition-all duration-500"
@@ -160,24 +176,17 @@ export function ImmersiveHero() {
             </div>
           </div>
 
-          {/* Editorial content that fades in as video recedes */}
+          {/* Editorial content — only appears AFTER the logo is fully gone */}
           <div
-            className="absolute inset-0 flex items-center justify-center px-4 transition-all duration-300"
+            className="absolute inset-0 flex items-center justify-center px-4 transition-all duration-500"
             style={{
-              opacity: contentOpacity,
-              transform: `translateY(${contentY}px)`,
-              pointerEvents: scrollProgress > 0.3 ? 'auto' : 'none',
+              opacity: ctaOpacity,
+              transform: `translateY(${ctaY}px)`,
+              pointerEvents: scrollProgress > 0.5 ? 'auto' : 'none',
             }}
           >
             <div className="max-w-4xl text-center">
-              <h1 className="font-display text-4xl tracking-wide text-foreground md:text-6xl lg:text-7xl">
-                Un espacio para la comunidad
-              </h1>
-              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-                Donde el arte, la cultura y los vecinos se encuentran. 
-                Un centro cultural vivo, construido por y para la comunidad de Maschwitz.
-              </p>
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+              <div className="mb-8 flex flex-wrap items-center justify-center gap-4">
                 <a
                   href="/programacion"
                   className="group relative overflow-hidden rounded-lg bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
@@ -192,6 +201,13 @@ export function ImmersiveHero() {
                   Conoce El Bondi
                 </a>
               </div>
+              <h1 className="font-display text-4xl tracking-wide text-foreground md:text-6xl lg:text-7xl">
+                Un espacio para la comunidad
+              </h1>
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+                Donde el arte, la cultura y los vecinos se encuentran. 
+                Un centro cultural vivo, construido por y para la comunidad de Maschwitz.
+              </p>
             </div>
           </div>
 
