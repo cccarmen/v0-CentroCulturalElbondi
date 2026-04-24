@@ -12,7 +12,7 @@ export function RadioSection() {
   const audioRef = useRef<HTMLAudioElement>(null)
 
   return (
-    <section className="relative overflow-hidden py-16 lg:py-24" style={{ backgroundColor: '#9e6666' }}>
+    <section className="relative overflow-hidden py-16 lg:py-24" style={{ backgroundColor: '#cf1919' }}>
       <div className="absolute inset-0" />
       <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-10 px-4 lg:flex-row lg:gap-16 lg:px-8">
         {/* Radio Image */}
