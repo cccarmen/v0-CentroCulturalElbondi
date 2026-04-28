@@ -433,30 +433,32 @@ function ProgramCard({ item }: { item: EventItem }) {
         >
           {item.category === 'evento' ? 'Evento' : 'Taller'}
         </Badge>
-        <div className="absolute bottom-3 left-3 right-3">
-          <p className="text-sm font-medium text-white/90">
-            {item.date} - {item.time}
-          </p>
-        </div>
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <h3 className="text-lg font-semibold leading-tight text-foreground group-hover:text-primary transition-colors">
+      {/* Content section - consistent spacing */}
+      <div className="flex flex-1 flex-col p-4">
+        {/* Title - max 2 lines */}
+        <h3 className="line-clamp-2 text-lg font-semibold leading-6 text-foreground group-hover:text-primary transition-colors">
           {item.title}
         </h3>
-        <p className="line-clamp-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+        {/* Date/Time - below title */}
+        <p className="mt-1 text-xs text-muted-foreground">
+          {item.date} - {item.time}
+        </p>
+        {/* Description - fixed 2 lines ~40px height */}
+        <p className="mt-2 line-clamp-2 h-10 text-sm leading-5 text-muted-foreground">
           {item.description}
         </p>
-        <div className="mt-auto flex items-center gap-2 pt-3 border-t border-border">
+        {/* Location - 8px gap, border top, truncate */}
+        <div className="mt-2 flex items-center gap-2 border-t border-border pt-2">
           <MapPin className="size-3.5 shrink-0 text-muted-foreground" />
           <span className="truncate text-xs text-muted-foreground">
-            {item.location}
+            {item.location || 'El Bondi'}
           </span>
         </div>
-        {item.price && (
-          <p className="text-sm font-medium text-primary">
-            {item.price.includes('gratis') || item.price.includes('libre') ? 'Gratis' : item.price.split('/')[0]}
-          </p>
-        )}
+        {/* Price - truncate if too long */}
+        <p className="mt-2 truncate text-sm font-medium text-primary">
+          {item.price ? (item.price.includes('gratis') || item.price.includes('libre') ? 'Gratis' : item.price.split('/')[0]) : 'Gratis'}
+        </p>
       </div>
     </Link>
   )

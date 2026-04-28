@@ -12,9 +12,10 @@ interface EventCardProps {
   time: string
   location?: string
   price?: string
+  category?: 'evento' | 'taller'
 }
 
-export function EventCard({ slug, title, description, image, date, time, location, price }: EventCardProps) {
+export function EventCard({ slug, title, description, image, date, time, location, price, category = 'evento' }: EventCardProps) {
   return (
     <Link
       href={`/evento/${slug}`}
@@ -30,36 +31,35 @@ export function EventCard({ slug, title, description, image, date, time, locatio
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         <Badge className="absolute top-3 left-3 text-xs">
-          Evento
+          {category === 'taller' ? 'Taller' : 'Evento'}
         </Badge>
-        <div className="absolute bottom-3 left-3 right-3">
-          <p className="text-sm font-medium text-white/90">
-            {date} - {time}
-          </p>
-        </div>
       </div>
 
-      {/* Content section */}
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <h3 className="text-lg font-semibold leading-tight text-foreground group-hover:text-primary transition-colors">
+      {/* Content section - consistent spacing */}
+      <div className="flex flex-1 flex-col p-4">
+        {/* Title - max 2 lines */}
+        <h3 className="line-clamp-2 text-lg font-semibold leading-6 text-foreground group-hover:text-primary transition-colors">
           {title}
         </h3>
-        <p className="line-clamp-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+        {/* Date/Time - below title */}
+        <p className="mt-1 text-xs text-muted-foreground">
+          {date} - {time}
+        </p>
+        {/* Description - fixed 2 lines ~40px height */}
+        <p className="mt-2 line-clamp-2 h-10 text-sm leading-5 text-muted-foreground">
           {description}
         </p>
-        {location && (
-          <div className="mt-auto flex items-center gap-2 pt-3 border-t border-border">
-            <MapPin className="size-3.5 shrink-0 text-muted-foreground" />
-            <span className="truncate text-xs text-muted-foreground">
-              {location}
-            </span>
-          </div>
-        )}
-        {price && (
-          <p className="text-sm font-medium text-primary">
-            {price.toLowerCase().includes('gratis') || price.toLowerCase().includes('libre') ? 'Gratis' : price.split('/')[0]}
-          </p>
-        )}
+        {/* Location - 8px gap, border top, truncate */}
+        <div className="mt-2 flex items-center gap-2 border-t border-border pt-2">
+          <MapPin className="size-3.5 shrink-0 text-muted-foreground" />
+          <span className="truncate text-xs text-muted-foreground">
+            {location || 'El Bondi'}
+          </span>
+        </div>
+        {/* Price - truncate if too long */}
+        <p className="mt-2 truncate text-sm font-medium text-primary">
+          {price ? (price.toLowerCase().includes('gratis') || price.toLowerCase().includes('libre') ? 'Gratis' : price.split('/')[0]) : 'Gratis'}
+        </p>
       </div>
     </Link>
   )
