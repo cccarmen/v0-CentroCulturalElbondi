@@ -124,7 +124,7 @@ export default function FaqPage() {
     <main className="min-h-screen bg-background">
       {/* Breadcrumb */}
       <section className="border-b border-border/40 bg-secondary/30 px-4 py-4">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-7xl">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -146,7 +146,7 @@ export default function FaqPage() {
 
       {/* Header */}
       <section className="border-b border-border/40 bg-primary py-16 lg:py-24">
-        <div className="mx-auto max-w-4xl px-4 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
             <InteractivePageHeader
               title="Preguntas Frecuentes"
@@ -158,7 +158,7 @@ export default function FaqPage() {
 
       {/* FAQ Categories */}
       <section className="py-16 lg:py-24">
-        <div className="mx-auto max-w-4xl px-4 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <div className="flex flex-col gap-12">
             {faqCategories.map((category, catIndex) => (
               <ScrollReveal key={category.category} delay={catIndex * 100}>

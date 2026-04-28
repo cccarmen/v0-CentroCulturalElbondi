@@ -116,7 +116,7 @@ export default function CentroCulturalPage() {
     <main className="min-h-screen bg-background">
       {/* Breadcrumb */}
       <section className="border-b border-border/40 bg-secondary/30 px-4 py-4">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-7xl">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -138,7 +138,7 @@ export default function CentroCulturalPage() {
 
       {/* Hero Header */}
       <section className="border-b border-border/40 bg-primary py-16 lg:py-24">
-        <div className="mx-auto max-w-5xl px-4 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
             <InteractivePageHeader
               title="Centro Cultural El Bondi"
@@ -150,7 +150,7 @@ export default function CentroCulturalPage() {
 
       {/* Team Section */}
       <section className="border-t border-border/40 bg-card py-16 lg:py-24">
-        <div className="mx-auto max-w-5xl px-4 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
             <h2 className="text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
               Nuestro Equipo
@@ -177,7 +177,7 @@ export default function CentroCulturalPage() {
 
       {/* Special Thanks Section */}
       <section className="border-t border-border/40 py-16 lg:py-24">
-        <div className="mx-auto max-w-5xl px-4 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
             <h2 className="text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
               Agradecimientos
@@ -207,7 +207,7 @@ export default function CentroCulturalPage() {
 
       {/* Gallery Section */}
       <section className="border-t border-border/40 bg-card py-16 lg:py-24">
-        <div className="mx-auto max-w-5xl px-4 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
             <h2 className="text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
               Galeria

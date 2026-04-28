@@ -65,7 +65,7 @@ export function InteractiveTimeline() {
 
   return (
     <section className="relative overflow-hidden bg-background py-20 lg:py-32">
-      <div className="mx-auto max-w-6xl px-4 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 lg:px-8">
         {/* Section header */}
         <div className="mb-16 text-center">
           <span className="text-sm font-medium uppercase tracking-widest text-primary">
