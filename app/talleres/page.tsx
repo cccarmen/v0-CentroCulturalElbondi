@@ -253,20 +253,20 @@ function TalleresContent() {
             description="Formacion artistica para todas las edades. Circo, musica, danza y mas."
           />
 
-          {/* Search bar - Eventbrite style */}
+          {/* Search bar */}
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
             <div className="relative flex-1 max-w-xl">
-              <Search className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground" />
+              <Search className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-white/80" />
               <Input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Buscar talleres por nombre, instructor, disciplina..."
-                className="h-12 rounded-lg bg-white pl-12 text-base shadow-lg border-0 focus-visible:ring-2 focus-visible:ring-white/50"
+                className="h-12 rounded-md bg-primary-foreground/15 pl-12 pr-10 text-base text-white placeholder:text-white/70 border-0 focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:bg-primary-foreground/20"
               />
               {search && (
                 <button
                   onClick={() => setSearch('')}
-                  className="absolute top-1/2 right-4 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className="absolute top-1/2 right-4 -translate-y-1/2 text-white/60 hover:text-white transition-colors"
                 >
                   <X className="size-4" />
                 </button>
