@@ -533,7 +533,7 @@ function TallerCard({ item }: { item: EventItem }) {
           {item.title}
         </h3>
         {/* Date/Time - below title */}
-        <p className="mt-1 text-xs font-medium text-primary/80">
+        <p className="mt-1 text-xs text-muted-foreground">
           {item.date} - {item.time}
         </p>
         {/* Description - fixed 2 lines ~40px height */}
