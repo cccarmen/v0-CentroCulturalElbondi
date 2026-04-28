@@ -256,12 +256,12 @@ function TalleresContent() {
           {/* Search bar */}
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
             <div className="relative flex-1 max-w-xl">
-              <Search className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-white/60" />
+              <Search className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-white/80" />
               <Input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Buscar talleres por nombre, instructor, disciplina..."
-                className="h-12 rounded-md bg-primary-foreground/10 pl-12 pr-10 text-base text-white placeholder:text-white/50 border-0 focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:bg-primary-foreground/15"
+                className="h-12 rounded-md bg-primary-foreground/15 pl-12 pr-10 text-base text-white placeholder:text-white/70 border-0 focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:bg-primary-foreground/20"
               />
               {search && (
                 <button
