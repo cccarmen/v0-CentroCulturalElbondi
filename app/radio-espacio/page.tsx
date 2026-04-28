@@ -474,19 +474,19 @@ function RadioEspacioContent() {
           {/* Search bar */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <div className="relative flex-1 max-w-xl">
-              <Search className="absolute top-1/2 left-5 size-5 -translate-y-1/2 text-gray-400" />
+              <Search className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-white/60" />
               <Input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Buscar programas, conductores..."
-                className="h-14 rounded-full bg-white dark:bg-white pl-14 pr-12 text-base text-gray-900 placeholder:text-gray-400 shadow-xl border border-gray-200 focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary transition-shadow hover:shadow-2xl"
+                className="h-12 rounded-md bg-primary-foreground/10 pl-12 pr-10 text-base text-white placeholder:text-white/50 border-0 focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:bg-primary-foreground/15"
               />
               {search && (
                 <button
                   onClick={() => setSearch('')}
-                  className="absolute top-1/2 right-5 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="absolute top-1/2 right-4 -translate-y-1/2 text-white/60 hover:text-white transition-colors"
                 >
-                  <X className="size-5" />
+                  <X className="size-4" />
                 </button>
               )}
             </div>
