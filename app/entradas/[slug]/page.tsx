@@ -124,8 +124,8 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
     return (
       <main className="min-h-screen bg-background">
         {/* Breadcrumb */}
-        <section className="border-b border-border/40 bg-secondary/30 px-4 py-4">
-          <div className="mx-auto max-w-7xl">
+        <section className="border-b border-border/40 bg-secondary/30">
+          <div className="mx-auto max-w-7xl px-4 py-4 lg:px-8">
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -157,7 +157,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
             <img src={event.image} alt="" className="size-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40" />
           </div>
-          <div className="relative mx-auto max-w-7xl px-4 py-16 lg:py-20">
+          <div className="relative mx-auto max-w-7xl px-4 py-16 lg:px-8 lg:py-20">
             <Badge className="mb-3 bg-primary/80 text-primary-foreground hover:bg-primary/80">
               <Users className="mr-1.5 size-3" />
               Reservar lugar
@@ -184,7 +184,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
 
         {/* Steps indicator */}
         <div className="border-b border-border bg-card">
-          <div className="mx-auto flex max-w-7xl items-center gap-3 overflow-x-auto px-4 py-4">
+          <div className="mx-auto flex max-w-7xl items-center gap-3 overflow-x-auto px-4 py-4 lg:px-8">
             {steps.map((s) => (
               <button
                 key={s.num}
@@ -206,7 +206,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
         </div>
 
         {/* Content */}
-        <div className="mx-auto max-w-7xl px-4 py-10 lg:py-14">
+        <div className="mx-auto max-w-7xl px-4 py-10 lg:px-8 lg:py-14">
           {/* Step 1: Workshop details */}
           {step === 1 && (
             <ScrollReveal>
@@ -475,8 +475,8 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
   return (
     <main className="min-h-screen bg-background">
       {/* Breadcrumb */}
-      <section className="border-b border-border/40 bg-secondary/30 px-4 py-4">
-        <div className="mx-auto max-w-7xl">
+      <section className="border-b border-border/40 bg-secondary/30">
+        <div className="mx-auto max-w-7xl px-4 py-4 lg:px-8">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -508,7 +508,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
           <img src={event.image} alt="" className="size-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40" />
         </div>
-        <div className="relative mx-auto max-w-7xl px-4 py-16 lg:py-20">
+        <div className="relative mx-auto max-w-7xl px-4 py-16 lg:px-8 lg:py-20">
           <Badge className="mb-3 bg-primary/80 text-primary-foreground hover:bg-primary/80">
             <Ticket className="mr-1.5 size-3" />
             Comprar entrada
@@ -535,7 +535,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
 
       {/* Steps indicator */}
       <div className="border-b border-border bg-card">
-        <div className="mx-auto flex max-w-7xl items-center gap-3 overflow-x-auto px-4 py-4">
+        <div className="mx-auto flex max-w-7xl items-center gap-3 overflow-x-auto px-4 py-4 lg:px-8">
           {steps.map((s) => (
             <button
               key={s.num}
@@ -557,7 +557,7 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
       </div>
 
       {/* Content */}
-      <div className="mx-auto max-w-7xl px-4 py-10 lg:py-14">
+      <div className="mx-auto max-w-7xl px-4 py-10 lg:px-8 lg:py-14">
         {/* Step 1: Event details + quantity */}
         {step === 1 && (
           <ScrollReveal>

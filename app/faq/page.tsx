@@ -123,8 +123,8 @@ export default function FaqPage() {
   return (
     <main className="min-h-screen bg-background">
       {/* Breadcrumb */}
-      <section className="border-b border-border/40 bg-secondary/30 px-4 py-4">
-        <div className="mx-auto max-w-7xl">
+      <section className="border-b border-border/40 bg-secondary/30">
+        <div className="mx-auto max-w-7xl px-4 py-4 lg:px-8">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
