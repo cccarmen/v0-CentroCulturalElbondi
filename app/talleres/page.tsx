@@ -528,8 +528,8 @@ function TallerCard({ item }: { item: EventItem }) {
       </div>
       {/* Content section - consistent spacing */}
       <div className="flex flex-1 flex-col p-4">
-        {/* Title - fixed 2 lines, ~48px height */}
-        <h3 className="line-clamp-2 h-12 text-lg font-semibold leading-6 text-foreground group-hover:text-primary transition-colors">
+        {/* Title - max 2 lines */}
+        <h3 className="line-clamp-2 text-lg font-semibold leading-6 text-foreground group-hover:text-primary transition-colors">
           {item.title}
         </h3>
         {/* Date/Time - below title */}
