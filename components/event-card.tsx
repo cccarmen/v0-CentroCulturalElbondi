@@ -46,8 +46,8 @@ export function EventCard({ slug, title, description, image, date, time, locatio
         <h3 className="line-clamp-2 h-12 text-lg font-semibold leading-6 text-foreground group-hover:text-primary transition-colors">
           {title}
         </h3>
-        {/* Description - 24px gap, fixed 2 lines ~40px height */}
-        <p className="mt-6 line-clamp-2 h-10 text-sm leading-5 text-muted-foreground">
+        {/* Description - 8px gap, fixed 2 lines ~40px height */}
+        <p className="mt-2 line-clamp-2 h-10 text-sm leading-5 text-muted-foreground">
           {description}
         </p>
         {/* Location - 8px gap, border top, truncate */}
