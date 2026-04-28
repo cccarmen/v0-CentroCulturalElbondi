@@ -7,8 +7,8 @@ import { Button } from '@/components/ui/button'
 const navLinks = [
   { label: 'Centro Cultural', href: '/centro-cultural' },
   { label: 'Eventos', href: '/programacion' },
-  { label: 'Talleres y Bachilleratos', href: '/talleres' },
-  { label: 'Radio Espacio', href: '/radio-espacio' },
+  { label: 'Talleres', href: '/talleres' },
+  { label: 'Radio Activa', href: '/radio-espacio' },
   { label: 'FAQ', href: '/faq' },
 ]
 
@@ -76,11 +76,9 @@ export function CinematicNavbar() {
           variant="ghost"
           size="icon"
           className={`md:hidden transition-colors duration-300 ${
-            open
-              ? 'border-2 border-primary text-white hover:bg-transparent'
-              : scrolled
-                ? 'hover:bg-primary/10 hover:text-primary'
-                : 'text-white/90 hover:bg-white/10 hover:text-white'
+            scrolled
+              ? 'hover:bg-primary/10 hover:text-primary'
+              : 'text-white/90 hover:bg-white/10 hover:text-white'
           }`}
           onClick={() => setOpen(!open)}
           aria-label="Menu"
@@ -89,15 +87,25 @@ export function CinematicNavbar() {
         </Button>
       </div>
 
-      {/* Mobile menu - Full screen dropdown */}
+      {/* Mobile menu */}
       {open && (
-        <div className="fixed inset-0 top-16 z-40 bg-background md:hidden">
-          <nav className="flex flex-col px-6 py-8" aria-label="Navegacion movil">
+        <div 
+          className={`border-t md:hidden ${
+            scrolled 
+              ? 'border-border/40 bg-background' 
+              : 'border-white/10 bg-black/80 backdrop-blur-md'
+          }`}
+        >
+          <nav className="flex flex-col gap-1 px-4 py-3" aria-label="Navegacion movil">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="border-b border-border/20 py-5 text-xl font-medium text-foreground/80 transition-colors hover:text-primary"
+                className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                  scrolled
+                    ? 'text-foreground/80 hover:bg-primary/10 hover:text-primary'
+                    : 'text-white/90 hover:bg-white/10 hover:text-white'
+                }`}
                 onClick={() => setOpen(false)}
               >
                 {link.label}
