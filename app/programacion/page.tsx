@@ -439,24 +439,25 @@ function ProgramCard({ item }: { item: EventItem }) {
           </p>
         </div>
       </div>
+      {/* Content section - consistent spacing */}
       <div className="flex flex-1 flex-col p-4">
-        {/* Title - fixed 2 lines max */}
-        <h3 className="line-clamp-2 min-h-[2.5rem] text-lg font-semibold leading-tight text-foreground group-hover:text-primary transition-colors">
+        {/* Title - fixed 2 lines, ~48px height */}
+        <h3 className="line-clamp-2 h-12 text-lg font-semibold leading-6 text-foreground group-hover:text-primary transition-colors">
           {item.title}
         </h3>
-        {/* Description - fixed 2 lines */}
-        <p className="mt-2 line-clamp-2 min-h-[2.5rem] text-sm leading-relaxed text-muted-foreground">
+        {/* Description - 24px gap, fixed 2 lines ~40px height */}
+        <p className="mt-6 line-clamp-2 h-10 text-sm leading-5 text-muted-foreground">
           {item.description}
         </p>
-        {/* Location - always present */}
-        <div className="mt-auto flex items-center gap-2 pt-3 border-t border-border">
+        {/* Location - 8px gap, border top, truncate */}
+        <div className="mt-2 flex items-center gap-2 border-t border-border pt-2">
           <MapPin className="size-3.5 shrink-0 text-muted-foreground" />
           <span className="truncate text-xs text-muted-foreground">
             {item.location || 'El Bondi'}
           </span>
         </div>
-        {/* Price - always present */}
-        <p className="mt-2 text-sm font-medium text-primary">
+        {/* Price - truncate if too long */}
+        <p className="mt-2 truncate text-sm font-medium text-primary">
           {item.price ? (item.price.includes('gratis') || item.price.includes('libre') ? 'Gratis' : item.price.split('/')[0]) : 'Gratis'}
         </p>
       </div>
