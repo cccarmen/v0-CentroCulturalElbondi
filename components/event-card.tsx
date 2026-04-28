@@ -12,9 +12,10 @@ interface EventCardProps {
   time: string
   location?: string
   price?: string
+  category?: 'evento' | 'taller'
 }
 
-export function EventCard({ slug, title, description, image, date, time, location, price }: EventCardProps) {
+export function EventCard({ slug, title, description, image, date, time, location, price, category = 'evento' }: EventCardProps) {
   return (
     <Link
       href={`/evento/${slug}`}
@@ -30,7 +31,7 @@ export function EventCard({ slug, title, description, image, date, time, locatio
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         <Badge className="absolute top-3 left-3 text-xs">
-          Evento
+          {category === 'taller' ? 'Taller' : 'Evento'}
         </Badge>
         <div className="absolute bottom-3 left-3 right-3">
           <p className="text-sm font-medium text-white/90">

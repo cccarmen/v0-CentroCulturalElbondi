@@ -439,24 +439,26 @@ function ProgramCard({ item }: { item: EventItem }) {
           </p>
         </div>
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <h3 className="text-lg font-semibold leading-tight text-foreground group-hover:text-primary transition-colors">
+      <div className="flex flex-1 flex-col p-4">
+        {/* Title - fixed 2 lines max */}
+        <h3 className="line-clamp-2 min-h-[2.5rem] text-lg font-semibold leading-tight text-foreground group-hover:text-primary transition-colors">
           {item.title}
         </h3>
-        <p className="line-clamp-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+        {/* Description - fixed 2 lines */}
+        <p className="mt-2 line-clamp-2 min-h-[2.5rem] text-sm leading-relaxed text-muted-foreground">
           {item.description}
         </p>
+        {/* Location - always present */}
         <div className="mt-auto flex items-center gap-2 pt-3 border-t border-border">
           <MapPin className="size-3.5 shrink-0 text-muted-foreground" />
           <span className="truncate text-xs text-muted-foreground">
-            {item.location}
+            {item.location || 'El Bondi'}
           </span>
         </div>
-        {item.price && (
-          <p className="text-sm font-medium text-primary">
-            {item.price.includes('gratis') || item.price.includes('libre') ? 'Gratis' : item.price.split('/')[0]}
-          </p>
-        )}
+        {/* Price - always present */}
+        <p className="mt-2 text-sm font-medium text-primary">
+          {item.price ? (item.price.includes('gratis') || item.price.includes('libre') ? 'Gratis' : item.price.split('/')[0]) : 'Gratis'}
+        </p>
       </div>
     </Link>
   )
