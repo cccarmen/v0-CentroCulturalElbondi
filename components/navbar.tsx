@@ -49,14 +49,15 @@ export function Navbar() {
         </Button>
       </div>
 
+      {/* Mobile menu - Full screen dropdown with light background */}
       {open && (
-        <div className="border-t border-border/40 bg-background md:hidden">
-          <nav className="flex flex-col gap-1 px-4 py-3" aria-label="Navegacion movil">
+        <div className="fixed inset-x-0 top-16 bottom-0 z-40 bg-card md:hidden">
+          <nav className="flex flex-col px-6 pt-6" aria-label="Navegacion movil">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="rounded-md px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-primary/10 hover:text-primary"
+                className="py-4 text-lg font-medium text-foreground transition-colors hover:text-primary"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
