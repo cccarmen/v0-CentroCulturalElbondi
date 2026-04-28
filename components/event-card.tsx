@@ -33,11 +33,6 @@ export function EventCard({ slug, title, description, image, date, time, locatio
         <Badge className="absolute top-3 left-3 text-xs">
           {category === 'taller' ? 'Taller' : 'Evento'}
         </Badge>
-        <div className="absolute bottom-3 left-3 right-3">
-          <p className="text-sm font-medium text-white/90">
-            {date} - {time}
-          </p>
-        </div>
       </div>
 
       {/* Content section - consistent spacing */}
@@ -46,7 +41,11 @@ export function EventCard({ slug, title, description, image, date, time, locatio
         <h3 className="line-clamp-2 h-12 text-lg font-semibold leading-6 text-foreground group-hover:text-primary transition-colors">
           {title}
         </h3>
-        {/* Description - 8px gap, fixed 2 lines ~40px height */}
+        {/* Date/Time - below title */}
+        <p className="mt-1 text-xs font-medium text-primary/80">
+          {date} - {time}
+        </p>
+        {/* Description - fixed 2 lines ~40px height */}
         <p className="mt-2 line-clamp-2 h-10 text-sm leading-5 text-muted-foreground">
           {description}
         </p>

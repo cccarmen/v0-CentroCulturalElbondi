@@ -525,11 +525,6 @@ function TallerCard({ item }: { item: EventItem }) {
         >
           Taller
         </Badge>
-        <div className="absolute bottom-3 left-3 right-3">
-          <p className="text-sm font-medium text-white/90">
-            {item.date} - {item.time}
-          </p>
-        </div>
       </div>
       {/* Content section - consistent spacing */}
       <div className="flex flex-1 flex-col p-4">
@@ -537,7 +532,11 @@ function TallerCard({ item }: { item: EventItem }) {
         <h3 className="line-clamp-2 h-12 text-lg font-semibold leading-6 text-foreground group-hover:text-primary transition-colors">
           {item.title}
         </h3>
-        {/* Description - 8px gap, fixed 2 lines ~40px height */}
+        {/* Date/Time - below title */}
+        <p className="mt-1 text-xs font-medium text-primary/80">
+          {item.date} - {item.time}
+        </p>
+        {/* Description - fixed 2 lines ~40px height */}
         <p className="mt-2 line-clamp-2 h-10 text-sm leading-5 text-muted-foreground">
           {item.description}
         </p>
