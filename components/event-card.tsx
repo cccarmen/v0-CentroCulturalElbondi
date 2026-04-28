@@ -40,26 +40,26 @@ export function EventCard({ slug, title, description, image, date, time, locatio
       </div>
 
       {/* Content section */}
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <h3 className="text-lg font-semibold leading-tight text-foreground group-hover:text-primary transition-colors">
+      <div className="flex flex-1 flex-col p-4">
+        {/* Title - fixed 2 lines max */}
+        <h3 className="line-clamp-2 min-h-[2.5rem] text-lg font-semibold leading-tight text-foreground group-hover:text-primary transition-colors">
           {title}
         </h3>
-        <p className="line-clamp-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+        {/* Description - fixed 2 lines */}
+        <p className="mt-2 line-clamp-2 min-h-[2.5rem] text-sm leading-relaxed text-muted-foreground">
           {description}
         </p>
-        {location && (
-          <div className="mt-auto flex items-center gap-2 pt-3 border-t border-border">
-            <MapPin className="size-3.5 shrink-0 text-muted-foreground" />
-            <span className="truncate text-xs text-muted-foreground">
-              {location}
-            </span>
-          </div>
-        )}
-        {price && (
-          <p className="text-sm font-medium text-primary">
-            {price.toLowerCase().includes('gratis') || price.toLowerCase().includes('libre') ? 'Gratis' : price.split('/')[0]}
-          </p>
-        )}
+        {/* Location - always present area */}
+        <div className="mt-auto flex items-center gap-2 pt-3 border-t border-border">
+          <MapPin className="size-3.5 shrink-0 text-muted-foreground" />
+          <span className="truncate text-xs text-muted-foreground">
+            {location || 'El Bondi'}
+          </span>
+        </div>
+        {/* Price - always present */}
+        <p className="mt-2 text-sm font-medium text-primary">
+          {price ? (price.toLowerCase().includes('gratis') || price.toLowerCase().includes('libre') ? 'Gratis' : price.split('/')[0]) : 'Gratis'}
+        </p>
       </div>
     </Link>
   )
