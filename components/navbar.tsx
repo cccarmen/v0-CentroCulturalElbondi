@@ -41,7 +41,11 @@ export function Navbar() {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden"
+          className={`md:hidden transition-colors ${
+            open
+              ? 'border-2 border-primary text-foreground hover:bg-transparent'
+              : 'hover:bg-primary/10 hover:text-primary'
+          }`}
           onClick={() => setOpen(!open)}
           aria-label="Menu"
         >
@@ -49,14 +53,15 @@ export function Navbar() {
         </Button>
       </div>
 
+      {/* Mobile menu - Full screen dropdown */}
       {open && (
-        <div className="border-t border-border/40 bg-background md:hidden">
-          <nav className="flex flex-col gap-1 px-4 py-3" aria-label="Navegacion movil">
+        <div className="fixed inset-0 top-16 z-40 bg-background md:hidden">
+          <nav className="flex flex-col px-6 py-8" aria-label="Navegacion movil">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="rounded-md px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-primary/10 hover:text-primary"
+                className="border-b border-border/20 py-5 text-xl font-medium text-foreground/80 transition-colors hover:text-primary"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
