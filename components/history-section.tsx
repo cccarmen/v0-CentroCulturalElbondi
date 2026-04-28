@@ -51,7 +51,7 @@ const timelineEvents = [
 export function HistorySection() {
   return (
     <section className="bg-card py-16 lg:py-24">
-      <div className="mx-auto max-w-5xl px-4 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <ScrollReveal>
           <h2 className="text-balance text-center font-display text-4xl tracking-wide text-foreground md:text-5xl lg:text-6xl">
             Historia del Lugar

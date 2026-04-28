@@ -67,8 +67,8 @@ export default function EventoPage() {
   return (
     <main className="min-h-screen bg-background">
       {/* Breadcrumb */}
-      <section className="border-b border-border/40 bg-secondary/30 px-4 py-4">
-        <div className="mx-auto max-w-6xl">
+      <section className="border-b border-border/40 bg-secondary/30">
+        <div className="mx-auto max-w-7xl px-4 py-4 lg:px-8">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -95,7 +95,7 @@ export default function EventoPage() {
       </section>
 
       {/* Content Grid - Card on LEFT, Info on RIGHT */}
-      <section className="mx-auto max-w-6xl px-4 py-10 lg:px-8 lg:py-14">
+      <section className="mx-auto max-w-7xl px-4 py-10 lg:px-8 lg:py-14">
         <div className="flex flex-col gap-10 lg:flex-row">
           {/* LEFT SIDE - Detail Card with Image and Info */}
           <aside className="flex w-full flex-col gap-6 lg:w-[400px]">
@@ -368,7 +368,7 @@ export default function EventoPage() {
       {/* Related Items */}
       {related.length > 0 && (
         <section className="border-t border-border/50 bg-secondary/30 py-12 lg:py-16">
-          <div className="mx-auto max-w-6xl px-4 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <h2 className="text-center font-display text-3xl tracking-wide text-foreground md:text-4xl">
               {item.category === 'evento' ? 'Mas Eventos' : 'Mas Talleres'}
             </h2>

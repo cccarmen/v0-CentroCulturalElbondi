@@ -142,22 +142,6 @@ export function ImmersiveHero() {
             style={{ opacity: scrollProgress * 0.5 }}
           />
 
-          {/* Large centered logo — visible initially, fades out on scroll */}
-          <div
-            className="absolute inset-0 z-20 flex items-center justify-center transition-all duration-500"
-            style={{
-              opacity: Math.max(0, 1 - scrollProgress * 4),
-              transform: `scale(${1 - scrollProgress * 0.3}) translateY(${-scrollProgress * 60}px)`,
-              pointerEvents: scrollProgress > 0.25 ? 'none' : 'auto',
-            }}
-          >
-            <img
-              src="/images/logo-white.png"
-              alt="El Bondi - Centro Cultural Comunitario"
-              className="w-[280px] sm:w-[360px] md:w-[460px] lg:w-[560px] drop-shadow-2xl"
-            />
-          </div>
-
           {/* Scroll indicator - fades out on scroll, always centered */}
           <div
             className="absolute inset-x-0 bottom-[env(safe-area-inset-bottom,0px)] z-20 flex justify-center pb-8 sm:pb-10 md:pb-12 transition-all duration-500"
