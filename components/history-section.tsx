@@ -34,13 +34,13 @@ const timelineEvents = [
   },
   {
     year: '2020',
-    title: 'Resonar',
-    description: 'Resonar: Festival de Musica Medicina.',
+    title: 'Viandas comunitarias',
+    description: 'Proyecto de viandas para cuidarnos entre vecines durante la pandemia. El espacio comunitario que nunca cierra.',
   },
   {
     year: '2021',
-    title: 'Asamblea de genero',
-    description: 'Inicio de la asamblea de genero y creacion de la comision de genero.',
+    title: 'Actividades pospandemia',
+    description: 'Primeras actividades pospandemia.',
   },
   {
     year: '2022',
