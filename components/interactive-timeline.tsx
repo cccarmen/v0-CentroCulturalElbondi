@@ -66,12 +66,6 @@ const timelineEvents = [
     images: ['/images/evento-cumple.jpg', '/images/evento-pareja.jpg', '/images/evento-ronda.jpg'],
   },
   {
-    year: '2024',
-    title: 'Actividades pospandemia',
-    description: 'Primeras actividades pospandemia.',
-    images: ['/images/evento-baile-atardecer.jpg', '/images/evento-fiesta.jpg', '/images/evento-encuentro.jpg'],
-  },
-  {
     year: '2025',
     title: 'Abuela en el Bondi',
     description: 'Abuela en el Bondi: Taty Almeida.',

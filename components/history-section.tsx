@@ -53,11 +53,6 @@ const timelineEvents = [
     description: 'Proyecto de viandas para cuidarnos entre vecines durante la pandemia. El espacio comunitario que nunca cierra.',
   },
   {
-    year: '2024',
-    title: 'Actividades pospandemia',
-    description: 'Primeras actividades pospandemia.',
-  },
-  {
     year: '2025',
     title: 'Abuela en el Bondi',
     description: 'Abuela en el Bondi: Taty Almeida.',
