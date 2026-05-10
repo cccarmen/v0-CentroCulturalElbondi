@@ -2,6 +2,11 @@ import { ScrollReveal } from '@/components/scroll-reveal'
 
 const timelineEvents = [
   {
+    year: '2009',
+    title: 'Primera asamblea del colectivo cultural',
+    description: 'Primera asamblea del colectivo cultural.',
+  },
+  {
     year: '2011',
     title: 'Ingreso al espacio ubicado en la calle El Dorado',
     description: 'Nace el Centro Cultural El Bondi.',
