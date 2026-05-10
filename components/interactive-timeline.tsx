@@ -5,10 +5,16 @@ import Image from 'next/image'
 
 const timelineEvents = [
   {
+    year: '2011',
+    title: 'Ingreso al espacio ubicado en la calle El Dorado',
+    description: 'Nace el Centro Cultural El Bondi.',
+    images: ['/images/evento-encuentro.jpg', '/images/evento-cumple.jpg', '/images/evento-ronda.jpg'],
+  },
+  {
     year: '2012',
     title: 'Creacion de la ONG',
     description: 'Creacion de la ONG Colectivo Cultural y primera asamblea.',
-    images: ['/images/evento-encuentro.jpg', '/images/evento-cumple.jpg', '/images/evento-ronda.jpg'],
+    images: ['/images/evento-musica.jpg', '/images/evento-variete.jpg', '/images/evento-folklore.jpg'],
   },
   {
     year: '2013',
