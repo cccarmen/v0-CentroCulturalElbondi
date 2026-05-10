@@ -2,49 +2,79 @@ import { ScrollReveal } from '@/components/scroll-reveal'
 
 const timelineEvents = [
   {
-    year: '2010',
-    title: 'Fundacion',
-    description: 'El Bondi nace como un proyecto comunitario en Maschwitz, con el objetivo de brindar cultura y educacion.',
+    year: '2012',
+    title: 'Creacion de la ONG',
+    description: 'Creacion de la ONG Colectivo Cultural y primera asamblea.',
   },
   {
-    year: '2012',
-    title: 'Primer Festival',
-    description: 'Se realiza el primer festival cultural comunitario, convocando artistas y vecinos de toda la zona norte.',
+    year: '2013',
+    title: 'Primera retransmision Radioactiva',
+    description: 'Primera retransmision Radioactiva.',
   },
   {
     year: '2014',
-    title: 'Radio Activa',
-    description: 'Nace la radio comunitaria FM 96.9 como herramienta de comunicacion popular y participacion ciudadana.',
+    title: 'Entrada al Antiguo Cine Gloria',
+    description: 'Entrada al Antiguo Cine Gloria.',
+  },
+  {
+    year: '2015',
+    title: 'Apertura al publico',
+    description: 'Apertura del Antiguo Cine Gloria al publico.',
   },
   {
     year: '2016',
-    title: 'Bachillerato Popular',
-    description: 'Se inaugura el bachillerato popular para jovenes y adultos, ofreciendo educacion inclusiva y accesible.',
+    title: 'Primera tertulia rebelde',
+    description: 'Primera tertulia rebelde.',
+  },
+  {
+    year: '2017',
+    title: 'Primer aniversario',
+    description: 'Primer aniversario.',
   },
   {
     year: '2018',
-    title: 'Ampliacion del Espacio',
-    description: 'Se amplian las instalaciones con nuevas aulas, salon de ensayo y espacio para talleres artisticos.',
+    title: 'Centro Cultural Comunitario',
+    description: 'Nombramiento como Centro Cultural Comunitario El Bondi.',
+  },
+  {
+    year: '2019',
+    title: 'Primera Variete Bajo las Estrellas',
+    description: 'Primera Variete Bajo las Estrellas.',
   },
   {
     year: '2020',
-    title: 'Resistencia Digital',
-    description: 'Adaptacion a la virtualidad durante la pandemia, manteniendo talleres, radio y acompanamiento comunitario.',
+    title: 'Resonar',
+    description: 'Resonar: Festival de Musica Medicina.',
+  },
+  {
+    year: '2021',
+    title: 'Asamblea de genero',
+    description: 'Inicio de la asamblea de genero y creacion de la comision de genero.',
   },
   {
     year: '2022',
-    title: 'Reapertura Cultural',
-    description: 'Vuelta a la presencialidad con programacion completa de espectaculos, talleres y actividades educativas.',
+    title: 'Inicio del Bachi Popular',
+    description: 'Inicio del Bachi Popular.',
+  },
+  {
+    year: '2023',
+    title: 'Viandas comunitarias',
+    description: 'Proyecto de viandas para cuidarnos entre vecines durante la pandemia. El espacio comunitario que nunca cierra.',
   },
   {
     year: '2024',
-    title: 'Nuevo Escenario',
-    description: 'Se inaugura el nuevo escenario al aire libre para festivales y eventos culturales de mayor convocatoria.',
+    title: 'Actividades pospandemia',
+    description: 'Primeras actividades pospandemia.',
+  },
+  {
+    year: '2025',
+    title: 'Abuela en el Bondi',
+    description: 'Abuela en el Bondi: Taty Almeida.',
   },
   {
     year: '2026',
-    title: 'Expansion Comunitaria',
-    description: 'El Bondi se expande con nuevos proyectos de arte, educacion y comunicacion para la comunidad.',
+    title: 'Cumple de 15 Bondi',
+    description: 'La mejor pena hasta ahora. Cumple de 15 Bondi.',
   },
 ]
 
