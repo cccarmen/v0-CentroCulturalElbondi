@@ -28,12 +28,6 @@ const timelineEvents = [
     description: 'Primera tertulia rebelde.',
   },
   {
-    year: '2017',
-    title: 'Primer aniversario',
-    description: 'Primer aniversario.',
-  },
-
-  {
     year: '2019',
     title: 'Primera Variete Bajo las Estrellas',
     description: 'Primera Variete Bajo las Estrellas.',

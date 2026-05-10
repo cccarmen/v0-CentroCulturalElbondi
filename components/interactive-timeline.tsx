@@ -36,13 +36,6 @@ const timelineEvents = [
     images: ['/images/evento-ronda.jpg', '/images/evento-pareja.jpg', '/images/evento-musica.jpg'],
   },
   {
-    year: '2017',
-    title: 'Primer aniversario',
-    description: 'Primer aniversario.',
-    images: ['/images/evento-cumple.jpg', '/images/evento-encuentro.jpg', '/images/evento-fiesta.jpg'],
-  },
-
-  {
     year: '2019',
     title: 'Primera Variete Bajo las Estrellas',
     description: 'Primera Variete Bajo las Estrellas.',
