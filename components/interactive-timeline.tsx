@@ -28,18 +28,7 @@ const timelineEvents = [
     description: 'Primera retransmision Radioactiva.',
     images: ['/images/evento-musica.jpg', '/images/evento-variete.jpg', '/images/evento-folklore.jpg'],
   },
-  {
-    year: '2014',
-    title: 'Entrada al Antiguo Cine Gloria',
-    description: 'Entrada al Antiguo Cine Gloria.',
-    images: ['/images/evento-variete.jpg', '/images/evento-musica.jpg', '/images/evento-encuentro.jpg'],
-  },
-  {
-    year: '2015',
-    title: 'Apertura al publico',
-    description: 'Apertura del Antiguo Cine Gloria al publico.',
-    images: ['/images/evento-folklore.jpg', '/images/evento-ronda.jpg', '/images/evento-cumple.jpg'],
-  },
+
   {
     year: '2016',
     title: 'Primera tertulia rebelde',
@@ -52,12 +41,7 @@ const timelineEvents = [
     description: 'Primer aniversario.',
     images: ['/images/evento-cumple.jpg', '/images/evento-encuentro.jpg', '/images/evento-fiesta.jpg'],
   },
-  {
-    year: '2018',
-    title: 'Centro Cultural Comunitario',
-    description: 'Nombramiento como Centro Cultural Comunitario El Bondi.',
-    images: ['/images/evento-pareja.jpg', '/images/evento-baile-atardecer.jpg', '/images/evento-variete.jpg'],
-  },
+
   {
     year: '2019',
     title: 'Primera Variete Bajo las Estrellas',

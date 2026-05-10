@@ -21,16 +21,7 @@ const timelineEvents = [
     title: 'Primera retransmision Radioactiva',
     description: 'Primera retransmision Radioactiva.',
   },
-  {
-    year: '2014',
-    title: 'Entrada al Antiguo Cine Gloria',
-    description: 'Entrada al Antiguo Cine Gloria.',
-  },
-  {
-    year: '2015',
-    title: 'Apertura al publico',
-    description: 'Apertura del Antiguo Cine Gloria al publico.',
-  },
+
   {
     year: '2016',
     title: 'Primera tertulia rebelde',
@@ -41,11 +32,7 @@ const timelineEvents = [
     title: 'Primer aniversario',
     description: 'Primer aniversario.',
   },
-  {
-    year: '2018',
-    title: 'Centro Cultural Comunitario',
-    description: 'Nombramiento como Centro Cultural Comunitario El Bondi.',
-  },
+
   {
     year: '2019',
     title: 'Primera Variete Bajo las Estrellas',
