@@ -10,6 +10,15 @@ import {
   DialogContent,
   DialogTitle,
 } from '@/components/ui/dialog'
+import {
+  Instagram,
+  Facebook,
+  Youtube,
+  MapPin,
+  Phone,
+  Mail,
+  ExternalLink,
+} from 'lucide-react'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { InteractivePageHeader } from '@/components/interactive-page-header'
 import { AnimatedTeamCard } from '@/components/animated-team-card'
@@ -88,6 +97,12 @@ const specialThanks = [
   { name: 'Fundacion Cultura Viva', reason: 'Financiamiento y asesoramiento para el desarrollo del bachillerato popular y programas educativos.' },
 ]
 
+const socialLinks = [
+  { name: 'Instagram', icon: Instagram, url: 'https://www.instagram.com/centroculturaelbondi/', handle: '@centroculturaelbondi' },
+  { name: 'Facebook', icon: Facebook, url: 'https://facebook.com/centroculturalelbondi', handle: '/centroculturalelbondi' },
+  { name: 'Youtube', icon: Youtube, url: 'https://www.youtube.com/@elbondicentrocultural', handle: '@elbondicentrocultural' },
+]
+
 const galleryImages = [
   { src: '/images/evento-variete.jpg', alt: 'Artista de variete en traje tradicional' },
   { src: '/images/evento-folklore.jpg', alt: 'Ballet folklorico con vestidos purpura' },
@@ -137,7 +152,7 @@ export default function CentroCulturalPage() {
       </section>
 
       {/* Hero Header */}
-      <section className="border-b border-border/40 bg-primary py-16 lg:py-24">
+      <section className="border-b border-border/40 bg-primary py-12 lg:py-16">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
             <InteractivePageHeader
@@ -145,6 +160,87 @@ export default function CentroCulturalPage() {
               description="Mas de 15 anos construyendo comunidad a traves de la cultura, la educacion y la comunicacion en Maschwitz."
             />
           </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Quienes Somos + Redes Section */}
+      <section className="border-b border-border/40 bg-background py-12 lg:py-16">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+            {/* Description */}
+            <ScrollReveal>
+              <div>
+                <h2 className="font-display text-3xl tracking-wide text-foreground md:text-4xl">
+                  Quienes Somos
+                </h2>
+                <div className="mt-6 space-y-4 text-muted-foreground">
+                  <p className="leading-relaxed">
+                    El Bondi es un centro cultural comunitario ubicado en Ingeniero Maschwitz, Partido de Escobar. 
+                    Desde 2010 trabajamos para ser un espacio de encuentro, formacion y expresion artistica para toda la comunidad.
+                  </p>
+                  <p className="leading-relaxed">
+                    Ofrecemos talleres de artes, musica, danza y circo para todas las edades. Tambien somos sede del 
+                    Bachillerato Popular El Bondi, donde jovenes y adultos pueden terminar sus estudios secundarios en un ambiente comunitario.
+                  </p>
+                  <p className="leading-relaxed">
+                    Nuestro espacio es autogestionado y sostenido por el trabajo colectivo de voluntarios, docentes y vecinos 
+                    que creen en la cultura como herramienta de transformacion social.
+                  </p>
+                </div>
+
+                {/* Contact info */}
+                <div className="mt-8 space-y-3">
+                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                    <MapPin className="size-4 text-primary" />
+                    <span>Av El Dorado 1518, Ingeniero Maschwitz 1623</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                    <Phone className="size-4 text-primary" />
+                    <span>11 6005-1234</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                    <Mail className="size-4 text-primary" />
+                    <a href="mailto:info@elbondi.org.ar" className="hover:text-primary transition-colors">info@elbondi.org.ar</a>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Social Media */}
+            <ScrollReveal delay={100}>
+              <div>
+                <h3 className="font-display text-2xl tracking-wide text-foreground">
+                  Seguinos en Redes
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Encontranos en todas las plataformas y enterate de todas nuestras actividades.
+                </p>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  {socialLinks.map((social) => {
+                    const Icon = social.icon
+                    return (
+                      <a
+                        key={social.name}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center gap-4 rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/40 hover:shadow-md"
+                      >
+                        <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                          <Icon className="size-5" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-foreground">{social.name}</p>
+                          <p className="text-xs text-muted-foreground">{social.handle}</p>
+                        </div>
+                        <ExternalLink className="ml-auto size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                      </a>
+                    )
+                  })}
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 

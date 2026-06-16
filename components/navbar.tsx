@@ -7,8 +7,8 @@ import { Button } from '@/components/ui/button'
 const navLinks = [
   { label: 'Centro Cultural', href: '/centro-cultural' },
   { label: 'Eventos', href: '/programacion' },
-  { label: 'Talleres y Bachilleratos', href: '/talleres' },
-  { label: 'Radio Espacio', href: '/radio-espacio' },
+  { label: 'Talleres', href: '/talleres' },
+  { label: 'Radio Activa', href: '/radio-espacio' },
   { label: 'FAQ', href: '/faq' },
 ]
 
