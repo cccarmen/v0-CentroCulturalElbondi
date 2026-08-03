@@ -159,7 +159,7 @@ export default function CentroCulturalPage() {
           <ScrollReveal>
             <InteractivePageHeader
               title="Centro Cultural El Bondi"
-              description="Mas de 15 anos construyendo comunidad a traves de la cultura, la educacion y la comunicacion en Maschwitz."
+              description="Más de 15 años construyendo comunidad a través de la cultura, la educación y la comunicación en Maschwitz."
             />
           </ScrollReveal>
         </div>
