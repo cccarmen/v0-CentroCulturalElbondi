@@ -16,9 +16,8 @@ import {
   Home,
   Music,
   Theater,
-  PartyPopper,
+  Store,
   Palette,
-  BookOpen,
   Sparkles,
 } from 'lucide-react'
 import { Calendar } from '@/components/ui/calendar'
@@ -214,12 +213,11 @@ function ProgramacionContent() {
                     {/* Individual category options */}
                     {EVENT_TYPES.map((type) => {
                       const count = allItems.filter((i) => i.eventType === type.value).length
-                      const Icon = type.value === 'concierto' ? Music :
-                                   type.value === 'variete' ? Theater :
-                                   type.value === 'baile' ? Users :
-                                   type.value === 'fiesta' ? PartyPopper :
-                                   type.value === 'arte' ? Palette :
-                                   BookOpen
+                      const Icon = type.value === 'musica' ? Music :
+                                   type.value === 'teatro' ? Theater :
+                                   type.value === 'circo' ? Sparkles :
+                                   type.value === 'feria' ? Store :
+                                   Palette
                       const isSelected = selectedTypes.includes(type.value)
                       return (
                         <button

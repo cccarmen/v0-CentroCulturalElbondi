@@ -6,76 +6,101 @@ import Image from 'next/image'
 const timelineEvents = [
   {
     year: '2009',
-    title: 'Primera asamblea del colectivo cultural',
-    description: 'Primera asamblea del colectivo cultural.',
+    period: 'Junio',
+    title: 'Creacion del Colectivo Cultural',
+    description: 'Un grupo de 8 vecinos y vecinas se reunieron bajo la convocatoria de generar proyectos con impacto positivo en la comunidad, integrando a sectores vulnerables.',
     images: ['/images/evento-encuentro.jpg', '/images/evento-cumple.jpg', '/images/evento-ronda.jpg'],
   },
   {
-    year: '2011',
-    title: 'Ingreso al espacio ubicado en la calle El Dorado',
-    description: 'Nace el Centro Cultural El Bondi.',
-    images: ['/images/evento-musica.jpg', '/images/evento-variete.jpg', '/images/evento-folklore.jpg'],
-  },
-  {
-    year: '2012',
-    title: 'Creacion de la ONG',
-    description: 'Creacion de la ONG Colectivo Cultural y primera asamblea.',
-    images: ['/images/evento-musica.jpg', '/images/evento-variete.jpg', '/images/evento-folklore.jpg'],
-  },
-  {
-    year: '2013',
-    title: 'Primera retransmision Radioactiva',
-    description: 'Primera retransmision Radioactiva.',
-    images: ['/images/evento-musica.jpg', '/images/evento-variete.jpg', '/images/evento-folklore.jpg'],
-  },
-
-  {
-    year: '2016',
-    title: 'Primera tertulia rebelde',
-    description: 'Primera tertulia rebelde.',
+    year: '2009',
+    period: 'Noviembre',
+    title: 'Primera Tertulia Rebelde',
+    description: 'Una convocatoria para ampliar la participacion comunitaria y sumar integrantes a los proyectos en marcha. Desde entonces celebramos una Tertulia Rebelde cada ano.',
     images: ['/images/evento-ronda.jpg', '/images/evento-pareja.jpg', '/images/evento-musica.jpg'],
   },
   {
+    year: '2009',
+    period: 'Diciembre',
+    title: 'Primera actividad publica: 400 metros de murales',
+    description: 'Pintamos 400 metros de murales rodeando las escuelas primaria 13 y secundaria 16, junto a decenas de vecinos voluntarios y el apoyo de pinturerias locales.',
+    images: ['/images/evento-danza-circulo.jpg', '/images/evento-variete.jpg', '/images/evento-fiesta.jpg'],
+  },
+  {
+    year: '2010',
+    period: 'Marzo',
+    title: '100 aniversario de Ingeniero Maschwitz',
+    description: 'Celebramos el centenario del pueblo en la plaza Mitre con radio abierta, exposicion artistica, actividades circenses y merienda popular.',
+    images: ['/images/evento-fiesta.jpg', '/images/evento-encuentro.jpg', '/images/evento-cumple.jpg'],
+  },
+  {
+    year: '2010',
+    period: 'Julio',
+    title: 'Proyecciones de cine en la Sociedad de Fomento',
+    description: 'Tuvimos como invitado a Rodrigo de la Serna con "Diarios de Motocicleta" y al director Adrian Caetano.',
+    images: ['/images/evento-musica.jpg', '/images/evento-variete.jpg', '/images/evento-folklore.jpg'],
+  },
+  {
+    year: '2010',
+    period: 'Agosto',
+    title: 'Dia del Nino itinerante',
+    description: 'Festejo del Dia del Nino recorriendo los distintos barrios de Ingeniero Maschwitz.',
+    images: ['/images/evento-cumple.jpg', '/images/evento-ronda.jpg', '/images/evento-encuentro.jpg'],
+  },
+  {
+    year: '2011',
+    period: 'Febrero',
+    title: 'Recuperacion de los carnavales en Escobar',
+    description: 'Participamos junto a otras organizaciones en la redaccion de una nueva ordenanza que legalizara los festejos de carnaval en el partido.',
+    images: ['/images/evento-baile-atardecer.jpg', '/images/evento-folklore.jpg', '/images/evento-pareja.jpg'],
+  },
+  {
+    year: '2011',
+    period: '15 de Marzo',
+    title: 'Recuperacion del antiguo cine Gloria',
+    description: 'El Colectivo Cultural ocupo y recupero como centro cultural el emblematico edificio frente a la estacion, que habia sido almacen, hotel, cine y algodonera.',
+    images: ['/images/evento-variete.jpg', '/images/evento-musica.jpg', '/images/evento-folklore.jpg'],
+  },
+  {
+    year: '2011',
+    period: 'Junio',
+    title: 'Nace "Gloria la del Bondi"',
+    description: 'Fundacion del grupo de teatro comunitario, con el apoyo del mitico grupo "Catalinas Sur" de La Boca, que presento "Venimos de muy lejos".',
+    images: ['/images/evento-variete.jpg', '/images/evento-baile-atardecer.jpg', '/images/evento-danza-circulo.jpg'],
+  },
+  {
+    year: '2011',
+    period: '9 de Julio',
+    title: 'Acta de posesion',
+    description: 'Acta de posesion ante escribano y con decenas de vecinos invitados, en el marco de la primera Pena celebrada el Dia de la Independencia.',
+    images: ['/images/evento-encuentro.jpg', '/images/evento-fiesta.jpg', '/images/evento-cumple.jpg'],
+  },
+  {
+    year: '2011',
+    period: 'Agosto',
+    title: 'Primera actividad publica en el centro cultural',
+    description: 'Celebramos el Dia del Nino con un espectaculo de titeres a sala llena. Como no teniamos sillas, los chicos se sentaron en tronquitos.',
+    images: ['/images/evento-cumple.jpg', '/images/evento-encuentro.jpg', '/images/evento-ronda.jpg'],
+  },
+  {
+    year: '2011',
+    period: 'Diciembre',
+    title: 'Nace FM RadioActiva Comunitaria',
+    description: 'Primera Tertulia Rebelde en el centro cultural e inicio de las transmisiones de FM RadioActiva Comunitaria.',
+    images: ['/images/radio-estudio-activa.jpg', '/images/radio-mic-vintage.jpg', '/images/radio-logo-969.jpg'],
+  },
+  {
+    year: '2013',
+    period: 'Octubre',
+    title: 'Estreno de "Una historia gloriosa"',
+    description: 'El grupo Gloria la del Bondi representa en escena la historia del espacio: almacen, hotel, cine, algodonera, abandono y recuperacion, junto a la del pueblo y el pais.',
+    images: ['/images/evento-variete.jpg', '/images/evento-folklore.jpg', '/images/evento-musica.jpg'],
+  },
+  {
     year: '2019',
-    title: 'Primera Variete Bajo las Estrellas',
-    description: 'Primera Variete Bajo las Estrellas.',
-    images: ['/images/evento-baile-atardecer.jpg', '/images/evento-folklore.jpg', '/images/evento-musica.jpg'],
-  },
-  {
-    year: '2020',
-    title: 'Viandas comunitarias',
-    description: 'Proyecto de viandas para cuidarnos entre vecines durante la pandemia. El espacio comunitario que nunca cierra.',
-    images: ['/images/evento-fiesta.jpg', '/images/evento-danza-circulo.jpg', '/images/evento-encuentro.jpg'],
-  },
-  {
-    year: '2021',
-    title: 'Actividades pospandemia',
-    description: 'Primeras actividades pospandemia.',
-    images: ['/images/evento-encuentro.jpg', '/images/evento-ronda.jpg', '/images/evento-cumple.jpg'],
-  },
-  {
-    year: '2022',
-    title: 'Inicio del Bachi Popular',
-    description: 'Inicio del Bachi Popular.',
-    images: ['/images/evento-folklore.jpg', '/images/evento-musica.jpg', '/images/evento-variete.jpg'],
-  },
-  {
-    year: '2023',
-    title: 'Viandas comunitarias',
-    description: 'Proyecto de viandas para cuidarnos entre vecines durante la pandemia. El espacio comunitario que nunca cierra.',
-    images: ['/images/evento-cumple.jpg', '/images/evento-pareja.jpg', '/images/evento-ronda.jpg'],
-  },
-  {
-    year: '2025',
-    title: 'Abuela en el Bondi',
-    description: 'Abuela en el Bondi: Taty Almeida.',
-    images: ['/images/evento-danza-circulo.jpg', '/images/evento-folklore.jpg', '/images/evento-variete.jpg'],
-  },
-  {
-    year: '2026',
-    title: 'Cumple de 15 Bondi',
-    description: 'La mejor pena hasta ahora. Cumple de 15 Bondi.',
-    images: ['/images/evento-fiesta.jpg', '/images/evento-musica.jpg', '/images/evento-cumple.jpg'],
+    period: '',
+    title: 'Creacion del Bachillerato Popular',
+    description: 'Nace el Bachillerato Popular El Bondi, secundario para personas adultas con titulo oficial, en el marco de la Educacion Popular.',
+    images: ['/images/evento-encuentro.jpg', '/images/evento-musica.jpg', '/images/evento-variete.jpg'],
   },
 ]
 
@@ -105,7 +130,7 @@ export function InteractiveTimeline() {
             <ul className="flex flex-col">
               {timelineEvents.map((event, index) => (
                 <li
-                  key={event.year}
+                  key={`${event.year}-${index}`}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   onFocus={() => setHoveredIndex(index)}
@@ -130,6 +155,11 @@ export function InteractiveTimeline() {
 
                     {/* Content */}
                     <div className="min-w-0 flex-1">
+                      {event.period && (
+                        <span className="text-xs font-medium uppercase tracking-wider text-primary/80">
+                          {event.period}
+                        </span>
+                      )}
                       <h3
                         className={`text-base font-semibold leading-tight transition-all duration-300 md:text-lg lg:text-xl ${
                           hoveredIndex === index

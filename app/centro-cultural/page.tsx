@@ -80,12 +80,29 @@ const teamMembers = [
 ]
 
 const specialThanks = [
-  { name: 'Municipalidad de Escobar', reason: 'Apoyo institucional y acompanamiento en proyectos culturales desde los inicios del centro.' },
-  { name: 'Cooperativa de Trabajo La Cultural', reason: 'Colaboracion permanente en la gestion y sostenimiento del espacio comunitario.' },
-  { name: 'Red de Centros Culturales del Norte', reason: 'Articulacion con otros espacios culturales para fortalecer la red comunitaria de la zona.' },
-  { name: 'Vecinos y Vecinas de Maschwitz', reason: 'Por ser parte esencial de este proyecto, participar de las actividades y sostener el espacio dia a dia.' },
-  { name: 'Colectivo Artistas por la Comunidad', reason: 'Artistas que donan su tiempo y talento para los festivales y espectaculos del centro cultural.' },
-  { name: 'Fundacion Cultura Viva', reason: 'Financiamiento y asesoramiento para el desarrollo del bachillerato popular y programas educativos.' },
+  { name: 'Leonor Conti', reason: 'Viuda del Nene Conti, hijo del dueno del cine San Martin y Gloria. Nos dio las llaves para ingresar al espacio y su apoyo frente a distintos sectores de la sociedad local.' },
+  { name: 'Jose Freitas y Dario Minskas', reason: 'Abogado y escribano que colaboraron con su tiempo y conocimiento para sentar las bases legales de nuestros derechos sobre la propiedad recuperada como centro cultural.' },
+  { name: 'Soderia Mabel', reason: 'Nos proveen de agua potable desde el inicio de la recuperacion del espacio.' },
+  { name: 'Ferreteria Duto', reason: 'Acompana con materiales y herramientas para sostener y mejorar dia a dia el espacio recuperado.' },
+  { name: 'Locrero Yeyo', reason: 'Presente con su locro en las penas y celebraciones del Colectivo Cultural.' },
+  { name: 'Neben', reason: 'Colabora con el equipamiento tecnico necesario para nuestras actividades y eventos.' },
+]
+
+const alliedOrganizations = [
+  'Biblioteca 20 de Diciembre de Escobar',
+  'Biblioteca La Maquina de Hacer Pajaros de Garin',
+  'FOL Matheu',
+  'Club Villa Vallier Escobar',
+  'ONG Luz Esperanza y Pureza',
+  'Murga Los Portenitos',
+  'Sociedad de Fomento de Ingeniero Maschwitz',
+  'Sociedad de Fomento del Barrio San Miguel',
+]
+
+const historyParagraphs = [
+  'El Colectivo Cultural de Ingeniero Maschwitz es una organizacion de corto pero intenso recorrido, que nacio en 2009. Inicialmente las actividades eran itinerantes: durante los primeros 20 meses organizamos proyecciones de cine, murales, cumpleanos del pueblo, Dia del Nino, kermesse y talleres de radio, tanto en espacios publicos como en instituciones amigas.',
+  'Contar con un espacio propio se transformo en una necesidad y en el principal objetivo. En 2011 el Colectivo Cultural ocupo un edificio construido hace mas de ciento diez anos y que llevaba casi cuarenta abandonado, frente a la estacion del tren. El emblematico lugar habia sido el primer almacen de ramos generales, primer hotel (1900-1943), unico cine (1943-1974) y fabrica de algodon (1975-1978). Dos incendios aparentemente intencionales dieron comienzo a cuatro decadas de abandono y saqueo.',
+  'El domingo 20 de marzo de 2011, el Colectivo Cultural ocupo y recupero el espacio como centro cultural. Segun la epoca del ano funcionan alli entre 20 y 30 talleres, un numeroso grupo de teatro comunitario, la FM RadioActiva y una agenda completa todos los fines de semana. El centro cultural es "la casa" y el mayor proyecto del Colectivo Cultural, un espacio que tambien es usado por otras organizaciones.',
 ]
 
 const galleryImages = [
@@ -148,6 +165,30 @@ export default function CentroCulturalPage() {
         </div>
       </section>
 
+      {/* History Narrative Section */}
+      <section className="border-t border-border/40 py-16 lg:py-24">
+        <div className="mx-auto max-w-3xl px-4 lg:px-8">
+          <ScrollReveal>
+            <h2 className="text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
+              Nuestra Historia
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
+              De almacen de ramos generales, hotel, cine y algodonera a centro cultural comunitario recuperado por el pueblo.
+            </p>
+          </ScrollReveal>
+
+          <div className="mt-10 flex flex-col gap-6">
+            {historyParagraphs.map((paragraph, index) => (
+              <ScrollReveal key={index} delay={index * 80}>
+                <p className="text-pretty text-base leading-relaxed text-muted-foreground">
+                  {paragraph}
+                </p>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Team Section */}
       <section className="border-t border-border/40 bg-card py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
@@ -202,6 +243,27 @@ export default function CentroCulturalPage() {
               </ScrollReveal>
             ))}
           </div>
+
+          <ScrollReveal>
+            <div className="mt-12 rounded-lg border border-border/50 bg-card p-6 lg:p-8">
+              <h3 className="text-lg font-semibold text-foreground">
+                Organizaciones culturales y sociales amigas
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Apoyaron la recuperacion del espacio desde el comienzo y siguen caminando junto al Colectivo Cultural.
+              </p>
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {alliedOrganizations.map((org) => (
+                  <li
+                    key={org}
+                    className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-sm text-foreground"
+                  >
+                    {org}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
