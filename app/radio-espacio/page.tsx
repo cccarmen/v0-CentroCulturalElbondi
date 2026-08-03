@@ -370,11 +370,36 @@ function RadioEspacioContent() {
                   </p>
                 </div>
 
+                {/* Mission & Values */}
+                <div className="mt-8 space-y-4">
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">Nuestra mision</h3>
+                    <p className="mt-2 leading-relaxed text-muted-foreground">
+                      Promover la integracion social, el respeto por los Derechos Humanos y el cuidado del medio ambiente
+                      por medio de la cultura. Elegimos las actividades culturales porque creemos que la cultura nos
+                      relaciona, nos integra y nos convoca a formar parte activa de la sociedad en la que vivimos.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">Nuestros valores</h3>
+                    <ul className="mt-3 flex flex-wrap gap-2">
+                      {['Solidaridad', 'Libertad', 'Honestidad', 'Companerismo', 'Respeto', 'Igualdad', 'Responsabilidad', 'Compromiso'].map((valor) => (
+                        <li
+                          key={valor}
+                          className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-sm text-foreground"
+                        >
+                          {valor}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
                 {/* Contact info */}
                 <div className="mt-8 space-y-3">
                   <div className="flex items-center gap-3 text-sm text-muted-foreground">
                     <MapPin className="size-4 text-primary" />
-                    <span>Av El Dorado 1518, Ingeniero Maschwitz 1623</span>
+                    <span>Av El Dorado 1518, Ingeniero Maschwitz 1723</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-muted-foreground">
                     <Phone className="size-4 text-primary" />

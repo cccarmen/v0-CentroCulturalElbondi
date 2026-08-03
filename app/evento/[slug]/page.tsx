@@ -16,6 +16,8 @@ import {
   CheckCircle2,
   Send,
   Home,
+  MessageCircle,
+  Instagram,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -174,6 +176,33 @@ export default function EventoPage() {
                     </a>
                   </div>
                 </div>
+
+                {(item.whatsapp || item.instagram) && (
+                  <div className="flex flex-wrap gap-2">
+                    {item.whatsapp && (
+                      <a
+                        href={`https://wa.me/${item.whatsapp}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                      >
+                        <MessageCircle className="size-4" />
+                        WhatsApp
+                      </a>
+                    )}
+                    {item.instagram && (
+                      <a
+                        href={item.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-primary/30 px-4 py-2.5 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                      >
+                        <Instagram className="size-4" />
+                        Instagram
+                      </a>
+                    )}
+                  </div>
+                )}
 
                 {!formSubmitted && (
                   <Button 
