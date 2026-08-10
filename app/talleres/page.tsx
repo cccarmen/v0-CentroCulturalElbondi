@@ -378,10 +378,10 @@ function TalleresContent() {
                 <div className="rounded-lg border border-border bg-card p-4">
                   <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold text-foreground">
                     <Users className="size-4 text-primary" />
-                    Inscripcion
+                    Inscripcion y aporte
                   </h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    Podes reservar tu lugar en cualquier taller completando el formulario de inscripcion. El pago se realiza en persona el primer dia de clase.
+                    Los talleres tienen un aporte sugerido, pero no excluyente: si no podes aportar, venite igual. Para sumarte, escribile directamente a cada tallerista con el contacto que figura en su taller.
                   </p>
                 </div>
               </div>
