@@ -9,6 +9,7 @@ const navLinks = [
   { label: 'Eventos', href: '/programacion' },
   { label: 'Talleres', href: '/talleres' },
   { label: 'Radio Activa', href: '/radio-espacio' },
+  { label: 'Cómo llegar', href: '/#ubicacion' },
   { label: 'FAQ', href: '/faq' },
 ]
 

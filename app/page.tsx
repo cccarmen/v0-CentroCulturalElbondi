@@ -5,6 +5,7 @@ import { WorkshopsSection } from '@/components/workshops-section'
 import { InteractiveTimeline } from '@/components/interactive-timeline'
 import { RadioSection } from '@/components/radio-section'
 import { MapSection } from '@/components/map-section'
+import { LocationCta } from '@/components/location-cta'
 import { CommunitySection } from '@/components/community-section'
 import { Footer } from '@/components/footer'
 
@@ -15,6 +16,7 @@ export default function Home() {
 
       <main className="flex-1">
         <ImmersiveHero />
+        <LocationCta />
         <EventsSection />
         <WorkshopsSection />
         <InteractiveTimeline />
