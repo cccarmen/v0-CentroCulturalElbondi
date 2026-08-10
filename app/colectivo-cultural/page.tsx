@@ -1,16 +1,8 @@
 import Link from 'next/link'
-import {
-  Home,
-  Megaphone,
-  Scale,
-  Wallet,
-  Wrench,
-  Handshake,
-  Building2,
-  ArrowRight,
-} from 'lucide-react'
+import { Home, ArrowRight } from 'lucide-react'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { InteractivePageHeader } from '@/components/interactive-page-header'
+import { EstructuraOrganizacional } from '@/components/estructura-organizacional'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -28,49 +20,6 @@ const historyParagraphs = [
   'El Colectivo Cultural de Ingeniero Maschwitz es una organización asamblearia, comunitaria y autogestiva que nació en 2009, antes de contar con un espacio propio. En sus primeros años las actividades fueron itinerantes: proyecciones de cine, murales, festejos del pueblo, Día del Niño, kermeses y talleres de radio en espacios públicos e instituciones amigas.',
   'Con el tiempo, tener una casa propia se transformó en el principal objetivo. En 2011 el Colectivo recuperó un edificio de más de cien años que llevaba casi cuatro décadas abandonado, frente a la estación de tren, y lo puso al servicio de la comunidad como centro cultural.',
   'Hoy el Centro Cultural El Bondi es "la casa" y el mayor proyecto del Colectivo Cultural, pero no es lo único: la organización es una entidad más amplia, con su propia identidad, que también acompaña otros proyectos y trabaja junto a otras organizaciones del territorio.',
-]
-
-/**
- * Comisiones de trabajo del Colectivo Cultural.
- * Copia provisoria: ajustar descripciones según cómo funcionan hoy las comisiones.
- */
-const comisiones = [
-  {
-    icon: Megaphone,
-    title: 'Comunicación',
-    description:
-      'Difusión de las actividades, redes sociales, prensa y diseño de la comunicación visual del colectivo.',
-  },
-  {
-    icon: Scale,
-    title: 'Legales',
-    description:
-      'Acompaña la situación jurídica del espacio recuperado y los aspectos legales de la organización.',
-  },
-  {
-    icon: Wallet,
-    title: 'Tesorería',
-    description:
-      'Gestiona los recursos, los aportes y las finanzas del colectivo con un criterio comunitario y transparente.',
-  },
-  {
-    icon: Wrench,
-    title: 'Mantenimiento',
-    description:
-      'Cuida y mejora día a día el edificio: obras, arreglos y acondicionamiento del espacio.',
-  },
-  {
-    icon: Building2,
-    title: 'Relaciones institucionales',
-    description:
-      'Construye vínculos con instituciones, organismos y actores de la comunidad local y de la zona.',
-  },
-  {
-    icon: Handshake,
-    title: 'Otras áreas de trabajo',
-    description:
-      'Las comisiones son dinámicas: se arman, se transforman y se suman según las necesidades del momento.',
-  },
 ]
 
 export default function ColectivoCulturalPage() {
@@ -133,39 +82,14 @@ export default function ColectivoCulturalPage() {
         </div>
       </section>
 
-      {/* Comisiones en detalle */}
-      <section className="border-t border-border/40 bg-card py-16 lg:py-24">
+      {/* Estructura organizacional (Asamblea, Comisiones y Proyectos) */}
+      <EstructuraOrganizacional />
+
+      {/* Cross-link to the space + contact */}
+      <section className="border-t border-border/40 py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
-            <h2 className="text-balance text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
-              Las comisiones
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-pretty text-center text-base leading-relaxed text-muted-foreground">
-              Las comisiones son los equipos de trabajo que sostienen el funcionamiento cotidiano del colectivo. Se coordinan con la asamblea, que es el espacio principal de decisión colectiva.
-            </p>
-          </ScrollReveal>
-
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {comisiones.map((comision, index) => (
-              <ScrollReveal key={comision.title} delay={index * 100}>
-                <article className="flex h-full flex-col gap-4 rounded-lg border border-border/50 bg-background p-6 transition-all duration-300 hover:border-primary/40 hover:shadow-md">
-                  <div className="flex size-12 items-center justify-center rounded-full bg-primary/10">
-                    <comision.icon className="size-6 text-primary" aria-hidden="true" />
-                  </div>
-                  <h3 className="text-balance text-lg font-semibold text-foreground">
-                    {comision.title}
-                  </h3>
-                  <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
-                    {comision.description}
-                  </p>
-                </article>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          {/* Cross-link to the space + contact */}
-          <ScrollReveal>
-            <div className="mt-12 flex flex-col items-center gap-4 rounded-lg border border-primary/20 bg-primary/5 p-8 text-center">
+            <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 rounded-lg border border-primary/20 bg-primary/5 p-8 text-center">
               <h3 className="text-balance text-xl font-semibold text-foreground">
                 ¿Querés conocer el espacio o sumarte?
               </h3>
