@@ -1,6 +1,7 @@
 import { CinematicNavbar } from '@/components/cinematic-navbar'
 import { ImmersiveHero } from '@/components/immersive-hero'
 import { EventsSection } from '@/components/events-section'
+import { FlyersSection } from '@/components/flyers-section'
 import { WorkshopsSection } from '@/components/workshops-section'
 import { InteractiveTimeline } from '@/components/interactive-timeline'
 import { RadioSection } from '@/components/radio-section'
@@ -18,6 +19,7 @@ export default function Home() {
         <ImmersiveHero />
         <LocationCta />
         <EventsSection />
+        <FlyersSection />
         <WorkshopsSection />
         <InteractiveTimeline />
         <RadioSection />
