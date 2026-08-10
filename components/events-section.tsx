@@ -5,6 +5,18 @@ import { CardSlider } from '@/components/card-slider'
 import { getSortedEvents } from '@/lib/data'
 
 export function EventsSection() {
+  // Recurring events (e.g. Varieté) repeat monthly. On the homepage preview we
+  // only want each title once (its next occurrence); the full programación page
+  // still lists every date.
+  const seen = new Set<string>()
+  const featured = getSortedEvents()
+    .filter((event) => {
+      if (seen.has(event.title)) return false
+      seen.add(event.title)
+      return true
+    })
+    .slice(0, 4)
+
   return (
     <section id="eventos" className="bg-background py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
@@ -13,7 +25,7 @@ export function EventsSection() {
             Eventos
           </h2>
         </ScrollReveal>
-        <CardSlider items={getSortedEvents().slice(0, 4)} />
+        <CardSlider items={featured} />
         <ScrollReveal>
           <div className="mt-6 flex justify-center">
             <Link
