@@ -21,6 +21,7 @@ import {
   Sparkles,
   Star,
 } from 'lucide-react'
+import { es } from 'date-fns/locale'
 import { Calendar } from '@/components/ui/calendar'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
@@ -284,13 +285,14 @@ function ProgramacionContent() {
                   
                   {/* Calendar picker - always visible */}
                   <div className="overflow-hidden rounded-lg border border-border/50 bg-muted/20 p-2">
-                    <Calendar
-                      mode="single"
-                      selected={selectedDate}
-                      onSelect={handleCalendarSelect}
-                      modifiers={{ event: eventDates }}
-                      className="!w-full [--cell-size:1.75rem] text-sm"
-                    />
+                        <Calendar
+                          mode="single"
+                          locale={es}
+                          selected={selectedDate}
+                          onSelect={handleCalendarSelect}
+                          modifiers={{ event: eventDates }}
+                          className="!w-full [--cell-size:1.75rem] text-sm"
+                        />
                   </div>
                   <div className="mt-3 flex items-center justify-center gap-2 text-xs text-muted-foreground">
                     <span className="size-2 rounded-full bg-primary" />
