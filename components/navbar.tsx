@@ -29,7 +29,13 @@ const navLinks: NavLink[] = [
       { label: 'Educación', href: '/educacion' },
     ],
   },
-  { label: 'Radio Espacio', href: '/radio-espacio' },
+  {
+    label: 'Comunicación',
+    children: [
+      { label: 'Radio Activa', href: '/radio-espacio' },
+      { label: 'Redes', href: '/redes' },
+    ],
+  },
   { label: 'FAQ', href: '/faq' },
 ]
 
