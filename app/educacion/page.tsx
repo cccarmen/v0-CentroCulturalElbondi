@@ -67,7 +67,7 @@ export default function EducacionPage() {
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
             <InteractivePageHeader
-              title="Educación"
+              title="Educacion"
               description="En El Bondi también construimos espacios de educación popular, acompañamiento y encuentro. Son proyectos que tienen su propia dinámica dentro del colectivo y que buscan abrir oportunidades de aprendizaje, participación y organización comunitaria."
             />
           </ScrollReveal>
