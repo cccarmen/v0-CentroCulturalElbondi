@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { X, ChevronLeft, ChevronRight, Home, Users, Handshake, Sparkles } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, Home, Users, Handshake, Sparkles, ArrowRight } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -240,6 +240,18 @@ export default function CentroCulturalPage() {
               </ScrollReveal>
             ))}
           </div>
+
+          <ScrollReveal>
+            <div className="mt-10 flex justify-center">
+              <Link
+                href="/colectivo-cultural"
+                className="inline-flex items-center gap-2 rounded-lg border border-primary/40 px-6 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-primary/10 hover:text-primary"
+              >
+                Conocé más sobre el Colectivo Cultural
+                <ArrowRight className="size-4" />
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 

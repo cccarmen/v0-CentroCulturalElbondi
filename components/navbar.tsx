@@ -14,7 +14,13 @@ type NavChild = { label: string; href: string }
 type NavLink = { label: string; href?: string; children?: NavChild[] }
 
 const navLinks: NavLink[] = [
-  { label: 'Centro Cultural', href: '/centro-cultural' },
+  {
+    label: 'Sobre nosotros',
+    children: [
+      { label: 'Centro Cultural', href: '/centro-cultural' },
+      { label: 'Colectivo Cultural', href: '/colectivo-cultural' },
+    ],
+  },
   { label: 'Eventos', href: '/programacion' },
   {
     label: 'Aprender en el Bondi',
