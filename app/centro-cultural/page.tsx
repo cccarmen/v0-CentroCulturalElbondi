@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { X, ChevronLeft, ChevronRight, Home } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, Home, Users, Handshake, Sparkles, ArrowRight } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -99,10 +99,38 @@ const alliedOrganizations = [
   'Sociedad de Fomento del Barrio San Miguel',
 ]
 
-const historyParagraphs = [
-  'El Colectivo Cultural de Ingeniero Maschwitz es una organizacion de corto pero intenso recorrido, que nacio en 2009. Inicialmente las actividades eran itinerantes: durante los primeros 20 meses organizamos proyecciones de cine, murales, cumpleanos del pueblo, Dia del Nino, kermesse y talleres de radio, tanto en espacios publicos como en instituciones amigas.',
-  'Contar con un espacio propio se transformo en una necesidad y en el principal objetivo. En 2011 el Colectivo Cultural ocupo un edificio construido hace mas de ciento diez anos y que llevaba casi cuarenta abandonado, frente a la estacion del tren. El emblematico lugar habia sido el primer almacen de ramos generales, primer hotel (1900-1943), unico cine (1943-1974) y fabrica de algodon (1975-1978). Dos incendios aparentemente intencionales dieron comienzo a cuatro decadas de abandono y saqueo.',
-  'El domingo 20 de marzo de 2011, el Colectivo Cultural ocupo y recupero el espacio como centro cultural. Segun la epoca del ano funcionan alli entre 20 y 30 talleres, un numeroso grupo de teatro comunitario, la FM RadioActiva y una agenda completa todos los fines de semana. El centro cultural es "la casa" y el mayor proyecto del Colectivo Cultural, un espacio que tambien es usado por otras organizaciones.',
+/**
+ * Historia del edificio / el espacio físico (El Dorado 1518).
+ * NOTA: copia provisoria y muy breve. Reemplazar por el relato definitivo
+ * que enviarán las y los colaboradores de la organización.
+ */
+const espacioParagraphs = [
+  'Todo empezó en marzo de 2011, cuando entramos al espacio de El Dorado 1518, en Ingeniero Maschwitz. Un edificio con mucha historia, frente a la estación del tren, que estaba abandonado y que decidimos recuperar para la comunidad.',
+  'Desde entonces, esta casa es el lugar donde suceden los eventos, los talleres y la vida cotidiana del centro cultural: el escenario, el patio, las aulas y cada rincón fueron acondicionados con trabajo colectivo.',
+]
+
+const organizationIntro =
+  'El Bondi es una organización asamblearia, comunitaria y autogestiva. Nos organizamos colectivamente para sostener el espacio, tomar decisiones y acompañar los proyectos que suceden día a día.'
+
+const organizationPillars = [
+  {
+    icon: Users,
+    title: 'Asamblea',
+    description:
+      'La asamblea es el espacio principal de decisión colectiva. Allí se comparten necesidades, se definen prioridades y se acuerdan los pasos a seguir para el funcionamiento del centro cultural.',
+  },
+  {
+    icon: Handshake,
+    title: 'Comisiones',
+    description:
+      'Las comisiones acompañan tareas clave para que el espacio funcione: comunicación, legales, tesorería, mantenimiento, relaciones institucionales y otras áreas de trabajo.',
+  },
+  {
+    icon: Sparkles,
+    title: 'Proyectos',
+    description:
+      'Además de las comisiones, El Bondi reúne proyectos culturales, educativos y comunitarios que tienen su propia dinámica, pero se articulan con la asamblea y el espíritu colectivo del espacio.',
+  },
 ]
 
 const galleryImages = [
@@ -165,20 +193,20 @@ export default function CentroCulturalPage() {
         </div>
       </section>
 
-      {/* History Narrative Section */}
+      {/* El espacio (building history) Section */}
       <section className="border-t border-border/40 py-16 lg:py-24">
         <div className="mx-auto max-w-3xl px-4 lg:px-8">
           <ScrollReveal>
             <h2 className="text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
-              Nuestra Historia
+              El espacio
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
-              De almacen de ramos generales, hotel, cine y algodonera a centro cultural comunitario recuperado por el pueblo.
+              El Dorado 1518, Ingeniero Maschwitz: el edificio donde suceden los eventos, los talleres y la vida del centro cultural.
             </p>
           </ScrollReveal>
 
           <div className="mt-10 flex flex-col gap-6">
-            {historyParagraphs.map((paragraph, index) => (
+            {espacioParagraphs.map((paragraph, index) => (
               <ScrollReveal key={index} delay={index * 80}>
                 <p className="text-pretty text-base leading-relaxed text-muted-foreground">
                   {paragraph}
@@ -186,6 +214,48 @@ export default function CentroCulturalPage() {
               </ScrollReveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* How We Organize Section */}
+      <section className="border-t border-border/40 py-16 lg:py-24">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+          <ScrollReveal>
+            <h2 className="text-balance text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
+              Cómo nos organizamos
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-pretty text-center text-base leading-relaxed text-muted-foreground">
+              {organizationIntro}
+            </p>
+          </ScrollReveal>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {organizationPillars.map((pillar, index) => (
+              <ScrollReveal key={pillar.title} delay={index * 100}>
+                <article className="flex h-full flex-col gap-4 rounded-lg border border-border/50 bg-card p-6 transition-all duration-300 hover:border-primary/40 hover:shadow-md">
+                  <div className="flex size-12 items-center justify-center rounded-full bg-primary/10">
+                    <pillar.icon className="size-6 text-primary" aria-hidden="true" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground">{pillar.title}</h3>
+                  <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
+                    {pillar.description}
+                  </p>
+                </article>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal>
+            <div className="mt-10 flex justify-center">
+              <Link
+                href="/colectivo-cultural"
+                className="inline-flex items-center gap-2 rounded-lg border border-primary/40 px-6 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-primary/10 hover:text-primary"
+              >
+                Conocé más sobre el Colectivo Cultural
+                <ArrowRight className="size-4" />
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 

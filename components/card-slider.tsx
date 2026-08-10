@@ -69,6 +69,7 @@ export function CardSlider({ items }: CardSliderProps) {
               location={item.location}
               price={item.price}
               category={item.category}
+              production={item.production}
             />
           </ScrollReveal>
         ))}

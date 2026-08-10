@@ -19,7 +19,9 @@ import {
   Store,
   Palette,
   Sparkles,
+  Star,
 } from 'lucide-react'
+import { es } from 'date-fns/locale'
 import { Calendar } from '@/components/ui/calendar'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
@@ -34,7 +36,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { events, EVENT_TYPES, type EventItem, type EventType } from '@/lib/data'
+import { events, EVENT_TYPES, getSortedEvents, getProductionLabel, type EventItem, type EventType } from '@/lib/data'
 
 export default function ProgramacionPage() {
   return (
@@ -84,12 +86,30 @@ function ProgramacionContent() {
       items = items.filter((i) => i.eventType && selectedTypes.includes(i.eventType))
     }
 
-    // Sort by date
-    return items.sort((a, b) => {
-      if (!a.calendarDate || !b.calendarDate) return 0
-      return new Date(a.calendarDate).getTime() - new Date(b.calendarDate).getTime()
-    })
+    // El Bondi productions first (by date), then the rest (by date)
+    return getSortedEvents(items)
   }, [allItems, search, selectedDate, selectedTypes])
+
+  // Recurring events (e.g. Varieté) repeat monthly. Collapse each series into a
+  // single card showing its next occurrence, with a count of the extra dates.
+  // When a specific date is selected we skip collapsing so each occurrence shows.
+  const displayed = useMemo(() => {
+    if (selectedDate) return filtered.map((item) => ({ ...item, extraDates: 0 }))
+
+    const counts = new Map<string, number>()
+    for (const item of filtered) {
+      counts.set(item.title, (counts.get(item.title) ?? 0) + 1)
+    }
+
+    const seen = new Set<string>()
+    const result: (EventItem & { extraDates: number })[] = []
+    for (const item of filtered) {
+      if (seen.has(item.title)) continue
+      seen.add(item.title)
+      result.push({ ...item, extraDates: (counts.get(item.title) ?? 1) - 1 })
+    }
+    return result
+  }, [filtered, selectedDate])
 
   const clearFilters = () => {
     setSearch('')
@@ -265,13 +285,14 @@ function ProgramacionContent() {
                   
                   {/* Calendar picker - always visible */}
                   <div className="overflow-hidden rounded-lg border border-border/50 bg-muted/20 p-2">
-                    <Calendar
-                      mode="single"
-                      selected={selectedDate}
-                      onSelect={handleCalendarSelect}
-                      modifiers={{ event: eventDates }}
-                      className="!w-full [--cell-size:1.75rem] text-sm"
-                    />
+                        <Calendar
+                          mode="single"
+                          locale={es}
+                          selected={selectedDate}
+                          onSelect={handleCalendarSelect}
+                          modifiers={{ event: eventDates }}
+                          className="!w-full [--cell-size:1.75rem] text-sm"
+                        />
                   </div>
                   <div className="mt-3 flex items-center justify-center gap-2 text-xs text-muted-foreground">
                     <span className="size-2 rounded-full bg-primary" />
@@ -332,7 +353,7 @@ function ProgramacionContent() {
               <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <p className="text-sm text-muted-foreground">
-                    {filtered.length} resultado{filtered.length !== 1 ? 's' : ''} encontrado{filtered.length !== 1 ? 's' : ''}
+                    {displayed.length} resultado{displayed.length !== 1 ? 's' : ''} encontrado{displayed.length !== 1 ? 's' : ''}
                   </p>
                 </div>
 
@@ -380,11 +401,11 @@ function ProgramacionContent() {
               </div>
 
               {/* Results grid */}
-              {filtered.length > 0 ? (
+              {displayed.length > 0 ? (
                 <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-                  {filtered.map((item, index) => (
+                  {displayed.map((item, index) => (
                     <ScrollReveal key={item.slug} delay={index * 40} className="h-full">
-                      <ProgramCard item={item} />
+                      <ProgramCard item={item} extraDates={item.extraDates} />
                     </ScrollReveal>
                   ))}
                 </div>
@@ -411,11 +432,18 @@ function ProgramacionContent() {
 }
 
 /* Card for the programacion grid - Eventbrite inspired */
-function ProgramCard({ item }: { item: EventItem }) {
+function ProgramCard({ item, extraDates = 0 }: { item: EventItem; extraDates?: number }) {
+  const isBondi = item.production === 'bondi'
+  const productionLabel = getProductionLabel(item.production)
+
   return (
     <Link
       href={`/evento/${item.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/40 hover:shadow-xl"
+      className={`group flex h-full flex-col overflow-hidden rounded-lg border bg-card transition-all hover:shadow-xl ${
+        isBondi
+          ? 'border-primary/50 ring-1 ring-primary/20 hover:border-primary'
+          : 'border-border hover:border-primary/40'
+      }`}
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image
@@ -425,12 +453,12 @@ function ProgramCard({ item }: { item: EventItem }) {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        <Badge
-          className="absolute top-3 left-3 text-xs"
-          variant={item.category === 'evento' ? 'default' : 'secondary'}
-        >
-          {item.category === 'evento' ? 'Evento' : 'Taller'}
-        </Badge>
+        {isBondi && productionLabel && (
+          <Badge className="absolute top-3 left-3 gap-1 bg-primary text-xs text-primary-foreground">
+            <Star className="size-3 fill-current" />
+            {productionLabel}
+          </Badge>
+        )}
       </div>
       {/* Content section - consistent spacing */}
       <div className="flex flex-1 flex-col p-4">
@@ -439,9 +467,17 @@ function ProgramCard({ item }: { item: EventItem }) {
           {item.title}
         </h3>
         {/* Date/Time - below title */}
-        <p className="mt-1 text-xs text-muted-foreground">
-          {item.date} - {item.time}
-        </p>
+        <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+          <p className="text-xs text-muted-foreground">
+            {item.date} - {item.time}
+          </p>
+          {extraDates > 0 && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">
+              <CalendarIcon className="size-3" />
+              {extraDates === 1 ? '+1 fecha más' : `+${extraDates} fechas más`}
+            </span>
+          )}
+        </div>
         {/* Description - fixed 2 lines ~40px height */}
         <p className="mt-2 line-clamp-2 h-10 text-sm leading-5 text-muted-foreground">
           {item.description}

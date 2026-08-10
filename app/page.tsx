@@ -1,10 +1,12 @@
 import { CinematicNavbar } from '@/components/cinematic-navbar'
 import { ImmersiveHero } from '@/components/immersive-hero'
 import { EventsSection } from '@/components/events-section'
+import { FlyersSection } from '@/components/flyers-section'
 import { WorkshopsSection } from '@/components/workshops-section'
 import { InteractiveTimeline } from '@/components/interactive-timeline'
 import { RadioSection } from '@/components/radio-section'
 import { MapSection } from '@/components/map-section'
+import { LocationCta } from '@/components/location-cta'
 import { CommunitySection } from '@/components/community-section'
 import { Footer } from '@/components/footer'
 
@@ -15,7 +17,9 @@ export default function Home() {
 
       <main className="flex-1">
         <ImmersiveHero />
+        <LocationCta />
         <EventsSection />
+        <FlyersSection />
         <WorkshopsSection />
         <InteractiveTimeline />
         <RadioSection />

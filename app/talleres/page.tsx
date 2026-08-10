@@ -238,7 +238,7 @@ function TalleresContent() {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Talleres y Bachilleratos</BreadcrumbPage>
+                <BreadcrumbPage>Talleres</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -249,7 +249,7 @@ function TalleresContent() {
       <section className="relative bg-primary pt-12 pb-8 lg:pt-16 lg:pb-12">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <InteractivePageHeader
-            title="Talleres y Bachilleratos"
+            title="Talleres"
             description="Formacion artistica para todas las edades. Circo, musica, danza y mas."
           />
 
@@ -378,10 +378,10 @@ function TalleresContent() {
                 <div className="rounded-lg border border-border bg-card p-4">
                   <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold text-foreground">
                     <Users className="size-4 text-primary" />
-                    Inscripcion
+                    Inscripcion y aporte
                   </h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    Podes reservar tu lugar en cualquier taller completando el formulario de inscripcion. El pago se realiza en persona el primer dia de clase.
+                    Los talleres tienen un aporte sugerido, pero no excluyente: si no podes aportar, venite igual. Para sumarte, escribile directamente a cada tallerista con el contacto que figura en su taller.
                   </p>
                 </div>
               </div>

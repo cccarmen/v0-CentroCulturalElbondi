@@ -12,7 +12,7 @@ export function MapSection() {
   const [isActive, setIsActive] = useState(false)
 
   return (
-    <section className="relative bg-muted">
+    <section id="ubicacion" className="relative scroll-mt-16 bg-muted">
       <div className="relative h-[450px] w-full overflow-hidden lg:h-[500px]">
         {/* Google Maps iframe */}
         <iframe
@@ -39,24 +39,6 @@ export function MapSection() {
             </span>
           </button>
         )}
-
-        {/* Info overlay */}
-        <ScrollReveal direction="left" delay={300}>
-          <div className="absolute bottom-4 left-4 z-20 max-w-xs rounded-lg border border-border/50 bg-card/95 p-4 shadow-lg backdrop-blur-sm">
-            <div className="flex items-start gap-3">
-              <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary">
-                <MapPin className="size-4 text-primary-foreground" />
-              </div>
-              <div>
-                <h3 className="text-sm font-semibold text-card-foreground">Colectivo Cultural</h3>
-                <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
-                  Av. El Bondi 1174, B1623 Ingeniero Maschwitz,
-                  Provincia de Buenos Aires, Argentina
-                </p>
-              </div>
-            </div>
-          </div>
-        </ScrollReveal>
 
         {/* Location badges */}
         <ScrollReveal direction="right" delay={400}>
