@@ -430,14 +430,8 @@ function ProgramCard({ item }: { item: EventItem }) {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        <Badge
-          className="absolute top-3 left-3 text-xs"
-          variant={item.category === 'evento' ? 'default' : 'secondary'}
-        >
-          {item.category === 'evento' ? 'Evento' : 'Taller'}
-        </Badge>
         {isBondi && productionLabel && (
-          <Badge className="absolute top-3 right-3 gap-1 bg-primary text-xs text-primary-foreground">
+          <Badge className="absolute top-3 left-3 gap-1 bg-primary text-xs text-primary-foreground">
             <Star className="size-3 fill-current" />
             {productionLabel}
           </Badge>
