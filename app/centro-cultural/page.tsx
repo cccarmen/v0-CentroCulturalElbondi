@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { X, ChevronLeft, ChevronRight, Home } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, Home, Users, Handshake, Sparkles } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -105,6 +105,30 @@ const historyParagraphs = [
   'El domingo 20 de marzo de 2011, el Colectivo Cultural ocupo y recupero el espacio como centro cultural. Segun la epoca del ano funcionan alli entre 20 y 30 talleres, un numeroso grupo de teatro comunitario, la FM RadioActiva y una agenda completa todos los fines de semana. El centro cultural es "la casa" y el mayor proyecto del Colectivo Cultural, un espacio que tambien es usado por otras organizaciones.',
 ]
 
+const organizationIntro =
+  'El Bondi es una organización asamblearia, comunitaria y autogestiva. Nos organizamos colectivamente para sostener el espacio, tomar decisiones y acompañar los proyectos que suceden día a día.'
+
+const organizationPillars = [
+  {
+    icon: Users,
+    title: 'Asamblea',
+    description:
+      'La asamblea es el espacio principal de decisión colectiva. Allí se comparten necesidades, se definen prioridades y se acuerdan los pasos a seguir para el funcionamiento del centro cultural.',
+  },
+  {
+    icon: Handshake,
+    title: 'Comisiones',
+    description:
+      'Las comisiones acompañan tareas clave para que el espacio funcione: comunicación, legales, tesorería, mantenimiento, relaciones institucionales y otras áreas de trabajo.',
+  },
+  {
+    icon: Sparkles,
+    title: 'Proyectos',
+    description:
+      'Además de las comisiones, El Bondi reúne proyectos culturales, educativos y comunitarios que tienen su propia dinámica, pero se articulan con la asamblea y el espíritu colectivo del espacio.',
+  },
+]
+
 const galleryImages = [
   { src: '/images/evento-variete.jpg', alt: 'Artista de variete en traje tradicional' },
   { src: '/images/evento-folklore.jpg', alt: 'Ballet folklorico con vestidos purpura' },
@@ -183,6 +207,36 @@ export default function CentroCulturalPage() {
                 <p className="text-pretty text-base leading-relaxed text-muted-foreground">
                   {paragraph}
                 </p>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How We Organize Section */}
+      <section className="border-t border-border/40 py-16 lg:py-24">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+          <ScrollReveal>
+            <h2 className="text-balance text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
+              Cómo nos organizamos
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-pretty text-center text-base leading-relaxed text-muted-foreground">
+              {organizationIntro}
+            </p>
+          </ScrollReveal>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {organizationPillars.map((pillar, index) => (
+              <ScrollReveal key={pillar.title} delay={index * 100}>
+                <article className="flex h-full flex-col gap-4 rounded-lg border border-border/50 bg-card p-6 transition-all duration-300 hover:border-primary/40 hover:shadow-md">
+                  <div className="flex size-12 items-center justify-center rounded-full bg-primary/10">
+                    <pillar.icon className="size-6 text-primary" aria-hidden="true" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground">{pillar.title}</h3>
+                  <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
+                    {pillar.description}
+                  </p>
+                </article>
               </ScrollReveal>
             ))}
           </div>

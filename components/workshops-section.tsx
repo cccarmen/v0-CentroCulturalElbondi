@@ -10,7 +10,7 @@ export function WorkshopsSection() {
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <ScrollReveal>
           <h2 className="text-balance text-center font-display text-4xl tracking-wide text-foreground md:text-5xl lg:text-6xl">
-            Talleres y Bachillerato
+            Talleres
           </h2>
         </ScrollReveal>
         <CardSlider items={workshops.slice(0, 4)} />

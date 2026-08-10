@@ -238,7 +238,7 @@ function TalleresContent() {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Talleres y Bachilleratos</BreadcrumbPage>
+                <BreadcrumbPage>Talleres</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -249,7 +249,7 @@ function TalleresContent() {
       <section className="relative bg-primary pt-12 pb-8 lg:pt-16 lg:pb-12">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <InteractivePageHeader
-            title="Talleres y Bachilleratos"
+            title="Talleres"
             description="Formacion artistica para todas las edades. Circo, musica, danza y mas."
           />
 
