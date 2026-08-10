@@ -49,7 +49,7 @@ export function Navbar() {
           <img
             src="/images/logo-white.png"
             alt="El Bondi - Centro Cultural Comunitario"
-            className="h-[clamp(2.25rem,1.8rem+2vw,3.5rem)] w-auto"
+            className="h-[clamp(1.75rem,1.5rem+1vw,2.25rem)] w-auto"
           />
         </a>
 

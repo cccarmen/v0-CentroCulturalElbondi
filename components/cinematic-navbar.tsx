@@ -72,7 +72,7 @@ export function CinematicNavbar() {
           <img
             src="/images/logo-white.png"
             alt="El Bondi - Centro Cultural Comunitario"
-            className={`w-auto transition-all duration-500 ${scrolled ? 'h-[clamp(2rem,1.6rem+1.2vw,2.75rem)]' : 'h-[clamp(3rem,2rem+4vw,5rem)]'}`}
+            className={`w-auto transition-all duration-500 ${scrolled ? 'h-[clamp(1.75rem,1.5rem+1vw,2.25rem)]' : 'h-[clamp(2rem,1.6rem+1.75vw,2.75rem)]'}`}
           />
         </a>
 
