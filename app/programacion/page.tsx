@@ -19,6 +19,7 @@ import {
   Store,
   Palette,
   Sparkles,
+  Star,
 } from 'lucide-react'
 import { Calendar } from '@/components/ui/calendar'
 import { Badge } from '@/components/ui/badge'
@@ -34,7 +35,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { events, EVENT_TYPES, type EventItem, type EventType } from '@/lib/data'
+import { events, EVENT_TYPES, getSortedEvents, getProductionLabel, type EventItem, type EventType } from '@/lib/data'
 
 export default function ProgramacionPage() {
   return (
@@ -84,11 +85,8 @@ function ProgramacionContent() {
       items = items.filter((i) => i.eventType && selectedTypes.includes(i.eventType))
     }
 
-    // Sort by date
-    return items.sort((a, b) => {
-      if (!a.calendarDate || !b.calendarDate) return 0
-      return new Date(a.calendarDate).getTime() - new Date(b.calendarDate).getTime()
-    })
+    // El Bondi productions first (by date), then the rest (by date)
+    return getSortedEvents(items)
   }, [allItems, search, selectedDate, selectedTypes])
 
   const clearFilters = () => {
@@ -412,10 +410,17 @@ function ProgramacionContent() {
 
 /* Card for the programacion grid - Eventbrite inspired */
 function ProgramCard({ item }: { item: EventItem }) {
+  const isBondi = item.production === 'bondi'
+  const productionLabel = getProductionLabel(item.production)
+
   return (
     <Link
       href={`/evento/${item.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/40 hover:shadow-xl"
+      className={`group flex h-full flex-col overflow-hidden rounded-lg border bg-card transition-all hover:shadow-xl ${
+        isBondi
+          ? 'border-primary/50 ring-1 ring-primary/20 hover:border-primary'
+          : 'border-border hover:border-primary/40'
+      }`}
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image
@@ -431,6 +436,12 @@ function ProgramCard({ item }: { item: EventItem }) {
         >
           {item.category === 'evento' ? 'Evento' : 'Taller'}
         </Badge>
+        {isBondi && productionLabel && (
+          <Badge className="absolute top-3 right-3 gap-1 bg-primary text-xs text-primary-foreground">
+            <Star className="size-3 fill-current" />
+            {productionLabel}
+          </Badge>
+        )}
       </div>
       {/* Content section - consistent spacing */}
       <div className="flex flex-1 flex-col p-4">

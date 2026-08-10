@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { CardSlider } from '@/components/card-slider'
-import { events } from '@/lib/data'
+import { getSortedEvents } from '@/lib/data'
 
 export function EventsSection() {
   return (
@@ -13,7 +13,7 @@ export function EventsSection() {
             Eventos
           </h2>
         </ScrollReveal>
-        <CardSlider items={events.slice(0, 4)} />
+        <CardSlider items={getSortedEvents().slice(0, 4)} />
         <ScrollReveal>
           <div className="mt-6 flex justify-center">
             <Link

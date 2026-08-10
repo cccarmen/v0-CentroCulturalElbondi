@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { MapPin } from 'lucide-react'
+import { MapPin, Star } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { getProductionLabel } from '@/lib/data'
+import type { EventItem } from '@/lib/data'
 
 interface EventCardProps {
   slug: string
@@ -13,13 +15,21 @@ interface EventCardProps {
   location?: string
   price?: string
   category?: 'evento' | 'taller'
+  production?: EventItem['production']
 }
 
-export function EventCard({ slug, title, description, image, date, time, location, price, category = 'evento' }: EventCardProps) {
+export function EventCard({ slug, title, description, image, date, time, location, price, category = 'evento', production }: EventCardProps) {
+  const isBondi = production === 'bondi'
+  const productionLabel = getProductionLabel(production)
+
   return (
     <Link
       href={`/evento/${slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/40 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+      className={`group flex h-full flex-col overflow-hidden rounded-lg border bg-card transition-all hover:shadow-xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
+        isBondi
+          ? 'border-primary/50 ring-1 ring-primary/20 hover:border-primary'
+          : 'border-border hover:border-primary/40'
+      }`}
     >
       {/* Image section */}
       <div className="relative aspect-[16/10] overflow-hidden">
@@ -33,6 +43,12 @@ export function EventCard({ slug, title, description, image, date, time, locatio
         <Badge className="absolute top-3 left-3 text-xs">
           {category === 'taller' ? 'Taller' : 'Evento'}
         </Badge>
+        {isBondi && productionLabel && (
+          <Badge className="absolute top-3 right-3 gap-1 bg-primary text-xs text-primary-foreground">
+            <Star className="size-3 fill-current" />
+            {productionLabel}
+          </Badge>
+        )}
       </div>
 
       {/* Content section - consistent spacing */}

@@ -418,6 +418,30 @@ export const workshops: EventItem[] = [
   },
 ]
 
+const PRODUCTION_LABELS: Record<NonNullable<EventItem['production']>, string> = {
+  bondi: 'Producción de El Bondi',
+  externa: '',
+}
+
+export function getProductionLabel(production?: EventItem['production']): string {
+  if (!production) return ''
+  return PRODUCTION_LABELS[production]
+}
+
+// Events sorted so El Bondi productions come first (by date),
+// followed by the rest of the events (by date).
+export function getSortedEvents(source: EventItem[] = events): EventItem[] {
+  const byDate = (a: EventItem, b: EventItem) => {
+    if (!a.calendarDate || !b.calendarDate) return 0
+    return new Date(a.calendarDate).getTime() - new Date(b.calendarDate).getTime()
+  }
+
+  const bondi = source.filter((e) => e.production === 'bondi').sort(byDate)
+  const others = source.filter((e) => e.production !== 'bondi').sort(byDate)
+
+  return [...bondi, ...others]
+}
+
 export function getAllItems(): EventItem[] {
   return [...events, ...workshops]
 }
