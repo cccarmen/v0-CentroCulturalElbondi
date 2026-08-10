@@ -99,10 +99,14 @@ const alliedOrganizations = [
   'Sociedad de Fomento del Barrio San Miguel',
 ]
 
-const historyParagraphs = [
-  'El Colectivo Cultural de Ingeniero Maschwitz es una organizacion de corto pero intenso recorrido, que nacio en 2009. Inicialmente las actividades eran itinerantes: durante los primeros 20 meses organizamos proyecciones de cine, murales, cumpleanos del pueblo, Dia del Nino, kermesse y talleres de radio, tanto en espacios publicos como en instituciones amigas.',
-  'Contar con un espacio propio se transformo en una necesidad y en el principal objetivo. En 2011 el Colectivo Cultural ocupo un edificio construido hace mas de ciento diez anos y que llevaba casi cuarenta abandonado, frente a la estacion del tren. El emblematico lugar habia sido el primer almacen de ramos generales, primer hotel (1900-1943), unico cine (1943-1974) y fabrica de algodon (1975-1978). Dos incendios aparentemente intencionales dieron comienzo a cuatro decadas de abandono y saqueo.',
-  'El domingo 20 de marzo de 2011, el Colectivo Cultural ocupo y recupero el espacio como centro cultural. Segun la epoca del ano funcionan alli entre 20 y 30 talleres, un numeroso grupo de teatro comunitario, la FM RadioActiva y una agenda completa todos los fines de semana. El centro cultural es "la casa" y el mayor proyecto del Colectivo Cultural, un espacio que tambien es usado por otras organizaciones.',
+/**
+ * Historia del edificio / el espacio físico (El Dorado 1518).
+ * NOTA: copia provisoria y muy breve. Reemplazar por el relato definitivo
+ * que enviarán las y los colaboradores de la organización.
+ */
+const espacioParagraphs = [
+  'Todo empezó en marzo de 2011, cuando entramos al espacio de El Dorado 1518, en Ingeniero Maschwitz. Un edificio con mucha historia, frente a la estación del tren, que estaba abandonado y que decidimos recuperar para la comunidad.',
+  'Desde entonces, esta casa es el lugar donde suceden los eventos, los talleres y la vida cotidiana del centro cultural: el escenario, el patio, las aulas y cada rincón fueron acondicionados con trabajo colectivo.',
 ]
 
 const organizationIntro =
@@ -189,20 +193,20 @@ export default function CentroCulturalPage() {
         </div>
       </section>
 
-      {/* History Narrative Section */}
+      {/* El espacio (building history) Section */}
       <section className="border-t border-border/40 py-16 lg:py-24">
         <div className="mx-auto max-w-3xl px-4 lg:px-8">
           <ScrollReveal>
             <h2 className="text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
-              Nuestra Historia
+              El espacio
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
-              De almacen de ramos generales, hotel, cine y algodonera a centro cultural comunitario recuperado por el pueblo.
+              El Dorado 1518, Ingeniero Maschwitz: el edificio donde suceden los eventos, los talleres y la vida del centro cultural.
             </p>
           </ScrollReveal>
 
           <div className="mt-10 flex flex-col gap-6">
-            {historyParagraphs.map((paragraph, index) => (
+            {espacioParagraphs.map((paragraph, index) => (
               <ScrollReveal key={index} delay={index * 80}>
                 <p className="text-pretty text-base leading-relaxed text-muted-foreground">
                   {paragraph}
