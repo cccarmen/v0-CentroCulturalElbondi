@@ -13,7 +13,7 @@ export function MapSection() {
 
   return (
     <section id="ubicacion" className="relative scroll-mt-16 bg-muted">
-      <div className="relative h-[450px] w-full overflow-hidden lg:h-[500px]">
+      <div className="relative h-[560px] w-full overflow-hidden lg:h-[640px]">
         {/* Google Maps iframe */}
         <iframe
           title="Ubicacion de Colectivo Cultural El Bondi en Maschwitz"
