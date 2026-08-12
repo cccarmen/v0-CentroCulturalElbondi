@@ -56,7 +56,7 @@ export function Navbar() {
         <nav className="hidden items-center gap-1 md:flex" aria-label="Navegacion principal">
           {navLinks.map((link) =>
             link.children ? (
-              <DropdownMenu key={link.label}>
+              <DropdownMenu key={link.label} modal={false}>
                 <DropdownMenuTrigger className="flex items-center gap-1 rounded-md px-3 py-2 text-[clamp(0.8rem,0.72rem+0.35vw,0.95rem)] font-medium text-foreground/80 transition-colors outline-none hover:bg-primary/10 hover:text-primary focus-visible:ring-2 focus-visible:ring-primary data-[state=open]:text-primary">
                   {link.label}
                   <ChevronDown className="size-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
