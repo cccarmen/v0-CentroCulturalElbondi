@@ -62,7 +62,11 @@ export function Navbar() {
                   {link.label}
                   <ChevronDown className="size-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="min-w-44">
+                <DropdownMenuContent
+                  align="start"
+                  className="min-w-44"
+                  onCloseAutoFocus={(e) => e.preventDefault()}
+                >
                   {link.children.map((child) => (
                     <DropdownMenuItem key={child.href} asChild>
                       <a href={child.href} className="cursor-pointer">
