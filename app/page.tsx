@@ -1,4 +1,4 @@
-import { CinematicNavbar } from '@/components/cinematic-navbar'
+import { Navbar } from '@/components/navbar'
 import { ImmersiveHero } from '@/components/immersive-hero'
 import { EventsSection } from '@/components/events-section'
 import { FlyersSection } from '@/components/flyers-section'
@@ -13,7 +13,7 @@ import { Footer } from '@/components/footer'
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
-      <CinematicNavbar />
+      <Navbar />
 
       <main className="flex-1">
         <ImmersiveHero />

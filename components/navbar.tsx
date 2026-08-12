@@ -36,6 +36,7 @@ const navLinks: NavLink[] = [
       { label: 'Redes', href: '/redes' },
     ],
   },
+  { label: 'Cómo llegar', href: '/#ubicacion' },
   { label: 'FAQ', href: '/faq' },
 ]
 
