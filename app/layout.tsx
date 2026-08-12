@@ -1,10 +1,17 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist } from 'next/font/google'
+import { Geist, Rye } from 'next/font/google'
 import './globals.css'
 
 const geist = Geist({
   subsets: ['latin'],
   variable: '--font-geist',
+})
+
+const rye = Rye({
+  subsets: ['latin', 'latin-ext'],
+  weight: '400',
+  variable: '--font-rye',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -26,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="dark bg-background overflow-x-clip">
-      <body className={`${geist.variable} font-sans antialiased overflow-x-clip`}>
+      <body className={`${geist.variable} ${rye.variable} font-sans antialiased overflow-x-clip`}>
         {children}
       </body>
     </html>
