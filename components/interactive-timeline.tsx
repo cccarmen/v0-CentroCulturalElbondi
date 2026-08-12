@@ -123,11 +123,11 @@ export function InteractiveTimeline() {
         {/* Interactive timeline */}
         <div className="relative">
           {/* Timeline list */}
-          <div className="relative" role="list" aria-label="Linea de tiempo de El Bondi">
+          <div className="relative">
             {/* Vertical line accent */}
             <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent" aria-hidden="true" />
 
-            <ul className="flex flex-col">
+            <ul className="flex flex-col" aria-label="Linea de tiempo de El Bondi">
               {timelineEvents.map((event, index) => (
                 <li
                   key={`${event.year}-${index}`}
@@ -136,7 +136,6 @@ export function InteractiveTimeline() {
                   onFocus={() => setHoveredIndex(index)}
                   onBlur={() => setHoveredIndex(null)}
                   tabIndex={0}
-                  role="listitem"
                   aria-label={`${event.year}: ${event.title}. ${event.description}`}
                   className="group relative cursor-pointer border-b border-border/30 transition-colors hover:bg-muted/30 focus:bg-muted/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
                 >
@@ -147,7 +146,7 @@ export function InteractiveTimeline() {
                       className={`shrink-0 font-display text-3xl tabular-nums transition-all duration-300 md:text-4xl lg:text-5xl ${
                         hoveredIndex === index
                           ? 'text-primary'
-                          : 'text-muted-foreground/50'
+                          : 'text-muted-foreground/70'
                       }`}
                     >
                       {event.year}
@@ -156,7 +155,7 @@ export function InteractiveTimeline() {
                     {/* Content */}
                     <div className="min-w-0 flex-1">
                       {event.period && (
-                        <span className="text-xs font-medium uppercase tracking-wider text-primary/80">
+                        <span className="text-xs font-medium uppercase tracking-wider text-primary">
                           {event.period}
                         </span>
                       )}
@@ -170,11 +169,7 @@ export function InteractiveTimeline() {
                         {event.title}
                       </h3>
                       <p
-                        className={`mt-1 text-sm leading-relaxed transition-all duration-300 md:text-base ${
-                          hoveredIndex === index
-                            ? 'text-muted-foreground'
-                            : 'text-muted-foreground/70'
-                        }`}
+                        className={`mt-1 text-sm leading-relaxed text-muted-foreground transition-all duration-300 md:text-base`}
                       >
                         {event.description}
                       </p>

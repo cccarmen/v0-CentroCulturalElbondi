@@ -83,6 +83,7 @@ export function RadioSection() {
                   onValueChange={setProgress}
                   max={100}
                   step={1}
+                  aria-label="Progreso de reproduccion"
                   className="flex-1 [&_[data-slot=slider-range]]:bg-primary-foreground [&_[data-slot=slider-thumb]]:border-primary-foreground [&_[data-slot=slider-thumb]]:bg-primary-foreground [&_[data-slot=slider-track]]:bg-primary-foreground/20"
                 />
                 <span className="text-xs tabular-nums text-primary-foreground/70">1:38</span>
