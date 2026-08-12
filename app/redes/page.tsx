@@ -79,7 +79,7 @@ export default function RedesPage() {
 
       {/* Social link cards */}
       <section className="py-16 lg:py-24">
-        <div className="mx-auto max-w-5xl px-4 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <div className="grid gap-6 sm:grid-cols-2">
             {socials.map((social, index) => (
               <ScrollReveal key={social.name} delay={index * 100}>
@@ -115,7 +115,7 @@ export default function RedesPage() {
 
       {/* YouTube latest video embed */}
       <section className="border-t border-border/40 bg-card py-16 lg:py-24">
-        <div className="mx-auto max-w-5xl px-4 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
             <h2 className="text-balance font-display text-3xl tracking-wide text-foreground md:text-4xl">
               Nuestro canal de YouTube
@@ -168,7 +168,7 @@ export default function RedesPage() {
 
       {/* Cross-link to Radio */}
       <section className="py-16 lg:py-24">
-        <div className="mx-auto max-w-5xl px-4 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
             <div className="flex flex-col items-center gap-4 rounded-lg border border-primary/20 bg-primary/5 p-8 text-center">
               <div className="flex size-12 items-center justify-center rounded-full bg-primary/10">

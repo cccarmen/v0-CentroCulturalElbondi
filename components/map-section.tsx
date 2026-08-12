@@ -12,8 +12,8 @@ export function MapSection() {
   const [isActive, setIsActive] = useState(false)
 
   return (
-    <section id="ubicacion" className="relative scroll-mt-16 bg-muted">
-      <div className="relative h-[450px] w-full overflow-hidden lg:h-[500px]">
+    <section id="ubicacion" className="relative min-h-[640px] scroll-mt-16 bg-muted">
+      <div className="relative h-[640px] min-h-[640px] w-full overflow-hidden">
         {/* Google Maps iframe */}
         <iframe
           title="Ubicacion de Colectivo Cultural El Bondi en Maschwitz"

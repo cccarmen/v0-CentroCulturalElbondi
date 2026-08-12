@@ -12,9 +12,9 @@ export function CommunitySection() {
   const [submitted, setSubmitted] = useState(false)
 
   return (
-    <section id="comunidad" className="bg-background py-16 lg:py-24">
-      <div className="mx-auto max-w-7xl px-4 lg:px-8">
-        <div className="grid items-start gap-12 lg:grid-cols-2">
+    <section id="comunidad" className="flex min-h-[640px] items-center bg-background py-16">
+      <div className="mx-auto w-full max-w-7xl px-4 lg:px-8">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Left - CTA */}
           <ScrollReveal direction="left">
           <div className="flex flex-col gap-6">
