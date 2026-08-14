@@ -787,18 +787,16 @@ export function getProductionLabel(production?: EventItem['production']): string
   return PRODUCTION_LABELS[production]
 }
 
-// Events sorted so El Bondi productions come first (by date),
-// followed by the rest of the events (by date).
+// Events sorted chronologically by date so the closest events always come
+// first. El Bondi productions are still highlighted visually (star badge and
+// ring on the card) rather than being reordered to the top.
 export function getSortedEvents(source: EventItem[] = events): EventItem[] {
   const byDate = (a: EventItem, b: EventItem) => {
     if (!a.calendarDate || !b.calendarDate) return 0
     return new Date(a.calendarDate).getTime() - new Date(b.calendarDate).getTime()
   }
 
-  const bondi = source.filter((e) => e.production === 'bondi').sort(byDate)
-  const others = source.filter((e) => e.production !== 'bondi').sort(byDate)
-
-  return [...bondi, ...others]
+  return [...source].sort(byDate)
 }
 
 export function getAllItems(): EventItem[] {
