@@ -1,3 +1,5 @@
+import { DisplayText } from '@/components/display-text'
+
 interface InteractivePageHeaderProps {
   title: string
   description?: string
@@ -12,7 +14,7 @@ export function InteractivePageHeader({
   return (
     <div className={className}>
       <h1 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl lg:text-6xl">
-        {title}
+        <DisplayText>{title}</DisplayText>
       </h1>
       
       {description && (

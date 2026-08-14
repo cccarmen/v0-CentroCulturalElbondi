@@ -15,6 +15,7 @@ import {
   Instagram,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { DisplayText } from '@/components/display-text'
 import { Card, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -188,7 +189,7 @@ export default function EventoPage() {
                 {item.category === 'evento' ? 'Evento' : 'Taller'}
               </Badge>
               <h1 className="font-display text-4xl tracking-wide text-foreground md:text-5xl">
-                {item.title}
+                <DisplayText>{item.title}</DisplayText>
               </h1>
               <p className="mt-4 text-lg text-muted-foreground">
                 {item.description}

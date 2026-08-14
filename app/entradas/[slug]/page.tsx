@@ -25,6 +25,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
+import { DisplayText } from '@/components/display-text'
 import { Textarea } from '@/components/ui/textarea'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import {
@@ -162,9 +163,9 @@ export default function EntradasPage({ params }: { params: Promise<{ slug: strin
               <Users className="mr-1.5 size-3" />
               Reservar lugar
             </Badge>
-            <h1 className="font-display text-4xl tracking-wide text-white md:text-5xl lg:text-6xl">
-              {event.title}
-            </h1>
+              <h1 className="font-display text-4xl tracking-wide text-white md:text-5xl lg:text-6xl">
+                <DisplayText>{event.title}</DisplayText>
+              </h1>
             <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-white/80">
               <span className="flex items-center gap-1.5">
                 <Calendar className="size-4" />

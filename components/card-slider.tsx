@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useCallback, useEffect } from 'react'
+import { useState, useMemo, useRef, useEffect, useCallback } from 'react'
 import { EventCard } from '@/components/event-card'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import type { EventItem } from '@/lib/data'
@@ -36,42 +36,71 @@ interface CardSliderProps {
 export function CardSlider({ items }: CardSliderProps) {
   const breakpoint = useBreakpoint()
   const perPage = ITEMS_PER_PAGE[breakpoint]
-  const totalPages = Math.ceil(items.length / perPage)
 
+  // Group items into pages, each page holds `perPage` items.
+  const pages = useMemo(() => {
+    const result: EventItem[][] = []
+    for (let i = 0; i < items.length; i += perPage) {
+      result.push(items.slice(i, i + perPage))
+    }
+    return result
+  }, [items, perPage])
+
+  const totalPages = pages.length
+  const scrollRef = useRef<HTMLDivElement>(null)
   const [activePage, setActivePage] = useState(0)
 
-  // Reset to page 0 if breakpoint changes and active page overflows
-  useEffect(() => {
-    if (activePage >= totalPages) setActivePage(0)
-  }, [totalPages, activePage])
-
-  const visibleItems = useMemo(() => {
-    const start = activePage * perPage
-    return items.slice(start, start + perPage)
-  }, [items, activePage, perPage])
-
-  const goToPage = useCallback((page: number) => {
+  // Keep the active dot in sync with the scroll position.
+  const handleScroll = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const page = Math.round(el.scrollLeft / el.clientWidth)
     setActivePage(page)
   }, [])
 
+  const goToPage = useCallback((page: number) => {
+    const el = scrollRef.current
+    if (!el) return
+    el.scrollTo({ left: page * el.clientWidth, behavior: 'smooth' })
+  }, [])
+
+  // Reset scroll to start when the breakpoint (and therefore paging) changes.
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    el.scrollTo({ left: 0 })
+    setActivePage(0)
+  }, [perPage])
+
   return (
     <div>
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {visibleItems.map((item, index) => (
-          <ScrollReveal key={`${activePage}-${item.slug}`} delay={index * 100} className="h-full">
-            <EventCard
-              slug={item.slug}
-              title={item.title}
-              description={item.description}
-              image={item.image}
-              date={item.date}
-              time={item.time}
-              location={item.location}
-              price={item.price}
-              category={item.category}
-              production={item.production}
-            />
-          </ScrollReveal>
+      <div
+        ref={scrollRef}
+        onScroll={handleScroll}
+        className="mt-10 flex snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {pages.map((page, pageIndex) => (
+          <div
+            key={pageIndex}
+            className="grid w-full shrink-0 snap-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          >
+            {page.map((item, index) => (
+              <ScrollReveal key={item.slug} delay={index * 100} className="h-full">
+                <EventCard
+                  slug={item.slug}
+                  title={item.title}
+                  description={item.description}
+                  image={item.image}
+                  date={item.date}
+                  time={item.time}
+                  location={item.location}
+                  price={item.price}
+                  category={item.category}
+                  production={item.production}
+                />
+              </ScrollReveal>
+            ))}
+          </div>
         ))}
       </div>
 
