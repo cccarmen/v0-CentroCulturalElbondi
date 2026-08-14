@@ -14,9 +14,33 @@ const rye = Rye({
   display: 'swap',
 })
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  ? process.env.NEXT_PUBLIC_SITE_URL
+  : process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : 'http://localhost:3000'
+
+const title = 'El Bondi - Centro Cultural Comunitario'
+const description =
+  'Derechos que se viven: cultura, educación y comunicación. Centro Cultural Comunitario en Ingeniero Maschwitz.'
+
 export const metadata: Metadata = {
-  title: 'El Bondi - Centro Cultural Comunitario',
-  description: 'Derechos que se viven: cultura, educación y comunicación. Centro Cultural Comunitario en Maschwitz.',
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    url: '/',
+    siteName: 'El Bondi',
+    locale: 'es_AR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+  },
 }
 
 export const viewport: Viewport = {
