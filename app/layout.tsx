@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Rye } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const geist = Geist({
@@ -59,6 +60,7 @@ export default function RootLayout({
     <html lang="es" className="dark bg-background overflow-x-clip">
       <body className={`${geist.variable} ${rye.variable} font-sans antialiased overflow-x-clip`}>
         {children}
+        <Analytics />
       </body>
     </html>
   )
