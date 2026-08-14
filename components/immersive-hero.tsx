@@ -139,11 +139,18 @@ export function ImmersiveHero() {
   const ctaY = Math.max(0, 50 - (scrollProgress - 0.4) * 125)
 
   return (
-    <div ref={containerRef} className="relative">
+    // Negative margin (matching the sticky navbar's clamped height) pulls the hero
+    // up beneath the translucent header so the 100dvh sticky child fills the full
+    // visible viewport at every screen size — keeping the Explora indicator on-screen.
+    <div
+      ref={containerRef}
+      className="relative -mt-[clamp(3.5rem,3rem+2.5vw,5rem)]"
+    >
       {/* Full-screen cinematic hero container */}
       <section className="relative h-[200vh]">
-        {/* Sticky video container */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* Sticky video container — dvh tracks the visible viewport on mobile so
+            bottom-anchored UI (the Explora indicator) is never clipped by browser chrome */}
+        <div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
           {/* Video layer with parallax and scroll effects */}
           <div
             className="absolute inset-0 transition-transform duration-100 ease-out"
