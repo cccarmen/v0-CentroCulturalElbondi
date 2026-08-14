@@ -6,6 +6,14 @@ import { Pause, Volume2, VolumeOff, ChevronDown } from 'lucide-react'
 const HERO_VIDEO_URL =
   'https://nqoenjvb7emeaosc.public.blob.vercel-storage.com/Sequence%2001_2.mp4'
 
+// Background music for the hero. Drop the uploaded track URL here.
+// The hero video itself has no audio track, so the speaker button controls this.
+const HERO_MUSIC_URL = ''
+
+// Target volume (0-1) when the music is unmuted, and fade duration in ms.
+const MUSIC_VOLUME = 0.6
+const FADE_DURATION = 900
+
 interface MousePosition {
   x: number
   y: number
@@ -19,6 +27,8 @@ export function ImmersiveHero() {
   const [isLoaded, setIsLoaded] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const fadeRafRef = useRef<number | null>(null)
 
   // Handle scroll progress
   useEffect(() => {
@@ -48,6 +58,13 @@ export function ImmersiveHero() {
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
+  // Clean up any in-flight volume fade on unmount
+  useEffect(() => {
+    return () => {
+      if (fadeRafRef.current) cancelAnimationFrame(fadeRafRef.current)
+    }
+  }, [])
+
   // Video load handler
   const handleVideoLoad = useCallback(() => {
     setIsLoaded(true)
@@ -57,18 +74,58 @@ export function ImmersiveHero() {
     if (!videoRef.current) return
     if (isPlaying) {
       videoRef.current.pause()
+      audioRef.current?.pause()
       setIsPlaying(false)
     } else {
-      videoRef.current.play()
+      void videoRef.current.play()
+      // Resume the music only if the user has already unmuted it.
+      if (!isMuted && audioRef.current) {
+        void audioRef.current.play().catch(() => {})
+      }
       setIsPlaying(true)
     }
-  }, [isPlaying])
+  }, [isPlaying, isMuted])
+
+  // Smoothly ramp the music volume; optionally pause when the fade reaches 0.
+  const fadeAudioTo = useCallback((target: number, pauseAtEnd = false) => {
+    const audio = audioRef.current
+    if (!audio) return
+    if (fadeRafRef.current) cancelAnimationFrame(fadeRafRef.current)
+
+    const start = audio.volume
+    const startTime = performance.now()
+
+    const step = (now: number) => {
+      const t = Math.min((now - startTime) / FADE_DURATION, 1)
+      audio.volume = start + (target - start) * t
+      if (t < 1) {
+        fadeRafRef.current = requestAnimationFrame(step)
+      } else {
+        fadeRafRef.current = null
+        if (pauseAtEnd) audio.pause()
+      }
+    }
+    fadeRafRef.current = requestAnimationFrame(step)
+  }, [])
 
   const handleMuteToggle = useCallback(() => {
-    if (!videoRef.current) return
-    videoRef.current.muted = !isMuted
-    setIsMuted(!isMuted)
-  }, [isMuted])
+    const audio = audioRef.current
+    const nextMuted = !isMuted
+    setIsMuted(nextMuted)
+
+    if (!audio) return
+    if (nextMuted) {
+      fadeAudioTo(0, true)
+    } else {
+      audio.volume = 0
+      audio.muted = false
+      // Only start playback if the video is currently playing.
+      if (isPlaying) {
+        void audio.play().catch(() => {})
+      }
+      fadeAudioTo(MUSIC_VOLUME)
+    }
+  }, [isMuted, isPlaying, fadeAudioTo])
 
   // Calculate dynamic transforms based on scroll and mouse
   const videoScale = 1 + scrollProgress * 0.15
@@ -110,6 +167,17 @@ export function ImmersiveHero() {
             >
               <track kind="captions" />
             </video>
+
+            {/* Background music layer — controlled by the speaker button */}
+            {HERO_MUSIC_URL && (
+              <audio
+                ref={audioRef}
+                src={HERO_MUSIC_URL}
+                loop
+                preload="auto"
+                aria-hidden="true"
+              />
+            )}
 
             {/* Cinematic vignette overlay */}
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
