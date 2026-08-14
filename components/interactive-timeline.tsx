@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import { DisplayText } from '@/components/display-text'
 
 const timelineEvents = [
   {
@@ -116,7 +117,7 @@ export function InteractiveTimeline() {
             Nuestra Historia
           </span>
           <h2 className="mt-4 font-display text-4xl tracking-wide text-foreground md:text-5xl lg:text-6xl">
-            15 Anos Construyendo Comunidad
+            <DisplayText>15 Años Construyendo Comunidad</DisplayText>
           </h2>
         </div>
 

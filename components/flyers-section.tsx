@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, Calendar } from 'lucide-react'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { DisplayText } from '@/components/display-text'
 
 const flyers = [
   {
@@ -62,9 +63,9 @@ export function FlyersSection() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80" />
                     <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-5">
                       <div>
-                        <h3 className="font-display text-2xl tracking-wide text-white drop-shadow-md md:text-3xl">
-                          {flyer.title}
-                        </h3>
+                    <h3 className="font-display text-2xl tracking-wide text-white drop-shadow-md md:text-3xl">
+                      <DisplayText>{flyer.title}</DisplayText>
+                    </h3>
                         <p className="mt-1 text-sm text-white/85 drop-shadow">
                           {flyer.caption}
                         </p>
