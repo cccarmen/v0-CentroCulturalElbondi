@@ -1,16 +1,8 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { Play, Pause, SkipBack, SkipForward, Volume2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Slider } from '@/components/ui/slider'
 import { ScrollReveal } from '@/components/scroll-reveal'
 
 export function RadioSection() {
-  const [playing, setPlaying] = useState(false)
-  const [progress, setProgress] = useState([33])
-  const audioRef = useRef<HTMLAudioElement>(null)
-
   return (
     <section className="relative flex min-h-[640px] items-center overflow-hidden bg-primary py-16">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,oklch(0.55_0.18_305/0.2),transparent)]" />
@@ -45,55 +37,6 @@ export function RadioSection() {
               nuestro enlace a continuacion.
             </p>
           </div>
-
-          {/* Audio Player */}
-          <div className="w-full max-w-lg rounded-lg border border-primary-foreground/10 bg-primary-foreground/10 p-4 backdrop-blur-sm">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="ghost"
-                  size="icon-sm"
-                  className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
-                  aria-label="Anterior"
-                >
-                  <SkipBack className="size-4" />
-                </Button>
-                <Button
-                  size="icon"
-                  className="rounded-full bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-                  onClick={() => setPlaying(!playing)}
-                  aria-label={playing ? 'Pausar' : 'Reproducir'}
-                >
-                  {playing ? <Pause className="size-4" /> : <Play className="size-4 ml-0.5" />}
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon-sm"
-                  className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
-                  aria-label="Siguiente"
-                >
-                  <SkipForward className="size-4" />
-                </Button>
-              </div>
-
-              <div className="flex flex-1 items-center gap-3">
-                <span className="text-xs tabular-nums text-primary-foreground/70">0:00</span>
-                <Slider
-                  value={progress}
-                  onValueChange={setProgress}
-                  max={100}
-                  step={1}
-                  aria-label="Progreso de reproduccion"
-                  className="flex-1 [&_[data-slot=slider-range]]:bg-primary-foreground [&_[data-slot=slider-thumb]]:border-primary-foreground [&_[data-slot=slider-thumb]]:bg-primary-foreground [&_[data-slot=slider-track]]:bg-primary-foreground/20"
-                />
-                <span className="text-xs tabular-nums text-primary-foreground/70">1:38</span>
-              </div>
-
-              <Volume2 className="size-4 shrink-0 text-primary-foreground/60" />
-            </div>
-          </div>
-
-{/* Audio element — only rendered when a real stream URL is provided */}
         </ScrollReveal>
       </div>
     </section>
