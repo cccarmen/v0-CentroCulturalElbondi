@@ -188,6 +188,52 @@ html {
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Gentle floating loop for accent elements */
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.animate-float-soft {
+  animation: float-soft 4s ease-in-out infinite;
+}
+
+/* Expanding ring pulse, e.g. for the "on air" radio indicator */
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  70% { transform: scale(1.8); opacity: 0; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+/* Sheen sweep used on hover to add life to cards/buttons */
+@keyframes sheen {
+  0% { transform: translateX(-120%) skewX(-12deg); }
+  100% { transform: translateX(220%) skewX(-12deg); }
+}
+.group-hover\:animate-sheen:hover .sheen,
+.group:hover .sheen {
+  animation: sheen 0.9s ease-out;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-float-soft,
+  .animate-pulse-ring,
+  .sheen {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /*
  * Composed "ñ" for the display font (Rye), which lacks the glyph.
  * The base "n"/"N" is drawn from the real font via ::before and a hand-drawn

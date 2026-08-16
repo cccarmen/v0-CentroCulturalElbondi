@@ -18,10 +18,10 @@ export function WorkshopsSection() {
           <div className="mt-6 flex justify-center">
             <Link
               href="/programacion?categoria=taller"
-              className="inline-flex items-center gap-2 rounded-lg border border-primary/30 px-6 py-2.5 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+              className="group inline-flex items-center gap-2 rounded-lg border border-primary/30 px-6 py-2.5 text-sm font-medium text-primary transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:shadow-lg hover:shadow-primary/25"
             >
               Ver todos los talleres
-              <ArrowRight className="size-4" />
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
         </ScrollReveal>
