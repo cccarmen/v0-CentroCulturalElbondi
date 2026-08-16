@@ -1,5 +1,7 @@
 'use client'
 
+import { Radio } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
 
 export function RadioSection() {
@@ -36,6 +38,19 @@ export function RadioSection() {
               Escuchanos en vivo desde cualquier parte del mundo haciendo clic en
               nuestro enlace a continuacion.
             </p>
+          </div>
+
+          <div>
+            <Button
+              asChild
+              size="lg"
+              className="gap-2 bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+            >
+              <a href="https://radioactiva.ar" target="_blank" rel="noopener noreferrer">
+                <Radio className="size-5" />
+                Escuchar en vivo
+              </a>
+            </Button>
           </div>
         </ScrollReveal>
       </div>
