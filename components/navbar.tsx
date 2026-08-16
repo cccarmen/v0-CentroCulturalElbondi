@@ -27,11 +27,6 @@ const navLinks: NavLink[] = [
     children: [
       { label: 'Talleres', href: '/talleres' },
       { label: 'Educación', href: '/educacion' },
-    ],
-  },
-  {
-    label: 'Comunicación',
-    children: [
       { label: 'Radio Activa', href: '/radio-espacio' },
       { label: 'Redes', href: '/redes' },
     ],
