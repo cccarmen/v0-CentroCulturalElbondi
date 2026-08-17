@@ -39,7 +39,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-background/50 shadow-lg shadow-black/5 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-background/40">
       <div className="mx-auto flex h-[clamp(3.5rem,3rem+2.5vw,5rem)] max-w-7xl items-center justify-between gap-4 px-4 lg:px-8">
         <a href="/" className="flex min-w-0 flex-shrink-0">
           <img
@@ -95,7 +95,7 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-border/40 bg-background md:hidden">
+        <div className="border-t border-white/10 bg-background/60 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-background/40 md:hidden">
           <nav className="flex flex-col gap-1 px-4 py-3" aria-label="Navegacion movil">
             {navLinks.map((link) =>
               link.children ? (
