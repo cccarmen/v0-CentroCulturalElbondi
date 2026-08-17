@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { DisplayText } from '@/components/display-text'
 
@@ -105,114 +105,209 @@ const timelineEvents = [
   },
 ]
 
+const pad = (n: number) => String(n).padStart(2, '0')
+
 export function InteractiveTimeline() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  // The active chapter is driven by scroll position (the item crossing the
+  // viewport center) so the story advances as the user reads. Hover/focus can
+  // override it for direct exploration.
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [pointerIndex, setPointerIndex] = useState<number | null>(null)
+  const [fillHeight, setFillHeight] = useState(0)
+
+  const listRef = useRef<HTMLUListElement>(null)
+  const itemRefs = useRef<(HTMLLIElement | null)[]>([])
+
+  const currentIndex = pointerIndex ?? activeIndex
+  const total = timelineEvents.length
+  const current = timelineEvents[currentIndex]
+
+  // Detect which chapter is crossing the vertical center of the viewport.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = Number((entry.target as HTMLElement).dataset.index)
+            if (!Number.isNaN(idx)) setActiveIndex(idx)
+          }
+        })
+      },
+      { rootMargin: '-48% 0px -48% 0px', threshold: 0 }
+    )
+    itemRefs.current.forEach((el) => el && observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+
+  // Grow the progress line so it reaches the marker of the current chapter.
+  useEffect(() => {
+    const update = () => {
+      const el = itemRefs.current[currentIndex]
+      if (!el) return
+      setFillHeight(el.offsetTop + 34)
+    }
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [currentIndex])
 
   return (
     <section className="relative overflow-hidden bg-background py-20 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
-        {/* Section header */}
-        <div className="mb-16 text-center">
+        {/* Section header — sets up the story */}
+        <div className="mx-auto mb-16 max-w-2xl text-center">
           <span className="text-sm font-medium uppercase tracking-widest text-primary">
             Nuestra Historia
           </span>
           <h2 className="mt-4 font-display text-4xl tracking-wide text-foreground md:text-5xl lg:text-6xl">
             <DisplayText>15 Años Construyendo Comunidad</DisplayText>
           </h2>
+          <p className="mt-6 text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
+            Todo empezo con ocho vecinos y una idea. Recorre, ano a ano, los momentos que
+            convirtieron a El Bondi en el espacio cultural que es hoy.
+          </p>
         </div>
 
-        {/* Interactive timeline */}
-        <div className="relative">
-          {/* Timeline list */}
-          <div className="relative">
-            {/* Vertical line accent */}
-            <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent" aria-hidden="true" />
+        {/* Story layout: sticky progress rail + scrolling chapters */}
+        <div className="lg:flex lg:gap-16">
+          {/* Sticky progress rail (desktop) */}
+          <div className="hidden lg:block lg:w-56 lg:shrink-0">
+            <div className="sticky top-32">
+              <div
+                key={current.year}
+                className="font-display text-7xl leading-none text-primary transition-all duration-500 xl:text-8xl"
+              >
+                {current.year}
+              </div>
+              <div className="mt-4 flex items-center gap-3 text-sm tabular-nums text-muted-foreground">
+                <span className="font-semibold text-foreground">{pad(currentIndex + 1)}</span>
+                <span className="h-px flex-1 bg-border" aria-hidden="true" />
+                <span>{pad(total)}</span>
+              </div>
+              <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-border">
+                <div
+                  className="h-full rounded-full bg-primary transition-all duration-500 ease-cinematic"
+                  style={{ width: `${((currentIndex + 1) / total) * 100}%` }}
+                />
+              </div>
+              <p className="mt-6 max-w-[14rem] text-sm leading-relaxed text-muted-foreground">
+                {current.period ? `${current.period} · ` : ''}
+                {current.title}
+              </p>
+            </div>
+          </div>
+
+          {/* Timeline chapters */}
+          <div className="relative flex-1">
+            {/* Track */}
+            <div
+              className="absolute left-0 top-0 h-full w-px bg-border"
+              aria-hidden="true"
+            />
+            {/* Progress fill */}
+            <div
+              className="absolute left-0 top-0 w-px bg-primary transition-[height] duration-500 ease-cinematic"
+              style={{ height: `${fillHeight}px` }}
+              aria-hidden="true"
+            />
 
             <ul className="flex flex-col" aria-label="Linea de tiempo de El Bondi">
-              {timelineEvents.map((event, index) => (
-                <li
-                  key={`${event.year}-${index}`}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  onFocus={() => setHoveredIndex(index)}
-                  onBlur={() => setHoveredIndex(null)}
-                  tabIndex={0}
-                  aria-label={`${event.year}: ${event.title}. ${event.description}`}
-                  className="group relative cursor-pointer border-b border-border/30 transition-colors hover:bg-muted/30 focus:bg-muted/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
-                >
-                  <div className="flex items-center gap-4 py-5 pl-6 pr-4 md:gap-8 md:py-6">
-                    {/* Year */}
+              {timelineEvents.map((event, index) => {
+                const isActive = index === currentIndex
+                const isPassed = index <= activeIndex
+                return (
+                  <li
+                    key={`${event.year}-${index}`}
+                    ref={(el) => {
+                      itemRefs.current[index] = el
+                    }}
+                    data-index={index}
+                    onMouseEnter={() => setPointerIndex(index)}
+                    onMouseLeave={() => setPointerIndex(null)}
+                    onFocus={() => setPointerIndex(index)}
+                    onBlur={() => setPointerIndex(null)}
+                    tabIndex={0}
+                    aria-label={`${event.year}: ${event.title}. ${event.description}`}
+                    aria-current={isActive ? 'step' : undefined}
+                    className="group relative cursor-pointer rounded-r-lg pl-8 pr-2 outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset md:pl-12"
+                  >
+                    {/* Marker on the line */}
                     <span
                       aria-hidden="true"
-                      className={`shrink-0 font-display text-3xl tabular-nums transition-all duration-300 md:text-4xl lg:text-5xl ${
-                        hoveredIndex === index
-                          ? 'text-primary'
-                          : 'text-muted-foreground/70'
+                      className={`absolute left-0 top-[26px] flex size-4 -translate-x-1/2 items-center justify-center rounded-full border-2 bg-background transition-all duration-300 ${
+                        isActive
+                          ? 'scale-125 border-primary'
+                          : isPassed
+                            ? 'border-primary'
+                            : 'border-border'
                       }`}
                     >
-                      {event.year}
+                      <span
+                        className={`size-1.5 rounded-full bg-primary transition-all duration-300 ${
+                          isPassed ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
+                        }`}
+                      />
                     </span>
 
-                    {/* Content */}
-                    <div className="min-w-0 flex-1">
-                      {event.period && (
-                        <span className="text-xs font-medium uppercase tracking-wider text-primary">
-                          {event.period}
-                        </span>
-                      )}
-                      <h3
-                        className={`text-base font-semibold leading-tight transition-all duration-300 md:text-lg lg:text-xl ${
-                          hoveredIndex === index
-                            ? 'text-foreground'
-                            : 'text-foreground/80'
-                        }`}
-                      >
-                        {event.title}
-                      </h3>
-                      <p
-                        className={`mt-1 text-sm leading-relaxed text-muted-foreground transition-all duration-300 md:text-base`}
-                      >
-                        {event.description}
-                      </p>
-                    </div>
-
-                    {/* 3 Images on right - visible on hover */}
-                    <div 
-                      className={`hidden shrink-0 items-center gap-2 transition-all duration-300 md:flex ${
-                        hoveredIndex === index 
-                          ? 'translate-x-0 opacity-100' 
-                          : 'translate-x-4 opacity-0'
-                      }`}
-                      aria-hidden="true"
-                    >
-                      {event.images.map((img, imgIndex) => (
-                        <div 
-                          key={imgIndex}
-                          className="relative h-16 w-16 overflow-hidden rounded-lg shadow-md transition-transform duration-300 hover:scale-105 lg:h-20 lg:w-20"
-                          style={{
-                            transitionDelay: `${imgIndex * 50}ms`,
-                          }}
+                    <div className="flex items-start gap-4 py-6 md:gap-8">
+                      <div className="min-w-0 flex-1">
+                        {/* Year shown inline on mobile only (rail covers desktop) */}
+                        <span
+                          className={`mr-2 font-display text-lg tabular-nums transition-colors duration-300 lg:hidden ${
+                            isActive ? 'text-primary' : 'text-muted-foreground/70'
+                          }`}
                         >
-                          <Image
-                            src={img}
-                            alt=""
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                          {event.year}
+                        </span>
+                        {event.period && (
+                          <span className="text-xs font-medium uppercase tracking-wider text-primary">
+                            {event.period}
+                          </span>
+                        )}
+                        <h3
+                          className={`mt-1 text-base font-semibold leading-tight transition-all duration-300 md:text-lg lg:text-xl ${
+                            isActive
+                              ? 'translate-x-1 text-foreground'
+                              : 'text-foreground/70'
+                          }`}
+                        >
+                          {event.title}
+                        </h3>
+                        <p
+                          className={`mt-1.5 text-sm leading-relaxed transition-colors duration-300 md:text-base ${
+                            isActive ? 'text-muted-foreground' : 'text-muted-foreground/60'
+                          }`}
+                        >
+                          {event.description}
+                        </p>
+                      </div>
 
-                  {/* Hover accent line */}
-                  <div
-                    aria-hidden="true"
-                    className={`absolute left-0 top-0 h-full w-1 bg-primary transition-all duration-300 ${
-                      hoveredIndex === index ? 'opacity-100' : 'opacity-0'
-                    }`}
-                  />
-                </li>
-              ))}
+                      {/* Photos reveal for the active chapter */}
+                      <div
+                        className={`hidden shrink-0 items-center gap-2 transition-all duration-500 ease-cinematic md:flex ${
+                          isActive
+                            ? 'translate-x-0 opacity-100'
+                            : 'pointer-events-none translate-x-6 opacity-0'
+                        }`}
+                        aria-hidden="true"
+                      >
+                        {event.images.map((img, imgIndex) => (
+                          <div
+                            key={imgIndex}
+                            className="relative h-16 w-16 overflow-hidden rounded-lg shadow-md transition-transform duration-500 ease-cinematic lg:h-20 lg:w-20"
+                            style={{
+                              transform: isActive ? 'translateY(0)' : 'translateY(12px)',
+                              transitionDelay: isActive ? `${imgIndex * 80}ms` : '0ms',
+                            }}
+                          >
+                            <Image src={img} alt="" fill className="object-cover" />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </div>
