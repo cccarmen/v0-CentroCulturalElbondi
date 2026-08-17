@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Milonga } from 'next/font/google'
+import { Geist, Ewert } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -8,10 +8,10 @@ const geist = Geist({
   variable: '--font-geist',
 })
 
-const milonga = Milonga({
+const ewert = Ewert({
   subsets: ['latin'],
   weight: '400',
-  variable: '--font-milonga',
+  variable: '--font-ewert',
   display: 'swap',
 })
 
@@ -58,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="dark bg-background overflow-x-clip">
-      <body className={`${geist.variable} ${milonga.variable} font-sans antialiased overflow-x-clip`}>
+      <body className={`${geist.variable} ${ewert.variable} font-sans antialiased overflow-x-clip`}>
         {children}
         <Analytics />
       </body>
