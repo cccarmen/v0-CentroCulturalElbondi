@@ -217,6 +217,25 @@ html {
   animation: sheen 0.9s ease-out;
 }
 
+/* Drifting colored lights used behind page headers (aurora effect) */
+@keyframes drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(18%, 12%) scale(1.15); }
+  66% { transform: translate(-12%, 8%) scale(0.9); }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40% { transform: translate(-16%, -10%) scale(1.2); }
+  70% { transform: translate(14%, 6%) scale(0.95); }
+}
+@keyframes drift-c {
+  0%, 100% { transform: translate(0, 0) scale(1.05); }
+  50% { transform: translate(10%, -14%) scale(0.85); }
+}
+.animate-drift-a { animation: drift-a 16s ease-in-out infinite; }
+.animate-drift-b { animation: drift-b 20s ease-in-out infinite; }
+.animate-drift-c { animation: drift-c 24s ease-in-out infinite; }
+
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -224,6 +243,9 @@ html {
   }
   .animate-float-soft,
   .animate-pulse-ring,
+  .animate-drift-a,
+  .animate-drift-b,
+  .animate-drift-c,
   .sheen {
     animation: none !important;
   }
