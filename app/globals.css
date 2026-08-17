@@ -116,7 +116,7 @@
 @theme inline {
   --font-sans: 'Geist', 'Geist Fallback', sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
-  --font-display: var(--font-rye), 'Rye', cursive;
+  --font-display: var(--font-milonga), 'Milonga', cursive;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
