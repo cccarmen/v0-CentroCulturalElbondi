@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Bodoni_Moda } from 'next/font/google'
+import { Geist, Rye } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
