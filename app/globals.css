@@ -233,38 +233,3 @@ html {
     transition-duration: 0.01ms !important;
   }
 }
-
-/*
- * Composed "ñ" for the display font (Rye), which lacks the glyph.
- * The base "n"/"N" is drawn from the real font via ::before and a hand-drawn
- * SVG tilde is layered above it so it matches the surrounding letters.
- */
-.enye {
-  position: relative;
-}
-.enye__visual {
-  position: relative;
-  display: inline-block;
-}
-.enye__visual::before {
-  content: 'n';
-}
-.enye__visual[data-upper='true']::before {
-  content: 'N';
-}
-.enye__tilde {
-  position: absolute;
-  left: 50%;
-  bottom: 0.6em;
-  width: 0.64em;
-  height: 0.42em;
-  transform: translateX(-50%);
-  color: inherit;
-  pointer-events: none;
-  overflow: visible;
-}
-.enye__visual[data-upper='true'] .enye__tilde {
-  bottom: 0.92em;
-  width: 0.76em;
-  height: 0.44em;
-}
