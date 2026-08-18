@@ -33,13 +33,22 @@ export function InteractivePageHeader({ title, description, children }: Interact
       onMouseLeave={() => setActive(false)}
       className="group relative overflow-hidden rounded-2xl bg-primary p-6 lg:p-8"
     >
-      {/* Cursor-following light that reveals on hover */}
+      {/* Cursor-following darker-purple glow that reveals across the whole frame on hover */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 transition-opacity duration-500 ease-out motion-reduce:hidden"
+        className="pointer-events-none absolute inset-0 transition-opacity duration-300 ease-out motion-reduce:hidden"
         style={{
           opacity: active ? 1 : 0,
-          background: `radial-gradient(360px circle at ${pos.x}% ${pos.y}%, var(--color-accent) 0%, transparent 60%)`,
+          background: `radial-gradient(600px circle at ${pos.x}% ${pos.y}%, oklch(0.42 0.19 300) 0%, oklch(0.5 0.2 300 / 0.55) 30%, transparent 70%)`,
+        }}
+      />
+      {/* Soft interactive spotlight ring following the cursor */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 transition-opacity duration-300 ease-out motion-reduce:hidden"
+        style={{
+          opacity: active ? 1 : 0,
+          background: `radial-gradient(200px circle at ${pos.x}% ${pos.y}%, oklch(0.35 0.17 300 / 0.6) 0%, transparent 65%)`,
         }}
       />
 
