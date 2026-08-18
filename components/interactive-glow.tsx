@@ -48,11 +48,11 @@ export function InteractiveGlow() {
       uniform float u_time;
       uniform vec2 u_resolution;
 
-      // Brand purples / magentas
-      const vec3 colA = vec3(0.42, 0.20, 0.72); // purple
-      const vec3 colB = vec3(0.80, 0.30, 0.86); // magenta
-      const vec3 colC = vec3(0.62, 0.47, 0.97); // lavender
-      const vec3 colD = vec3(0.26, 0.10, 0.52); // deep violet
+      // Single brand purple, varied only in light/dark shades.
+      const vec3 colA = vec3(0.49, 0.29, 0.80); // brand purple
+      const vec3 colB = vec3(0.63, 0.47, 0.92); // light purple
+      const vec3 colC = vec3(0.55, 0.36, 0.86); // mid purple
+      const vec3 colD = vec3(0.33, 0.17, 0.60); // deep purple
 
       void main() {
         vec2 uv = gl_FragCoord.xy / u_resolution.xy;
