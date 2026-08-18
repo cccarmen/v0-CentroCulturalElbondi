@@ -105,8 +105,6 @@ const timelineEvents = [
   },
 ]
 
-const pad = (n: number) => String(n).padStart(2, '0')
-
 export function InteractiveTimeline() {
   // The active chapter is driven by scroll position (the item crossing the
   // viewport center) so the story advances as the user reads. Hover/focus can
@@ -119,7 +117,6 @@ export function InteractiveTimeline() {
   const itemRefs = useRef<(HTMLLIElement | null)[]>([])
 
   const currentIndex = pointerIndex ?? activeIndex
-  const total = timelineEvents.length
   const current = timelineEvents[currentIndex]
 
   // Detect which chapter is crossing the vertical center of the viewport.
@@ -179,21 +176,16 @@ export function InteractiveTimeline() {
               >
                 {current.year}
               </div>
-              <div className="mt-4 flex items-center gap-3 text-sm tabular-nums text-muted-foreground">
-                <span className="font-semibold text-foreground">{pad(currentIndex + 1)}</span>
-                <span className="h-px flex-1 bg-border" aria-hidden="true" />
-                <span>{pad(total)}</span>
+              <div className="mt-6 max-w-[14rem]">
+                {current.period && (
+                  <span className="text-xs font-medium uppercase tracking-wider text-primary">
+                    {current.period}
+                  </span>
+                )}
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                  {current.title}
+                </p>
               </div>
-              <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-border">
-                <div
-                  className="h-full rounded-full bg-primary transition-all duration-500 ease-cinematic"
-                  style={{ width: `${((currentIndex + 1) / total) * 100}%` }}
-                />
-              </div>
-              <p className="mt-6 max-w-[14rem] text-sm leading-relaxed text-muted-foreground">
-                {current.period ? `${current.period} · ` : ''}
-                {current.title}
-              </p>
             </div>
           </div>
 
