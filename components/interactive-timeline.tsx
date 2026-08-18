@@ -117,7 +117,6 @@ export function InteractiveTimeline() {
   const itemRefs = useRef<(HTMLLIElement | null)[]>([])
 
   const currentIndex = pointerIndex ?? activeIndex
-  const current = timelineEvents[currentIndex]
 
   // Detect which chapter is crossing the vertical center of the viewport.
   useEffect(() => {
@@ -165,29 +164,9 @@ export function InteractiveTimeline() {
           </p>
         </div>
 
-        {/* Story layout: sticky progress rail + scrolling chapters */}
-        <div className="lg:flex lg:gap-16">
-          {/* Sticky progress rail (desktop) */}
-          <div className="hidden lg:block lg:w-56 lg:shrink-0">
-            <div className="sticky top-32">
-              <span className="text-sm font-medium uppercase tracking-widest text-primary">
-                Nuestra Historia
-              </span>
-              <div key={current.year} className="mt-4 max-w-[14rem] transition-all duration-500">
-                {current.period && (
-                  <span className="text-xs font-medium uppercase tracking-wider text-primary">
-                    {current.period} {current.year}
-                  </span>
-                )}
-                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                  {current.title}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Timeline chapters */}
-          <div className="relative flex-1">
+        {/* Timeline chapters */}
+        <div className="mx-auto max-w-4xl">
+          <div className="relative">
             {/* Track */}
             <div
               className="absolute left-0 top-0 h-full w-px bg-border"
