@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Home, Instagram, Youtube, ArrowUpRight, Radio } from 'lucide-react'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { InteractivePageHeader } from '@/components/interactive-page-header'
+import { InteractiveGlow } from '@/components/interactive-glow'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -66,7 +67,8 @@ export default function RedesPage() {
       </section>
 
       {/* Hero Header */}
-      <section className="border-b border-border/40 bg-primary py-16 lg:py-24">
+      <section className="relative isolate overflow-hidden border-b border-border/40 bg-primary py-16 lg:py-24">
+        <InteractiveGlow />
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
             <InteractivePageHeader
