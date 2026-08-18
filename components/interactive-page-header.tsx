@@ -1,11 +1,13 @@
+import type { ReactNode } from 'react'
 import { DisplayText } from '@/components/display-text'
 
 interface InteractivePageHeaderProps {
   title: string
   description?: string
+  children?: ReactNode
 }
 
-export function InteractivePageHeader({ title, description }: InteractivePageHeaderProps) {
+export function InteractivePageHeader({ title, description, children }: InteractivePageHeaderProps) {
   return (
     <div className="relative overflow-hidden">
       {/* Moving colored lights (aurora) behind the glass title */}
@@ -30,6 +32,7 @@ export function InteractivePageHeader({ title, description }: InteractivePageHea
         {description && (
           <p className="mt-4 max-w-2xl text-base text-primary-foreground/80 md:text-lg">{description}</p>
         )}
+        {children}
       </div>
     </div>
   )
