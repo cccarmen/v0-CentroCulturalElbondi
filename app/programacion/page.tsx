@@ -165,19 +165,30 @@ function ProgramacionContent() {
             {/* Search bar - Eventbrite style */}
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
               <div className="relative flex-1 max-w-xl">
-                <Search className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground" />
+                <label htmlFor="event-search" className="sr-only">
+                  Buscar eventos
+                </label>
+                <Search
+                  aria-hidden="true"
+                  className="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground"
+                />
                 <Input
+                  id="event-search"
+                  type="search"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Buscar eventos..."
-                  className="h-12 rounded-lg bg-white pl-12 text-base shadow-lg border-0 focus-visible:ring-2 focus-visible:ring-white/50"
+                  aria-label="Buscar eventos"
+                  className="h-14 rounded-lg border-0 bg-white pl-12 pr-12 text-base text-foreground placeholder:text-muted-foreground shadow-lg focus-visible:ring-4 focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
                 />
                 {search && (
                   <button
+                    type="button"
                     onClick={() => setSearch('')}
-                    className="absolute top-1/2 right-4 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    aria-label="Borrar búsqueda"
+                    className="absolute top-1/2 right-3 flex size-8 -translate-y-1/2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
-                    <X className="size-4" />
+                    <X className="size-4" aria-hidden="true" />
                   </button>
                 )}
               </div>
