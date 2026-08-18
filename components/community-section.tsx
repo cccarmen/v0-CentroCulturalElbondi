@@ -16,7 +16,7 @@ export function CommunitySection() {
       <div className="mx-auto w-full max-w-7xl px-4 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Left - CTA */}
-          <ScrollReveal direction="left">
+          <ScrollReveal direction="left" scaleFrom={0.95} duration={800}>
           <div className="flex flex-col gap-6">
             <span className="text-sm font-medium tracking-wider text-primary uppercase">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit

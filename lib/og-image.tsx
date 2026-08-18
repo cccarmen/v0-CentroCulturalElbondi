@@ -34,15 +34,15 @@ export async function renderOgImage() {
   const heroData = await readFile(join(process.cwd(), 'public/images/hero.jpg'))
   const heroSrc = `data:image/jpeg;base64,${heroData.toString('base64')}`
 
-  // Load fonts (Rye for the display title, Geist for supporting copy).
-  const [rye, geistBold, geistRegular] = await Promise.all([
-    loadGoogleFont('Rye', 400, title),
+  // Load fonts (Sancreek for the display title, Geist for supporting copy).
+  const [sancreek, geistBold, geistRegular] = await Promise.all([
+    loadGoogleFont('Sancreek', 400, title),
     loadGoogleFont('Geist', 700, `${eyebrow}${location}`),
     loadGoogleFont('Geist', 400, subtitle),
   ])
 
   const fonts = [
-    rye && { name: 'Rye', data: rye, weight: 400 as const, style: 'normal' as const },
+    sancreek && { name: 'Sancreek', data: sancreek, weight: 400 as const, style: 'normal' as const },
     geistBold && { name: 'Geist', data: geistBold, weight: 700 as const, style: 'normal' as const },
     geistRegular && { name: 'Geist', data: geistRegular, weight: 400 as const, style: 'normal' as const },
   ].filter(Boolean) as { name: string; data: ArrayBuffer; weight: 400 | 700; style: 'normal' }[]
@@ -133,7 +133,7 @@ export async function renderOgImage() {
           {/* Title */}
           <div
             style={{
-              fontFamily: 'Rye, Geist, serif',
+              fontFamily: 'Sancreek, Geist, serif',
               fontSize: 132,
               lineHeight: 1,
               color: '#ffffff',

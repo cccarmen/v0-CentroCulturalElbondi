@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Home, GraduationCap, BookOpen, Users, ArrowRight } from 'lucide-react'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { InteractivePageHeader } from '@/components/interactive-page-header'
+import { InteractiveGlow } from '@/components/interactive-glow'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -63,8 +64,9 @@ export default function EducacionPage() {
       </section>
 
       {/* Hero Header */}
-      <section className="border-b border-border/40 bg-primary py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+      <section className="relative isolate flex min-h-[384px] items-center overflow-hidden border-b border-border/40 bg-primary py-16 lg:py-24">
+        <InteractiveGlow />
+        <div className="mx-auto w-full max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
             <InteractivePageHeader
               title="Educacion"

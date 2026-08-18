@@ -28,6 +28,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { InteractivePageHeader } from '@/components/interactive-page-header'
+import { InteractiveGlow } from '@/components/interactive-glow'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -246,8 +247,9 @@ function TalleresContent() {
       </section>
 
       {/* Hero header */}
-      <section className="relative bg-primary pt-12 pb-8 lg:pt-16 lg:pb-12">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+      <section className="relative isolate flex min-h-[384px] items-center overflow-hidden border-b border-border/40 bg-primary py-16 lg:py-24">
+        <InteractiveGlow />
+        <div className="mx-auto w-full max-w-7xl px-4 lg:px-8">
           <InteractivePageHeader
             title="Talleres"
             description="Formacion artistica para todas las edades. Circo, musica, danza y mas."

@@ -16,6 +16,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { InteractivePageHeader } from '@/components/interactive-page-header'
+import { InteractiveGlow } from '@/components/interactive-glow'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -69,8 +70,9 @@ export default function RadioEspacioPage() {
       </section>
 
       {/* Hero Header */}
-      <section className="border-b border-border/40 bg-primary py-12 lg:py-16">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+      <section className="relative isolate flex min-h-[384px] items-center overflow-hidden border-b border-border/40 bg-primary py-16 lg:py-24">
+        <InteractiveGlow />
+        <div className="mx-auto w-full max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
             <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
               {/* Radio Info */}

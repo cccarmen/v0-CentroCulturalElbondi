@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Rye } from 'next/font/google'
+import { Geist, Sancreek } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -8,10 +8,10 @@ const geist = Geist({
   variable: '--font-geist',
 })
 
-const rye = Rye({
-  subsets: ['latin', 'latin-ext'],
+const sancreek = Sancreek({
+  subsets: ['latin'],
   weight: '400',
-  variable: '--font-rye',
+  variable: '--font-sancreek',
   display: 'swap',
 })
 
@@ -58,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="dark bg-background overflow-x-clip">
-      <body className={`${geist.variable} ${rye.variable} font-sans antialiased overflow-x-clip`}>
+      <body className={`${geist.variable} ${sancreek.variable} font-sans antialiased overflow-x-clip`}>
         {children}
         <Analytics />
       </body>

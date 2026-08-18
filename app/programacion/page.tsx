@@ -28,6 +28,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { InteractivePageHeader } from '@/components/interactive-page-header'
+import { InteractiveGlow } from '@/components/interactive-glow'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -154,33 +155,45 @@ function ProgramacionContent() {
       </section>
 
       {/* Hero header */}
-      <section className="relative bg-primary pt-12 pb-8 lg:pt-16 lg:pb-12">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+      <section className="relative isolate flex min-h-[384px] items-center overflow-hidden border-b border-border/40 bg-primary py-16 lg:py-24">
+        <InteractiveGlow />
+        <div className="mx-auto w-full max-w-7xl px-4 lg:px-8">
           <InteractivePageHeader
             title="Eventos"
             description="Descubre eventos en El Bondi"
-          />
-
-          {/* Search bar - Eventbrite style */}
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <div className="relative flex-1 max-w-xl">
-              <Search className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Buscar eventos..."
-                className="h-12 rounded-lg bg-white pl-12 text-base shadow-lg border-0 focus-visible:ring-2 focus-visible:ring-white/50"
-              />
-              {search && (
-                <button
-                  onClick={() => setSearch('')}
-                  className="absolute top-1/2 right-4 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                >
-                  <X className="size-4" />
-                </button>
-              )}
+          >
+            {/* Search bar - Eventbrite style */}
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="relative flex-1 max-w-xl">
+                <label htmlFor="event-search" className="sr-only">
+                  Buscar eventos
+                </label>
+                <Search
+                  aria-hidden="true"
+                  className="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground"
+                />
+                <Input
+                  id="event-search"
+                  type="search"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Buscar eventos..."
+                  aria-label="Buscar eventos"
+                  className="h-14 rounded-lg border-0 bg-white pl-12 pr-12 text-base text-foreground placeholder:text-muted-foreground shadow-lg focus-visible:ring-4 focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+                />
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() => setSearch('')}
+                    aria-label="Borrar búsqueda"
+                    className="absolute top-1/2 right-3 flex size-8 -translate-y-1/2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    <X className="size-4" aria-hidden="true" />
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
+          </InteractivePageHeader>
         </div>
       </section>
 
