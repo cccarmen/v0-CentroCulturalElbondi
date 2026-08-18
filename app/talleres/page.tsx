@@ -247,7 +247,7 @@ function TalleresContent() {
       </section>
 
       {/* Hero header */}
-      <section className="relative isolate overflow-hidden bg-primary pt-12 pb-8 lg:pt-16 lg:pb-12">
+      <section className="relative isolate overflow-hidden border-b border-border/40 bg-primary py-16 lg:py-24">
         <InteractiveGlow />
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <InteractivePageHeader
