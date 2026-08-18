@@ -1,14 +1,23 @@
+'use client'
+
 import { MapPin, ArrowRight } from 'lucide-react'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { useParallax } from '@/hooks/use-parallax'
 
 export function LocationCta() {
+  const { ref: iconRef, offset } = useParallax<HTMLDivElement>(0.08)
+
   return (
     <section className="border-b border-border/40 bg-background">
       <div className="mx-auto max-w-7xl px-4 py-8 lg:px-8 lg:py-10">
         <ScrollReveal direction="up">
           <div className="flex flex-col items-start gap-6 rounded-xl border border-border/50 bg-card/60 p-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:p-8">
             <div className="flex items-start gap-4">
-              <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary">
+              <div
+                ref={iconRef}
+                className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary shadow-lg shadow-primary/20 transition-shadow will-change-transform"
+                style={{ transform: `translateY(${offset}px)` }}
+              >
                 <MapPin className="size-5 text-primary-foreground" />
               </div>
               <div>
