@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 /**
  * Animated shader-gradient background for the purple page headers.
@@ -16,8 +16,16 @@ import { useEffect, useRef } from 'react'
  */
 export function InteractiveGlow() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [mounted, setMounted] = useState(false)
+
+  // Only render the canvas on the client, after hydration, to avoid any
+  // server/client HTML mismatch for this WebGL-only element.
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
+    if (!mounted) return
     const canvas = canvasRef.current
     if (!canvas) return
     const parent = canvas.parentElement
@@ -147,7 +155,9 @@ export function InteractiveGlow() {
       gl.deleteShader(frag)
       gl.deleteBuffer(buffer)
     }
-  }, [])
+  }, [mounted])
+
+  if (!mounted) return null
 
   return (
     <canvas
