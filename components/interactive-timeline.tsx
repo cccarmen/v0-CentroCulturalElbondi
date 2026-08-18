@@ -170,16 +170,13 @@ export function InteractiveTimeline() {
           {/* Sticky progress rail (desktop) */}
           <div className="hidden lg:block lg:w-56 lg:shrink-0">
             <div className="sticky top-32">
-              <div
-                key={current.year}
-                className="font-display text-7xl leading-none text-primary transition-all duration-500 xl:text-8xl"
-              >
-                {current.year}
-              </div>
-              <div className="mt-6 max-w-[14rem]">
+              <span className="text-sm font-medium uppercase tracking-widest text-primary">
+                Nuestra Historia
+              </span>
+              <div key={current.year} className="mt-4 max-w-[14rem] transition-all duration-500">
                 {current.period && (
                   <span className="text-xs font-medium uppercase tracking-wider text-primary">
-                    {current.period}
+                    {current.period} {current.year}
                   </span>
                 )}
                 <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
@@ -243,16 +240,16 @@ export function InteractiveTimeline() {
 
                     <div className="flex items-start gap-4 py-6 md:gap-8">
                       <div className="min-w-0 flex-1">
-                        {/* Year shown inline on mobile only (rail covers desktop) */}
-                        <span
-                          className={`mr-2 font-display text-lg tabular-nums transition-colors duration-300 lg:hidden ${
+                        {/* Year on top of the month for every chapter */}
+                        <div
+                          className={`font-display text-2xl leading-none tabular-nums transition-colors duration-300 md:text-3xl ${
                             isActive ? 'text-primary' : 'text-muted-foreground/70'
                           }`}
                         >
                           {event.year}
-                        </span>
+                        </div>
                         {event.period && (
-                          <span className="text-xs font-medium uppercase tracking-wider text-primary">
+                          <span className="mt-1 inline-block text-xs font-medium uppercase tracking-wider text-primary">
                             {event.period}
                           </span>
                         )}
