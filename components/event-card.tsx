@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { MapPin, Star, ArrowUpRight } from 'lucide-react'
+import { MapPin, Star, ArrowUpRight, Clock, Ticket } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { getProductionLabel } from '@/lib/data'
 import type { EventItem } from '@/lib/data'
@@ -52,31 +52,39 @@ export function EventCard({ slug, title, description, image, date, time, locatio
         )}
       </div>
 
-      {/* Content section - consistent spacing */}
+      {/* Content section - clear reading hierarchy */}
       <div className="flex flex-1 flex-col p-4">
-        {/* Title - max 2 lines */}
-        <h3 className="line-clamp-2 text-lg font-semibold leading-6 text-foreground group-hover:text-primary transition-colors">
+        {/* 1. Date - most scannable, leads the hierarchy */}
+        <p className="text-xs font-semibold uppercase tracking-wider text-primary">
+          {date}
+        </p>
+        {/* 2. Title - primary identity */}
+        <h3 className="mt-1.5 line-clamp-2 text-lg font-semibold leading-6 text-foreground transition-colors group-hover:text-primary">
           {title}
         </h3>
-        {/* Date/Time - below title */}
-        <p className="mt-1 text-xs text-muted-foreground">
-          {date} - {time}
-        </p>
-        {/* Description - fixed 2 lines ~40px height */}
+        {/* 3. Description - supporting detail, fixed 2 lines */}
         <p className="mt-2 line-clamp-2 h-10 text-sm leading-5 text-muted-foreground">
           {description}
         </p>
-        {/* Location - 8px gap, border top, truncate */}
-        <div className="mt-2 flex items-center gap-2 border-t border-border pt-2">
-          <MapPin className="size-3.5 shrink-0 text-muted-foreground" />
-          <span className="truncate text-xs text-muted-foreground">
-            {location || 'El Bondi'}
-          </span>
+        {/* 4. Meta footer - grouped logistics, pinned to bottom for alignment */}
+        <div className="mt-auto flex flex-col gap-2 border-t border-border pt-3">
+          <div className="flex items-center gap-2">
+            <Clock className="size-3.5 shrink-0 text-muted-foreground" />
+            <span className="truncate text-xs text-muted-foreground">{time}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <MapPin className="size-3.5 shrink-0 text-muted-foreground" />
+            <span className="truncate text-xs text-muted-foreground">
+              {location || 'El Bondi'}
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Ticket className="size-3.5 shrink-0 text-primary" />
+            <span className="truncate text-sm font-semibold text-primary">
+              {price ? (price.toLowerCase().includes('gratis') || price.toLowerCase().includes('libre') ? 'Gratis' : price.split('/')[0]) : 'Gratis'}
+            </span>
+          </div>
         </div>
-        {/* Price - truncate if too long */}
-        <p className="mt-2 truncate text-sm font-medium text-primary">
-          {price ? (price.toLowerCase().includes('gratis') || price.toLowerCase().includes('libre') ? 'Gratis' : price.split('/')[0]) : 'Gratis'}
-        </p>
       </div>
     </Link>
   )
