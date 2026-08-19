@@ -79,9 +79,9 @@
   --secondary: oklch(0.24 0.04 300);
   --secondary-foreground: oklch(0.92 0.008 85);
   
-  /* Muted tones */
+  /* Muted tones - foreground raised to keep AA contrast on card + hover(secondary) */
   --muted: oklch(0.24 0.03 300);
-  --muted-foreground: oklch(0.68 0.03 305);
+  --muted-foreground: oklch(0.73 0.03 305);
   
   /* Accent - warmer for highlights */
   --accent: oklch(0.32 0.06 320);

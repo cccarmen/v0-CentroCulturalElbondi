@@ -66,7 +66,7 @@ export function EventCard({ slug, title, description, image, date, time, locatio
 
         {/* 2. Title + description - the identity block */}
         <div className="flex flex-col gap-1.5">
-          <h3 className="line-clamp-2 text-lg font-semibold leading-6 text-foreground transition-colors group-hover:text-primary">
+          <h3 className="line-clamp-2 text-lg font-semibold leading-6 text-foreground">
             {title}
           </h3>
           <p className="line-clamp-2 text-sm leading-5 text-muted-foreground">
@@ -80,8 +80,8 @@ export function EventCard({ slug, title, description, image, date, time, locatio
             <MapPin className="size-3.5 shrink-0" />
             <span className="truncate">{location || 'El Bondi'}</span>
           </span>
-          <span className="flex items-center gap-1.5 text-sm font-semibold text-primary">
-            <Ticket className="size-3.5 shrink-0" />
+          <span className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
+            <Ticket className="size-3.5 shrink-0 text-primary" />
             <span className="truncate">
               {price ? (price.toLowerCase().includes('gratis') || price.toLowerCase().includes('libre') ? 'Gratis' : price.split('/')[0]) : 'Gratis'}
             </span>
