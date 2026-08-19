@@ -303,7 +303,7 @@ export default function CentroCulturalPage() {
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {specialThanks.map((thanks, index) => (
               <ScrollReveal key={thanks.name} delay={index * 80}>
-                <div className="flex h-full flex-col gap-2 rounded-lg border border-border/50 bg-card p-5 transition-shadow duration-300 hover:shadow-md">
+                <div className="flex h-full flex-col gap-2 rounded-lg border border-border/50 bg-card p-5 transition-all duration-300 hover:border-primary/40 hover:shadow-md">
                   <div className="flex size-10 items-center justify-center rounded-full bg-primary/10">
                     <span className="text-lg font-bold text-primary" aria-hidden="true">
                       {thanks.name[0]}
