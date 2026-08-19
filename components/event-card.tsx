@@ -31,8 +31,8 @@ export function EventCard({ slug, title, description, image, date, time, locatio
           : 'border-border hover:border-primary'
       }`}
     >
-      {/* Image section */}
-      <div className="relative aspect-[16/10] overflow-hidden">
+      {/* Image section - given prominence with a taller 4:3 ratio */}
+      <div className="relative aspect-[4/3] overflow-hidden">
         <Image
           src={image}
           alt={title}
@@ -52,38 +52,40 @@ export function EventCard({ slug, title, description, image, date, time, locatio
         )}
       </div>
 
-      {/* Content section - clear reading hierarchy */}
-      <div className="flex flex-1 flex-col p-4">
-        {/* 1. Date - most scannable, leads the hierarchy */}
-        <p className="text-xs font-semibold uppercase tracking-wider text-primary">
-          {date}
-        </p>
-        {/* 2. Title - primary identity */}
-        <h3 className="mt-1.5 line-clamp-2 text-lg font-semibold leading-6 text-foreground transition-colors group-hover:text-primary">
-          {title}
-        </h3>
-        {/* 3. Description - supporting detail, fixed 2 lines */}
-        <p className="mt-2 line-clamp-2 h-10 text-sm leading-5 text-muted-foreground">
-          {description}
-        </p>
-        {/* 4. Meta footer - grouped logistics, pinned to bottom for alignment */}
+      {/* Content section - clear reading hierarchy with even spacing */}
+      <div className="flex flex-1 flex-col gap-3 p-5">
+        {/* 1. "When" - date + time grouped as the scannable eyebrow */}
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
+          <span>{date}</span>
+          <span className="size-1 rounded-full bg-primary/50" aria-hidden="true" />
+          <span className="inline-flex items-center gap-1 font-medium normal-case tracking-normal text-muted-foreground">
+            <Clock className="size-3.5 shrink-0" />
+            {time}
+          </span>
+        </div>
+
+        {/* 2. Title + description - the identity block */}
+        <div className="flex flex-col gap-1.5">
+          <h3 className="line-clamp-2 text-lg font-semibold leading-6 text-foreground transition-colors group-hover:text-primary">
+            {title}
+          </h3>
+          <p className="line-clamp-2 text-sm leading-5 text-muted-foreground">
+            {description}
+          </p>
+        </div>
+
+        {/* 3. Footer - "where" and "how much", each on its own row so long values stay readable */}
         <div className="mt-auto flex flex-col gap-2 border-t border-border pt-3">
-          <div className="flex items-center gap-2">
-            <Clock className="size-3.5 shrink-0 text-muted-foreground" />
-            <span className="truncate text-xs text-muted-foreground">{time}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <MapPin className="size-3.5 shrink-0 text-muted-foreground" />
-            <span className="truncate text-xs text-muted-foreground">
-              {location || 'El Bondi'}
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Ticket className="size-3.5 shrink-0 text-primary" />
-            <span className="truncate text-sm font-semibold text-primary">
+          <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            <MapPin className="size-3.5 shrink-0" />
+            <span className="truncate">{location || 'El Bondi'}</span>
+          </span>
+          <span className="flex items-center gap-1.5 text-sm font-semibold text-primary">
+            <Ticket className="size-3.5 shrink-0" />
+            <span className="truncate">
               {price ? (price.toLowerCase().includes('gratis') || price.toLowerCase().includes('libre') ? 'Gratis' : price.split('/')[0]) : 'Gratis'}
             </span>
-          </div>
+          </span>
         </div>
       </div>
     </Link>
