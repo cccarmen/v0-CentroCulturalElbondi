@@ -77,7 +77,7 @@ export function CardSlider({ items }: CardSliderProps) {
       <div
         ref={scrollRef}
         onScroll={handleScroll}
-        className="mt-10 flex snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="mt-6 flex snap-x snap-mandatory overflow-x-auto scroll-smooth py-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {pages.map((page, pageIndex) => (
           <div
