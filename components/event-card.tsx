@@ -25,10 +25,10 @@ export function EventCard({ slug, title, description, image, date, time, locatio
   return (
     <Link
       href={`/evento/${slug}`}
-      className={`group flex h-full flex-col overflow-hidden rounded-lg border bg-card transition-all duration-300 ease-cinematic hover:-translate-y-1.5 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
+      className={`group flex h-full flex-col overflow-hidden rounded-lg border bg-card transition-all duration-300 ease-cinematic hover:-translate-y-1.5 hover:bg-secondary hover:shadow-xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
         isBondi
           ? 'border-primary/50 ring-1 ring-primary/20 hover:border-primary'
-          : 'border-border hover:border-primary/40'
+          : 'border-border hover:border-primary'
       }`}
     >
       {/* Image section */}
@@ -37,13 +37,9 @@ export function EventCard({ slug, title, description, image, date, time, locatio
           src={image}
           alt={title}
           fill
-          className="object-cover transition-transform duration-500 ease-cinematic group-hover:scale-110"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        {/* Sheen sweep on hover */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="sheen absolute inset-y-0 -left-1/4 w-1/3 -translate-x-[120%] bg-gradient-to-r from-transparent via-white/25 to-transparent" />
-        </div>
         {/* Arrow reveal on hover */}
         <div className="absolute right-3 top-3 flex size-8 translate-y-1 items-center justify-center rounded-full bg-background/90 text-primary opacity-0 shadow-md transition-all duration-300 ease-cinematic group-hover:translate-y-0 group-hover:opacity-100">
           <ArrowUpRight className="size-4" />
