@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Space_Grotesk } from 'next/font/google'
+import { Geist, Fraunces } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -8,10 +8,10 @@ const geist = Geist({
   variable: '--font-geist',
 })
 
-const spaceGrotesk = Space_Grotesk({
+const fraunces = Fraunces({
   subsets: ['latin'],
-  weight: ['500', '600', '700'],
-  variable: '--font-space-grotesk',
+  weight: ['500', '600', '700', '900'],
+  variable: '--font-fraunces',
   display: 'swap',
 })
 
@@ -58,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="dark bg-background overflow-x-clip">
-      <body className={`${geist.variable} ${spaceGrotesk.variable} font-sans antialiased overflow-x-clip`}>
+      <body className={`${geist.variable} ${fraunces.variable} font-sans antialiased overflow-x-clip`}>
         {children}
         <Analytics />
       </body>
