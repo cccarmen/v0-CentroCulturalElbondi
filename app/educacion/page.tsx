@@ -91,7 +91,7 @@ export default function EducacionPage() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {educationProjects.map((project, index) => (
               <ScrollReveal key={project.title} delay={index * 100}>
-                <article className="flex h-full flex-col gap-4 rounded-lg border border-border/50 bg-card p-6 transition-all duration-300 hover:border-primary/40 hover:shadow-md">
+                <article className="flex h-full flex-col gap-4 rounded-lg border border-border/50 bg-card p-6 transition-all duration-300 hover:border-primary hover:bg-secondary hover:shadow-md">
                   <div className="flex size-12 items-center justify-center rounded-full bg-primary/10">
                     <project.icon className="size-6 text-primary" aria-hidden="true" />
                   </div>

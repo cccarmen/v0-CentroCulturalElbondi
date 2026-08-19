@@ -49,7 +49,7 @@ export function FlyersSection() {
               <figure className="group flex h-full flex-col">
                 <Link
                   href={flyer.href}
-                  className="relative block overflow-hidden rounded-xl border border-border bg-card shadow-lg transition-all duration-300 hover:border-primary/50 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  className="relative block overflow-hidden rounded-xl border border-border bg-card shadow-lg transition-all duration-300 hover:border-primary hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   aria-label={flyer.cta + ': ' + flyer.title}
                 >
                   <div className="relative aspect-[2/3] w-full">
@@ -58,7 +58,7 @@ export function FlyersSection() {
                       alt={flyer.alt}
                       fill
                       sizes="(max-width: 640px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80" />
                     <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-5">

@@ -511,14 +511,14 @@ function TallerCard({ item }: { item: EventItem }) {
   return (
     <Link
       href={`/evento/${item.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/40 hover:shadow-xl"
+      className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary hover:bg-secondary hover:shadow-xl"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image
           src={item.image}
           alt={item.title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         <Badge

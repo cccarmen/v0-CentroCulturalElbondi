@@ -15,7 +15,7 @@ export function RadioSection() {
             <img
               src="/images/radio.jpg"
               alt="Radio Activa Comunitaria FM 96.9"
-              className="aspect-square w-full object-cover transition-transform duration-700 ease-cinematic group-hover:scale-105"
+              className="aspect-square w-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent" />
             {/* Live "on air" indicator */}

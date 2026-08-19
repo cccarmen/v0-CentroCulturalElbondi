@@ -245,12 +245,12 @@ export default function EventoPage() {
                 <Link
                   key={rel.slug}
                   href={`/evento/${rel.slug}`}
-                  className="group relative flex h-[280px] flex-col overflow-hidden rounded-lg border border-border/50 bg-card shadow-sm transition-all duration-300 hover:border-primary/40 hover:shadow-xl"
+                  className="group relative flex h-[280px] flex-col overflow-hidden rounded-lg border border-border/50 bg-card shadow-sm transition-all duration-300 hover:border-primary hover:shadow-xl"
                 >
                   <img
                     src={rel.image}
                     alt={rel.title}
-                    className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="absolute inset-0 size-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 via-40% to-black/10" />
                   <div className="relative mt-auto rounded-b-xl bg-black/60 p-4 backdrop-blur-[2px]">

@@ -452,10 +452,10 @@ function ProgramCard({ item, extraDates = 0 }: { item: EventItem; extraDates?: n
   return (
     <Link
       href={`/evento/${item.slug}`}
-      className={`group flex h-full flex-col overflow-hidden rounded-lg border bg-card transition-all hover:shadow-xl ${
+      className={`group flex h-full flex-col overflow-hidden rounded-lg border bg-card transition-all hover:bg-secondary hover:shadow-xl ${
         isBondi
           ? 'border-primary/50 ring-1 ring-primary/20 hover:border-primary'
-          : 'border-border hover:border-primary/40'
+          : 'border-border hover:border-primary'
       }`}
     >
       <div className="relative aspect-[16/10] overflow-hidden">
@@ -463,7 +463,7 @@ function ProgramCard({ item, extraDates = 0 }: { item: EventItem; extraDates?: n
           src={item.image}
           alt={item.title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         {isBondi && productionLabel && (

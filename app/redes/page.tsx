@@ -89,7 +89,7 @@ export default function RedesPage() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex h-full flex-col gap-4 rounded-lg border border-border/50 bg-card p-6 transition-all duration-300 hover:border-primary/40 hover:shadow-md"
+                  className="group flex h-full flex-col gap-4 rounded-lg border border-border/50 bg-card p-6 transition-all duration-300 hover:border-primary hover:bg-secondary hover:shadow-md"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex size-12 items-center justify-center rounded-full bg-primary/10">
@@ -138,7 +138,7 @@ export default function RedesPage() {
               href="https://youtube.com/@ElBondi-colectivocultural/videos"
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-8 block overflow-hidden rounded-lg border border-border/50 bg-background transition-all duration-300 hover:border-primary/40 hover:shadow-md"
+              className="group mt-8 block overflow-hidden rounded-lg border border-border/50 bg-background transition-all duration-300 hover:border-primary hover:shadow-md"
               aria-label="Abrir el canal de YouTube del Colectivo Cultural El Bondi"
             >
               <div className="relative flex aspect-video w-full items-center justify-center bg-gradient-to-br from-primary/15 via-background to-secondary/30">

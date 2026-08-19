@@ -149,7 +149,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 function NodeCard({ item }: { item: NodeItem }) {
   return (
-    <article className="flex h-full flex-col gap-3 rounded-xl border border-border/60 bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-md">
+    <article className="flex h-full flex-col gap-3 rounded-xl border border-border/60 bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:bg-secondary hover:shadow-md">
       <div className="flex size-11 items-center justify-center rounded-full bg-primary/10">
         <item.icon className="size-5 text-primary" aria-hidden="true" />
       </div>
