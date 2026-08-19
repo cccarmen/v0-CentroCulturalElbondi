@@ -169,6 +169,13 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Display headings: heavy + soft, rounded Recoleta-style Fraunces */
+.font-display {
+  font-weight: 900;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 0;
+  letter-spacing: -0.01em;
+}
+
 /* Subtle grain texture for cinematic feel */
 @keyframes grain {
   0%, 100% { transform: translate(0, 0); }

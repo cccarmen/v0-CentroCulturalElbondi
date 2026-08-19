@@ -10,7 +10,7 @@ const geist = Geist({
 
 const fraunces = Fraunces({
   subsets: ['latin'],
-  weight: ['500', '600', '700', '900'],
+  axes: ['SOFT', 'WONK', 'opsz'],
   variable: '--font-fraunces',
   display: 'swap',
 })
