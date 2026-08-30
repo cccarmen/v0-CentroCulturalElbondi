@@ -245,7 +245,7 @@ export function ImmersiveHero() {
             }}
           >
             <div className="max-w-4xl text-center">
-              <h1 className="font-catchwords text-4xl tracking-wide text-foreground md:text-6xl lg:text-7xl">
+              <h1 className="font-display text-4xl tracking-wide text-foreground md:text-6xl lg:text-7xl">
                 Un espacio para la comunidad
               </h1>
               <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
