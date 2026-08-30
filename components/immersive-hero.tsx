@@ -245,6 +245,9 @@ export function ImmersiveHero() {
             }}
           >
             <div className="max-w-4xl text-center">
+              <span className="font-zebrawood mb-4 block text-5xl leading-none md:text-7xl lg:text-8xl">
+                El Bondi
+              </span>
               <h1 className="font-display text-4xl tracking-wide text-foreground md:text-6xl lg:text-7xl">
                 Un espacio para la comunidad
               </h1>

@@ -118,6 +118,7 @@
   --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
   --font-display: 'dress', serif;
   --font-heading: 'laca', sans-serif;
+  --font-zebrawood: 'zebrawood-std-rodeo', serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -172,6 +173,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 .font-display {
   font-family: var(--font-display);
+}
+/* Zebrawood Color: chromatic OpenType face with its own embedded colors.
+   Use only on a single short protagonist wordmark. */
+.font-zebrawood {
+  font-family: var(--font-zebrawood);
+  font-weight: 400;
 }
 
 /* Cinematic smooth scrolling */
