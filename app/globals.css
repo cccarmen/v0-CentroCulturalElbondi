@@ -163,9 +163,14 @@
   body {
     @apply bg-background text-foreground;
   }
-  /* Non-display headings use Laca; the `font-display` utility overrides to Dress */
+  /* All headings use Laca Pro; both display and regular headings share the family */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
+  }
+  /* Display headings use Laca Pro Bold for stronger presence */
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 700;
   }
 }
 
