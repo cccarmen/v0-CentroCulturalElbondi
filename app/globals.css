@@ -118,6 +118,7 @@
   --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
   --font-display: 'dress', serif;
   --font-heading: 'laca', sans-serif;
+  --font-catchwords: 'hwt-catchwords', 'dress', serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
