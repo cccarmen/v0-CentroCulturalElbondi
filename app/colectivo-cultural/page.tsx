@@ -65,7 +65,7 @@ export default function ColectivoCulturalPage() {
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-3xl px-4 lg:px-8">
           <ScrollReveal>
-            <h2 className="text-balance font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
+            <h2 className="text-balance font-heading text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
               Nuestra historia
             </h2>
             <p className="mt-3 text-pretty text-sm font-medium text-primary">

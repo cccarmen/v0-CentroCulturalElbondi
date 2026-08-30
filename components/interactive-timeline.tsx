@@ -156,7 +156,7 @@ export function InteractiveTimeline() {
           <span className="text-sm font-medium uppercase tracking-widest text-primary">
             Nuestra Historia
           </span>
-          <h2 className="mt-4 font-display text-4xl tracking-wide text-foreground md:text-5xl lg:text-6xl">
+          <h2 className="mt-4 font-heading text-4xl tracking-wide text-foreground md:text-5xl lg:text-6xl">
             <DisplayText>15 Años Construyendo Comunidad</DisplayText>
           </h2>
           <p className="mt-6 text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">

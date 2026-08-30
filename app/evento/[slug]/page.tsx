@@ -237,7 +237,7 @@ export default function EventoPage() {
       {related.length > 0 && (
         <section className="border-t border-border/50 bg-secondary/30 py-12 lg:py-16">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <h2 className="text-center font-display text-3xl tracking-wide text-foreground md:text-4xl">
+            <h2 className="text-center font-heading text-3xl tracking-wide text-foreground md:text-4xl">
               {item.category === 'evento' ? 'Mas Eventos' : 'Mas Talleres'}
             </h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

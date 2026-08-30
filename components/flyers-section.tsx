@@ -33,7 +33,7 @@ export function FlyersSection() {
               <Calendar className="size-3.5" />
               Septiembre 2026
             </span>
-            <h2 className="mt-4 text-balance font-display text-4xl tracking-wide text-foreground md:text-5xl lg:text-6xl">
+            <h2 className="mt-4 text-balance font-heading text-4xl tracking-wide text-foreground md:text-5xl lg:text-6xl">
               Los flyers del mes
             </h2>
             <p className="mt-3 max-w-xl text-pretty leading-relaxed text-muted-foreground">
@@ -63,7 +63,7 @@ export function FlyersSection() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80" />
                     <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-5">
                       <div>
-                    <h3 className="font-display text-2xl tracking-wide text-white drop-shadow-md md:text-3xl">
+                    <h3 className="font-heading text-2xl tracking-wide text-white drop-shadow-md md:text-3xl">
                       <DisplayText>{flyer.title}</DisplayText>
                     </h3>
                         <p className="mt-1 text-sm text-white/85 drop-shadow">

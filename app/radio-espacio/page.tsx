@@ -115,7 +115,7 @@ export default function RadioEspacioPage() {
             {/* Description */}
             <ScrollReveal>
               <div>
-                <h2 className="font-display text-3xl tracking-wide text-foreground md:text-4xl">
+                <h2 className="font-heading text-3xl tracking-wide text-foreground md:text-4xl">
                   Quienes Somos
                 </h2>
                 <div className="mt-6 space-y-4 text-muted-foreground">
@@ -179,7 +179,7 @@ export default function RadioEspacioPage() {
             {/* Social Media */}
             <ScrollReveal delay={100}>
               <div>
-                <h3 className="font-display text-2xl tracking-wide text-foreground">
+                <h3 className="font-heading text-2xl tracking-wide text-foreground">
                   Seguinos en Redes
                 </h3>
                 <p className="mt-2 text-sm text-muted-foreground">
@@ -218,7 +218,7 @@ export default function RadioEspacioPage() {
       <section className="border-b border-border/40 bg-secondary/30 py-12 lg:py-16">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
-            <h2 className="font-display text-3xl tracking-wide text-foreground md:text-4xl">
+            <h2 className="font-heading text-3xl tracking-wide text-foreground md:text-4xl">
               La Radio en Imagenes
             </h2>
             <p className="mt-2 max-w-xl text-muted-foreground">
@@ -257,7 +257,7 @@ export default function RadioEspacioPage() {
                 <div className="flex size-16 items-center justify-center rounded-full bg-primary-foreground/20">
                   <Radio className="size-8 text-primary-foreground" />
                 </div>
-                <h2 className="font-display text-3xl tracking-wide text-primary-foreground md:text-4xl text-balance">
+                <h2 className="font-heading text-3xl tracking-wide text-primary-foreground md:text-4xl text-balance">
                   Escucha nuestra programacion en vivo
                 </h2>
                 <p className="max-w-lg leading-relaxed text-primary-foreground/80 text-pretty">

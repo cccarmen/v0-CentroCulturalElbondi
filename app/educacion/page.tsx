@@ -80,7 +80,7 @@ export default function EducacionPage() {
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
-            <h2 className="text-balance text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
+            <h2 className="text-balance text-center font-heading text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
               Nuestros proyectos
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-pretty text-center text-base leading-relaxed text-muted-foreground">

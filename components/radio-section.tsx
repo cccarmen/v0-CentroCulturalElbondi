@@ -40,7 +40,7 @@ export function RadioSection() {
         {/* Radio Info */}
         <ScrollReveal direction="right" className="flex w-full flex-col gap-6" delay={200}>
           <div>
-            <h2 className="font-display text-4xl tracking-wide text-primary-foreground md:text-5xl">
+            <h2 className="font-heading text-4xl tracking-wide text-primary-foreground md:text-5xl">
               Radio Activa Comunitaria
             </h2>
             <p className="mt-3 max-w-lg leading-relaxed text-primary-foreground/80">

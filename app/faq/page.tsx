@@ -165,7 +165,7 @@ export default function FaqPage() {
             {faqCategories.map((category, catIndex) => (
               <ScrollReveal key={category.category} delay={catIndex * 100}>
                 <div>
-                  <h2 className="mb-4 font-display text-2xl tracking-wide text-foreground md:text-3xl">
+                  <h2 className="mb-4 font-heading text-2xl tracking-wide text-foreground md:text-3xl">
                     {category.category}
                   </h2>
                   <div className="rounded-lg border border-border bg-card p-2">

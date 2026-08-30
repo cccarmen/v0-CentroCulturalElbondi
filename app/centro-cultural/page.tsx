@@ -199,7 +199,7 @@ export default function CentroCulturalPage() {
       <section className="border-t border-border/40 py-16 lg:py-24">
         <div className="mx-auto max-w-3xl px-4 lg:px-8">
           <ScrollReveal>
-            <h2 className="text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
+            <h2 className="text-center font-heading text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
               El espacio
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
@@ -223,7 +223,7 @@ export default function CentroCulturalPage() {
       <section className="border-t border-border/40 py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
-            <h2 className="text-balance text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
+            <h2 className="text-balance text-center font-heading text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
               Cómo nos organizamos
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-pretty text-center text-base leading-relaxed text-muted-foreground">
@@ -265,7 +265,7 @@ export default function CentroCulturalPage() {
       <section className="border-t border-border/40 bg-card py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
-            <h2 className="text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
+            <h2 className="text-center font-heading text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
               Nuestro Equipo
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
@@ -292,7 +292,7 @@ export default function CentroCulturalPage() {
       <section className="border-t border-border/40 py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
-            <h2 className="text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
+            <h2 className="text-center font-heading text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
               Agradecimientos
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
@@ -343,7 +343,7 @@ export default function CentroCulturalPage() {
       <section className="border-t border-border/40 bg-card py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
-            <h2 className="text-center font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
+            <h2 className="text-center font-heading text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
               Galeria
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">

@@ -21,7 +21,7 @@ export function CommunitySection() {
             <span className="text-sm font-medium tracking-wider text-primary uppercase">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit
             </span>
-            <h2 className="font-display text-4xl tracking-wide text-foreground md:text-5xl">
+            <h2 className="font-heading text-4xl tracking-wide text-foreground md:text-5xl">
               Se parte de nuestra comunidad
             </h2>
             <p className="max-w-md leading-relaxed text-muted-foreground">

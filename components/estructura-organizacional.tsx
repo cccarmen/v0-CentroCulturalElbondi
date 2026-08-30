@@ -182,7 +182,7 @@ export function EstructuraOrganizacional() {
         {/* Intro */}
         <ScrollReveal>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-balance font-display text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
+            <h2 className="text-balance font-heading text-3xl tracking-wide text-foreground md:text-4xl lg:text-5xl">
               Estructura organizacional
             </h2>
             <p className="mx-auto mt-4 text-pretty text-base leading-relaxed text-muted-foreground">

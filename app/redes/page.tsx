@@ -119,7 +119,7 @@ export default function RedesPage() {
       <section className="border-t border-border/40 bg-card py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <ScrollReveal>
-            <h2 className="text-balance font-display text-3xl tracking-wide text-foreground md:text-4xl">
+            <h2 className="text-balance font-heading text-3xl tracking-wide text-foreground md:text-4xl">
               Nuestro canal de YouTube
             </h2>
             <p className="mt-3 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground">
