@@ -1,18 +1,11 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Sancreek } from 'next/font/google'
+import { Geist } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const geist = Geist({
   subsets: ['latin'],
   variable: '--font-geist',
-})
-
-const sancreek = Sancreek({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-sancreek',
-  display: 'swap',
 })
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
@@ -58,7 +51,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="dark bg-background overflow-x-clip">
-      <body className={`${geist.variable} ${sancreek.variable} font-sans antialiased overflow-x-clip`}>
+      <head>
+        <link rel="stylesheet" href="https://use.typekit.net/zwk2tqd.css" />
+      </head>
+      <body className={`${geist.variable} font-sans antialiased overflow-x-clip`}>
         {children}
         <Analytics />
       </body>
