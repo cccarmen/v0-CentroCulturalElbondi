@@ -13,11 +13,11 @@ interface Performer {
 }
 
 const PERFORMERS: Performer[] = [
-  { src: '/images/performer-silks.png', left: '34%', top: '30.5%', width: '9.6%', ratio: '435 / 640', sizes: '14vw' },
-  { src: '/images/performer-rope.png', left: '54.3%', top: '30.5%', width: '6.4%', ratio: '265 / 640', sizes: '10vw' },
-  { src: '/images/performer-juggler.png', left: '18%', top: '76%', width: '7.2%', ratio: '461 / 640', sizes: '10vw' },
-  { src: '/images/performer-tango.png', left: '49.3%', top: '76.2%', width: '8.2%', ratio: '484 / 640', sizes: '12vw' },
-  { src: '/images/performer-musicians.png', left: '70.5%', top: '77.2%', width: '14%', ratio: '900 / 569', sizes: '20vw' },
+  { src: '/images/performer-silks.png', left: '36.2%', top: '30.5%', width: '5.2%', ratio: '210 / 640', sizes: '8vw' },
+  { src: '/images/performer-rope.png', left: '55%', top: '30.5%', width: '4.9%', ratio: '202 / 640', sizes: '8vw' },
+  { src: '/images/performer-juggler.png', left: '19.3%', top: '76%', width: '4.6%', ratio: '295 / 640', sizes: '8vw' },
+  { src: '/images/performer-tango.png', left: '49.7%', top: '76.2%', width: '7.4%', ratio: '437 / 640', sizes: '11vw' },
+  { src: '/images/performer-musicians.png', left: '68%', top: '77.6%', width: '15%', ratio: '900 / 515', sizes: '22vw' },
 ]
 
 export function BondiScene() {
