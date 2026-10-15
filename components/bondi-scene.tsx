@@ -13,15 +13,15 @@ interface Box {
 // Tree regions in % of the scene; each is re-rendered from the same image and
 // swayed around its trunk base, with feathered edges hiding the seam.
 const TREES: Array<Box & { delay: string; duration: string }> = [
-  { left: 12.5, top: 22, width: 20, height: 36, delay: '0s', duration: '6s' },
-  { left: 66, top: 23, width: 19, height: 35, delay: '-2.2s', duration: '7s' },
-  { left: -1, top: 45, width: 10, height: 24, delay: '-1.1s', duration: '5.5s' },
+  { left: 12.5, top: 22, width: 20, height: 36, delay: '0s', duration: '13s' },
+  { left: 66, top: 23, width: 19, height: 35, delay: '-5s', duration: '15s' },
+  { left: -1, top: 45, width: 10, height: 24, delay: '-2.5s', duration: '12s' },
 ]
 
 const BALLS = [
   { delay: '0s', color: 'bg-[#f2c94c]' },
-  { delay: '-0.4s', color: 'bg-[#eb5757]' },
-  { delay: '-0.8s', color: 'bg-[#56ccf2]' },
+  { delay: '-0.733s', color: 'bg-[#eb5757]' },
+  { delay: '-1.467s', color: 'bg-[#56ccf2]' },
 ]
 
 function SwayingTree({ left, top, width, height, delay, duration }: (typeof TREES)[number]) {
@@ -64,7 +64,7 @@ export function BondiScene() {
     >
       <Image
         src={SCENE_SRC}
-        alt="Ilustración de El Bondi al anochecer: fachada de rayas pastel, cerchas de hierro con árboles y luces, una artista en tela aérea, un acróbata en cuerda, un malabarista, una pareja bailando tango y músicos en la vereda."
+        alt="Ilustración de El Bondi al anochecer: fachada de rayas pastel y cerchas de hierro con árboles y luces, con personajes de estilo circense: una artista en tela aérea, un acróbata en cuerda, un malabarista, una pareja bailando tango y músicos en la vereda."
         fill
         priority
         sizes="(max-width: 768px) 200vw, 100vw"
@@ -78,29 +78,47 @@ export function BondiScene() {
       {/* Aerial silks, hanging from the left truss */}
       <div
         aria-hidden="true"
-        className="absolute origin-[47%_0%] animate-aerial-swing drop-shadow-[0_6px_10px_rgba(0,0,0,0.35)]"
-        style={{ left: '35%', top: '30.5%', width: '7.6%', aspectRatio: '342 / 640' }}
+        className="absolute origin-[50%_0%] animate-aerial-swing drop-shadow-[0_6px_10px_rgba(0,0,0,0.35)]"
+        style={{ left: '34%', top: '30.5%', width: '9.5%', aspectRatio: '430 / 640' }}
       >
-        <Image src="/images/performer-silks.png" alt="" fill sizes="12vw" className="object-contain" />
+        <Image src="/images/performer-silks.png" alt="" fill sizes="14vw" className="object-contain" />
       </div>
 
       {/* Aerial rope, hanging from the right truss */}
       <div
         aria-hidden="true"
-        className="absolute origin-[26%_0%] animate-rope-swing drop-shadow-[0_6px_10px_rgba(0,0,0,0.35)]"
-        style={{ left: '56.5%', top: '30.5%', width: '5%', aspectRatio: '213 / 640' }}
+        className="absolute origin-[53%_0%] animate-rope-swing drop-shadow-[0_6px_10px_rgba(0,0,0,0.35)]"
+        style={{ left: '55.2%', top: '30.5%', width: '5%', aspectRatio: '208 / 640' }}
       >
         <Image src="/images/performer-rope.png" alt="" fill sizes="8vw" className="object-contain" />
+      </div>
+
+      {/* Tango couple on the sidewalk */}
+      <div
+        aria-hidden="true"
+        className="absolute drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)]"
+        style={{ left: '46.8%', top: '76.2%', width: '13.2%', aspectRatio: '776 / 640' }}
+      >
+        <Image src="/images/performer-tango.png" alt="" fill sizes="20vw" className="object-contain" />
+      </div>
+
+      {/* Street musicians by the pink house */}
+      <div
+        aria-hidden="true"
+        className="absolute drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)]"
+        style={{ left: '78%', top: '76.2%', width: '11%', aspectRatio: '687 / 611' }}
+      >
+        <Image src="/images/performer-musicians.png" alt="" fill sizes="18vw" className="object-contain" />
       </div>
 
       {/* Juggler on the sidewalk */}
       <div
         aria-hidden="true"
-        className="absolute"
-        style={{ left: '19.4%', top: '76%', width: '4.4%', aspectRatio: '282 / 640' }}
+        className="absolute drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)]"
+        style={{ left: '19.25%', top: '76%', width: '4.7%', aspectRatio: '301 / 640' }}
       >
         <Image src="/images/performer-juggler.png" alt="" fill sizes="8vw" className="object-contain" />
-        <div className="absolute inset-x-[8%] bottom-[73%] h-[55%]">
+        <div className="absolute inset-x-[8%] bottom-[68%] h-[55%]">
           {BALLS.map((ball) => (
             <span
               key={ball.delay}
