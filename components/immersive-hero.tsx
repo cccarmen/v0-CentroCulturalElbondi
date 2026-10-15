@@ -4,24 +4,8 @@ import { useState, useRef, useEffect } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { BondiScene } from './bondi-scene'
 
-interface MousePosition {
-  x: number
-  y: number
-}
-
-// Twinkling stars placed over the empty sky area of the illustration.
-const STARS = [
-  { top: '8%', left: '12%', delay: '0s', size: 3 },
-  { top: '14%', left: '34%', delay: '1.2s', size: 2 },
-  { top: '6%', left: '58%', delay: '2.4s', size: 3 },
-  { top: '18%', left: '72%', delay: '0.6s', size: 2 },
-  { top: '10%', left: '88%', delay: '1.8s', size: 3 },
-  { top: '22%', left: '22%', delay: '3s', size: 2 },
-]
-
 export function ImmersiveHero() {
   const [scrollProgress, setScrollProgress] = useState(0)
-  const [mousePosition, setMousePosition] = useState<MousePosition>({ x: 0.5, y: 0.5 })
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -37,20 +21,7 @@ export function ImmersiveHero() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight })
-    }
-
-    window.addEventListener('mousemove', handleMouseMove, { passive: true })
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
-
-  const sceneScale = 1 + scrollProgress * 0.15
   const sceneOpacity = 1 - scrollProgress * 0.6
-  const sceneBlur = scrollProgress * 8
-  const parallaxX = (mousePosition.x - 0.5) * 20
-  const parallaxY = (mousePosition.y - 0.5) * 20
 
   const ctaOpacity = Math.max(0, (scrollProgress - 0.4) * 2.5)
   const ctaY = Math.max(0, 50 - (scrollProgress - 0.4) * 125)
@@ -65,32 +36,8 @@ export function ImmersiveHero() {
     >
       <section className="relative h-[200vh]" aria-label="El Bondi, Centro Cultural Comunitario">
         <div className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-[#2b3466]">
-          <div
-            className="absolute inset-0 transition-transform duration-100 ease-out"
-            style={{
-              transform: `scale(${sceneScale}) translate(${parallaxX}px, ${parallaxY}px)`,
-              opacity: sceneOpacity,
-              filter: `blur(${sceneBlur}px)`,
-            }}
-          >
-            <div className="absolute inset-0 animate-scene-drift">
-              <BondiScene />
-            </div>
-
-            {STARS.map((star) => (
-              <span
-                key={`${star.top}-${star.left}`}
-                aria-hidden="true"
-                className="pointer-events-none absolute animate-twinkle rounded-full bg-[#fdf3c4]"
-                style={{
-                  top: star.top,
-                  left: star.left,
-                  width: star.size,
-                  height: star.size,
-                  animationDelay: star.delay,
-                }}
-              />
-            ))}
+          <div className="absolute inset-0" style={{ opacity: sceneOpacity }}>
+            <BondiScene />
 
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.25)_100%)]" />
           </div>

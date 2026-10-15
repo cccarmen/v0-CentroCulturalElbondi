@@ -14,7 +14,7 @@ export function BondiScene() {
     >
       <Image
         src={SCENE_SRC}
-        alt="Ilustración nocturna de El Bondi como un circo: cerchas de hierro oxidado bajo la luna y las estrellas, árboles y enredaderas, guirnaldas de luces y banderines, una artista en tela aérea, un acróbata en trapecio, un equilibrista en la cuerda floja y una artista trepando la cuerda; frente a la fachada pintada de rayas de muchos colores, un malabarista, un monociclista, una chica con aro, una pareja de tango y un grupo de músicos con guitarra, acordeón, bombo, violín, trompeta y charango."
+        alt="Ilustración nocturna de El Bondi como un circo: cerchas de hierro oxidado bajo la luna y las estrellas, árboles y enredaderas, guirnaldas de luces y banderines, una artista en tela aérea, una acróbata sentada en el trapecio y un artista en la cuerda vertical; frente a la fachada pintada de rayas de muchos colores, un malabarista, un monociclista, una chica con aro, una pareja de tango y un grupo de músicos con guitarra, acordeón, bombo, violín, trompeta y charango."
         fill
         priority
         sizes="(max-width: 768px) 240vw, 100vw"
