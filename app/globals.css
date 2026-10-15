@@ -254,31 +254,56 @@ html {
 }
 .animate-twinkle { animation: twinkle 3.6s ease-in-out infinite; }
 
-/* Hero scene: trees swaying in the breeze */
+/*
+ * Hero scene wind. Everything shares one 9s gust cycle (calm → build → gust →
+ * rebound → settle) blowing left-to-right; per-element delays make the gust
+ * travel across the scene instead of hitting everything at once.
+ */
 @keyframes tree-sway {
   0%, 100% { transform: skewX(0deg) rotate(0deg); }
-  30% { transform: skewX(1.4deg) rotate(0.3deg); }
-  65% { transform: skewX(-0.9deg) rotate(-0.2deg); }
+  14% { transform: skewX(0.6deg) rotate(0.1deg); }
+  30% { transform: skewX(2.6deg) rotate(0.6deg); }
+  38% { transform: skewX(1.6deg) rotate(0.35deg); }
+  46% { transform: skewX(3deg) rotate(0.7deg); }
+  62% { transform: skewX(-1deg) rotate(-0.25deg); }
+  78% { transform: skewX(0.5deg) rotate(0.1deg); }
 }
 .animate-tree-sway {
   transform-origin: 50% 100%;
-  animation: tree-sway 6s ease-in-out infinite;
+  animation: tree-sway 9s ease-in-out infinite;
 }
 
-/* Hero scene: aerialists swinging from the trusses */
-@keyframes aerial-swing {
-  0%, 100% { transform: rotate(-4deg); }
-  50% { transform: rotate(4deg); }
+/* Fast, tiny leaf shimmer layered on top of the slow sway */
+@keyframes leaf-flutter {
+  0%, 100% { transform: translate(0, 0) skewX(0deg); }
+  25% { transform: translate(0.25%, -0.15%) skewX(0.4deg); }
+  50% { transform: translate(-0.15%, 0.1%) skewX(-0.3deg); }
+  75% { transform: translate(0.2%, 0.15%) skewX(0.25deg); }
 }
-.animate-aerial-swing { animation: aerial-swing 5s ease-in-out infinite; }
+.animate-leaf-flutter { animation: leaf-flutter 1.4s ease-in-out infinite; }
+
+/* Aerialists: pendulum swing pushed by the gust, skew lets the tail trail behind */
+@keyframes aerial-swing {
+  0%, 100% { transform: rotate(-2deg) skewX(0deg); }
+  14% { transform: rotate(-3deg) skewX(0deg); }
+  30% { transform: rotate(5deg) skewX(-2.5deg); }
+  38% { transform: rotate(3.5deg) skewX(-1.5deg); }
+  46% { transform: rotate(6.5deg) skewX(-3deg); }
+  62% { transform: rotate(-4deg) skewX(1.5deg); }
+  78% { transform: rotate(1.5deg) skewX(-0.5deg); }
+}
+.animate-aerial-swing { animation: aerial-swing 9s ease-in-out infinite; }
 
 @keyframes rope-swing {
-  0%, 100% { transform: rotate(3deg) scaleX(1); }
-  25% { transform: rotate(0deg) scaleX(0.94); }
-  50% { transform: rotate(-3deg) scaleX(1); }
-  75% { transform: rotate(0deg) scaleX(0.94); }
+  0%, 100% { transform: rotate(-1.5deg) skewX(0deg) scaleX(1); }
+  14% { transform: rotate(-2.5deg) skewX(0deg) scaleX(0.97); }
+  30% { transform: rotate(4deg) skewX(-2deg) scaleX(0.94); }
+  38% { transform: rotate(2.5deg) skewX(-1deg) scaleX(1); }
+  46% { transform: rotate(5deg) skewX(-2.5deg) scaleX(0.95); }
+  62% { transform: rotate(-3.5deg) skewX(1.2deg) scaleX(1); }
+  78% { transform: rotate(1deg) skewX(-0.4deg) scaleX(0.98); }
 }
-.animate-rope-swing { animation: rope-swing 6.5s ease-in-out infinite; }
+.animate-rope-swing { animation: rope-swing 9s ease-in-out infinite; }
 
 /* Hero scene: three-ball cascade (x travels hand to hand, y arcs each throw) */
 @keyframes juggle-x {
@@ -299,6 +324,7 @@ html {
     scroll-behavior: auto;
   }
   .animate-tree-sway,
+  .animate-leaf-flutter,
   .animate-aerial-swing,
   .animate-rope-swing,
   .animate-juggle-x,
