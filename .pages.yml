@@ -1,0 +1,215 @@
+media:
+  input: public/images
+  output: /images
+  categories: [image]
+
+content:
+  - type: group
+    name: programacion
+    label: Programación
+    items:
+      - name: eventos
+        label: Eventos
+        type: file
+        path: content/eventos.json
+        format: json
+        list: true
+        fields:
+          - name: title
+            label: Título
+            type: string
+            required: true
+          - name: slug
+            label: Slug (URL)
+            description: Parte de la URL, por ejemplo "noche-de-tango". Solo minúsculas, números y guiones. No cambiar una vez publicado.
+            type: string
+            required: true
+            pattern:
+              regex: ^[a-z0-9]+(?:-[a-z0-9]+)*$
+              message: Solo minúsculas, números y guiones.
+          - name: description
+            label: Descripción corta
+            description: Se muestra en las tarjetas de la programación.
+            type: text
+            required: true
+          - name: fullDescription
+            label: Descripción completa
+            description: Se muestra en la página del evento.
+            type: text
+            required: true
+          - name: image
+            label: Imagen
+            type: image
+            required: true
+          - name: calendarDate
+            label: Fecha (calendario)
+            description: Ordena la programación y marca el día en el calendario.
+            type: date
+            required: true
+            options:
+              format: yyyy-MM-dd
+          - name: date
+            label: Fecha (texto visible)
+            description: Como se muestra en el sitio, por ejemplo "12 Sep 2026".
+            type: string
+            required: true
+          - name: time
+            label: Horario
+            description: Por ejemplo "21:00 hs".
+            type: string
+            required: true
+          - name: eventType
+            label: Tipo de evento
+            type: select
+            required: true
+            options:
+              values:
+                - { value: teatro, label: Teatro }
+                - { value: circo, label: Circo }
+                - { value: musica, label: Música }
+                - { value: feria, label: Feria }
+                - { value: variedades, label: Variedades }
+          - name: production
+            label: Producción
+            description: Las producciones de El Bondi se destacan con una estrella.
+            type: select
+            required: true
+            default: externa
+            options:
+              values:
+                - { value: bondi, label: Producción de El Bondi }
+                - { value: externa, label: Externa }
+          - name: location
+            label: Lugar
+            type: string
+            required: true
+            default: El Bondi
+          - name: price
+            label: Precio
+            type: string
+            required: true
+            default: Contribución sugerida
+          - name: contact
+            label: Email de contacto
+            type: string
+            required: true
+            default: mailcolectivocultural@gmail.com
+          - name: whatsapp
+            label: WhatsApp
+            type: string
+          - name: instagram
+            label: Instagram
+            type: string
+
+      - name: talleres
+        label: Talleres
+        type: file
+        path: content/talleres.json
+        format: json
+        list: true
+        fields:
+          - name: title
+            label: Título
+            type: string
+            required: true
+          - name: slug
+            label: Slug (URL)
+            description: Parte de la URL, por ejemplo "taller-de-tango". Solo minúsculas, números y guiones. No cambiar una vez publicado.
+            type: string
+            required: true
+            pattern:
+              regex: ^[a-z0-9]+(?:-[a-z0-9]+)*$
+              message: Solo minúsculas, números y guiones.
+          - name: description
+            label: Descripción corta
+            type: text
+            required: true
+          - name: fullDescription
+            label: Descripción completa
+            type: text
+            required: true
+          - name: image
+            label: Imagen
+            type: image
+            required: true
+          - name: date
+            label: Días
+            description: El horario semanal lee los días de acá. Usar nombres completos, por ejemplo "Martes" o "Miércoles y Viernes".
+            type: string
+            required: true
+          - name: time
+            label: Horario
+            description: Por ejemplo "18:00 hs" o "18:00 a 20:00 hs".
+            type: string
+            required: true
+          - name: location
+            label: Lugar
+            type: string
+            required: true
+            default: El Bondi
+          - name: price
+            label: Precio
+            type: string
+            required: true
+            default: Aporte sugerido
+          - name: maxParticipants
+            label: Cupo máximo
+            type: number
+          - name: contact
+            label: Email de contacto
+            type: string
+            required: true
+            default: mailcolectivocultural@gmail.com
+          - name: whatsapp
+            label: WhatsApp
+            type: string
+          - name: instagram
+            label: Instagram
+            type: string
+          - name: instructor
+            label: Docente
+            type: object
+            fields:
+              - name: name
+                label: Nombre
+                type: string
+              - name: avatar
+                label: Foto
+                type: image
+              - name: bio
+                label: Biografía
+                type: text
+
+  - name: flyers
+    label: Flyers de inicio
+    type: file
+    path: content/flyers.json
+    format: json
+    list: true
+    fields:
+      - name: src
+        label: Flyer
+        type: image
+        required: true
+      - name: alt
+        label: Texto alternativo
+        description: Describe el flyer para personas que usan lector de pantalla (qué, cuándo, dónde).
+        type: text
+        required: true
+      - name: title
+        label: Título
+        type: string
+        required: true
+      - name: caption
+        label: Bajada
+        type: string
+      - name: href
+        label: Enlace
+        description: Por ejemplo "/evento/slug-del-evento" o "/programacion?categoria=evento".
+        type: string
+        required: true
+      - name: cta
+        label: Texto del botón
+        type: string
+        required: true
+        default: Ver el evento
