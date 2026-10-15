@@ -10,21 +10,12 @@ interface Box {
   height: number
 }
 
-// Wind gusts travel left → right: each element's delay is how late the gust reaches it.
-const WIND = {
-  farLeftTree: '0s',
-  leftTree: '-8.6s',
-  silks: '-8.2s',
-  rope: '-7.6s',
-  rightTree: '-7.2s',
-}
-
 // Tree regions in % of the scene; each is re-rendered from the same image and
 // swayed around its trunk base, with feathered edges hiding the seam.
-const TREES: Array<Box & { delay: string; flutterDelay: string }> = [
-  { left: 12.5, top: 22, width: 20, height: 36, delay: WIND.leftTree, flutterDelay: '0s' },
-  { left: 66, top: 23, width: 19, height: 35, delay: WIND.rightTree, flutterDelay: '-0.7s' },
-  { left: -1, top: 45, width: 10, height: 24, delay: WIND.farLeftTree, flutterDelay: '-0.35s' },
+const TREES: Array<Box & { delay: string; duration: string }> = [
+  { left: 12.5, top: 22, width: 20, height: 36, delay: '0s', duration: '6s' },
+  { left: 66, top: 23, width: 19, height: 35, delay: '-2.2s', duration: '7s' },
+  { left: -1, top: 45, width: 10, height: 24, delay: '-1.1s', duration: '5.5s' },
 ]
 
 const BALLS = [
@@ -33,7 +24,7 @@ const BALLS = [
   { delay: '-0.8s', color: 'bg-[#56ccf2]' },
 ]
 
-function SwayingTree({ left, top, width, height, delay, flutterDelay }: (typeof TREES)[number]) {
+function SwayingTree({ left, top, width, height, delay, duration }: (typeof TREES)[number]) {
   return (
     <div
       aria-hidden="true"
@@ -44,16 +35,16 @@ function SwayingTree({ left, top, width, height, delay, flutterDelay }: (typeof 
         width: `${width}%`,
         height: `${height}%`,
         animationDelay: delay,
+        animationDuration: duration,
       }}
     >
       <div
-        className="absolute animate-leaf-flutter"
+        className="absolute"
         style={{
           width: `${(100 / width) * 100}%`,
           height: `${(100 / height) * 100}%`,
           left: `${(-left / width) * 100}%`,
           top: `${(-top / height) * 100}%`,
-          animationDelay: flutterDelay,
         }}
       >
         <Image src={SCENE_SRC} alt="" fill sizes="100vw" className="object-cover" />
@@ -88,7 +79,7 @@ export function BondiScene() {
       <div
         aria-hidden="true"
         className="absolute origin-[47%_0%] animate-aerial-swing drop-shadow-[0_6px_10px_rgba(0,0,0,0.35)]"
-        style={{ left: '35%', top: '30.5%', width: '7.6%', aspectRatio: '342 / 640', animationDelay: WIND.silks }}
+        style={{ left: '35%', top: '30.5%', width: '7.6%', aspectRatio: '342 / 640' }}
       >
         <Image src="/images/performer-silks.png" alt="" fill sizes="12vw" className="object-contain" />
       </div>
@@ -97,7 +88,7 @@ export function BondiScene() {
       <div
         aria-hidden="true"
         className="absolute origin-[26%_0%] animate-rope-swing drop-shadow-[0_6px_10px_rgba(0,0,0,0.35)]"
-        style={{ left: '56.5%', top: '30.5%', width: '5%', aspectRatio: '213 / 640', animationDelay: WIND.rope }}
+        style={{ left: '56.5%', top: '30.5%', width: '5%', aspectRatio: '213 / 640' }}
       >
         <Image src="/images/performer-rope.png" alt="" fill sizes="8vw" className="object-contain" />
       </div>
