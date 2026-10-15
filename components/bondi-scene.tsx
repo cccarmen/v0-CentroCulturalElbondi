@@ -14,7 +14,7 @@ export function BondiScene() {
     >
       <Image
         src={SCENE_SRC}
-        alt="Diorama de papel recortado en capas de El Bondi de noche, enmarcado por nubes de papel: cerchas de óxido, luna creciente dormida y estrellas, árboles y enredaderas, guirnaldas de luces sobre una fachada de rayas pastel, con una artista en tela aérea, otra trepando la cuerda, un malabarista, una pareja bailando tango y un guitarrista."
+        alt="Diorama de papel recortado en capas de El Bondi de noche, enmarcado por nubes de papel: cerchas de óxido, luna creciente dormida y estrellas, árboles y enredaderas, guirnaldas de luces sobre una fachada cubierta de rayas de colores vivos y un mural, con una artista en tela aérea, otra trepando la cuerda, un malabarista, una pareja bailando tango y un guitarrista."
         fill
         priority
         sizes="(max-width: 768px) 240vw, 100vw"
