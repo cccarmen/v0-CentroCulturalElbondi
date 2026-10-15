@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import Image from 'next/image'
 import { ChevronDown } from 'lucide-react'
+import { BondiScene } from './bondi-scene'
 
 interface MousePosition {
   x: number
@@ -74,14 +74,7 @@ export function ImmersiveHero() {
             }}
           >
             <div className="absolute inset-0 animate-scene-drift">
-              <Image
-                src="/images/el-bondi-render.png"
-                alt="Ilustración del edificio de El Bondi: fachada de rayas pastel, techo de cerchas con árboles, una artista de tela aérea, malabarista, pareja bailando y músicos en la vereda."
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover object-[50%_70%]"
-              />
+              <BondiScene />
             </div>
 
             {STARS.map((star) => (

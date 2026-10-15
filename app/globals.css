@@ -254,11 +254,55 @@ html {
 }
 .animate-twinkle { animation: twinkle 3.6s ease-in-out infinite; }
 
+/* Hero scene: trees swaying in the breeze */
+@keyframes tree-sway {
+  0%, 100% { transform: skewX(0deg) rotate(0deg); }
+  30% { transform: skewX(1.4deg) rotate(0.3deg); }
+  65% { transform: skewX(-0.9deg) rotate(-0.2deg); }
+}
+.animate-tree-sway {
+  transform-origin: 50% 100%;
+  animation: tree-sway 6s ease-in-out infinite;
+}
+
+/* Hero scene: aerialists swinging from the trusses */
+@keyframes aerial-swing {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.animate-aerial-swing { animation: aerial-swing 5s ease-in-out infinite; }
+
+@keyframes rope-swing {
+  0%, 100% { transform: rotate(3deg) scaleX(1); }
+  25% { transform: rotate(0deg) scaleX(0.94); }
+  50% { transform: rotate(-3deg) scaleX(1); }
+  75% { transform: rotate(0deg) scaleX(0.94); }
+}
+.animate-rope-swing { animation: rope-swing 6.5s ease-in-out infinite; }
+
+/* Hero scene: three-ball cascade (x travels hand to hand, y arcs each throw) */
+@keyframes juggle-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+@keyframes juggle-y {
+  0% { transform: translate(-50%, 0); animation-timing-function: cubic-bezier(0.2, 0.6, 0.4, 1); }
+  50% { transform: translate(-50%, -400%); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+  100% { transform: translate(-50%, 0); }
+}
+.animate-juggle-x { animation: juggle-x 0.6s linear infinite alternate; }
+.animate-juggle-y { animation: juggle-y 0.6s infinite; }
+
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+  .animate-tree-sway,
+  .animate-aerial-swing,
+  .animate-rope-swing,
+  .animate-juggle-x,
+  .animate-juggle-y,
   .animate-scene-drift,
   .animate-twinkle,
   .animate-float-soft,
