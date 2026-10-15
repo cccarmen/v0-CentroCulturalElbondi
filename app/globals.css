@@ -241,11 +241,26 @@ html {
 .animate-drift-b { animation: drift-b 20s ease-in-out infinite; }
 .animate-drift-c { animation: drift-c 24s ease-in-out infinite; }
 
+/* Slow Ken Burns drift for the hero illustration */
+@keyframes scene-drift {
+  0%, 100% { transform: scale(1.02) translate(0, 0); }
+  50% { transform: scale(1.06) translate(-1%, -0.5%); }
+}
+.animate-scene-drift { animation: scene-drift 28s ease-in-out infinite; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+.animate-twinkle { animation: twinkle 3.6s ease-in-out infinite; }
+
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+  .animate-scene-drift,
+  .animate-twinkle,
   .animate-float-soft,
   .animate-pulse-ring,
   .animate-drift-a,

@@ -1,43 +1,34 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback } from 'react'
-import { Pause, Volume2, VolumeOff, ChevronDown } from 'lucide-react'
-
-const HERO_VIDEO_URL =
-  'https://nqoenjvb7emeaosc.public.blob.vercel-storage.com/Sequence%2001_2.mp4'
-
-// Background music for the hero. Drop the uploaded track URL here.
-// The hero video itself has no audio track, so the speaker button controls this.
-const HERO_MUSIC_URL = ''
-
-// Target volume (0-1) when the music is unmuted, and fade duration in ms.
-const MUSIC_VOLUME = 0.6
-const FADE_DURATION = 900
+import { useState, useRef, useEffect } from 'react'
+import Image from 'next/image'
+import { ChevronDown } from 'lucide-react'
 
 interface MousePosition {
   x: number
   y: number
 }
 
+// Twinkling stars placed over the empty sky area of the illustration.
+const STARS = [
+  { top: '8%', left: '12%', delay: '0s', size: 3 },
+  { top: '14%', left: '34%', delay: '1.2s', size: 2 },
+  { top: '6%', left: '58%', delay: '2.4s', size: 3 },
+  { top: '18%', left: '72%', delay: '0.6s', size: 2 },
+  { top: '10%', left: '88%', delay: '1.8s', size: 3 },
+  { top: '22%', left: '22%', delay: '3s', size: 2 },
+]
+
 export function ImmersiveHero() {
-  const [isPlaying, setIsPlaying] = useState(true)
-  const [isMuted, setIsMuted] = useState(true)
   const [scrollProgress, setScrollProgress] = useState(0)
   const [mousePosition, setMousePosition] = useState<MousePosition>({ x: 0.5, y: 0.5 })
-  const [isLoaded, setIsLoaded] = useState(false)
-  const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const audioRef = useRef<HTMLAudioElement>(null)
-  const fadeRafRef = useRef<number | null>(null)
 
-  // Handle scroll progress
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return
       const rect = containerRef.current.getBoundingClientRect()
-      const windowHeight = window.innerHeight
-      // Calculate progress: 0 at top, 1 when hero is scrolled past
-      const progress = Math.min(Math.max(-rect.top / windowHeight, 0), 1)
+      const progress = Math.min(Math.max(-rect.top / window.innerHeight, 0), 1)
       setScrollProgress(progress)
     }
 
@@ -46,95 +37,21 @@ export function ImmersiveHero() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Handle mouse movement for parallax effect
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const x = e.clientX / window.innerWidth
-      const y = e.clientY / window.innerHeight
-      setMousePosition({ x, y })
+      setMousePosition({ x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight })
     }
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true })
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  // Clean up any in-flight volume fade on unmount
-  useEffect(() => {
-    return () => {
-      if (fadeRafRef.current) cancelAnimationFrame(fadeRafRef.current)
-    }
-  }, [])
-
-  // Video load handler
-  const handleVideoLoad = useCallback(() => {
-    setIsLoaded(true)
-  }, [])
-
-  const handlePlayToggle = useCallback(() => {
-    if (!videoRef.current) return
-    if (isPlaying) {
-      videoRef.current.pause()
-      audioRef.current?.pause()
-      setIsPlaying(false)
-    } else {
-      void videoRef.current.play()
-      // Resume the music only if the user has already unmuted it.
-      if (!isMuted && audioRef.current) {
-        void audioRef.current.play().catch(() => {})
-      }
-      setIsPlaying(true)
-    }
-  }, [isPlaying, isMuted])
-
-  // Smoothly ramp the music volume; optionally pause when the fade reaches 0.
-  const fadeAudioTo = useCallback((target: number, pauseAtEnd = false) => {
-    const audio = audioRef.current
-    if (!audio) return
-    if (fadeRafRef.current) cancelAnimationFrame(fadeRafRef.current)
-
-    const start = audio.volume
-    const startTime = performance.now()
-
-    const step = (now: number) => {
-      const t = Math.min((now - startTime) / FADE_DURATION, 1)
-      audio.volume = start + (target - start) * t
-      if (t < 1) {
-        fadeRafRef.current = requestAnimationFrame(step)
-      } else {
-        fadeRafRef.current = null
-        if (pauseAtEnd) audio.pause()
-      }
-    }
-    fadeRafRef.current = requestAnimationFrame(step)
-  }, [])
-
-  const handleMuteToggle = useCallback(() => {
-    const audio = audioRef.current
-    const nextMuted = !isMuted
-    setIsMuted(nextMuted)
-
-    if (!audio) return
-    if (nextMuted) {
-      fadeAudioTo(0, true)
-    } else {
-      audio.volume = 0
-      audio.muted = false
-      // Only start playback if the video is currently playing.
-      if (isPlaying) {
-        void audio.play().catch(() => {})
-      }
-      fadeAudioTo(MUSIC_VOLUME)
-    }
-  }, [isMuted, isPlaying, fadeAudioTo])
-
-  // Calculate dynamic transforms based on scroll and mouse
-  const videoScale = 1 + scrollProgress * 0.15
-  const videoOpacity = 1 - scrollProgress * 0.6
-  const videoBlur = scrollProgress * 8
+  const sceneScale = 1 + scrollProgress * 0.15
+  const sceneOpacity = 1 - scrollProgress * 0.6
+  const sceneBlur = scrollProgress * 8
   const parallaxX = (mousePosition.x - 0.5) * 20
   const parallaxY = (mousePosition.y - 0.5) * 20
 
-  // Content reveal — CTAs wait until logo is fully gone (logo fades out by ~0.25)
   const ctaOpacity = Math.max(0, (scrollProgress - 0.4) * 2.5)
   const ctaY = Math.max(0, 50 - (scrollProgress - 0.4) * 125)
 
@@ -146,96 +63,67 @@ export function ImmersiveHero() {
       ref={containerRef}
       className="relative -mt-[clamp(3.5rem,3rem+2.5vw,5rem)]"
     >
-      {/* Full-screen cinematic hero container */}
-      <section className="relative h-[200vh]">
-        {/* Sticky video container — dvh tracks the visible viewport on mobile so
-            bottom-anchored UI (the Explora indicator) is never clipped by browser chrome */}
-        <div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
-          {/* Video layer with parallax and scroll effects */}
+      <section className="relative h-[200vh]" aria-label="El Bondi, Centro Cultural Comunitario">
+        <div className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-[#2b3466]">
           <div
             className="absolute inset-0 transition-transform duration-100 ease-out"
             style={{
-              transform: `scale(${videoScale}) translate(${parallaxX}px, ${parallaxY}px)`,
-              opacity: videoOpacity,
-              filter: `blur(${videoBlur}px)`,
+              transform: `scale(${sceneScale}) translate(${parallaxX}px, ${parallaxY}px)`,
+              opacity: sceneOpacity,
+              filter: `blur(${sceneBlur}px)`,
             }}
           >
-            <video
-              ref={videoRef}
-              src={HERO_VIDEO_URL}
-              autoPlay
-              playsInline
-              muted
-              loop
-              preload="auto"
-              poster="/images/hero.jpg"
-              onLoadedData={handleVideoLoad}
-              className="size-full object-cover"
-            >
-              <track kind="captions" />
-            </video>
-
-            {/* Background music layer — controlled by the speaker button */}
-            {HERO_MUSIC_URL && (
-              <audio
-                ref={audioRef}
-                src={HERO_MUSIC_URL}
-                loop
-                preload="auto"
-                aria-hidden="true"
+            <div className="absolute inset-0 animate-scene-drift">
+              <Image
+                src="/images/el-bondi-render.png"
+                alt="Ilustración del edificio de El Bondi: fachada de rayas pastel, techo de cerchas con árboles, una artista de tela aérea, malabarista, pareja bailando y músicos en la vereda."
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover object-[50%_70%]"
               />
-            )}
+            </div>
 
-            {/* Cinematic vignette overlay */}
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
+            {STARS.map((star) => (
+              <span
+                key={`${star.top}-${star.left}`}
+                aria-hidden="true"
+                className="pointer-events-none absolute animate-twinkle rounded-full bg-[#fdf3c4]"
+                style={{
+                  top: star.top,
+                  left: star.left,
+                  width: star.size,
+                  height: star.size,
+                  animationDelay: star.delay,
+                }}
+              />
+            ))}
 
-            {/* Subtle film grain texture */}
-            <div 
-              className="pointer-events-none absolute inset-0 opacity-[0.03] mix-blend-overlay"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-              }}
-            />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.25)_100%)]" />
           </div>
 
-          {/* Cursor-following spotlight effect */}
           <div
-            className="pointer-events-none absolute inset-0 transition-opacity duration-500"
-            style={{
-              background: `radial-gradient(circle 400px at ${mousePosition.x * 100}% ${mousePosition.y * 100}%, rgba(255,255,255,0.03) 0%, transparent 70%)`,
-              opacity: 1 - scrollProgress,
-            }}
-          />
-
-          {/* Gradient overlays for smooth transition */}
-          <div 
             className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/5 to-transparent"
-            style={{ opacity: 0.4 + scrollProgress * 0.6 }}
-          />
-          <div 
-            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-transparent"
-            style={{ opacity: scrollProgress * 0.5 }}
+            style={{ opacity: 0.25 + scrollProgress * 0.75 }}
           />
 
-          {/* Scroll indicator - fades out on scroll, always centered */}
           <div
-            className="absolute inset-x-0 bottom-[env(safe-area-inset-bottom,0px)] z-20 flex justify-center pb-8 sm:pb-10 md:pb-12 transition-all duration-500"
+            className="absolute inset-x-0 bottom-[env(safe-area-inset-bottom,0px)] z-20 flex justify-center pb-8 transition-all duration-500 sm:pb-10 md:pb-12"
             style={{
               opacity: Math.max(0, 1 - scrollProgress * 3),
               transform: `translateY(${scrollProgress * 20}px)`,
             }}
           >
             <div className="flex flex-col items-center gap-2 sm:gap-3">
-              <span className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-white/70">
+              <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-white/80 sm:text-xs">
                 Explora
               </span>
               <div className="animate-bounce">
-                <ChevronDown className="size-5 sm:size-6 text-white/70" />
+                <ChevronDown className="size-5 text-white/80 sm:size-6" />
               </div>
             </div>
           </div>
 
-          {/* Editorial content — only appears AFTER the logo is fully gone */}
           <div
             className="absolute inset-0 flex items-center justify-center px-4 transition-all duration-500"
             style={{
@@ -245,11 +133,11 @@ export function ImmersiveHero() {
             }}
           >
             <div className="max-w-4xl text-center">
-              <h1 className="font-display text-4xl tracking-wide text-foreground md:text-6xl lg:text-7xl">
+              <h1 className="font-display text-4xl tracking-wide text-balance text-foreground md:text-6xl lg:text-7xl">
                 Un espacio para la comunidad
               </h1>
-              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-                Donde el arte, la cultura y los vecinos se encuentran. 
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-muted-foreground md:text-xl">
+                Donde el arte, la cultura y los vecinos se encuentran.
                 Un centro cultural vivo, construido por y para la comunidad de Maschwitz.
               </p>
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -269,43 +157,9 @@ export function ImmersiveHero() {
               </div>
             </div>
           </div>
-
-          {/* Video controls - bottom right, always visible */}
-          <div 
-            className="absolute bottom-6 right-6 z-30 flex gap-2 transition-all duration-300"
-            style={{
-              opacity: Math.max(0.5, 1 - scrollProgress),
-            }}
-          >
-            <button
-              onClick={handlePlayToggle}
-              aria-label={isPlaying ? 'Pausar video' : 'Reproducir video'}
-              className="group relative flex size-10 items-center justify-center rounded-full border border-white/20 bg-black/30 text-white backdrop-blur-md transition-all duration-300 ease-out hover:bg-black/50"
-            >
-              {isPlaying ? (
-                <Pause className="size-4 fill-current" />
-              ) : (
-                <svg className="size-4 fill-current" viewBox="0 0 24 24">
-                  <polygon points="5,3 19,12 5,21" />
-                </svg>
-              )}
-            </button>
-            <button
-              onClick={handleMuteToggle}
-              aria-label={isMuted ? 'Activar sonido' : 'Silenciar'}
-              className="group relative flex size-10 items-center justify-center rounded-full border border-white/20 bg-black/30 text-white backdrop-blur-md transition-all duration-300 ease-out hover:bg-black/50"
-            >
-              {isMuted ? (
-                <VolumeOff className="size-4" />
-              ) : (
-                <Volume2 className="size-4" />
-              )}
-            </button>
-          </div>
         </div>
       </section>
 
-      {/* Spacer for smooth transition to content */}
       <div className="pointer-events-none h-[10vh]" />
     </div>
   )
