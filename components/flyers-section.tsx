@@ -3,25 +3,7 @@ import Image from 'next/image'
 import { ArrowRight, Calendar } from 'lucide-react'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { DisplayText } from '@/components/display-text'
-
-const flyers = [
-  {
-    src: '/images/flyer-agenda-septiembre.jpg',
-    alt: 'Agenda de eventos de septiembre en El Bondi: Cachengue y Tambor, Varieté Bajo las Estrellas, Festival Cubo Estudio y Teatro Carga',
-    title: 'Agenda de Septiembre',
-    caption: 'Todos los eventos del mes en un solo lugar.',
-    href: '/programacion?categoria=evento',
-    cta: 'Ver la programación',
-  },
-  {
-    src: '/images/flyer-variete-septiembre.jpg',
-    alt: 'Flyer de Varieté Bajo las Estrellas, Temporada 12, 12 de septiembre 21 hs en El Bondi',
-    title: 'Varieté Bajo las Estrellas',
-    caption: 'Nuestra producción insignia · 12 de septiembre, 21 hs.',
-    href: '/evento/variete-bajo-las-estrellas-septiembre',
-    cta: 'Ver el evento',
-  },
-]
+import flyers from '@/content/flyers.json'
 
 export function FlyersSection() {
   return (
