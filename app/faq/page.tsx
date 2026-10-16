@@ -25,20 +25,20 @@ const faqCategories = [
     category: 'Sobre El Bondi',
     questions: [
       {
-        q: 'Que es El Bondi Centro Cultural Comunitario?',
-        a: 'El Bondi es un centro cultural comunitario ubicado en Maschwitz, Provincia de Buenos Aires. Es un espacio dedicado a la cultura, la educacion y la comunicacion, donde se desarrollan talleres, eventos artisticos, espectaculos de variete, y funciona la radio comunitaria FM 96.9 Radio Activa.',
+        q: '¿Qué es El Bondi Centro Cultural Comunitario?',
+        a: 'El Bondi es un centro cultural comunitario ubicado en Maschwitz, Provincia de Buenos Aires. Es un espacio dedicado a la cultura, la educación y la comunicación, donde se desarrollan talleres, eventos artísticos, espectáculos de varieté, y funciona la radio comunitaria FM 96.9 Radio Activa.',
       },
       {
-        q: 'Donde esta ubicado El Bondi?',
-        a: 'Nos encontramos en Av. El Bondi 1114, Ingeniero Maschwitz, Provincia de Buenos Aires, Argentina. Podes encontrarnos facilmente en el mapa de nuestra pagina principal.',
+        q: '¿Dónde está ubicado El Bondi?',
+        a: 'Nos encontramos en El Dorado 1518, Ingeniero Maschwitz, Provincia de Buenos Aires, Argentina, frente a la estación del tren. Podés encontrarnos fácilmente en el mapa de nuestra página principal.',
       },
       {
-        q: 'Cual es el horario de atencion?',
-        a: 'El centro cultural esta abierto de lunes a sabados de 10:00 a 21:00 hs. Los domingos abrimos segun la programacion de eventos. Te recomendamos consultar nuestras redes sociales para horarios especiales.',
+        q: '¿Cuál es el horario de atención?',
+        a: 'El centro cultural está abierto de lunes a sábados de 10:00 a 21:00 hs. Los domingos abrimos según la programación de eventos. Te recomendamos consultar nuestras redes sociales para horarios especiales.',
       },
       {
-        q: 'Como puedo contactarme con El Bondi?',
-        a: 'Podes escribirnos a mailcolectivocultural@gmail.com, visitarnos en nuestras redes sociales (Instagram, Facebook, X) o acercarte directamente al centro cultural. Tambien podes completar el formulario de contacto en nuestra pagina web.',
+        q: '¿Cómo puedo contactarme con El Bondi?',
+        a: 'Podés escribirnos a mailcolectivocultural@gmail.com, visitarnos en nuestras redes sociales (Instagram, Facebook, X) o acercarte directamente al centro cultural. También podés completar el formulario de contacto en nuestra página web.',
       },
     ],
   },
@@ -46,20 +46,20 @@ const faqCategories = [
     category: 'Eventos y Novedades',
     questions: [
       {
-        q: 'Como me entero de los proximos eventos?',
-        a: 'Publicamos todos nuestros eventos en la seccion "Eventos y Novedades" de nuestra web, asi como en nuestras redes sociales. Tambien podes suscribirte a nuestro boletin completando el formulario en la seccion "Se parte de nuestra comunidad".',
+        q: '¿Cómo me entero de los próximos eventos?',
+        a: 'Publicamos todos nuestros eventos en la sección "Eventos y Novedades" de nuestra web, así como en nuestras redes sociales. También podés suscribirte a nuestro boletín completando el formulario en la sección "Sé parte de nuestra comunidad".',
       },
       {
-        q: 'Las entradas para los eventos son pagas?',
-        a: 'Depende del evento. Muchas de nuestras actividades son gratuitas y abiertas a la comunidad. Para eventos especiales como el Variete Bajo las Estrellas, puede haber una entrada con un costo accesible. Los detalles de cada evento se publican en su pagina correspondiente.',
+        q: '¿Las entradas para los eventos son pagas?',
+        a: 'Depende del evento. Muchas de nuestras actividades son gratuitas y abiertas a la comunidad. Para eventos especiales como el Varieté Bajo las Estrellas, puede haber una entrada con un costo accesible. Los detalles de cada evento se publican en su página correspondiente.',
       },
       {
-        q: 'Puedo organizar un evento en El Bondi?',
-        a: 'Si, estamos abiertos a propuestas. Si tenes una idea para un evento cultural, artistico o educativo, escribinos a nuestro mail con tu propuesta y la evaluaremos. Buscamos actividades que aporten valor a la comunidad.',
+        q: '¿Puedo organizar un evento en El Bondi?',
+        a: 'Sí, estamos abiertos a propuestas. Si tenés una idea para un evento cultural, artístico o educativo, escribinos a nuestro mail con tu propuesta y la evaluaremos. Buscamos actividades que aporten valor a la comunidad.',
       },
       {
-        q: 'Que tipo de eventos se realizan?',
-        a: 'Realizamos una gran variedad de eventos: shows de variete, recitales de musica en vivo, exposiciones de arte, ferias culturales, obras de teatro, proyecciones de cine, y mucho mas. Cada mes hay algo nuevo para disfrutar.',
+        q: '¿Qué tipo de eventos se realizan?',
+        a: 'Realizamos una gran variedad de eventos: shows de varieté, recitales de música en vivo, exposiciones de arte, ferias culturales, obras de teatro, proyecciones de cine, y mucho más. Cada mes hay algo nuevo para disfrutar.',
       },
     ],
   },
@@ -67,20 +67,20 @@ const faqCategories = [
     category: 'Talleres y Bachillerato',
     questions: [
       {
-        q: 'Que talleres ofrecen actualmente?',
-        a: 'Ofrecemos talleres de acrobacia aerea, teatro, danza contemporanea, produccion musical, artes visuales, entre otros. La oferta se actualiza periodicamente, asi que te recomendamos visitar la seccion "Talleres y Bachillerato" para ver la programacion vigente.',
+        q: '¿Qué talleres ofrecen actualmente?',
+        a: 'Ofrecemos talleres de acrobacia aérea, teatro, danza contemporánea, producción musical, artes visuales, entre otros. La oferta se actualiza periódicamente, así que te recomendamos visitar la sección "Talleres y Bachillerato" para ver la programación vigente.',
       },
       {
-        q: 'Como me inscribo en un taller?',
-        a: 'Podes inscribirte directamente haciendo clic en el taller que te interesa en nuestra web y completando el formulario de contacto, o acercandote personalmente al centro cultural. Tambien podes escribirnos por mail o redes sociales.',
+        q: '¿Cómo me inscribo en un taller?',
+        a: 'Podés inscribirte directamente haciendo clic en el taller que te interesa en nuestra web y completando el formulario de contacto, o acercándote personalmente al centro cultural. También podés escribirnos por mail o redes sociales.',
       },
       {
-        q: 'Tienen bachillerato para adultos?',
-        a: 'Si, contamos con un programa de bachillerato popular para jovenes y adultos. Es una propuesta educativa que combina la formacion academica con la participacion comunitaria y cultural. Consulta por los requisitos de inscripcion.',
+        q: '¿Tienen bachillerato para adultos?',
+        a: 'Sí, contamos con un programa de bachillerato popular para jóvenes y adultos. Es una propuesta educativa que combina la formación académica con la participación comunitaria y cultural. Consultá por los requisitos de inscripción.',
       },
       {
-        q: 'Los talleres tienen costo?',
-        a: 'Cada taller tiene sus propias condiciones. Algunos son a colaboracion voluntaria, otros tienen un arancel accesible. Buscamos que el acceso a la cultura no sea una barrera, por lo que siempre hay opciones para todos.',
+        q: '¿Los talleres tienen costo?',
+        a: 'Cada taller tiene sus propias condiciones. Algunos son a colaboración voluntaria, otros tienen un arancel accesible. Buscamos que el acceso a la cultura no sea una barrera, por lo que siempre hay opciones para todos.',
       },
     ],
   },
@@ -88,33 +88,33 @@ const faqCategories = [
     category: 'Radio Activa Comunitaria FM 96.9',
     questions: [
       {
-        q: 'Que es Radio Activa Comunitaria?',
-        a: 'Radio Activa Comunitaria FM 96.9 es la radio del centro cultural El Bondi. Es un medio de comunicacion comunitario que transmite contenido cultural, musical y educativo, dando voz a la comunidad local.',
+        q: '¿Qué es Radio Activa Comunitaria?',
+        a: 'Radio Activa Comunitaria FM 96.9 es la radio del centro cultural El Bondi. Es un medio de comunicación comunitario que transmite contenido cultural, musical y educativo, dando voz a la comunidad local.',
       },
       {
-        q: 'Como puedo escuchar la radio?',
-        a: 'Podes sintonizarnos en FM 96.9 si estas en la zona de Maschwitz, o escucharnos en vivo desde cualquier parte del mundo a traves del reproductor en nuestra pagina web.',
+        q: '¿Cómo puedo escuchar la radio?',
+        a: 'Podés sintonizarnos en FM 96.9 si estás en la zona de Maschwitz, o escucharnos en vivo desde cualquier parte del mundo a través del reproductor en nuestra página web.',
       },
       {
-        q: 'Puedo participar en la radio?',
-        a: 'Si, la radio comunitaria es un espacio abierto a la participacion. Si tenes una propuesta de programa, columna o queres colaborar, contactanos por mail o acercate al centro cultural.',
+        q: '¿Puedo participar en la radio?',
+        a: 'Sí, la radio comunitaria es un espacio abierto a la participación. Si tenés una propuesta de programa, columna o querés colaborar, contactanos por mail o acercate al centro cultural.',
       },
     ],
   },
   {
-    category: 'Donaciones y Colaboracion',
+    category: 'Donaciones y Colaboración',
     questions: [
       {
-        q: 'Como puedo colaborar con El Bondi?',
-        a: 'Hay muchas formas de colaborar: podes hacer una donacion economica, ofrecer tu tiempo como voluntario, donar materiales o insumos, difundir nuestras actividades, o simplemente participar de los eventos y talleres.',
+        q: '¿Cómo puedo colaborar con El Bondi?',
+        a: 'Hay muchas formas de colaborar: podés hacer una donación económica, ofrecer tu tiempo como voluntario, donar materiales o insumos, difundir nuestras actividades, o simplemente participar de los eventos y talleres.',
       },
       {
-        q: 'Las donaciones son deducibles de impuestos?',
-        a: 'Actualmente estamos trabajando en formalizar este proceso. Te recomendamos contactarnos directamente para consultar sobre las opciones de donacion y los beneficios asociados.',
+        q: '¿Las donaciones son deducibles de impuestos?',
+        a: 'Actualmente estamos trabajando en formalizar este proceso. Te recomendamos contactarnos directamente para consultar sobre las opciones de donación y los beneficios asociados.',
       },
       {
-        q: 'Puedo ser voluntario en El Bondi?',
-        a: 'Siempre necesitamos manos que ayuden. Si queres sumarte como voluntario para eventos, talleres, la radio o el mantenimiento del espacio, escribinos contandonos que te gustaria hacer y nos ponemos en contacto.',
+        q: '¿Puedo ser voluntario en El Bondi?',
+        a: 'Siempre necesitamos manos que ayuden. Si querés sumarte como voluntario para eventos, talleres, la radio o el mantenimiento del espacio, escribinos contándonos qué te gustaría hacer y nos ponemos en contacto.',
       },
     ],
   },
@@ -152,7 +152,7 @@ export default function FaqPage() {
           <ScrollReveal>
             <InteractivePageHeader
               title="Preguntas Frecuentes"
-              description="Encontra las respuestas a las preguntas mas comunes sobre El Bondi, nuestros eventos, talleres, la radio comunitaria y como colaborar."
+              description="Encontrá las respuestas a las preguntas más comunes sobre El Bondi, nuestros eventos, talleres, la radio comunitaria y cómo colaborar."
             />
           </ScrollReveal>
         </div>

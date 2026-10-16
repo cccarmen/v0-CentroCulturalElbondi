@@ -160,7 +160,7 @@ export function InteractiveTimeline() {
             <DisplayText>15 Años Construyendo Comunidad</DisplayText>
           </h2>
           <p className="mt-6 text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
-            Todo empezo con ocho vecinos y una idea. Recorre, ano a ano, los momentos que
+            Todo empezó con ocho vecinos y una idea. Recorré, año a año, los momentos que
             convirtieron a El Bondi en el espacio cultural que es hoy.
           </p>
         </div>

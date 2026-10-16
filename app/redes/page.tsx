@@ -73,7 +73,7 @@ export default function RedesPage() {
           <ScrollReveal>
             <InteractivePageHeader
               title="Redes"
-              description="Seguí al Centro Cultural El Bondi en sus redes para enterarte de todo lo que pasa en el espacio: eventos, talleres, convocatorias y la vida del Colectivo Cultural."
+              description="Seguí al Centro Cultural El Bondi en nuestras redes para enterarte de todo lo que pasa en el espacio: eventos, talleres, convocatorias y la vida del Colectivo Cultural."
             />
           </ScrollReveal>
         </div>

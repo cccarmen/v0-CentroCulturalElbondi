@@ -160,7 +160,7 @@ function ProgramacionContent() {
         <div className="mx-auto w-full max-w-7xl px-4 lg:px-8">
           <InteractivePageHeader
             title="Eventos"
-            description="Descubre eventos en El Bondi"
+            description="Descubrí eventos en El Bondi"
           >
             {/* Search bar - Eventbrite style */}
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">

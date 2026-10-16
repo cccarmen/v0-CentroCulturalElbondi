@@ -6,7 +6,7 @@ export type EventType = 'teatro' | 'circo' | 'musica' | 'feria' | 'variedades'
 export const EVENT_TYPES: { value: EventType; label: string; icon: string }[] = [
   { value: 'teatro', label: 'Teatro', icon: 'theater' },
   { value: 'circo', label: 'Circo', icon: 'sparkles' },
-  { value: 'musica', label: 'Musica', icon: 'music' },
+  { value: 'musica', label: 'Música', icon: 'music' },
   { value: 'feria', label: 'Feria', icon: 'store' },
   { value: 'variedades', label: 'Variedades', icon: 'palette' },
 ]

@@ -171,7 +171,7 @@ function TalleresContent() {
   const categoryOptions: { label: string; value: TallerCategory; icon: React.ReactNode }[] = [
     { label: 'Todos los talleres', value: 'todos', icon: <GraduationCap className="size-4" /> },
     { label: 'Circo y Acrobacia', value: 'circo', icon: <Sparkles className="size-4" /> },
-    { label: 'Musica', value: 'musica', icon: <Guitar className="size-4" /> },
+    { label: 'Música', value: 'musica', icon: <Guitar className="size-4" /> },
     { label: 'Danza', value: 'danza', icon: <Dumbbell className="size-4" /> },
     { label: 'Arte y Expresion', value: 'arte', icon: <Palette className="size-4" /> },
   ]

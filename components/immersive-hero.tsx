@@ -227,7 +227,7 @@ export function ImmersiveHero() {
           >
             <div className="flex flex-col items-center gap-2 sm:gap-3">
               <span className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-white/70">
-                Explora
+                Explorá
               </span>
               <div className="animate-bounce">
                 <ChevronDown className="size-5 sm:size-6 text-white/70" />
@@ -257,14 +257,14 @@ export function ImmersiveHero() {
                   href="/programacion"
                   className="group relative overflow-hidden rounded-lg bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
                 >
-                  <span className="relative z-10">Ver Programacion</span>
+                  <span className="relative z-10">Ver Programación</span>
                   <div className="absolute inset-0 -translate-x-full bg-white/20 transition-transform duration-500 group-hover:translate-x-0" />
                 </a>
                 <a
                   href="/centro-cultural"
                   className="rounded-lg border border-border bg-background/80 px-8 py-3 text-sm font-medium text-foreground backdrop-blur-sm transition-all duration-300 hover:bg-background hover:shadow-lg"
                 >
-                  Conoce El Bondi
+                  Conocé El Bondi
                 </a>
               </div>
             </div>

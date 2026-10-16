@@ -85,7 +85,7 @@ export default function RadioEspacioPage() {
                 </div>
                 <InteractivePageHeader
                   title="Radio Activa Comunitaria"
-                  description="La voz de Maschwitz y alrededores. Desde 2012 transmitiendo cultura, musica y las voces de nuestra comunidad."
+                  description="La voz de Maschwitz y alrededores. Desde 2012 transmitiendo cultura, música y las voces de nuestra comunidad."
                 />
 
                 {/* Listen live CTA */}
@@ -128,7 +128,7 @@ export default function RadioEspacioPage() {
                     en este medio de comunicacion. Somos una radio comunitaria sin fines de lucro y no pertenecemos a un partido politico.
                   </p>
                   <p className="leading-relaxed">
-                    La musica que suena es diversa, como quienes participan de este sueno, sea desde el estudio o escuchando. 
+                    La música que suena es diversa, como quienes participan de este sueño, sea desde el estudio o escuchando. 
                     FM RadioActiva, la radio comunitaria del pueblo.
                   </p>
                 </div>
@@ -136,9 +136,9 @@ export default function RadioEspacioPage() {
                 {/* Mission & Values */}
                 <div className="mt-8 space-y-4">
                   <div>
-                    <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">Nuestra mision</h3>
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">Nuestra misión</h3>
                     <p className="mt-2 leading-relaxed text-muted-foreground">
-                      Promover la integracion social, el respeto por los Derechos Humanos y el cuidado del medio ambiente
+                      Promover la integración social, el respeto por los Derechos Humanos y el cuidado del medio ambiente
                       por medio de la cultura. Elegimos las actividades culturales porque creemos que la cultura nos
                       relaciona, nos integra y nos convoca a formar parte activa de la sociedad en la que vivimos.
                     </p>
