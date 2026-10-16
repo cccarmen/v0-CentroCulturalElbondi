@@ -8,11 +8,11 @@
     "cta": "Ver la programación"
   },
   {
-    "src": "/images/flyer-variete-septiembre.jpg",
-    "alt": "Flyer de Varieté Bajo las Estrellas, Temporada 12, 12 de septiembre 21 hs en El Bondi",
-    "title": "Varieté Bajo las Estrellas",
-    "caption": "Nuestra producción insignia · 12 de septiembre, 21 hs.",
-    "href": "/evento/variete-bajo-las-estrellas-noviembre",
-    "cta": "Ver el evento"
+    "src": "/images/flyer-agenda-octubre.jpg",
+    "alt": "Agenda de eventos de octubre en El Bondi, El Dorado 1518, Ingeniero Maschwitz: sábado 10 a las 21 hs Varieté Bajo las Estrellas; sábado 17 a las 20:30 hs Festival de Rock con Súper Radio, Asorock homenaje al Indio y La Ballena de Mawy; sábado 24 a las 21 hs teatro, Esto o morir en el intento de Andy Gil; domingo 25 a las 17 hs teatro comunitario Matemurga; sábado 31 a las 20 hs Noche de Muertos Vol. II",
+    "title": "Agenda de Octubre",
+    "caption": "Rock, teatro, teatro comunitario y Noche de Muertos Vol. II.",
+    "href": "/programacion?categoria=evento",
+    "cta": "Ver la programación"
   }
 ]
