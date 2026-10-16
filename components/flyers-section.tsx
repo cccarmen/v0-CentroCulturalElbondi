@@ -13,19 +13,25 @@ export function FlyersSection() {
           <div className="flex flex-col items-center text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-primary">
               <Calendar className="size-3.5" />
-              Septiembre 2026
+              Octubre 2026
             </span>
             <h2 className="mt-4 text-balance font-display text-4xl tracking-wide text-foreground md:text-5xl lg:text-6xl">
               Los flyers del mes
             </h2>
             <p className="mt-3 max-w-xl text-pretty leading-relaxed text-muted-foreground">
               Diseñados por la comunidad del Bondi. Mirá la agenda completa de
-              septiembre y sumate a cada propuesta.
+              octubre y sumate a cada propuesta.
             </p>
           </div>
         </ScrollReveal>
 
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:gap-12">
+        <div
+          className={
+            flyers.length === 1
+              ? 'mx-auto mt-12 grid max-w-xl gap-8'
+              : 'mt-12 grid gap-8 sm:grid-cols-2 lg:gap-12'
+          }
+        >
           {flyers.map((flyer, index) => (
             <ScrollReveal key={flyer.src} delay={index * 150}>
               <figure className="group flex h-full flex-col">
